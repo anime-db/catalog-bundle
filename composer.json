@@ -30,7 +30,7 @@
         "anime-db/app-bundle": "dev-develop",
         "avalanche123/imagine-bundle": "v2.1",
         "knplabs/knp-menu-bundle": "1.1.*",
-        "anime-db/world-art-filler-bundle": "0.1.*"
+        "anime-db/world-art-filler-bundle": "dev-develop"
     },
     "suggest": {
         "anime-db/world-art-filler-bundle": "Allows import data from a site World-Art.ru"
