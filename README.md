@@ -1,5 +1,5 @@
 <img src="http://anime-db.org/images/logo.jpg" /><br />
-[![Build Status](https://travis-ci.org/anime-db/anime-db.png)](https://travis-ci.org/anime-db/anime-db)<br />
+[![Build Status](https://travis-ci.org/anime-db/catalog-bundle.png)](https://travis-ci.org/anime-db/catalog-bundle)<br />
 <img src="http://www.php.net/images/logos/php5-power-micro.png" />
 
 # Anime DB #
