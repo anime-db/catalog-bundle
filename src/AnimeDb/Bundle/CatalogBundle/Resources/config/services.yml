@@ -42,3 +42,8 @@ services:
     anime_db.search:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
         arguments: [ @anime_db.search.driver ]
+
+    anime_db.catalog_listener.project:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Project
+        arguments: [ %kernel.root_dir% ]
+        tags: [{ name: kernel.event_listener, event: anime_db.project.installed, method: onInstalled }]
