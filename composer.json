@@ -24,6 +24,12 @@
             "AnimeDb\\Bundle\\CatalogBundle": "src/"
         }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/anime-db/app-bundle.git"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "ext-pdo_sqlite": ">=1.0.1",
