@@ -25,7 +25,6 @@
     },
     "require": {
         "php": ">=5.4.0",
-        "avalanche123/imagine-bundle": "v2.1",
         "knplabs/knp-menu-bundle": "1.1.*",
         "anime-db/app-bundle": "dev-develop",
         "anime-db/world-art-filler-bundle": "dev-develop"
