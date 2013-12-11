@@ -10,8 +10,9 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
-use Doctrine\DBAL\Migrations\AbstractMigration,
-    Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -49,6 +50,10 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addDataCountryTranslation();
         $this->addDataStorage();
         $this->addDataItem();
+
+        // copy images for example items
+        $fs = new Filesystem();
+        $fs->copy(__DIR__.'/../Resources/public/images/example', __DIR__.'/../../../../../../../../web/media/');
     }
 
     public function down(Schema $schema)
@@ -65,8 +70,13 @@ class Version20130930180819_Init extends AbstractMigration
         $schema->dropTable('country_translation');
         $schema->dropTable('storage');
         $schema->dropTable('item');
+
         // clear sqlite sequence
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
+
+        // remove images for example items
+        $fs = new Filesystem();
+        $fs->remove(__DIR__.'/../../../../../../../../web/media/');
     }
 
     protected function createTableImage(Schema $schema)
