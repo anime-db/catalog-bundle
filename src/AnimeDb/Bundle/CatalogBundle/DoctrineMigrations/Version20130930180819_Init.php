@@ -53,7 +53,7 @@ class Version20130930180819_Init extends AbstractMigration
 
         // copy images for example items
         $fs = new Filesystem();
-        $fs->copy(__DIR__.'/../Resources/public/images/example', __DIR__.'/../../../../../../../../web/media/');
+        $fs->mirror(__DIR__.'/../Resources/public/images/example/', __DIR__.'/../../../../../../../../web/media/');
     }
 
     public function down(Schema $schema)
