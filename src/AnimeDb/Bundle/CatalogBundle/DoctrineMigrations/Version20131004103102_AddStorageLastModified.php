@@ -69,6 +69,6 @@ class Version20131004103102_AddStorageLastModified extends AbstractMigration
         $this->addSql('ALTER TABLE _new RENAME TO storage');
         $this->addSql('DROP TABLE _origin');
 
-        $this->addSql('DROP INDEX storage_type_idx');
+        $this->addSql('DROP INDEX IF EXISTS storage_type_idx');
     }
 }
