@@ -66,6 +66,10 @@ storage_delete:
     requirements:
         id:  \d+
 
+storage_path:
+    pattern:  /settings/storage/path.json
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:getPath }
+
 
 notice_list:
     pattern:  /notice/
