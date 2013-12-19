@@ -67,12 +67,6 @@ storage_delete:
         id:  \d+
 
 
-notice_get:
-    pattern:  /notice/{id}/
-    defaults: { _controller: AnimeDbCatalogBundle:Notice:get }
-    requirements:
-        id:  \d+
-
 notice_list:
     pattern:  /notice/
     defaults: { _controller: AnimeDbCatalogBundle:Notice:list }
