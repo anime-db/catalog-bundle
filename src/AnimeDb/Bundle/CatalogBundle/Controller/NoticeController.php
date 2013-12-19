@@ -32,18 +32,6 @@ class NoticeController extends Controller
     const NOTICE_PER_PAGE = 30;
 
     /**
-     * Get one notice
-     *
-     * @param \AnimeDb\Bundle\AppBundle\Entity\Notice $notice
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function getAction(Notice $notice)
-    {
-        return $this->render('AnimeDbCatalogBundle:Notice:get.html.twig', ['notice' => $notice]);
-    }
-
-    /**
      * Get notice list
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
