@@ -123,6 +123,10 @@ class Item extends AbstractType
                 'property' => 'name',
                 'attr' => $this->getRefillAttr(Refiller::FIELD_MANUFACTURER, $options['data'])
             ])
+            ->add('storage', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Storage',
+                'property' => 'name',
+            ])
             ->add('path', new LocalPathField(), [
                 'required' => false,
                 'attr' => [
@@ -144,10 +148,6 @@ class Item extends AbstractType
             ->add('file_info', null, [
                 'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_FILE_INFO, $options['data'])
-            ])
-            ->add('storage', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Storage',
-                'property' => 'name',
             ])
             ->add('sources', 'collection', [
                 'type'         => new Source(),
