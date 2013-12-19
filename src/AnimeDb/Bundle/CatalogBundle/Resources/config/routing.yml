@@ -42,7 +42,7 @@ item_import:
     defaults: { _controller: AnimeDbCatalogBundle:Item:import }
 
 item_duplicate:
-    pattern:  /duplicate.html
+    pattern:  /match.html
     defaults: { _controller: AnimeDbCatalogBundle:Item:duplicate }
 
 
