@@ -145,7 +145,7 @@ class Item extends AbstractType
                 'class'    => 'AnimeDbCatalogBundle:Storage',
                 'property' => 'name',
                 'attr' => [
-                    'data-control' => 'storage-require',
+                    'class' => 'f-storage',
                     'data-source' => $this->router->generate('storage_path'),
                     'data-target' => '#'.$this->getName().'_path'
                 ]
