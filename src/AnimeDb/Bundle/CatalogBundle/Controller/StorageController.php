@@ -114,12 +114,17 @@ class StorageController extends Controller
     /**
      * Get storage path
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getPathAction(Storage $storage)
+    public function getPathAction(Request $request)
     {
+        /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+        $storage = $this->getDoctrine()
+            ->getRepository('AnimeDbCatalogBundle:Storage')
+            ->find($request->get('id'));
+
         return new JsonResponse([
             'required' => $storage->isPathRequired(),
             'path' => $storage->getPath()
