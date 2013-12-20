@@ -37,13 +37,13 @@
 					<td class="control">
 						<a
 							href="{{ path('storage_change', {'id': storage.id}) }}"
-							class="icon icon-storage-edit"
+							class="icon icon-edit"
 							title="{% trans %}Change storage{% endtrans %}"
 						>{% trans %}Change storage{% endtrans %}</a>
 						{% if storage.items.count == 0 %}
 							<a
 								href="{{ path('storage_delete', {'id': storage.id}) }}"
-								class="icon icon-storage-delete"
+								class="icon icon-delete"
 								title="{% trans %}Delete storage{% endtrans %}"
 								data-message="{% trans with {'%name%': storage.name} %}Are you sure want to delete %name%?{% endtrans %}"
 							>{% trans %}Delete storage{% endtrans %}</a>

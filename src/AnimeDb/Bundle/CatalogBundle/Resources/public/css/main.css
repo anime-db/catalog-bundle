@@ -950,15 +950,6 @@ h1.logo a span {
 .icon-storage {
 	background-image: url(../images/storage.png);
 }
-.icon-storage-new {
-	background-image: url(../images/storage_new.png);
-}
-.icon-storage-delete {
-	background-image: url(../images/storage_delete.png);
-}
-.icon-storage-edit {
-	background-image: url(../images/storage_edit.png);
-}
 .icon-plugin-delete {
 	background-image: url(../images/plugin_delete.png);
 }
