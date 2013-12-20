@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Storage as StorageForm;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Storages
@@ -108,5 +109,25 @@ class StorageController extends Controller
         $em->remove($storage);
         $em->flush();
         return $this->redirect($this->generateUrl('storage_list'));
+    }
+
+    /**
+     * Get storage path
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getPathAction(Request $request)
+    {
+        /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+        $storage = $this->getDoctrine()
+            ->getRepository('AnimeDbCatalogBundle:Storage')
+            ->find($request->get('id'));
+
+        return new JsonResponse([
+            'required' => $storage->isPathRequired(),
+            'path' => $storage->getPath()
+        ]);
     }
 }

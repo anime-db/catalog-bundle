@@ -71,6 +71,12 @@ $('.b-update-log').each(function() {
 	new UpdateLogBlock($(this));
 });
 
+// registr form storage
+$('.f-storage').each(function() {
+	var storage = $(this);
+	new FormStorage(storage, storage.data('source'), $(storage.data('target')));
+});
+
 // init form field refill 
 var refills = $('[data-type=refill]');
 var form = refills.closest('form');

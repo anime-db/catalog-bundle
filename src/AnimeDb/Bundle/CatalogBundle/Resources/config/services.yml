@@ -28,6 +28,7 @@ services:
         calls:
             - [ setRefillerChain, [ @anime_db.plugin.refiller ] ]
             - [ setTemplating, [ @templating ] ]
+            - [ setRouter, [ @router ] ]
 
     anime_db.subscriber.scan_storage:
         class: AnimeDb\Bundle\CatalogBundle\Event\Subscriber\ScanStorage

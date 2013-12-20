@@ -22,6 +22,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
 use Symfony\Component\Templating\EngineInterface as TemplatingInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * Item form
@@ -46,6 +47,13 @@ class Item extends AbstractType
     private $templating;
 
     /**
+     * Router
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     */
+    private $router;
+
+    /**
      * Set refiller chain
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain $chain
@@ -63,6 +71,16 @@ class Item extends AbstractType
     public function setTemplating(TemplatingInterface $templating)
     {
         $this->templating = $templating;
+    }
+
+    /**
+     * Set router
+     *
+     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     */
+    public function setRouter(Router $router)
+    {
+        $this->router = $router;
     }
 
     /**
@@ -126,6 +144,11 @@ class Item extends AbstractType
             ->add('storage', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Storage',
                 'property' => 'name',
+                'attr' => [
+                    'class' => 'f-storage',
+                    'data-source' => $this->router->generate('storage_path'),
+                    'data-target' => '#'.$this->getName().'_path'
+                ]
             ])
             ->add('path', new LocalPathField(), [
                 'required' => false,
