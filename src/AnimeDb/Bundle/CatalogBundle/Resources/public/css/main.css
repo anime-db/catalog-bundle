@@ -971,9 +971,16 @@ h1.logo a span {
 	margin-top: 0;
 }
 .storages-list .list .control {
-	max-width: 24px;
+	width: 16px;
 }
-.storages-list .name {
+.storages-list .list .control.deletable {
+	width: 35px;
+}
+.storages-list .list .control.deletable a {
+	float: right;
+}
+.storages-list .list .control.deletable a:first-child {
+	float: left;
 }
 
 /**
