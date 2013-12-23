@@ -337,7 +337,8 @@ class HomeController extends Controller
             'show_limit' => $show_limit,
             'pagination' => $pagination,
             'sort_by' => $sort_by,
-            'sort_direction' => $sort_direction
+            'sort_direction' => $sort_direction,
+            'searched' => $request->query->count()
         ]);
     }
 
