@@ -67,10 +67,9 @@ class Search extends AbstractType
                 'property' => 'name',
                 'required' => false
             ])
-            ->add('genres', 'entity', [
+            ->add('genre', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Genre',
                 'property' => 'name',
-                'multiple' => true,
                 'required' => false
             ])
             ->add('manufacturer', 'entity', [
