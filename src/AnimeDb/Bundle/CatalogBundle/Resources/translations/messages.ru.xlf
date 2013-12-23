@@ -522,6 +522,26 @@
                 <source>Still add</source>
                 <target>Все равно добавить</target>
             </trans-unit>
+            <trans-unit id="169">
+                <source>Example data storage structures:</source>
+                <target>Пример структуры хранения данных:</target>
+            </trans-unit>
+            <trans-unit id="170">
+                <source>wherein</source>
+                <target>где</target>
+            </trans-unit>
+            <trans-unit id="171">
+                <source>the path to the anime, contains several folders</source>
+                <target>путь к хранилищу аниме, содержащее несколько папок</target>
+            </trans-unit>
+            <trans-unit id="172">
+                <source>folder where the files are stored anime (video, subtitles, covers, soundtracks, etc.)</source>
+                <target>папка, в которой хранятся файлы аниме (видеофайлы, субтитры, обложки, звуковые дорожки и т.д.)</target>
+            </trans-unit>
+            <trans-unit id="173">
+                <source>For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application.</source>
+                <target>Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
