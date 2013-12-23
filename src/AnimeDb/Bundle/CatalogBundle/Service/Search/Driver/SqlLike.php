@@ -14,6 +14,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Driver as DriverSearch;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager;
+use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 
 /**
  * Search driver use a SQL LIKE for select name
@@ -90,14 +94,10 @@ class SqlLike implements DriverSearch
                 ->setParameter('type', $data->getType()->getId());
         }
         // genres
-        if ($data->getGenres()->count()) {
-            $keys = [];
-            foreach ($data->getGenres() as $key => $genre) {
-                $keys[] = ':genre'.$key;
-                $selector->setParameter('genre'.$key, $genre->getId());
-            }
+        if ($data->getGenre() instanceof GenreEntity) {
             $selector->innerJoin('i.genres', 'g')
-                ->andWhere('g.id IN ('.implode(',', $keys).')');
+                ->andWhere('g.id IN (:genre)')
+                ->setParameter('genre', $data->getGenre()->getId());
         }
 
         // get count all items
