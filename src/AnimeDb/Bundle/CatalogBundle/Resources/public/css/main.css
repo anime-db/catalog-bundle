@@ -1020,23 +1020,32 @@ h1.logo a span {
 	to {top:0;}
 }
 .b-notice .b-message {
-	width: 874px;
+	width: 845px;
 	padding: 15px 0 15px 20px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	float: left;
 }
-.b-notice .bt-close {
-	margin: 15px 20px;
-	padding: 0;
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEV/f3+BgYGgoKDOzs7JycnFxcW8vLzj4+OHh4efn5/Q0NDi4uLc3NyCgoL9/f3f39/g4ODn5+fe3t62traFhYXl5eW1tbWampr4+PiZmZm7u7vGxsa3t7f///+ueh03AAAAHnRSTlP//////////////////////////////////////wDsGBxeAAAAc0lEQVQY02WPNxIDMRDDsCvpcs5nm///pgtXPrWcIQkgSRpTUaRRkoSk1g3AvP0FTQV+HA5VI6Fy494lab/ZSjHUnFcXpNBdJ/XAZDYvPTHSL7PZRMIVACDISRSsUjSwKK28nsHnWXnno9ltBpaj53L/+l8etw1tLADaAAAAAABJRU5ErkJggg==') 0 0 no-repeat;
+.b-notice .b-controls {
+	height: 16px;
+	padding: 15px 20px;
+	float: right;
+}
+.b-notice .bt-close,
+.b-notice .bt-see-later {
 	border: none;
 	width: 16px;
 	height: 16px;
-	text-indent: 16px;
+	margin: 0 2px;
+	padding: 16px 0 0 16px;
 	overflow: hidden;
-	float: right;
+}
+.b-notice .bt-close {
+	background: url('../images/close_mini.png') 0 0 no-repeat;
+}
+.b-notice .bt-see-later {
+	background: url('../images/clock.png') 0 0 no-repeat;
 }
 
 /**
