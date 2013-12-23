@@ -1042,7 +1042,7 @@ h1.logo a span {
 	overflow: hidden;
 }
 .b-notice .bt-close {
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEV/f3+BgYGgoKDOzs7JycnFxcW8vLzj4+OHh4efn5/Q0NDi4uLc3NyCgoL9/f3f39/g4ODn5+fe3t62traFhYXl5eW1tbWampr4+PiZmZm7u7vGxsa3t7f///+ueh03AAAAHnRSTlP//////////////////////////////////////wDsGBxeAAAAc0lEQVQY02WPNxIDMRDDsCvpcs5nm///pgtXPrWcIQkgSRpTUaRRkoSk1g3AvP0FTQV+HA5VI6Fy494lab/ZSjHUnFcXpNBdJ/XAZDYvPTHSL7PZRMIVACDISRSsUjSwKK28nsHnWXnno9ltBpaj53L/+l8etw1tLADaAAAAAABJRU5ErkJggg==') 0 0 no-repeat;
+	background: url('../images/close_mini.png') 0 0 no-repeat;
 }
 .b-notice .bt-see-later {
 	background: url('../images/clock.png') 0 0 no-repeat;
