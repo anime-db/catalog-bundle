@@ -23,9 +23,7 @@
 				<tr>
 					<th><input type="checkbox" name="id[]" value="{{ notice.id }}" class="f-notice-id" /></th>
 					<td class="t-message">
-						<a href="{{ path('notice_get', {id: notice.id}) }}" title="{% trans %}Show full info of notice{% endtrans %}">
-							{{ notice.message|striptags }}
-						</a>
+						{% autoescape false %}{{ notice.message }}{% endautoescape %}
 					</td>
 					<td>{{ notice.datecreated|date('Y.m.d H:i') }}</td>
 					<td>

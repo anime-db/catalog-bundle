@@ -59,7 +59,7 @@ if (container.size() && (from = container.data('from'))) {
 }
 
 // confirm delete
-$('.item-controls .delete, .storages-list .icon-storage-delete, .b-notice-list button[type=submit]').each(function(){
+$('.icon-delete, .b-notice-list button[type=submit]').each(function(){
 	new ConfirmDeleteModel($(this));
 });
 
@@ -69,6 +69,12 @@ $('.bt-toggle-block').each(function() {
 
 $('.b-update-log').each(function() {
 	new UpdateLogBlock($(this));
+});
+
+// registr form storage
+$('.f-storage').each(function() {
+	var storage = $(this);
+	new FormStorage(storage, storage.data('source'), $(storage.data('target')));
 });
 
 // init form field refill 

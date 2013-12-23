@@ -42,7 +42,7 @@ item_import:
     defaults: { _controller: AnimeDbCatalogBundle:Item:import }
 
 item_duplicate:
-    pattern:  /duplicate.html
+    pattern:  /match.html
     defaults: { _controller: AnimeDbCatalogBundle:Item:duplicate }
 
 
@@ -66,12 +66,10 @@ storage_delete:
     requirements:
         id:  \d+
 
+storage_path:
+    pattern:  /settings/storage/path.json
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:getPath }
 
-notice_get:
-    pattern:  /notice/{id}/
-    defaults: { _controller: AnimeDbCatalogBundle:Notice:get }
-    requirements:
-        id:  \d+
 
 notice_list:
     pattern:  /notice/
