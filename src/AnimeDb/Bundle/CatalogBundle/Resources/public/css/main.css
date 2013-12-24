@@ -104,27 +104,26 @@ button:hover {
 	clear: both;
 }
 .f-col {
-	width: auto;
 	float: left;
-}
-.f-col-clear {
-	clear: both;
 }
 .f-col:first-child {
 	width: 250px;
 }
-.f-collection {
-	margin: 0 0 10px 30px;
+.f-col-clear {
 	clear: both;
 }
-.f-collection .f-fields {
-	display: inline-block;
-	width: 564px;
+.f-collection .f-col:first-child {
+	width: auto;
+	margin-right: 10px;
 }
 .f-collection .bt-remove-item,
 .f-collection .bt-add-item {
-	vertical-align: top;
-	margin-top: 5px;
+	margin: 5px 0 0 10px;
+	float: right;
+}
+.f-collection label {
+	min-height: 26px;
+	line-height: 26px;
 }
 .f-help {
 	display: block;
