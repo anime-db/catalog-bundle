@@ -240,6 +240,16 @@ class Item
     protected $images;
 
     /**
+     * Rating
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
+     *
+     * @var integer
+     */
+    protected $rating = 0;
+
+    /**
      * Old covers list
      *
      * @var array
@@ -897,6 +907,29 @@ class Item
     public function getDateUpdate()
     {
         return clone $this->date_update;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 
     /**
