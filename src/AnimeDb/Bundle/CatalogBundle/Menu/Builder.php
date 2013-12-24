@@ -63,7 +63,8 @@ class Builder extends ContainerAware
         }
 
         // add manually
-        $add->addChild('Add manually', ['route' => 'item_add_manually']);
+        $add->addChild('Add item manually', ['route' => 'item_add_manually']);
+
         $settings->addChild('File storages', ['route' => 'storage_list']);
         $settings->addChild('List of notice', ['route' => 'notice_list']);
         $plugins = $settings->addChild('Plugins');
