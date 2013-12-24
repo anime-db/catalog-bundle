@@ -347,8 +347,8 @@
                 <target>Общие настройки</target>
             </trans-unit>
             <trans-unit id="87">
-                <source>Task scheduler - a separate process to perform various tasks in the background, such as checks for system updates.</source>
-                <target>Планировщик задач - отдельный процесс выполняющий различные задачи в фоновом режиме, например проверяет наличие обновлений системы.</target>
+                <source>A separate process to perform various tasks in the background, such as checks for system updates</source>
+                <target>Отдельный процесс выполняющий различные задачи в фоновом режиме, например проверяет наличие обновлений системы</target>
             </trans-unit>
             <trans-unit id="88">
                 <source>Date created</source>
@@ -541,6 +541,10 @@
             <trans-unit id="173">
                 <source>For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application.</source>
                 <target>Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения.</target>
+            </trans-unit>
+            <trans-unit id="174">
+                <source>To select multiple genres hold Shift or Ctrl. To cancel the selection hold Ctrl.</source>
+                <target>Чтобы выбрать несколько жанров удерживайте Shift или Ctrl. Для отмены выделение удерживайте Ctrl.</target>
             </trans-unit>
         </body>
     </file>

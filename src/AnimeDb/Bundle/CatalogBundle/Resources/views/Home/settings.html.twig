@@ -2,8 +2,6 @@
 
 {% block title %}{% trans %}General{% endtrans %}{% endblock %}
 
-{% form_theme form 'AnimeDbAppBundle:Form:fields.html.twig' %}
-
 {% block content %}
 <div class="b-settings-general">
 	<h2>{% trans %}General settings{% endtrans %}</h2>
@@ -11,6 +9,5 @@
 		{{ form_widget(form) }}
 		<button type="submit">{% trans %}Save{% endtrans %}</button>
 	</form>
-	<p>{% trans %}Task scheduler - a separate process to perform various tasks in the background, such as checks for system updates.{% endtrans %}</p>
 </div>
 {% endblock %}

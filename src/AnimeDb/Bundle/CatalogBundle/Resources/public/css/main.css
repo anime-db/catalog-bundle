@@ -56,13 +56,6 @@ td, th {
 /**
  * Forms
  */
-form label {
-	height: 26px;
-	width: 250px;
-	display: block;
-	line-height: 26px;
-	float: left;
-}
 input,
 textarea {
 	width: 300px;
@@ -110,6 +103,16 @@ button:hover {
 	margin-bottom: 5px;
 	clear: both;
 }
+.f-col {
+	width: auto;
+	float: left;
+}
+.f-col-clear {
+	clear: both;
+}
+.f-col:first-child {
+	width: 250px;
+}
 .f-collection {
 	margin: 0 0 10px 30px;
 	clear: both;
@@ -122,6 +125,13 @@ button:hover {
 .f-collection .bt-add-item {
 	vertical-align: top;
 	margin-top: 5px;
+}
+.f-help {
+	display: block;
+	width: 230px;
+	font-size: 90%;
+	line-height: 100%;
+	color: #999;
 }
 
 
