@@ -87,9 +87,11 @@
 			<div>
 				<strong>{% trans %}Production{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[manufacturer]': item.manufacturer.id}) }}">{{ item.manufacturer.name }}</a>
 			</div>
-			<div>
-				<strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
-			</div>
+			{% if item.storage %}
+				<div>
+					<strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
+				</div>
+			{% endif %}
 			{% if item.names is not empty %}
 				<div>
 					<strong>{% trans %}Alternative names{% endtrans %}</strong>
@@ -136,10 +138,12 @@
 			<article>{{ item.translate|nl2br }}</article>
 		</section>
 	{% endif %}
-	<section class="item-file-path">
-		<header>{% trans %}The path to the files{% endtrans %}</header>
-		<article>{{ item.path }}</article>
-	</section>
+	{% if item.path is not empty %}
+		<section class="item-file-path">
+			<header>{% trans %}The path to the files{% endtrans %}</header>
+			<article>{{ item.path }}</article>
+		</section>
+	{% endif %}
 	{% if item.fileinfo %}
 		<section class="item-file-info">
 			<header>{% trans %}File info{% endtrans %}</header>
