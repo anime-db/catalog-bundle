@@ -7,8 +7,8 @@
                 <target>Продукт распространяется под лицензией %license%.</target>
             </trans-unit>
             <trans-unit id="2">
-                <source><![CDATA[<strong>Anime DB</strong> is a system for making the home catalog of the anime. The system is designed for home use only.]]></source>
-                <target><![CDATA[<strong>Anime DB</strong> это система для составления домашнего каталога аниме. Система предназначена только для домашнего использования.]]></target>
+                <source><![CDATA[<strong>Anime DB</strong> - is a program for making home catalog anime, designed for home noncommercial use.]]></source>
+                <target><![CDATA[<strong>Anime DB</strong> - это программа для составления домашнего каталога аниме, предназначена для домашнего некоммерческого использования.]]></target>
             </trans-unit>
             <trans-unit id="3">
                 <source>Search options</source>
