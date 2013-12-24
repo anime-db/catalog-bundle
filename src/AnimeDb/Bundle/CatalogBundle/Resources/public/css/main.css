@@ -434,7 +434,9 @@ h1.logo a span {
 	display: none;
 }
 .home-search div {
+	width: auto !important;
 	display: inline-block;
+	float: none;
 }
 
 
