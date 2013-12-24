@@ -134,7 +134,8 @@ class Item extends AbstractType
                 'class'    => 'AnimeDbCatalogBundle:Genre',
                 'property' => 'name',
                 'multiple' => true,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data']),
+                'help' => 'To select multiple genres hold Shift or Ctrl. To cancel the selection hold Ctrl.'
             ])
             ->add('manufacturer', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
