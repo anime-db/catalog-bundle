@@ -16,6 +16,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 
 /**
  * Item search
@@ -51,11 +52,11 @@ class Search
     protected $genre;
 
     /**
-     * Manufacturer
+     * Country
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country|null
      */
-    protected $manufacturer;
+    protected $country;
 
     /**
      * Main name
@@ -77,6 +78,13 @@ class Search
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Type|null
      */
     protected $type;
+
+    /**
+     * Studio
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio|null
+     */
+    protected $studio;
 
     /**
      * Set name
@@ -171,29 +179,30 @@ class Search
     }
 
     /**
-     * Set manufacturer
+     * Set country
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $manufacturer
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
-    public function setManufacturer(Country $manufacturer = null)
+    public function setCountry(Country $country = null)
     {
-        if ($this->manufacturer !== $manufacturer) {
-            $this->manufacturer = $manufacturer;
+        if ($this->country !== $country) {
+            $this->country = $country;
         }
         return $this;
     }
 
     /**
-     * Get manufacturer
+     * Get country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function getManufacturer()
+    public function getCountry()
     {
-        return $this->manufacturer;
+        return $this->country;
     }
+
     /**
      * Set storage
      *
@@ -242,5 +251,30 @@ class Search
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set studio
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Studio $studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function setStudio(Studio $studio = null)
+    {
+        if ($this->studio !== $studio) {
+            $this->studio = $studio;
+        }
+        return $this;
+    }
+
+    /**
+     * Get studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    public function getStudio()
+    {
+        return $this->studio;
     }
 }

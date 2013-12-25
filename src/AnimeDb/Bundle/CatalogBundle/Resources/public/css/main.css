@@ -1116,8 +1116,8 @@ h1.logo a span {
 #refill-form-anime_db_catalog_entity_item_date_end,
 #refill-form-anime_db_catalog_entity_item_episodes_number,
 #refill-form-anime_db_catalog_entity_item_duration,
-#refill-form-anime_db_catalog_entity_item_manufacturer,
-#refill-form-anime_db_catalog_entity_item_manufacturer #anime_db_catalog_entity_item_manufacturer {
+#refill-form-anime_db_catalog_entity_item_country,
+#refill-form-anime_db_catalog_entity_item_country #anime_db_catalog_entity_item_country {
 	width: 310px;
 }
 #refill-form-anime_db_catalog_entity_item_genres {
@@ -1169,6 +1169,10 @@ h1.logo a span {
 }
 #refill-form-anime_db_catalog_entity_item_images .f-collection .f-fields {
 	width: 164px;
+}
+#refill-form-anime_db_catalog_entity_item_studio {
+	width: 280px;
+	text-align: center;
 }
 
 #refill-search {

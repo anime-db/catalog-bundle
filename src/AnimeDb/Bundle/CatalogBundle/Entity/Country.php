@@ -56,7 +56,7 @@ class Country implements Translatable
     /**
      * Items list
      *
-     * @ORM\OneToMany(targetEntity="Item", mappedBy="manufacturer")
+     * @ORM\OneToMany(targetEntity="Item", mappedBy="country")
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
@@ -145,7 +145,7 @@ class Country implements Translatable
     public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
     {
         if (!$this->items->contains($item)) {
-            $this->items[] = $item->setManufacturer($this);
+            $this->items[] = $item->setCountry($this);
         }
         return $this;
     }
@@ -158,7 +158,7 @@ class Country implements Translatable
     public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
     {
         $this->items->removeElement($item);
-        $item->setManufacturer(null);
+        $item->setCountry(null);
     }
 
     /**
