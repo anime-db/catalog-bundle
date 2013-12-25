@@ -72,7 +72,7 @@ class Version20131225114220_RenameItemManufacturerToCountry extends AbstractMigr
         $this->addSql('DROP TABLE _origin');
 
         // create index
-        $this->addSql('CREATE INDEX item_manufacturer_idx ON item (country);');
+        $this->addSql('CREATE INDEX item_country_idx ON item (country);');
         $this->addSql('CREATE INDEX item_storage_idx ON item (storage);');
         $this->addSql('CREATE INDEX item_type_idx ON item (type)');
         $this->addSql('CREATE INDEX item_rating_idx ON item (rating)');
