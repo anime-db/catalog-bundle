@@ -18,6 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Source;
 use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
+use AnimeDb\Bundle\AppBundle\Form\Field\Rating as RatingField;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
@@ -107,6 +108,7 @@ class Item extends AbstractType
             ->add('cover', new ImageField(), [
                 'required' => false
             ])
+            ->add('rating', new RatingField())
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',

@@ -102,6 +102,10 @@ class HomeController extends Controller
             'title' => 'Last updated item',
             'name'  => 'Update'
         ],
+        'rating' => [
+            'title' => 'Item rating',
+            'name'  => 'Rating'
+        ],
         'date_start'  => [
             'title' => 'Start date of production',
             'name'  => 'Date start'

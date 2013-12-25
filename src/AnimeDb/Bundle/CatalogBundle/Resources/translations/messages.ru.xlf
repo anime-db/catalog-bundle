@@ -542,6 +542,14 @@
                 <source>To select multiple genres hold Shift or Ctrl. To cancel the selection hold Ctrl.</source>
                 <target>Чтобы выбрать несколько жанров удерживайте Shift или Ctrl. Для отмены выделение удерживайте Ctrl.</target>
             </trans-unit>
+            <trans-unit id="175">
+                <source>Rating</source>
+                <target>Райтинг</target>
+            </trans-unit>
+            <trans-unit id="176">
+                <source>Item rating</source>
+                <target>Рейтинг записи</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
