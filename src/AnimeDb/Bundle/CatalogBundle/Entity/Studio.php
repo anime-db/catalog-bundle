@@ -48,16 +48,6 @@ class Studio
     protected $name;
 
     /**
-     * Unified studio name
-     *
-     * @ORM\Column(type="string", length=128)
-     * @Assert\NotBlank()
-     *
-     * @var string
-     */
-    protected $unified_name;
-
-    /**
      * Items list
      *
      * @ORM\OneToMany(targetEntity="Item", mappedBy="studio")
@@ -105,29 +95,6 @@ class Studio
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set unified name
-     *
-     * @param string $unified_name
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
-     */
-    public function setUnifiedName($unified_name)
-    {
-        $this->unified_name = $unified_name;
-        return $this;
-    }
-
-    /**
-     * Get unified name
-     *
-     * @return string
-     */
-    public function getUnifiedName()
-    {
-        return $this->unified_name;
     }
 
     /**

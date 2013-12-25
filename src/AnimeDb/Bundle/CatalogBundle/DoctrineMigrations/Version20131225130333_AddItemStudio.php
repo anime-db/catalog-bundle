@@ -152,13 +152,13 @@ class Version20131225130333_AddItemStudio extends AbstractMigration
     {
         $this->addSql('CREATE TABLE "studio" (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            name VARCHAR(128) NOT NULL,
-            unified_name VARCHAR(128) NOT NULL
+            name VARCHAR(128) NOT NULL
         )');
     }
 
     protected function addDataStudio()
     {
+        // @link http://en.wikipedia.org/wiki/List_of_animation_studios
         $studios = [
             'A Squared Entertainment',
             'A-1 Pictures',
@@ -409,18 +409,7 @@ class Version20131225130333_AddItemStudio extends AbstractMigration
         ];
 
         foreach ($studios as $studio) {
-            $this->addSql(
-                'INSERT INTO "studio" VALUES(NULL, :name, :uname)',
-                [
-                    'name' => $studio,
-                    'uname' => $this->getUnifiedName($studio)
-                ]
-            );
+            $this->addSql('INSERT INTO "studio" VALUES(NULL, :name)', ['name' => $studio]);
         }
-    }
-
-    protected function getUnifiedName($name)
-    {
-        return trim(preg_replace('/[^\-a-z0-9]+/i', '_', trim($name)), '_');
     }
 }
