@@ -108,9 +108,10 @@ class SqlLike implements DriverSearch
             ->getSingleScalarResult();
 
         // apply order
-        $selector
-            ->orderBy('i.'.$sort_column, $sort_direction)
-            ->addOrderBy('i.id', $sort_direction);
+        $selector->orderBy('i.'.$sort_column, $sort_direction);
+        if ($sort_column != 'name') {
+            $selector->addOrderBy('i.name', $sort_direction);
+        }
 
         if ($offset) {
             $selector->setFirstResult($offset);
