@@ -307,8 +307,8 @@
                 <target>Название элемента</target>
             </trans-unit>
             <trans-unit id="78">
-                <source>Add item manually</source>
-                <target>Добавить запись вручную</target>
+                <source>Fill manually</source>
+                <target>Заполнить вручную</target>
             </trans-unit>
             <trans-unit id="79">
                 <source>General</source>
