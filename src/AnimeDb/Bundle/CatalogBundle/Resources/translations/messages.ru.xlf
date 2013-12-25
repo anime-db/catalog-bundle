@@ -543,6 +543,10 @@
                 <target>Рейтинг записи</target>
             </trans-unit>
             <trans-unit id="176">
+                <source>Studio</source>
+                <target>Студия</target>
+            </trans-unit>
+            <trans-unit id="177">
                 <source>Animation studio</source>
                 <target>Анимационная студия</target>
             </trans-unit>

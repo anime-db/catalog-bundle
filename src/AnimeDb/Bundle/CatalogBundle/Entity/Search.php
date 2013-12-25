@@ -16,6 +16,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 
 /**
  * Item search
@@ -77,6 +78,13 @@ class Search
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Type|null
      */
     protected $type;
+
+    /**
+     * Studio
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio|null
+     */
+    protected $studio;
 
     /**
      * Set name
@@ -194,6 +202,7 @@ class Search
     {
         return $this->country;
     }
+
     /**
      * Set storage
      *
@@ -242,5 +251,30 @@ class Search
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set studio
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Studio $studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function setStudio(Studio $studio = null)
+    {
+        if ($this->studio !== $studio) {
+            $this->studio = $studio;
+        }
+        return $this;
+    }
+
+    /**
+     * Get studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    public function getStudio()
+    {
+        return $this->studio;
     }
 }
