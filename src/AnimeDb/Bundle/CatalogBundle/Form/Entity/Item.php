@@ -108,6 +108,7 @@ class Item extends AbstractType
             ->add('cover', new ImageField(), [
                 'required' => false
             ])
+            ->add('rating', new RatingField())
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
@@ -138,7 +139,6 @@ class Item extends AbstractType
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data']),
                 'help' => 'To select multiple genres hold Shift or Ctrl. To cancel the selection hold Ctrl.'
             ])
-            ->add('rating', new RatingField())
             ->add('manufacturer', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
