@@ -1230,11 +1230,13 @@ h1.logo a span {
 .f-rating:hover .f-rating-star:hover ~ .f-rating-star {
 	background-color: #ff9231;
 }
-.f-rating-input:checked ~ .f-rating-star {
+.f-rating-input:checked ~ .f-rating-star,
+.b-rating .b-star.b-select {
 	background-color: #ffcc1c;
 }
 .f-rating-star,
-.f-rating:hover .f-rating-star {
+.f-rating:hover .f-rating-star,
+.b-rating .b-star {
 	display: block;
 	float: right;
 	width: 0;
@@ -1246,4 +1248,9 @@ h1.logo a span {
 }
 .f-rating .f-rating-input {
 	display: none;
+}
+.b-rating .b-star {
+	display: inline-block;
+	float: none;
+	cursor: default;
 }
