@@ -83,6 +83,7 @@ class Version20131225130333_AddItemStudio extends AbstractMigration
         // create studio table
         $this->createTableStudio($schema);
         $this->addDataStudio();
+        $this->updateItemStudio();
     }
 
     public function down(Schema $schema)
@@ -410,6 +411,30 @@ class Version20131225130333_AddItemStudio extends AbstractMigration
 
         foreach ($studios as $studio) {
             $this->addSql('INSERT INTO "studio" VALUES(NULL, :name)', ['name' => $studio]);
+        }
+    }
+
+    protected function updateItemStudio()
+    {
+        $connections = [
+            ['Ван-Пис', 'Toei Animation'],
+            ['Самурай Чамплу', 'Manglobe'],
+            ['Стальной алхимик', 'Bones'],
+            ['Унесённые призраками', 'Studio Ghibli'],
+            ['Крутой учитель Онидзука', 'Pierrot'],
+            ['Бек', 'Madhouse'],
+            ['Бродяга Кэнсин', 'Studio DEEN'],
+            ['Мой сосед Тоторо', 'Studio Ghibli'],
+            ['Хеллсинг', 'Satelight'],
+            ['Гинтама', 'Sunrise'],
+            ['Бакуман.', 'J.C.Staff'],
+            ['Гуррен-Лаганн', 'Gainax']
+        ];
+        foreach ($connections as $connection) {
+            $this->addSql(
+                'UPDATE "item" SET studio = (SELECT id FROM studio WHERE name = :studio) WHERE name = :item',
+                ['item' => $connection[0], 'studio' => $connection[1]]
+            );
         }
     }
 }
