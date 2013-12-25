@@ -72,7 +72,7 @@ class Search extends AbstractType
                 'property' => 'name',
                 'required' => false
             ])
-            ->add('manufacturer', 'entity', [
+            ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
                 'required' => false
