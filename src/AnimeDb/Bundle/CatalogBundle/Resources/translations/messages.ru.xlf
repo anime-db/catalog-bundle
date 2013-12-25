@@ -546,6 +546,10 @@
                 <source>Rating</source>
                 <target>Райтинг</target>
             </trans-unit>
+            <trans-unit id="176">
+                <source>Item rating</source>
+                <target>Рейтинг записи</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
