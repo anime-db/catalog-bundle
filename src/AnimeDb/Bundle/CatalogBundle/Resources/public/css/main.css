@@ -1254,3 +1254,24 @@ h1.logo a span {
 	float: none;
 	cursor: default;
 }
+
+#anime_db_catalog_entity_item_genres {
+	width: 595px;
+}
+#anime_db_catalog_entity_item_genres input,
+#anime_db_catalog_entity_item_genres label {
+	display: inline-block;
+}
+#anime_db_catalog_entity_item_genres input {
+	margin: 0;
+	position: relative;
+	vertical-align: middle;
+	bottom: 1px;
+}
+#anime_db_catalog_entity_item_genres label {
+	width: 130px;
+	margin-left: 3px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
