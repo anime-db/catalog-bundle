@@ -142,6 +142,7 @@ class Item extends AbstractType
             ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
+                'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_COUNTRY, $options['data'])
             ])
             ->add('storage', 'entity', [
