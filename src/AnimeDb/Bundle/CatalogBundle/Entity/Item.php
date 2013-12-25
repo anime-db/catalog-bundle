@@ -20,6 +20,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 
 /**
  * Item
@@ -248,6 +249,16 @@ class Item
      * @var integer
      */
     protected $rating = 0;
+
+    /**
+     * Studio
+     *
+     * @ORM\ManyToOne(targetEntity="Studio", inversedBy="items", cascade={"persist"})
+     * @ORM\JoinColumn(name="studio", referencedColumnName="id")
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    protected $studio;
 
     /**
      * Old covers list
@@ -930,6 +941,41 @@ class Item
     public function getRating()
     {
         return $this->rating;
+    }
+
+    /**
+     * Set studio
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Studio $studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function setStudio(Studio $studio = null)
+    {
+        if ($this->studio !== $studio) {
+            // romove link on this item for old studio
+            if ($this->studio instanceof Studio) {
+                $tmp = $this->studio;
+                $this->studio = null;
+                $tmp->removeItem($this);
+            }
+            $this->studio = $studio;
+            // add link on this item
+            if ($this->studio instanceof Studio) {
+                $this->studio->addItem($this);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    public function getStudio()
+    {
+        return $this->studio;
     }
 
     /**
