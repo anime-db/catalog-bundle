@@ -84,9 +84,16 @@
 				{% endif %}
 				(<abbr title="{% trans %}From{% endtrans %} {{ startdey }} {{ startmonth|transchoice(startdey, {}, 'datechoice')|lower }} {{ item.datestart|date('Y') }} {% trans %}y.{% endtrans %}{{ dateend }}">?</abbr>)
 			</div>
-			<div>
-				<strong>{% trans %}Country{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[country]': item.country.id}) }}">{{ item.country.name }}</a>
-			</div>
+			{% if item.studio %}
+				<div>
+					<strong>{% trans %}Studio{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[studio]': item.studio.id}) }}">{{ item.studio.name }}</a>
+				</div>
+			{% endif %}
+			{% if item.country %}
+				<div>
+					<strong>{% trans %}Country{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[country]': item.country.id}) }}">{{ item.country.name }}</a>
+				</div>
+			{% endif %}
 			{% if item.storage %}
 				<div>
 					<strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
