@@ -542,6 +542,10 @@
                 <source>Item rating</source>
                 <target>Рейтинг записи</target>
             </trans-unit>
+            <trans-unit id="176">
+                <source>Animation studio</source>
+                <target>Анимационная студия</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
