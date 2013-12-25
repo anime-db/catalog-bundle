@@ -107,14 +107,14 @@ class Item
     protected $genres;
 
     /**
-     * Manufacturer
+     * Country
      *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="items", cascade={"persist"})
-     * @ORM\JoinColumn(name="manufacturer", referencedColumnName="id")
+     * @ORM\JoinColumn(name="country", referencedColumnName="id")
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    protected $manufacturer;
+    protected $country;
 
     /**
      * Duration
@@ -599,38 +599,38 @@ class Item
     }
 
     /**
-     * Set manufacturer
+     * Set country
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $manufacturer
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function setManufacturer(Country $manufacturer = null)
+    public function setCountry(Country $country = null)
     {
-        if ($this->manufacturer !== $manufacturer) {
-            // romove link on this item for old manufacturer
-            if ($this->manufacturer instanceof Country) {
-                $tmp = $this->manufacturer;
-                $this->manufacturer = null;
+        if ($this->country !== $country) {
+            // romove link on this item for old country
+            if ($this->country instanceof Country) {
+                $tmp = $this->country;
+                $this->country = null;
                 $tmp->removeItem($this);
             }
-            $this->manufacturer = $manufacturer;
+            $this->country = $country;
             // add link on this item
-            if ($this->manufacturer instanceof Country) {
-                $this->manufacturer->addItem($this);
+            if ($this->country instanceof Country) {
+                $this->country->addItem($this);
             }
         }
         return $this;
     }
 
     /**
-     * Get manufacturer
+     * Get country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function getManufacturer()
+    public function getCountry()
     {
-        return $this->manufacturer;
+        return $this->country;
     }
 
     /**
@@ -980,7 +980,7 @@ class Item
     public function freez(EntityManager $em)
     {
         // create reference to existing entity
-        $this->manufacturer = $em->getReference(get_class($this->manufacturer), $this->manufacturer->getId());
+        $this->country = $em->getReference(get_class($this->country), $this->country->getId());
         $this->type = $em->getReference(get_class($this->type), $this->type->getId());
         $this->storage = $em->getReference(get_class($this->storage), $this->storage->getId());
         foreach ($this->genres as $key => $genre) {

@@ -78,10 +78,10 @@ class SqlLike implements DriverSearch
             $selector->andWhere('i.date_end <= :date_end')
                 ->setParameter('date_end', $data->getDateEnd()->format('Y-m-d'));
         }
-        // manufacturer
-        if ($data->getManufacturer() instanceof CountryEntity) {
-            $selector->andWhere('i.manufacturer = :manufacturer')
-                ->setParameter('manufacturer', $data->getManufacturer()->getId());
+        // country
+        if ($data->getCountry() instanceof CountryEntity) {
+            $selector->andWhere('i.country = :country')
+                ->setParameter('country', $data->getCountry()->getId());
         }
         // storage
         if ($data->getStorage() instanceof StorageEntity) {

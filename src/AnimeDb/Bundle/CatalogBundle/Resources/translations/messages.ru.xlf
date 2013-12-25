@@ -127,8 +127,8 @@
                 <target>Жанры</target>
             </trans-unit>
             <trans-unit id="33">
-                <source>Manufacturer</source>
-                <target>Производитель</target>
+                <source>Country</source>
+                <target>Страна</target>
             </trans-unit>
             <trans-unit id="34">
                 <source>Storage</source>
@@ -197,10 +197,6 @@
             <trans-unit id="50">
                 <source>goes from</source>
                 <target>выходит с</target>
-            </trans-unit>
-            <trans-unit id="51">
-                <source>Production</source>
-                <target>Производство</target>
             </trans-unit>
             <trans-unit id="52">
                 <source>Alternative names</source>
