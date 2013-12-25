@@ -18,6 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio as StudioEntity;
 
 /**
  * Search driver use a SQL LIKE for select name
@@ -98,6 +99,11 @@ class SqlLike implements DriverSearch
             $selector->innerJoin('i.genres', 'g')
                 ->andWhere('g.id IN (:genre)')
                 ->setParameter('genre', $data->getGenre()->getId());
+        }
+        // studio
+        if ($data->getStudio() instanceof StudioEntity) {
+            $selector->andWhere('i.studio = :studio')
+                ->setParameter('studio', $data->getStudio()->getId());
         }
 
         // get count all items

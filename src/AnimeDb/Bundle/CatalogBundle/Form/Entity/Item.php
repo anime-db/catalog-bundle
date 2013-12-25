@@ -139,6 +139,13 @@ class Item extends AbstractType
                 'expanded' => true,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
+            ->add('studio', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Studio',
+                'property' => 'name',
+                'required' => false,
+                'label' => 'Animation studio',
+                'attr' => $this->getRefillAttr(Refiller::FIELD_STUDIO, $options['data'])
+            ])
             ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',

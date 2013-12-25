@@ -113,6 +113,13 @@ abstract class Refiller extends Plugin
     const FIELD_TRANSLATE = 'translate';
 
     /**
+     * Item studio for refill
+     *
+     * @var string
+     */
+    const FIELD_STUDIO = 'studio';
+
+    /**
      * Is can refill item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
