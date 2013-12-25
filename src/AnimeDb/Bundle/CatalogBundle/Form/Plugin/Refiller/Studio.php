@@ -29,7 +29,7 @@ class Studio extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genres', 'entity', [
+            ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
                 'property' => 'name',
                 'label'    => false
