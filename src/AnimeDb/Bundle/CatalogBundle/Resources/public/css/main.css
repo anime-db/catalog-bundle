@@ -915,10 +915,9 @@ h1.logo a span {
 	display: inline-block;
 	background: none;
 	border: 0;
-	width: 16px;
-	height: 16px;
-	padding: 0;
-	text-indent: 16px;
+	width: 0;
+	height: 0;
+	padding: 16px 0 0 16px;
 	overflow: hidden;
 	background-position: top left;
 	background-repeat: no-repeat;
@@ -926,7 +925,8 @@ h1.logo a span {
 .icon-label {
 	overflow: visible;
 	width: auto;
-	text-indent: 18px;
+	height: 16px;
+	padding: 0 0 0 18px;
 	font-weight: normal;
 }
 .icon-plus {
@@ -966,6 +966,9 @@ h1.logo a span {
 }
 .icon-plugin-install {
 	background-image: url(../images/plugin_install.png);
+}
+.icon-fill {
+	background-image: url(../images/fill.png);
 }
 
 /**
@@ -1101,15 +1104,6 @@ h1.logo a span {
 .f-refill {
 	position: relative;
 	margin-left: 5px;
-}
-.f-refill > span {
-	display: inline-block;
-	height: 16px;
-	width: 0;
-	padding-left: 16px;
-	text-indent: 16px;
-	overflow: hidden;
-	background: url(../images/fill.png) no-repeat 0 0;
 }
 
 #refill-form-anime_db_catalog_entity_item_date_start,
