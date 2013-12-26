@@ -554,6 +554,10 @@
                 <source>Home Anime DB</source>
                 <target>Главная Anime DB</target>
             </trans-unit>
+            <trans-unit id="179">
+                <source>m.</source>
+                <target>м.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
