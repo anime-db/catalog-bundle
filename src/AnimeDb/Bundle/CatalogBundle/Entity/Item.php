@@ -20,6 +20,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 
 /**
  * Item
@@ -107,14 +108,14 @@ class Item
     protected $genres;
 
     /**
-     * Manufacturer
+     * Country
      *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="items", cascade={"persist"})
-     * @ORM\JoinColumn(name="manufacturer", referencedColumnName="id")
+     * @ORM\JoinColumn(name="country", referencedColumnName="id")
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    protected $manufacturer;
+    protected $country;
 
     /**
      * Duration
@@ -238,6 +239,26 @@ class Item
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $images;
+
+    /**
+     * Rating
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
+     *
+     * @var integer
+     */
+    protected $rating = 0;
+
+    /**
+     * Studio
+     *
+     * @ORM\ManyToOne(targetEntity="Studio", inversedBy="items", cascade={"persist"})
+     * @ORM\JoinColumn(name="studio", referencedColumnName="id")
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    protected $studio;
 
     /**
      * Old covers list
@@ -589,38 +610,38 @@ class Item
     }
 
     /**
-     * Set manufacturer
+     * Set country
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $manufacturer
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function setManufacturer(Country $manufacturer = null)
+    public function setCountry(Country $country = null)
     {
-        if ($this->manufacturer !== $manufacturer) {
-            // romove link on this item for old manufacturer
-            if ($this->manufacturer instanceof Country) {
-                $tmp = $this->manufacturer;
-                $this->manufacturer = null;
+        if ($this->country !== $country) {
+            // romove link on this item for old country
+            if ($this->country instanceof Country) {
+                $tmp = $this->country;
+                $this->country = null;
                 $tmp->removeItem($this);
             }
-            $this->manufacturer = $manufacturer;
+            $this->country = $country;
             // add link on this item
-            if ($this->manufacturer instanceof Country) {
-                $this->manufacturer->addItem($this);
+            if ($this->country instanceof Country) {
+                $this->country->addItem($this);
             }
         }
         return $this;
     }
 
     /**
-     * Get manufacturer
+     * Get country
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function getManufacturer()
+    public function getCountry()
     {
-        return $this->manufacturer;
+        return $this->country;
     }
 
     /**
@@ -900,6 +921,64 @@ class Item
     }
 
     /**
+     * Set rating
+     *
+     * @param integer $rating
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set studio
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Studio $studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function setStudio(Studio $studio = null)
+    {
+        if ($this->studio !== $studio) {
+            // romove link on this item for old studio
+            if ($this->studio instanceof Studio) {
+                $tmp = $this->studio;
+                $this->studio = null;
+                $tmp->removeItem($this);
+            }
+            $this->studio = $studio;
+            // add link on this item
+            if ($this->studio instanceof Studio) {
+                $this->studio->addItem($this);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * Get studio
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     */
+    public function getStudio()
+    {
+        return $this->studio;
+    }
+
+    /**
      * Update date item change
      *
      * @ORM\PrePersist
@@ -928,7 +1007,7 @@ class Item
      */
     public function isPathValid(ExecutionContextInterface $context)
     {
-        if ($this->getStorage()->isPathRequired()) {
+        if ($this->getStorage() instanceof Storage && $this->getStorage()->isPathRequired()) {
             if (!$this->getPath()) {
                 $context->addViolationAt('path', 'Path is required to fill for current type of storage');
             } elseif (strpos($this->getPath(), $this->getStorage()->getPath()) !== 0) {
@@ -947,7 +1026,7 @@ class Item
     public function freez(EntityManager $em)
     {
         // create reference to existing entity
-        $this->manufacturer = $em->getReference(get_class($this->manufacturer), $this->manufacturer->getId());
+        $this->country = $em->getReference(get_class($this->country), $this->country->getId());
         $this->type = $em->getReference(get_class($this->type), $this->type->getId());
         $this->storage = $em->getReference(get_class($this->storage), $this->storage->getId());
         foreach ($this->genres as $key => $genre) {

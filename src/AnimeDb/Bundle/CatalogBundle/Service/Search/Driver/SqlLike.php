@@ -18,6 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio as StudioEntity;
 
 /**
  * Search driver use a SQL LIKE for select name
@@ -78,10 +79,10 @@ class SqlLike implements DriverSearch
             $selector->andWhere('i.date_end <= :date_end')
                 ->setParameter('date_end', $data->getDateEnd()->format('Y-m-d'));
         }
-        // manufacturer
-        if ($data->getManufacturer() instanceof CountryEntity) {
-            $selector->andWhere('i.manufacturer = :manufacturer')
-                ->setParameter('manufacturer', $data->getManufacturer()->getId());
+        // country
+        if ($data->getCountry() instanceof CountryEntity) {
+            $selector->andWhere('i.country = :country')
+                ->setParameter('country', $data->getCountry()->getId());
         }
         // storage
         if ($data->getStorage() instanceof StorageEntity) {
@@ -99,6 +100,11 @@ class SqlLike implements DriverSearch
                 ->andWhere('g.id IN (:genre)')
                 ->setParameter('genre', $data->getGenre()->getId());
         }
+        // studio
+        if ($data->getStudio() instanceof StudioEntity) {
+            $selector->andWhere('i.studio = :studio')
+                ->setParameter('studio', $data->getStudio()->getId());
+        }
 
         // get count all items
         $total = clone $selector;
@@ -108,9 +114,10 @@ class SqlLike implements DriverSearch
             ->getSingleScalarResult();
 
         // apply order
-        $selector
-            ->orderBy('i.'.$sort_column, $sort_direction)
-            ->addOrderBy('i.id', $sort_direction);
+        $selector->orderBy('i.'.$sort_column, $sort_direction);
+        if ($sort_column != 'name') {
+            $selector->addOrderBy('i.name', $sort_direction);
+        }
 
         if ($offset) {
             $selector->setFirstResult($offset);

@@ -64,11 +64,11 @@ abstract class Refiller extends Plugin
     const FIELD_DATE_END = 'date_end';
 
     /**
-     * Item manufacturer for refill
+     * Item country for refill
      *
      * @var string
      */
-    const FIELD_MANUFACTURER = 'manufacturer';
+    const FIELD_COUNTRY = 'country';
 
     /**
      * Item duration for refill
@@ -111,6 +111,13 @@ abstract class Refiller extends Plugin
      * @var string
      */
     const FIELD_TRANSLATE = 'translate';
+
+    /**
+     * Item studio for refill
+     *
+     * @var string
+     */
+    const FIELD_STUDIO = 'studio';
 
     /**
      * Is can refill item

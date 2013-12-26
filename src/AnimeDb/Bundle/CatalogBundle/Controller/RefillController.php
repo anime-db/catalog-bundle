@@ -21,11 +21,12 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as Episodes
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\FileInfo as FileInfoForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres as GengresForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Images as ImagesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Manufacturer as ManufacturerForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country as CountryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Summary as SummaryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Translate as TranslateForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio as StudioForm;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -176,9 +177,9 @@ class RefillController extends Controller
                 $form = new ImagesForm();
                 $data = ['images' => $item_fill->getImages()];
                 break;
-            case Refiller::FIELD_MANUFACTURER:
-                $form = new ManufacturerForm();
-                $data = ['manufacturer' => $item_fill->getManufacturer()];
+            case Refiller::FIELD_COUNTRY:
+                $form = new CountryForm();
+                $data = ['country' => $item_fill->getCountry()];
                 break;
             case Refiller::FIELD_NAMES:
                 $form = new NamesForm();
@@ -195,6 +196,10 @@ class RefillController extends Controller
             case Refiller::FIELD_TRANSLATE:
                 $form = new TranslateForm();
                 $data = ['translate' => $item_fill->getTranslate()];
+                break;
+            case Refiller::FIELD_STUDIO:
+                $form = new StudioForm();
+                $data = ['studio' => $item_fill->getStudio()];
                 break;
             default:
                 throw $this->createNotFoundException('Field \''.$field.'\' is not supported');

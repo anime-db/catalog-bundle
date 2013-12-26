@@ -18,6 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Source;
 use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
+use AnimeDb\Bundle\AppBundle\Form\Field\Rating as RatingField;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
@@ -107,6 +108,7 @@ class Item extends AbstractType
             ->add('cover', new ImageField(), [
                 'required' => false
             ])
+            ->add('rating', new RatingField())
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
@@ -134,17 +136,26 @@ class Item extends AbstractType
                 'class'    => 'AnimeDbCatalogBundle:Genre',
                 'property' => 'name',
                 'multiple' => true,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data']),
-                'help' => 'To select multiple genres hold Shift or Ctrl. To cancel the selection hold Ctrl.'
+                'expanded' => true,
+                'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
-            ->add('manufacturer', 'entity', [
+            ->add('studio', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Studio',
+                'property' => 'name',
+                'required' => false,
+                'label' => 'Animation studio',
+                'attr' => $this->getRefillAttr(Refiller::FIELD_STUDIO, $options['data'])
+            ])
+            ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_MANUFACTURER, $options['data'])
+                'required' => false,
+                'attr' => $this->getRefillAttr(Refiller::FIELD_COUNTRY, $options['data'])
             ])
             ->add('storage', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Storage',
                 'property' => 'name',
+                'required' => false,
                 'attr' => [
                     'class' => 'f-storage',
                     'data-source' => $this->router->generate('storage_path'),

@@ -15,12 +15,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Refill item field manufacturer
+ * Refill item field studio
  *
  * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Manufacturer extends AbstractType
+class Studio extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -29,8 +29,8 @@ class Manufacturer extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('manufacturer', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Country',
+            ->add('studio', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Studio',
                 'property' => 'name',
                 'label'    => false
             ])

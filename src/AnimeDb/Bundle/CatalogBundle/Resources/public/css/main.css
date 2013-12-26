@@ -104,27 +104,26 @@ button:hover {
 	clear: both;
 }
 .f-col {
-	width: auto;
 	float: left;
-}
-.f-col-clear {
-	clear: both;
 }
 .f-col:first-child {
 	width: 250px;
 }
-.f-collection {
-	margin: 0 0 10px 30px;
+.f-col-clear {
 	clear: both;
 }
-.f-collection .f-fields {
-	display: inline-block;
-	width: 564px;
+.f-collection .f-col:first-child {
+	width: auto;
+	margin-right: 10px;
 }
 .f-collection .bt-remove-item,
 .f-collection .bt-add-item {
-	vertical-align: top;
-	margin-top: 5px;
+	margin: 5px 0 0 10px;
+	float: right;
+}
+.f-collection label {
+	min-height: 26px;
+	line-height: 26px;
 }
 .f-help {
 	display: block;
@@ -435,7 +434,9 @@ h1.logo a span {
 	display: none;
 }
 .home-search div {
+	width: auto !important;
 	display: inline-block;
+	float: none;
 }
 
 
@@ -1115,14 +1116,12 @@ h1.logo a span {
 #refill-form-anime_db_catalog_entity_item_date_end,
 #refill-form-anime_db_catalog_entity_item_episodes_number,
 #refill-form-anime_db_catalog_entity_item_duration,
-#refill-form-anime_db_catalog_entity_item_manufacturer,
-#refill-form-anime_db_catalog_entity_item_manufacturer #anime_db_catalog_entity_item_manufacturer {
+#refill-form-anime_db_catalog_entity_item_country,
+#refill-form-anime_db_catalog_entity_item_country #anime_db_catalog_entity_item_country {
 	width: 310px;
 }
 #refill-form-anime_db_catalog_entity_item_genres {
-	width: 150px;
-	height: 116px;
-	text-align: center;
+	width: 580px;
 }
 /* hav textarea in form */
 #refill-form-anime_db_catalog_entity_item_summary,
@@ -1168,6 +1167,10 @@ h1.logo a span {
 }
 #refill-form-anime_db_catalog_entity_item_images .f-collection .f-fields {
 	width: 164px;
+}
+#refill-form-anime_db_catalog_entity_item_studio {
+	width: 280px;
+	text-align: center;
 }
 
 #refill-search {
@@ -1220,4 +1223,57 @@ h1.logo a span {
 .b-list-plugins .description,
 .b-list-plugins article:first-child {
 	margin: 0;
+}
+
+/**
+ * Form rating
+ */
+.f-rating:hover .f-rating-star:hover,
+.f-rating:hover .f-rating-star:hover ~ .f-rating-star {
+	background-color: #ff9231;
+}
+.f-rating-input:checked ~ .f-rating-star,
+.b-rating .b-star.b-select {
+	background-color: #ffcc1c;
+}
+.f-rating-star,
+.f-rating:hover .f-rating-star,
+.b-rating .b-star {
+	display: block;
+	float: right;
+	width: 0;
+	height: 0;
+	padding: 17px 0 0 17px;
+	overflow: hidden;
+	background: #cccccc url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL9JREFUeNpi/A8EDBQCJiLU+BJU8R8/aAE5FErjBIQMUYCqkSfXkHKoPAyXk2rIIiCWQjNECiqOARihsVMCxKeB+AkQPwPiH3iCkR2IpYFYBohNgbiHBSrBBcSHiIzRn0B8D4od0GMnCc35hHAirjBxJ9IAD0IBq0XAAG10DdhSrACBMOEnJtm/I2DIO2IM+YLGl0LjfybGEJgiTSCeCcRPobQGVPwroQz4CIh1gHgOjpQ8G4j1oOowUixFACDAAPlHC0B388ixAAAAAElFTkSuQmCC') no-repeat 0 0;
+	cursor: pointer;
+}
+.f-rating .f-rating-input {
+	display: none;
+}
+.b-rating .b-star {
+	display: inline-block;
+	float: none;
+	cursor: default;
+}
+
+#anime_db_catalog_entity_item_genres {
+	width: 595px;
+}
+#anime_db_catalog_entity_item_genres input,
+#anime_db_catalog_entity_item_genres label {
+	display: inline-block;
+}
+#anime_db_catalog_entity_item_genres input {
+	margin: 0;
+	position: relative;
+	vertical-align: middle;
+	bottom: 1px;
+}
+#anime_db_catalog_entity_item_genres label {
+	width: 130px;
+	margin-left: 3px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

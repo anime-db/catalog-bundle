@@ -50,6 +50,7 @@ class Manager
     public static $sort_columns = [
         'name',
         'date_update',
+        'rating',
         'date_start',
         'date_end'
     ];
