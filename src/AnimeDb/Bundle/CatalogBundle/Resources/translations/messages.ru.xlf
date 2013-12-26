@@ -550,6 +550,10 @@
                 <source>Animation studio</source>
                 <target>Анимационная студия</target>
             </trans-unit>
+            <trans-unit id="178">
+                <source>Home Anime DB</source>
+                <target>Главная Anime DB</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
