@@ -62,7 +62,8 @@ class General extends AbstractType
             ])
             ->add('task_scheduler', 'checkbox', [
                 'required' => false,
-                'label' => 'Task scheduler'
+                'label' => 'Task scheduler',
+                'help' => 'A separate process to perform various tasks in the background, such as checks for system updates'
             ])
             ->add('default_search', 'choice', [
                 'required' => false,

@@ -64,7 +64,7 @@
 				<strong>{% trans %}Number of episodes{% endtrans %}</strong> {{ item.episodesnumber }} {% trans %}ep.{% endtrans %} 
 			</div>
 			<div>
-				<strong>{% trans %}The duration of the episode{% endtrans %}</strong> {{ item.duration }} мин.
+				<strong>{% trans %}The duration of the episode{% endtrans %}</strong> {{ item.duration }} {% trans %}m.{% endtrans %}
 			</div>
 			<div>
 				<strong>{% trans %}Status{% endtrans %}</strong>
@@ -84,11 +84,28 @@
 				{% endif %}
 				(<abbr title="{% trans %}From{% endtrans %} {{ startdey }} {{ startmonth|transchoice(startdey, {}, 'datechoice')|lower }} {{ item.datestart|date('Y') }} {% trans %}y.{% endtrans %}{{ dateend }}">?</abbr>)
 			</div>
+			{% if item.studio %}
+				<div>
+					<strong>{% trans %}Studio{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[studio]': item.studio.id}) }}">{{ item.studio.name }}</a>
+				</div>
+			{% endif %}
+			{% if item.country %}
+				<div>
+					<strong>{% trans %}Country{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[country]': item.country.id}) }}">{{ item.country.name }}</a>
+				</div>
+			{% endif %}
+			{% if item.storage %}
+				<div>
+					<strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
+				</div>
+			{% endif %}
 			<div>
-				<strong>{% trans %}Production{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[manufacturer]': item.manufacturer.id}) }}">{{ item.manufacturer.name }}</a>
-			</div>
-			<div>
-				<strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
+				<strong>{% trans %}Rating{% endtrans %}</strong>
+				<span class="b-rating">
+					{% for i in 1..5 %}
+						<span class="b-star{% if i <= item.rating %} b-select{% endif %}">{{ i }}</span>
+					{% endfor %}
+				</span>
 			</div>
 			{% if item.names is not empty %}
 				<div>
@@ -136,10 +153,12 @@
 			<article>{{ item.translate|nl2br }}</article>
 		</section>
 	{% endif %}
-	<section class="item-file-path">
-		<header>{% trans %}The path to the files{% endtrans %}</header>
-		<article>{{ item.path }}</article>
-	</section>
+	{% if item.path is not empty %}
+		<section class="item-file-path">
+			<header>{% trans %}The path to the files{% endtrans %}</header>
+			<article>{{ item.path }}</article>
+		</section>
+	{% endif %}
 	{% if item.fileinfo %}
 		<section class="item-file-info">
 			<header>{% trans %}File info{% endtrans %}</header>

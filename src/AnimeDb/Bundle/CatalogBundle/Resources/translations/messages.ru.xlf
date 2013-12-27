@@ -3,12 +3,12 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>The product is licensed under the %license%.</source>
-                <target>Продукт распространяется под лицензией %license%.</target>
+                <source>The program is licensed under the %license%.</source>
+                <target>Программа распространяется под лицензией %license%.</target>
             </trans-unit>
             <trans-unit id="2">
-                <source><![CDATA[<strong>Anime DB</strong> is a system for making the home catalog of the anime. The system is designed for home use only.]]></source>
-                <target><![CDATA[<strong>Anime DB</strong> это система для составления домашнего каталога аниме. Система предназначена только для домашнего использования.]]></target>
+                <source><![CDATA[<strong>Anime DB</strong> - is a program for making home catalog anime, designed for home noncommercial use.]]></source>
+                <target><![CDATA[<strong>Anime DB</strong> - это программа для составления домашнего каталога аниме, предназначена для домашнего некоммерческого использования.]]></target>
             </trans-unit>
             <trans-unit id="3">
                 <source>Search options</source>
@@ -37,10 +37,6 @@
             <trans-unit id="9">
                 <source>Search</source>
                 <target>Поиск</target>
-            </trans-unit>
-            <trans-unit id="10">
-                <source>Add manually</source>
-                <target>Добавление вручную</target>
             </trans-unit>
             <trans-unit id="11">
                 <source>From source</source>
@@ -131,8 +127,8 @@
                 <target>Жанры</target>
             </trans-unit>
             <trans-unit id="33">
-                <source>Manufacturer</source>
-                <target>Производитель</target>
+                <source>Country</source>
+                <target>Страна</target>
             </trans-unit>
             <trans-unit id="34">
                 <source>Storage</source>
@@ -201,10 +197,6 @@
             <trans-unit id="50">
                 <source>goes from</source>
                 <target>выходит с</target>
-            </trans-unit>
-            <trans-unit id="51">
-                <source>Production</source>
-                <target>Производство</target>
             </trans-unit>
             <trans-unit id="52">
                 <source>Alternative names</source>
@@ -311,8 +303,8 @@
                 <target>Название элемента</target>
             </trans-unit>
             <trans-unit id="78">
-                <source>Add manually</source>
-                <target>Добавить вручную</target>
+                <source>Fill manually</source>
+                <target>Заполнить вручную</target>
             </trans-unit>
             <trans-unit id="79">
                 <source>General</source>
@@ -347,8 +339,8 @@
                 <target>Общие настройки</target>
             </trans-unit>
             <trans-unit id="87">
-                <source>Task scheduler - a separate process to perform various tasks in the background, such as checks for system updates.</source>
-                <target>Планировщик задач - отдельный процесс выполняющий различные задачи в фоновом режиме, например проверяет наличие обновлений системы.</target>
+                <source>A separate process to perform various tasks in the background, such as checks for system updates</source>
+                <target>Отдельный процесс выполняющий различные задачи в фоновом режиме, например проверяет наличие обновлений системы</target>
             </trans-unit>
             <trans-unit id="88">
                 <source>Date created</source>
@@ -541,6 +533,30 @@
             <trans-unit id="173">
                 <source>For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application.</source>
                 <target>Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения.</target>
+            </trans-unit>
+            <trans-unit id="174">
+                <source>Rating</source>
+                <target>Райтинг</target>
+            </trans-unit>
+            <trans-unit id="175">
+                <source>Item rating</source>
+                <target>Рейтинг записи</target>
+            </trans-unit>
+            <trans-unit id="176">
+                <source>Studio</source>
+                <target>Студия</target>
+            </trans-unit>
+            <trans-unit id="177">
+                <source>Animation studio</source>
+                <target>Анимационная студия</target>
+            </trans-unit>
+            <trans-unit id="178">
+                <source>Home Anime DB</source>
+                <target>Главная Anime DB</target>
+            </trans-unit>
+            <trans-unit id="179">
+                <source>m.</source>
+                <target>м.</target>
             </trans-unit>
         </body>
     </file>

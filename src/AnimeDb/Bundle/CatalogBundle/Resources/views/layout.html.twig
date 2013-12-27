@@ -26,7 +26,9 @@
 	</div>
 	<div id="header">
 		<h1 class="logo">
-			<a href="{{ path('home') }}" title="Home Anime DB"><span>Home Anime DB</span></a>
+			<a href="{{ path('home') }}" title="{% trans %}Home Anime DB{% endtrans %}">
+				<span>{% trans %}Home Anime DB{% endtrans %}</span>
+			</a>
 		</h1>
 	</div>
 	<div id="content-wrapper">
@@ -36,7 +38,7 @@
 		</div>
 	</div>
 	<div id="footer">
-		<div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The product is licensed under the %license%.{% endtrans %}</div>
+		<div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The program is licensed under the %license%.{% endtrans %}</div>
 		<div class="copy">&copy; 2011-{{ "now"|date("Y") }} <a href="http://anime-db.org/">Anime DB</a></div>
 	</div>
 	<div id="line"></div>

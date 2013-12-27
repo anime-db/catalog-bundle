@@ -15,10 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
 use Symfony\Component\HttpFoundation\Request;
-use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
-use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
-use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
-use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 use Doctrine\ORM\Query\Expr;
 use AnimeDb\Bundle\AppBundle\Service\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Settings\General as GeneralForm;
@@ -105,6 +101,10 @@ class HomeController extends Controller
         'date_update' => [
             'title' => 'Last updated item',
             'name'  => 'Update'
+        ],
+        'rating' => [
+            'title' => 'Item rating',
+            'name'  => 'Rating'
         ],
         'date_start'  => [
             'title' => 'Start date of production',
@@ -341,7 +341,8 @@ class HomeController extends Controller
             'show_limit' => $show_limit,
             'pagination' => $pagination,
             'sort_by' => $sort_by,
-            'sort_direction' => $sort_direction
+            'sort_direction' => $sort_direction,
+            'searched' => $request->query->count()
         ]);
     }
 

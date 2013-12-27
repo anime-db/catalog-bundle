@@ -15,12 +15,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Refill item field gengres
+ * Refill item field country
  *
  * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Gengres extends AbstractType
+class Country extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -29,11 +29,9 @@ class Gengres extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genres', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Genre',
+            ->add('country', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
-                'multiple' => true,
-                'expanded' => true,
                 'label'    => false
             ])
             ->add('source', 'hidden', [

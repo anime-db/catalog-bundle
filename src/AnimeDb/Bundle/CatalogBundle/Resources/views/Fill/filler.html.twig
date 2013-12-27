@@ -7,10 +7,6 @@
 	<script type="text/javascript" src="{{ asset('/bundles/animedbcatalog/js/jquery.form.min.js') }}"></script>
 {% endblock %}
 
-{% if fill_form %}
-	{% form_theme fill_form 'AnimeDbAppBundle:Form:fields.html.twig' %}
-{% endif %}
-
 {% block content %}
 <div class="b-source-filler b-source-filler-{{ plugin }}">
 	<h2>{% trans with {'%plugin%': plugin_name} %}Fill item from source plugin %plugin%{% endtrans %}</h2>

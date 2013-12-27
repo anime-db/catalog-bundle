@@ -56,13 +56,6 @@ td, th {
 /**
  * Forms
  */
-form label {
-	height: 26px;
-	width: 250px;
-	display: block;
-	line-height: 26px;
-	float: left;
-}
 input,
 textarea {
 	width: 300px;
@@ -110,18 +103,34 @@ button:hover {
 	margin-bottom: 5px;
 	clear: both;
 }
-.f-collection {
-	margin: 0 0 10px 30px;
+.f-col {
+	float: left;
+}
+.f-col:first-child {
+	width: 250px;
+}
+.f-col-clear {
 	clear: both;
 }
-.f-collection .f-fields {
-	display: inline-block;
-	width: 564px;
+.f-collection .f-col:first-child {
+	width: auto;
+	margin-right: 10px;
 }
 .f-collection .bt-remove-item,
 .f-collection .bt-add-item {
-	vertical-align: top;
-	margin-top: 5px;
+	margin: 5px 0 0 10px;
+	float: right;
+}
+.f-collection label {
+	min-height: 26px;
+	line-height: 26px;
+}
+.f-help {
+	display: block;
+	width: 230px;
+	font-size: 90%;
+	line-height: 100%;
+	color: #999;
 }
 
 
@@ -425,7 +434,9 @@ h1.logo a span {
 	display: none;
 }
 .home-search div {
+	width: auto !important;
 	display: inline-block;
+	float: none;
 }
 
 
@@ -904,10 +915,9 @@ h1.logo a span {
 	display: inline-block;
 	background: none;
 	border: 0;
-	width: 16px;
-	height: 16px;
-	padding: 0;
-	text-indent: 16px;
+	width: 0;
+	height: 0;
+	padding: 16px 0 0 16px;
 	overflow: hidden;
 	background-position: top left;
 	background-repeat: no-repeat;
@@ -915,7 +925,8 @@ h1.logo a span {
 .icon-label {
 	overflow: visible;
 	width: auto;
-	text-indent: 18px;
+	height: 16px;
+	padding: 0 0 0 18px;
 	font-weight: normal;
 }
 .icon-plus {
@@ -955,6 +966,9 @@ h1.logo a span {
 }
 .icon-plugin-install {
 	background-image: url(../images/plugin_install.png);
+}
+.icon-fill {
+	background-image: url(../images/fill.png);
 }
 
 /**
@@ -1020,23 +1034,32 @@ h1.logo a span {
 	to {top:0;}
 }
 .b-notice .b-message {
-	width: 874px;
+	width: 845px;
 	padding: 15px 0 15px 20px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	float: left;
 }
-.b-notice .bt-close {
-	margin: 15px 20px;
-	padding: 0;
-	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEV/f3+BgYGgoKDOzs7JycnFxcW8vLzj4+OHh4efn5/Q0NDi4uLc3NyCgoL9/f3f39/g4ODn5+fe3t62traFhYXl5eW1tbWampr4+PiZmZm7u7vGxsa3t7f///+ueh03AAAAHnRSTlP//////////////////////////////////////wDsGBxeAAAAc0lEQVQY02WPNxIDMRDDsCvpcs5nm///pgtXPrWcIQkgSRpTUaRRkoSk1g3AvP0FTQV+HA5VI6Fy494lab/ZSjHUnFcXpNBdJ/XAZDYvPTHSL7PZRMIVACDISRSsUjSwKK28nsHnWXnno9ltBpaj53L/+l8etw1tLADaAAAAAABJRU5ErkJggg==') 0 0 no-repeat;
+.b-notice .b-controls {
+	height: 16px;
+	padding: 15px 20px;
+	float: right;
+}
+.b-notice .bt-close,
+.b-notice .bt-see-later {
 	border: none;
 	width: 16px;
 	height: 16px;
-	text-indent: 16px;
+	margin: 0 2px;
+	padding: 16px 0 0 16px;
 	overflow: hidden;
-	float: right;
+}
+.b-notice .bt-close {
+	background: url('../images/close_mini.png') 0 0 no-repeat;
+}
+.b-notice .bt-see-later {
+	background: url('../images/clock.png') 0 0 no-repeat;
 }
 
 /**
@@ -1082,28 +1105,17 @@ h1.logo a span {
 	position: relative;
 	margin-left: 5px;
 }
-.f-refill > span {
-	display: inline-block;
-	height: 16px;
-	width: 0;
-	padding-left: 16px;
-	text-indent: 16px;
-	overflow: hidden;
-	background: url(../images/fill.png) no-repeat 0 0;
-}
 
 #refill-form-anime_db_catalog_entity_item_date_start,
 #refill-form-anime_db_catalog_entity_item_date_end,
 #refill-form-anime_db_catalog_entity_item_episodes_number,
 #refill-form-anime_db_catalog_entity_item_duration,
-#refill-form-anime_db_catalog_entity_item_manufacturer,
-#refill-form-anime_db_catalog_entity_item_manufacturer #anime_db_catalog_entity_item_manufacturer {
+#refill-form-anime_db_catalog_entity_item_country,
+#refill-form-anime_db_catalog_entity_item_country #anime_db_catalog_entity_item_country {
 	width: 310px;
 }
 #refill-form-anime_db_catalog_entity_item_genres {
-	width: 150px;
-	height: 116px;
-	text-align: center;
+	width: 580px;
 }
 /* hav textarea in form */
 #refill-form-anime_db_catalog_entity_item_summary,
@@ -1149,6 +1161,10 @@ h1.logo a span {
 }
 #refill-form-anime_db_catalog_entity_item_images .f-collection .f-fields {
 	width: 164px;
+}
+#refill-form-anime_db_catalog_entity_item_studio {
+	width: 280px;
+	text-align: center;
 }
 
 #refill-search {
@@ -1201,4 +1217,57 @@ h1.logo a span {
 .b-list-plugins .description,
 .b-list-plugins article:first-child {
 	margin: 0;
+}
+
+/**
+ * Form rating
+ */
+.f-rating:hover .f-rating-star:hover,
+.f-rating:hover .f-rating-star:hover ~ .f-rating-star {
+	background-color: #ff9231;
+}
+.f-rating-input:checked ~ .f-rating-star,
+.b-rating .b-star.b-select {
+	background-color: #ffcc1c;
+}
+.f-rating-star,
+.f-rating:hover .f-rating-star,
+.b-rating .b-star {
+	display: block;
+	float: right;
+	width: 0;
+	height: 0;
+	padding: 17px 0 0 17px;
+	overflow: hidden;
+	background: #cccccc url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAYAAAA7bUf6AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL9JREFUeNpi/A8EDBQCJiLU+BJU8R8/aAE5FErjBIQMUYCqkSfXkHKoPAyXk2rIIiCWQjNECiqOARihsVMCxKeB+AkQPwPiH3iCkR2IpYFYBohNgbiHBSrBBcSHiIzRn0B8D4od0GMnCc35hHAirjBxJ9IAD0IBq0XAAG10DdhSrACBMOEnJtm/I2DIO2IM+YLGl0LjfybGEJgiTSCeCcRPobQGVPwroQz4CIh1gHgOjpQ8G4j1oOowUixFACDAAPlHC0B388ixAAAAAElFTkSuQmCC') no-repeat 0 0;
+	cursor: pointer;
+}
+.f-rating .f-rating-input {
+	display: none;
+}
+.b-rating .b-star {
+	display: inline-block;
+	float: none;
+	cursor: default;
+}
+
+#anime_db_catalog_entity_item_genres {
+	width: 595px;
+}
+#anime_db_catalog_entity_item_genres input,
+#anime_db_catalog_entity_item_genres label {
+	display: inline-block;
+}
+#anime_db_catalog_entity_item_genres input {
+	margin: 0;
+	position: relative;
+	vertical-align: middle;
+	bottom: 1px;
+}
+#anime_db_catalog_entity_item_genres label {
+	width: 130px;
+	margin-left: 3px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }

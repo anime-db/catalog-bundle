@@ -16,7 +16,11 @@
 	<section class="result">
 		<header>{% trans %}Search results{% endtrans %}</header>
 		<article>
-			{% include 'AnimeDbCatalogBundle:Home:list-items.html.twig' %}
+			{% if searched == true and items is empty %}
+				{% trans %}Nothing found{% endtrans %}
+			{% else %}
+				{% include 'AnimeDbCatalogBundle:Home:list-items.html.twig' %}
+			{% endif %}
 		</article>
 	</section>
 </div>

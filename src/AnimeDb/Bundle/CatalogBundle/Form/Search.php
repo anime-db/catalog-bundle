@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Search items form
@@ -64,22 +65,41 @@ class Search extends AbstractType
             ])
             ->add('type', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Type',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('t')->innerJoin('t.items', 'i');
+                },
                 'property' => 'name',
                 'required' => false
             ])
-            ->add('genres', 'entity', [
+            ->add('genre', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Genre',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('g')->innerJoin('g.items', 'i');
+                },
                 'property' => 'name',
-                'multiple' => true,
                 'required' => false
             ])
-            ->add('manufacturer', 'entity', [
+            ->add('studio', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Studio',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
+                },
+                'property' => 'name',
+                'required' => false
+            ])
+            ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('c')->innerJoin('c.items', 'i');
+                },
                 'property' => 'name',
                 'required' => false
             ])
             ->add('storage', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Storage',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
+                },
                 'property' => 'name',
                 'required' => false
             ]);
