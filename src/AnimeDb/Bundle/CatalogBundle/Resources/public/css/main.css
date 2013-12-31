@@ -106,13 +106,13 @@ button:hover {
 .f-col {
 	float: left;
 }
-.f-col:first-child {
+.f-col-label {
 	width: 250px;
 }
 .f-col-clear {
 	clear: both;
 }
-.f-collection .f-col:first-child {
+.f-collection .f-col-label {
 	width: auto;
 	margin-right: 10px;
 }
@@ -1068,8 +1068,6 @@ h1.logo a span {
 .b-notice-list .t-message {
 	width: 500px;
 	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 
 /**
