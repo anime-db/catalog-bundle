@@ -86,7 +86,9 @@ class Search extends AbstractType
                     return $rep->createQueryBuilder('g')->innerJoin('g.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
