@@ -712,6 +712,15 @@ h1.logo a span {
 .b-search .b-name .b-button {
 	padding-left: 5px;
 }
+#b-search-params {
+	display: none;
+}
+.b-search .bt-toggle-block {
+	cursor: pointer;
+}
+.b-search .bt-toggle-block:hover {
+	text-decoration: underline;
+}
 
 /**
  * Pagination

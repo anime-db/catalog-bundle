@@ -13,8 +13,8 @@
 		</table>
 
 		<section class="b-params">
-			<header>{% trans %}Search options{% endtrans %}</header>
-			<article>
+			<header class="bt-toggle-block" data-target="#b-search-params">{% trans %}Search options{% endtrans %}</header>
+			<article id="b-search-params">
 				{{ form_widget(form, {'id': 'f-search'}) }}
 			</article>
 		</section>
