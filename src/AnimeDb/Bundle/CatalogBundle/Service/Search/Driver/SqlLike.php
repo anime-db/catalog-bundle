@@ -69,6 +69,11 @@ class SqlLike implements DriverSearch
                 ->andWhere('i.name LIKE :name OR n.name LIKE :name')
                 ->setParameter('name', str_replace('%', '%%', $data->getName()).'%');
         }
+        // date add
+        if ($data->getDateAdd() instanceof \DateTime) {
+            $selector->andWhere('i.date_add >= :date_add')
+                ->setParameter('date_add', $data->getDateAdd()->format('Y-m-d'));
+        }
         // date start
         if ($data->getDateStart() instanceof \DateTime) {
             $selector->andWhere('i.date_start >= :date_start')

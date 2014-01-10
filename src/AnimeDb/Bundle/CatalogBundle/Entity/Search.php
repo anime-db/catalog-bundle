@@ -27,6 +27,15 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 class Search
 {
     /**
+     * Date add item
+     *
+     * @Assert\Date()
+     *
+     * @var \DateTime|null
+     */
+    protected $date_add;
+
+    /**
      * Date end release
      *
      * @Assert\Date()
@@ -110,7 +119,30 @@ class Search
     }
 
     /**
-     * Set date_start
+     * Set date add
+     *
+     * @param \DateTime|null $date_add
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function setDateAdd(\DateTime $date_add = null)
+    {
+        $this->date_add = $date_add ? clone $date_add : $date_add;
+        return $this;
+    }
+
+    /**
+     * Get date add
+     *
+     * @return \DateTime|null
+     */
+    public function getDateAdd()
+    {
+        return $this->date_add ? clone $this->date_add : null;
+    }
+
+    /**
+     * Set date start
      *
      * @param \DateTime|null $date_start
      *
@@ -123,7 +155,7 @@ class Search
     }
 
     /**
-     * Get date_start
+     * Get date start
      *
      * @return \DateTime|null
      */
@@ -133,7 +165,7 @@ class Search
     }
 
     /**
-     * Set date_end
+     * Set date end
      *
      * @param \DateTime|null $date_end
      *
@@ -146,7 +178,7 @@ class Search
     }
 
     /**
-     * Get date_end
+     * Get date end
      *
      * @return \DateTime|null
      */
