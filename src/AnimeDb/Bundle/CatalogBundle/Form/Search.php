@@ -80,13 +80,16 @@ class Search extends AbstractType
                 'property' => 'name',
                 'required' => false
             ])
-            ->add('genre', 'entity', [
+            ->add('genres', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Genre',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('g')->innerJoin('g.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'help' => 'Select multiple genres to narrow your search'
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',

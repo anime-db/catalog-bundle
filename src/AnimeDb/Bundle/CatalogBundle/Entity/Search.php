@@ -54,11 +54,11 @@ class Search
     protected $date_start;
 
     /**
-     * Genre
+     * Genres
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Genre|null
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $genre;
+    protected $genres;
 
     /**
      * Country
@@ -94,6 +94,13 @@ class Search
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio|null
      */
     protected $studio;
+
+    /**
+     * Construct
+     */
+    public function __construct() {
+        $this->genres  = new ArrayCollection();
+    }
 
     /**
      * Set name
@@ -201,28 +208,36 @@ class Search
     }
 
     /**
-     * Get genre
+     * Add genres
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
-     */
-    public function getGenre()
-    {
-        return $this->genre;
-    }
-
-    /**
-     * Set country
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
-    public function setCountry(Country $country = null)
+    public function addGenre(Genre $genre)
     {
-        if ($this->country !== $country) {
-            $this->country = $country;
-        }
+        $this->genres->add($genre);
         return $this;
+    }
+
+    /**
+     * Remove genres
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
+     */
+    public function removeGenre(Genre $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    /**
+     * Get genres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGenres()
+    {
+        return $this->genres;
     }
 
     /**

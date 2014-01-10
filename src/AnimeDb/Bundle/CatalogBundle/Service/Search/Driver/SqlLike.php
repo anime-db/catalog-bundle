@@ -100,10 +100,13 @@ class SqlLike implements DriverSearch
                 ->setParameter('type', $data->getType()->getId());
         }
         // genres
-        if ($data->getGenre() instanceof GenreEntity) {
+        if ($data->getGenres()->count()) {
+            $ids = [];
+            foreach ($data->getGenres() as $key => $genre) {
+                $ids[] = (int)$genre->getId();
+            }
             $selector->innerJoin('i.genres', 'g')
-                ->andWhere('g.id IN (:genre)')
-                ->setParameter('genre', $data->getGenre()->getId());
+                ->andWhere('g.id IN ('.implode(',', $ids).')');
         }
         // studio
         if ($data->getStudio() instanceof StudioEntity) {
@@ -117,6 +120,11 @@ class SqlLike implements DriverSearch
             ->select('COUNT(DISTINCT i)')
             ->getQuery()
             ->getSingleScalarResult();
+
+        // genres
+        if ($data->getGenres()->count()) {
+            $selector->andHaving('COUNT(i.id) = '.$data->getGenres()->count());
+        }
 
         // apply order
         $selector->orderBy('i.'.$sort_column, $sort_direction);
@@ -133,7 +141,7 @@ class SqlLike implements DriverSearch
 
         // get items
         $list = $selector
-            ->groupBy('i')
+            ->groupBy('i.id')
             ->getQuery()
             ->getResult();
 

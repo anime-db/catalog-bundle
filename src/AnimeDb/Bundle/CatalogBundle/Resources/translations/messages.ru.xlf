@@ -566,6 +566,10 @@
                 <source>Will select all records ending with a specified date</source>
                 <target>Будут выбраны все записи заканчивающиеся указанной датой</target>
             </trans-unit>
+            <trans-unit id="182">
+                <source>Select multiple genres to narrow your search</source>
+                <target>Выберете несколько жанров, чтобы сузить поиск</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
