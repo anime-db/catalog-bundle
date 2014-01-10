@@ -1268,24 +1268,24 @@ h1.logo a span {
 }
 
 #anime_db_catalog_entity_item_genres,
-#anime_db_catalog_search_items_genre {
+#anime_db_catalog_search_items_genres {
 	width: 595px;
 }
 #anime_db_catalog_entity_item_genres input,
 #anime_db_catalog_entity_item_genres label,
-#anime_db_catalog_search_items_genre input,
-#anime_db_catalog_search_items_genre label {
+#anime_db_catalog_search_items_genres input,
+#anime_db_catalog_search_items_genres label {
 	display: inline-block;
 }
 #anime_db_catalog_entity_item_genres input,
-#anime_db_catalog_search_items_genre input {
+#anime_db_catalog_search_items_genres input {
 	margin: 0;
 	position: relative;
 	vertical-align: middle;
 	bottom: 1px;
 }
 #anime_db_catalog_entity_item_genres label,
-#anime_db_catalog_search_items_genre label {
+#anime_db_catalog_search_items_genres label {
 	width: 130px;
 	margin-left: 3px;
 	overflow: hidden;
