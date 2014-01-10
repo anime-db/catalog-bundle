@@ -57,17 +57,20 @@ class Search extends AbstractType
                 'label' => 'Date added',
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'help' => 'Will select all records starting with the specified date'
             ])
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'help' => 'Will select all records starting with the specified date'
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'help' => 'Will select all records ending with a specified date'
             ])
             ->add('type', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Type',
