@@ -88,7 +88,8 @@ class Search extends AbstractType
                 'property' => 'name',
                 'required' => false,
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
+                'help' => 'Select multiple genres to narrow your search'
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',

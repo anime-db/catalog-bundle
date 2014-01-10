@@ -121,6 +121,11 @@ class SqlLike implements DriverSearch
             ->getQuery()
             ->getSingleScalarResult();
 
+        // genres
+        if ($data->getGenres()->count()) {
+            $selector->andHaving('COUNT(i.id) = '.$data->getGenres()->count());
+        }
+
         // apply order
         $selector->orderBy('i.'.$sort_column, $sort_direction);
         if ($sort_column != 'name') {
