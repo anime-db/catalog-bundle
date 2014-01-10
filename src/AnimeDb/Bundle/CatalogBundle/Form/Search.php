@@ -53,6 +53,12 @@ class Search extends AbstractType
                 'required' => false,
                 'attr' => $this->source ? ['data-source' => $this->source] : []
             ])
+            ->add('date_add', 'date', [
+                'label' => 'Date added',
+                'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
+                'required' => false
+            ])
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
