@@ -44,7 +44,7 @@ class HomeController extends Controller
      *
      * @var integer
      */
-    const SEARCH_ITEMS_PER_PAGE = 6;
+    const SEARCH_ITEMS_PER_PAGE = 8;
 
     /**
      * Limit for show all items
