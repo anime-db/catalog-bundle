@@ -1042,6 +1042,7 @@ h1.logo a span {
 	top: 0px;
 	animation: show-notice .6s;
 	-webkit-animation: show-notice .6s;
+	z-index: 1;
 }
 @keyframes show-notice {
 	from {top:-60px;}
