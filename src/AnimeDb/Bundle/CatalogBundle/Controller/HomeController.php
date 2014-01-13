@@ -86,7 +86,7 @@ class HomeController extends Controller
      *
      * @var array
      */
-    public static $search_show_limit = [6, 12, 24, self::SHOW_LIMIT_ALL];
+    public static $search_show_limit = [8, 16, 32, self::SHOW_LIMIT_ALL];
 
     /**
      * Sort items by field
