@@ -53,15 +53,24 @@ class Search extends AbstractType
                 'required' => false,
                 'attr' => $this->source ? ['data-source' => $this->source] : []
             ])
+            ->add('date_add', 'date', [
+                'label' => 'Date added',
+                'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
+                'required' => false,
+                'help' => 'Will select all records starting with the specified date'
+            ])
             ->add('date_start', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'help' => 'Will select all records starting with the specified date'
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'required' => false
+                'required' => false,
+                'help' => 'Will select all records ending with a specified date'
             ])
             ->add('type', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Type',
@@ -71,13 +80,16 @@ class Search extends AbstractType
                 'property' => 'name',
                 'required' => false
             ])
-            ->add('genre', 'entity', [
+            ->add('genres', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Genre',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('g')->innerJoin('g.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'help' => 'Select multiple genres to narrow your search'
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',

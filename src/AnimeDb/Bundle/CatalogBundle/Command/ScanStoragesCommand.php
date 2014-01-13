@@ -65,7 +65,9 @@ class ScanStoragesCommand extends ContainerAwareCommand
             }
 
             $finder = new Finder();
-            $finder->in($storage->getPath());
+            $finder->in($storage->getPath())
+                ->ignoreUnreadableDirs()
+                ->depth('== 0');
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($finder as $file) {
