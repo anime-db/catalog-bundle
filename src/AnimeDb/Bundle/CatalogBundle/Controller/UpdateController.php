@@ -90,12 +90,17 @@ class UpdateController extends Controller
         if (!$phpPath = $phpFinder->find()) {
             throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
         }
-        $root = $this->container->getParameter('kernel.root_dir');
-        $console = $phpPath.' '.$root.'/console';
-        file_put_contents($root.'/../web/update.log', '');
 
+        $root = $this->container->getParameter('kernel.root_dir');
+        $command = $phpPath.' '.$root.'/console animedb:update >web/update.log';
+        file_put_contents($root.'/../web/update.log', '');
         chdir($root.'/../');
-        exec($console.' animedb:update >web/update.log &');
+
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+            pclose(popen('start /b '.$command, 'r'));
+        } else {
+            exec($command.' &');
+        }
 
         return new Response();
     }
