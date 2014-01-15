@@ -1026,9 +1026,13 @@ class Item
     public function freez(EntityManager $em)
     {
         // create reference to existing entity
-        $this->country = $em->getReference(get_class($this->country), $this->country->getId());
+        if ($this->country) {
+            $this->country = $em->getReference(get_class($this->country), $this->country->getId());
+        }
+        if ($this->storage) {
+            $this->storage = $em->getReference(get_class($this->storage), $this->storage->getId());
+        }
         $this->type = $em->getReference(get_class($this->type), $this->type->getId());
-        $this->storage = $em->getReference(get_class($this->storage), $this->storage->getId());
         foreach ($this->genres as $key => $genre) {
             $this->genres[$key] = $em->getReference(get_class($genre), $genre->getId());
         }
