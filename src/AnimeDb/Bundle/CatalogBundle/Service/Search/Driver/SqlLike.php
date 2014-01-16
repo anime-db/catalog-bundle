@@ -43,6 +43,14 @@ class SqlLike implements DriverSearch
     public function __construct(Registry $doctrine)
     {
         $this->repository = $doctrine->getRepository('AnimeDbCatalogBundle:Item');
+
+        // register custom lower()
+        $conn = $doctrine->getConnection()->getWrappedConnection();
+        if (method_exists($conn, 'sqliteCreateFunction')) {
+            $conn->sqliteCreateFunction('lower', function ($str) {
+                return mb_strtolower($str, 'UTF8');
+            }, 1);
+        }
     }
 
     /**
@@ -63,11 +71,10 @@ class SqlLike implements DriverSearch
 
         // main name
         if ($data->getName()) {
-            // TODO create index name for rapid and accurate search
             $selector
                 ->innerJoin('i.names', 'n')
-                ->andWhere('i.name LIKE :name OR n.name LIKE :name')
-                ->setParameter('name', str_replace('%', '%%', $data->getName()).'%');
+                ->andWhere('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+                ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($data->getName(), 'UTF8')).'%');
         }
         // date add
         if ($data->getDateAdd() instanceof \DateTime) {
@@ -167,8 +174,8 @@ class SqlLike implements DriverSearch
         $selector = $this->repository->createQueryBuilder('i');
         $selector
             ->innerJoin('i.names', 'n')
-            ->andWhere('i.name LIKE :name OR n.name LIKE :name')
-            ->setParameter('name', str_replace('%', '%%', $name).'%');
+            ->andWhere('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF8')).'%');
 
         if ($limit > 0) {
             $selector->setMaxResults($limit);

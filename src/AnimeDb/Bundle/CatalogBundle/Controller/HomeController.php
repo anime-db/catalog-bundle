@@ -210,7 +210,7 @@ class HomeController extends Controller
      */
     public function autocompleteNameAction(Request $request)
     {
-        $term = strtolower($request->get('term'));
+        $term = mb_strtolower($request->get('term'), 'UTF8');
         /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
         $service = $this->get('anime_db.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
@@ -218,12 +218,12 @@ class HomeController extends Controller
         $list = [];
         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
         foreach ($result as $item) {
-            if (strpos(strtolower($item->getName()), $term) === 0) {
+            if (strpos(mb_strtolower($item->getName(), 'UTF8'), $term) === 0) {
                 $list[] = $item->getName();
             } else {
                 /* @var $name \AnimeDb\Bundle\CatalogBundle\Entity\Name */
                 foreach ($item->getNames() as $name) {
-                    if (strpos(strtolower($name->getName()), $term) === 0) {
+                    if (strpos(mb_strtolower($name->getName(), 'UTF8'), $term) === 0) {
                         $list[] = $name->getName();
                         break;
                     }
