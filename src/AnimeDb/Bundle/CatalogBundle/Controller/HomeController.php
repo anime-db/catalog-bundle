@@ -357,7 +357,7 @@ class HomeController extends Controller
     {
         $entity = new GeneralEntity();
         $entity->setSerialNumber($this->container->getParameter('serial_number'));
-        $entity->setTaskScheduler($this->container->getParameter('task_scheduler')['enabled']);
+        $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
         $entity->setDefaultSearch($this->container->getParameter('default_search'));
         $entity->setLocale($request->getLocale());
 
@@ -371,7 +371,7 @@ class HomeController extends Controller
                 $file = $this->container->getParameter('kernel.root_dir').'/config/parameters.yml';
                 $parameters = Yaml::parse($file);
                 $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
-                $parameters['parameters']['task_scheduler']['enabled'] = $entity->getTaskScheduler();
+                $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
                 $parameters['parameters']['default_search'] = $entity->getDefaultSearch();
                 file_put_contents($file, Yaml::dump($parameters));
                 // change locale
