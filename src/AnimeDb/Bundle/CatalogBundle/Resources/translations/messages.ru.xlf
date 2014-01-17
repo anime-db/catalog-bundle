@@ -467,12 +467,12 @@
                 <target>Да</target>
             </trans-unit>
             <trans-unit id="157">
-                <source>Search source of filling for plugin %plugin%</source>
-                <target>Поиск источника заполнения для плагина %plugin%</target>
+                <source>Search items for %plugin%</source>
+                <target>Поиск записи для %plugin%</target>
             </trans-unit>
             <trans-unit id="158">
-                <source>Fill item from source plugin %plugin%</source>
-                <target>Заполнение записи из источника плагином %plugin%</target>
+                <source>Fill item for %plugin%</source>
+                <target>Заполнение записи для %plugin%</target>
             </trans-unit>
             <trans-unit id="159">
                 <source>Loading...</source>
