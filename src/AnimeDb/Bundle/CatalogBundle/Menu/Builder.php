@@ -45,8 +45,8 @@ class Builder extends ContainerAware
         $this->addPluginItems(
             $this->container->get('anime_db.plugin.search_fill'),
             $add,
-            'Search source of filling',
-            'Search the source and fill record from it'
+            'Search by name',
+            'Search by name the source of filling item'
         );
         // add filler plugin items
         $this->addPluginItems(
