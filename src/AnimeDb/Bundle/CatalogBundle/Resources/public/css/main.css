@@ -1214,6 +1214,9 @@ h1.logo a span {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+.b-list-plugins .info {
+	width: 650px;
+}
 .b-list-plugins .control {
 	float: right;
 }
