@@ -851,16 +851,15 @@ h1.logo a span {
 .f-image .change-button {
 	cursor: pointer;
 	position: absolute;
-	top: 1px;
-	right: 1px;
-	padding: 0;
+	top: 0px;
+	right: 0px;
+	padding: 152px 0 0 152px;
 	margin: 0;
-	width: 16px;
-	height: 16px;
-	text-indent: 16px;
+	width: 152px;
+	height: 152px;
 	overflow: hidden;
 	border: none;
-	background: url(../images/image_edit.png) no-repeat 0 0;
+	background: none;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 	border-radius: 0;
