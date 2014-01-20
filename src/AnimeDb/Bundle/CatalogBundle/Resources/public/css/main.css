@@ -896,8 +896,28 @@ h1.logo a span {
 	border: 1px #ff9f0b solid;
 	padding: 3px 5px;
 }
-#f-path-popup input {
-	width: 372px;
+#f-path-popup .t-path {
+	width: 100%;
+}
+#f-path-popup .t-path,
+#f-path-popup .t-path td,
+#f-path-popup .t-path tr {
+	border: 0;
+	padding: 0;
+}
+#f-path-popup .t-path .b-letter,
+#f-path-popup .t-path .b-letter select {
+	width: 36px;
+}
+#f-path-popup .t-path .b-letter {
+	padding-right: 5px;
+}
+#f-path-popup .t-path input {
+	width: 100%;
+}
+#f-path-popup .t-path .b-button {
+	width: 21px;
+	padding-left: 5px;
 }
 #f-path-popup .change-path {
 	display: inline-block;
