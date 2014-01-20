@@ -311,8 +311,8 @@
                 <target>Общие</target>
             </trans-unit>
             <trans-unit id="80">
-                <source>Search source of filling</source>
-                <target>Поиск источника заполнения</target>
+                <source>Search by name</source>
+                <target>Поиск по названию</target>
             </trans-unit>
             <trans-unit id="81">
                 <source>Fill from source</source>
@@ -323,8 +323,8 @@
                 <target>Импорт записей</target>
             </trans-unit>
             <trans-unit id="83">
-                <source>Search the source and fill record from it</source>
-                <target>Найти источник и заполнить запись из него</target>
+                <source>Search by name the source of filling item</source>
+                <target>Поиск по названию источника заполнения записи</target>
             </trans-unit>
             <trans-unit id="84">
                 <source>Fill record from source (example source is URL)</source>
@@ -467,12 +467,12 @@
                 <target>Да</target>
             </trans-unit>
             <trans-unit id="157">
-                <source>Search source of filling for plugin %plugin%</source>
-                <target>Поиск источника заполнения для плагина %plugin%</target>
+                <source>Search items for %plugin%</source>
+                <target>Поиск записи для %plugin%</target>
             </trans-unit>
             <trans-unit id="158">
-                <source>Fill item from source plugin %plugin%</source>
-                <target>Заполнение записи из источника плагином %plugin%</target>
+                <source>Fill item for %plugin%</source>
+                <target>Заполнение записи для %plugin%</target>
             </trans-unit>
             <trans-unit id="159">
                 <source>Loading...</source>
@@ -557,6 +557,18 @@
             <trans-unit id="179">
                 <source>m.</source>
                 <target>м.</target>
+            </trans-unit>
+            <trans-unit id="180">
+                <source>Will select all records starting with the specified date</source>
+                <target>Будут выбраны все записи начинающиеся с указанной даты</target>
+            </trans-unit>
+            <trans-unit id="181">
+                <source>Will select all records ending with a specified date</source>
+                <target>Будут выбраны все записи заканчивающиеся указанной датой</target>
+            </trans-unit>
+            <trans-unit id="182">
+                <source>Select multiple genres to narrow your search</source>
+                <target>Выберете несколько жанров, чтобы сузить поиск</target>
             </trans-unit>
         </body>
     </file>

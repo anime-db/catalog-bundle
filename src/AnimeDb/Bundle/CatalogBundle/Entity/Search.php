@@ -27,6 +27,15 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 class Search
 {
     /**
+     * Date add item
+     *
+     * @Assert\Date()
+     *
+     * @var \DateTime|null
+     */
+    protected $date_add;
+
+    /**
      * Date end release
      *
      * @Assert\Date()
@@ -45,11 +54,11 @@ class Search
     protected $date_start;
 
     /**
-     * Genre
+     * Genres
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Genre|null
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $genre;
+    protected $genres;
 
     /**
      * Country
@@ -87,6 +96,13 @@ class Search
     protected $studio;
 
     /**
+     * Construct
+     */
+    public function __construct() {
+        $this->genres  = new ArrayCollection();
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -110,7 +126,30 @@ class Search
     }
 
     /**
-     * Set date_start
+     * Set date add
+     *
+     * @param \DateTime|null $date_add
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function setDateAdd(\DateTime $date_add = null)
+    {
+        $this->date_add = $date_add ? clone $date_add : $date_add;
+        return $this;
+    }
+
+    /**
+     * Get date add
+     *
+     * @return \DateTime|null
+     */
+    public function getDateAdd()
+    {
+        return $this->date_add ? clone $this->date_add : null;
+    }
+
+    /**
+     * Set date start
      *
      * @param \DateTime|null $date_start
      *
@@ -123,7 +162,7 @@ class Search
     }
 
     /**
-     * Get date_start
+     * Get date start
      *
      * @return \DateTime|null
      */
@@ -133,7 +172,7 @@ class Search
     }
 
     /**
-     * Set date_end
+     * Set date end
      *
      * @param \DateTime|null $date_end
      *
@@ -146,7 +185,7 @@ class Search
     }
 
     /**
-     * Get date_end
+     * Get date end
      *
      * @return \DateTime|null
      */
@@ -169,28 +208,36 @@ class Search
     }
 
     /**
-     * Get genre
+     * Add genres
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
-     */
-    public function getGenre()
-    {
-        return $this->genre;
-    }
-
-    /**
-     * Set country
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
-    public function setCountry(Country $country = null)
+    public function addGenre(Genre $genre)
     {
-        if ($this->country !== $country) {
-            $this->country = $country;
-        }
+        $this->genres->add($genre);
         return $this;
+    }
+
+    /**
+     * Remove genres
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
+     */
+    public function removeGenre(Genre $genre)
+    {
+        $this->genres->removeElement($genre);
+    }
+
+    /**
+     * Get genres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGenres()
+    {
+        return $this->genres;
     }
 
     /**

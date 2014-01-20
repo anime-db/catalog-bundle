@@ -44,7 +44,7 @@ class HomeController extends Controller
      *
      * @var integer
      */
-    const SEARCH_ITEMS_PER_PAGE = 6;
+    const SEARCH_ITEMS_PER_PAGE = 8;
 
     /**
      * Limit for show all items
@@ -86,7 +86,7 @@ class HomeController extends Controller
      *
      * @var array
      */
-    public static $search_show_limit = [6, 12, 24, self::SHOW_LIMIT_ALL];
+    public static $search_show_limit = [8, 16, 32, self::SHOW_LIMIT_ALL];
 
     /**
      * Sort items by field
@@ -210,7 +210,7 @@ class HomeController extends Controller
      */
     public function autocompleteNameAction(Request $request)
     {
-        $term = strtolower($request->get('term'));
+        $term = mb_strtolower($request->get('term'), 'UTF8');
         /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
         $service = $this->get('anime_db.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
@@ -218,12 +218,12 @@ class HomeController extends Controller
         $list = [];
         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
         foreach ($result as $item) {
-            if (strpos(strtolower($item->getName()), $term) === 0) {
+            if (strpos(mb_strtolower($item->getName(), 'UTF8'), $term) === 0) {
                 $list[] = $item->getName();
             } else {
                 /* @var $name \AnimeDb\Bundle\CatalogBundle\Entity\Name */
                 foreach ($item->getNames() as $name) {
-                    if (strpos(strtolower($name->getName()), $term) === 0) {
+                    if (strpos(mb_strtolower($name->getName(), 'UTF8'), $term) === 0) {
                         $list[] = $name->getName();
                         break;
                     }
@@ -357,7 +357,7 @@ class HomeController extends Controller
     {
         $entity = new GeneralEntity();
         $entity->setSerialNumber($this->container->getParameter('serial_number'));
-        $entity->setTaskScheduler($this->container->getParameter('task_scheduler')['enabled']);
+        $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
         $entity->setDefaultSearch($this->container->getParameter('default_search'));
         $entity->setLocale($request->getLocale());
 
@@ -371,7 +371,7 @@ class HomeController extends Controller
                 $file = $this->container->getParameter('kernel.root_dir').'/config/parameters.yml';
                 $parameters = Yaml::parse($file);
                 $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
-                $parameters['parameters']['task_scheduler']['enabled'] = $entity->getTaskScheduler();
+                $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
                 $parameters['parameters']['default_search'] = $entity->getDefaultSearch();
                 file_put_contents($file, Yaml::dump($parameters));
                 // change locale

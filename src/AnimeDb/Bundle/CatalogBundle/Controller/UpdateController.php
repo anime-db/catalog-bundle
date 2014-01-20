@@ -61,7 +61,7 @@ class UpdateController extends Controller
 
             // push event to execute update
             $host = $request->getHost().':'.$request->getPort();
-            $fp = fsockopen($host, 80);
+            $fp = fsockopen($host, 80, $errno, $errstr, 1);
             $out = "POST ".$this->generateUrl('update_exec')." HTTP/1.1\r\n";
             $out .= "Host: ".$host."\r\n";
             $out .= "Connection: Close\r\n\r\n";
@@ -86,13 +86,21 @@ class UpdateController extends Controller
         ignore_user_abort(true);
         set_time_limit(0);
 
-        $root = $this->container->getParameter('kernel.root_dir');
-        $finder = new PhpExecutableFinder();
-        $console = $finder->find().' '.$root.'/console';
-        file_put_contents(($log = $root.'/../web/update.log'), '');
+        $phpFinder = new PhpExecutableFinder();
+        if (!$phpPath = $phpFinder->find()) {
+            throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
+        }
 
+        $root = $this->container->getParameter('kernel.root_dir');
+        $command = $phpPath.' '.$root.'/console animedb:update >web/update.log';
+        file_put_contents($root.'/../web/update.log', '');
         chdir($root.'/../');
-        exec($console.' animedb:update >'.$log.' &');
+
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+            pclose(popen('start /b '.$command, 'r'));
+        } else {
+            exec($command.' &');
+        }
 
         return new Response();
     }

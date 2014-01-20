@@ -43,6 +43,14 @@ class SqlLike implements DriverSearch
     public function __construct(Registry $doctrine)
     {
         $this->repository = $doctrine->getRepository('AnimeDbCatalogBundle:Item');
+
+        // register custom lower()
+        $conn = $doctrine->getConnection()->getWrappedConnection();
+        if (method_exists($conn, 'sqliteCreateFunction')) {
+            $conn->sqliteCreateFunction('lower', function ($str) {
+                return mb_strtolower($str, 'UTF8');
+            }, 1);
+        }
     }
 
     /**
@@ -63,11 +71,15 @@ class SqlLike implements DriverSearch
 
         // main name
         if ($data->getName()) {
-            // TODO create index name for rapid and accurate search
             $selector
                 ->innerJoin('i.names', 'n')
-                ->andWhere('i.name LIKE :name OR n.name LIKE :name')
-                ->setParameter('name', str_replace('%', '%%', $data->getName()).'%');
+                ->andWhere('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+                ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($data->getName(), 'UTF8')).'%');
+        }
+        // date add
+        if ($data->getDateAdd() instanceof \DateTime) {
+            $selector->andWhere('i.date_add >= :date_add')
+                ->setParameter('date_add', $data->getDateAdd()->format('Y-m-d'));
         }
         // date start
         if ($data->getDateStart() instanceof \DateTime) {
@@ -95,10 +107,13 @@ class SqlLike implements DriverSearch
                 ->setParameter('type', $data->getType()->getId());
         }
         // genres
-        if ($data->getGenre() instanceof GenreEntity) {
+        if ($data->getGenres()->count()) {
+            $ids = [];
+            foreach ($data->getGenres() as $key => $genre) {
+                $ids[] = (int)$genre->getId();
+            }
             $selector->innerJoin('i.genres', 'g')
-                ->andWhere('g.id IN (:genre)')
-                ->setParameter('genre', $data->getGenre()->getId());
+                ->andWhere('g.id IN ('.implode(',', $ids).')');
         }
         // studio
         if ($data->getStudio() instanceof StudioEntity) {
@@ -112,6 +127,11 @@ class SqlLike implements DriverSearch
             ->select('COUNT(DISTINCT i)')
             ->getQuery()
             ->getSingleScalarResult();
+
+        // genres
+        if ($data->getGenres()->count()) {
+            $selector->andHaving('COUNT(i.id) = '.$data->getGenres()->count());
+        }
 
         // apply order
         $selector->orderBy('i.'.$sort_column, $sort_direction);
@@ -128,7 +148,7 @@ class SqlLike implements DriverSearch
 
         // get items
         $list = $selector
-            ->groupBy('i')
+            ->groupBy('i.id')
             ->getQuery()
             ->getResult();
 
@@ -154,8 +174,8 @@ class SqlLike implements DriverSearch
         $selector = $this->repository->createQueryBuilder('i');
         $selector
             ->innerJoin('i.names', 'n')
-            ->andWhere('i.name LIKE :name OR n.name LIKE :name')
-            ->setParameter('name', str_replace('%', '%%', $name).'%');
+            ->andWhere('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF8')).'%');
 
         if ($limit > 0) {
             $selector->setMaxResults($limit);

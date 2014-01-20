@@ -45,8 +45,8 @@ class Builder extends ContainerAware
         $this->addPluginItems(
             $this->container->get('anime_db.plugin.search_fill'),
             $add,
-            'Search source of filling',
-            'Search the source and fill record from it'
+            'Search by name',
+            'Search by name the source of filling item'
         );
         // add filler plugin items
         $this->addPluginItems(
@@ -56,11 +56,11 @@ class Builder extends ContainerAware
             'Fill record from source (example source is URL)'
         );
         // add import plugin items
-        $this->addPluginItems($this->container->get('anime_db.plugin.import'), $add, 'Import items');
-        // add settings plugin items
-        foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
-            $plugin->buildMenu($settings);
-        }
+        $this->addPluginItems(
+            $this->container->get('anime_db.plugin.import'),
+            $add,
+            'Import items'
+        );
 
         // add manually
         $add->addChild('Fill manually', ['route' => 'item_add_manually']);
@@ -74,6 +74,10 @@ class Builder extends ContainerAware
         // plugins
         $plugins->addChild('Installed', ['route' => 'plugin_installed']);
         $plugins->addChild('Store', ['route' => 'plugin_store']);
+        // add settings plugin items
+        foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
+            $plugin->buildMenu($plugins);
+        }
 
         return $menu;
     }
