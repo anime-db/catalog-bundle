@@ -126,4 +126,16 @@ if(jQuery().fancybox) {
 	});
 }
 
+$('.b-search .bt-toggle-block').each(function() {
+	var block = $(this);
+	var icon = block.find('.bt-toggle-block-icon');
+	block.click(function() {
+		if (icon.text() == '▾') {
+			icon.text('▴');
+		} else {
+			icon.text('▾');
+		}
+	});
+});
+
 });

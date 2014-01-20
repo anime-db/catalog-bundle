@@ -13,7 +13,10 @@
 		</table>
 
 		<section class="b-params">
-			<header class="bt-toggle-block" data-target="#b-search-params">{% trans %}Search options{% endtrans %}</header>
+			<header class="bt-toggle-block" data-target="#b-search-params">
+				{% trans %}Search options{% endtrans %}
+				<span class="bt-toggle-block-icon">▴</span>
+			</header>
 			<article id="b-search-params">
 				{{ form_widget(form, {'id': 'f-search'}) }}
 			</article>
