@@ -692,9 +692,6 @@ h1.logo a span {
 	margin: 0;
 }
 
-.b-search .b-name {
-	margin-bottom: 4px;
-}
 .b-search .b-name,
 .b-search .b-name .b-field,
 .b-search .b-name input {
@@ -716,6 +713,12 @@ h1.logo a span {
 	display: none;
 }
 .b-search .bt-toggle-block {
+	padding: 0;
+	margin-top: 0;
+	border: 0;
+	background: none;
+	font-weight: normal;
+	color: #db3400;
 	cursor: pointer;
 }
 .b-search .bt-toggle-block:hover {
