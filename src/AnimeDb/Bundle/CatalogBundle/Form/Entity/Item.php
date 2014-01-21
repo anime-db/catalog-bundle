@@ -168,9 +168,9 @@ class Item extends AbstractType
                     'placeholder' => $this->getUserHomeDir()
                 ]
             ])
-            ->add('translate', null, [
+            ->add('translate', 'textarea', [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2]
             ])
             ->add('summary', null, [
                 'required' => false,
