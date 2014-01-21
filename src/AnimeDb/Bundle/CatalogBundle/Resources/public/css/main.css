@@ -1038,6 +1038,10 @@ h1.logo a span {
 .storages-list .list .control.deletable a:first-child {
 	float: left;
 }
+.storages-list .name {
+	white-space: nowrap;
+	word-wrap: normal;
+}
 
 /**
  * Form for plugin search
