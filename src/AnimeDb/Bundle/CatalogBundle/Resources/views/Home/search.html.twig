@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="b-search">
+	<h2>{% trans %}Search of records in the database{% endtrans %}</h2>
 	<form action="{{ path('home_search') }}" method="get" {{ form_enctype(form) }}>
 		<table class="b-name">
 			<tr>
