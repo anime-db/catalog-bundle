@@ -170,7 +170,8 @@ class Item extends AbstractType
             ])
             ->add('translate', 'textarea', [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2]
+                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2],
+                'help' => 'Description language soundtracks and subtitles in free form'
             ])
             ->add('summary', null, [
                 'required' => false,

@@ -578,6 +578,10 @@
                 <source>Search of records in the database</source>
                 <target>Поиск записей в базе данных</target>
             </trans-unit>
+            <trans-unit id="185">
+                <source>Description language soundtracks and subtitles in free form</source>
+                <target>Описание языков звуковых дорожек и субтитров в свободной форме</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
