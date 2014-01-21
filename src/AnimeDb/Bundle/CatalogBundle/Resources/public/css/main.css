@@ -942,6 +942,8 @@ h1.logo a span {
 	text-decoration: none;
 	text-indent: 19px;
 	background: url(../images/folder.png) no-repeat;
+	white-space: nowrap;
+	word-wrap: normal;
 }
 #f-path-popup.updating .folders {
 	background: white url(../images/loader.gif) no-repeat center center;
