@@ -574,6 +574,10 @@
                 <source>Select multiple genres to narrow your search</source>
                 <target>Выберете несколько жанров, чтобы сузить поиск</target>
             </trans-unit>
+            <trans-unit id="184">
+                <source>Search of records in the database</source>
+                <target>Поиск записей в базе данных</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
