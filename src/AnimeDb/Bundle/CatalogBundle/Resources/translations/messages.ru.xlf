@@ -559,14 +559,18 @@
                 <target>м.</target>
             </trans-unit>
             <trans-unit id="180">
+                <source>Will select all records added with the specified date</source>
+                <target>Будут выбраны все записи добавленные с указанной даты</target>
+            </trans-unit>
+            <trans-unit id="181">
                 <source>Will select all records starting with the specified date</source>
                 <target>Будут выбраны все записи начинающиеся с указанной даты</target>
             </trans-unit>
-            <trans-unit id="181">
-                <source>Will select all records ending with a specified date</source>
-                <target>Будут выбраны все записи заканчивающиеся указанной датой</target>
-            </trans-unit>
             <trans-unit id="182">
+                <source>Will select all records ending in the specified date</source>
+                <target>Будут выбраны все записи заканчивающиеся к указанной дате</target>
+            </trans-unit>
+            <trans-unit id="183">
                 <source>Select multiple genres to narrow your search</source>
                 <target>Выберете несколько жанров, чтобы сузить поиск</target>
             </trans-unit>
