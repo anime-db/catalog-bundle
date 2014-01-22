@@ -118,7 +118,8 @@ class Item extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data']),
+                'help' => 'Specify for completed series'
             ])
             ->add('episodes_number', null, [
                 'required' => false,
