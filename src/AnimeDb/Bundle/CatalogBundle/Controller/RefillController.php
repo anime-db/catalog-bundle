@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\DateEnd as DateEndForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\DateStart as DateStartForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\DatePremiere as DatePremiereForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Duration as DurationForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Episodes as EpisodesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as EpisodesNumberForm;
@@ -149,9 +149,9 @@ class RefillController extends Controller
                 $form = new DateEndForm();
                 $data = ['date_end' => $item_fill->getDateEnd()];
                 break;
-            case Refiller::FIELD_DATE_START:
-                $form = new DateStartForm();
-                $data = ['date_start' => $item_fill->getDateStart()];
+            case Refiller::FIELD_DATE_PREMIERE:
+                $form = new DatePremiereForm();
+                $data = ['date_premiere' => $item_fill->getDatePremiere()];
                 break;
             case Refiller::FIELD_DURATION:
                 $form = new DurationForm();

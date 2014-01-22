@@ -99,6 +99,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'Other names',
                 'options'      => [
                     'required' => false
@@ -109,10 +110,11 @@ class Item extends AbstractType
                 'required' => false
             ])
             ->add('rating', new RatingField())
-            ->add('date_start', 'date', [
+            ->add('date_premiere', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_START, $options['data'])
+                'required' => false,
+                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_PREMIERE, $options['data'])
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
@@ -139,6 +141,7 @@ class Item extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
             ->add('studio', 'entity', [
@@ -192,6 +195,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'External sources',
                 'options'      => [
                     'required' => false
@@ -203,6 +207,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'Other images',
                 'options'      => [
                     'required' => false

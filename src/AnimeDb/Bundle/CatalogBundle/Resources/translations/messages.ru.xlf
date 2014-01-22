@@ -83,8 +83,8 @@
                 <target>Источник</target>
             </trans-unit>
             <trans-unit id="22">
-                <source>Date start</source>
-                <target>Дата начала</target>
+                <source>Date premiere</source>
+                <target>Дата премьеры</target>
             </trans-unit>
             <trans-unit id="23">
                 <source>Date end</source>
@@ -291,8 +291,8 @@
                 <target>Дата начала производства</target>
             </trans-unit>
             <trans-unit id="75">
-                <source>End date of production</source>
-                <target>Дата окончания производства</target>
+                <source>End date of issue</source>
+                <target>Дата окончания выпуска</target>
             </trans-unit>
             <trans-unit id="76">
                 <source>Search by '%field%'</source>
@@ -593,6 +593,10 @@
             <trans-unit id="188">
                 <source>fill the field from source</source>
                 <target>заполнить поле из источника</target>
+            </trans-unit>
+            <trans-unit id="189">
+                <source>premiere in</source>
+                <target>премьера в</target>
             </trans-unit>
         </body>
     </file>
