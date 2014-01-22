@@ -1327,3 +1327,7 @@ h1.logo a span {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+.b-form-note {
+	margin: 15px 0 0 20px;
+}
