@@ -468,11 +468,11 @@
             </trans-unit>
             <trans-unit id="157">
                 <source>Search items for %plugin%</source>
-                <target>Поиск записи для %plugin%</target>
+                <target>Поиск записи на %plugin%</target>
             </trans-unit>
             <trans-unit id="158">
-                <source>Fill item for %plugin%</source>
-                <target>Заполнение записи для %plugin%</target>
+                <source>Fill item from %plugin%</source>
+                <target>Заполнение записи из %plugin%</target>
             </trans-unit>
             <trans-unit id="159">
                 <source>Loading...</source>
