@@ -590,6 +590,10 @@
                 <source>Specify for completed series</source>
                 <target>Указывайте для завершенных сериалов</target>
             </trans-unit>
+            <trans-unit id="188">
+                <source>fill the field from source</source>
+                <target>заполнить поле из источника</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
