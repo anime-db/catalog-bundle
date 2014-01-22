@@ -123,7 +123,8 @@ class Item extends AbstractType
             ->add('episodes_number', null, [
                 'required' => false,
                 'label'    => 'Number of episodes',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data']),
+                'help' => 'For releasing the series, you can specify the actual number of episodes with a plus at the end. Example: 123+'
             ])
             ->add('duration', null, [
                 'attr' => $this->getRefillAttr(Refiller::FIELD_DURATION, $options['data'])

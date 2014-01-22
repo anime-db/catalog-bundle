@@ -582,6 +582,10 @@
                 <source>Description language soundtracks and subtitles in free form</source>
                 <target>Описание языков звуковых дорожек и субтитров в свободной форме</target>
             </trans-unit>
+            <trans-unit id="186">
+                <source>For releasing the series, you can specify the actual number of episodes with a plus at the end. Example: 123+</source>
+                <target>Для выпускающегося сериала можно указать актуальное число эпизодов с плюсом на конце. Пример: 123+</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
