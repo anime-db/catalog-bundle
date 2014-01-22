@@ -45,13 +45,13 @@ class Search
     protected $date_end;
 
     /**
-     * Date start release
+     * Date premiere
      *
      * @Assert\Date()
      *
      * @var \DateTime|null
      */
-    protected $date_start;
+    protected $date_premiere;
 
     /**
      * Genres
@@ -149,26 +149,26 @@ class Search
     }
 
     /**
-     * Set date start
+     * Set date premiere
      *
-     * @param \DateTime|null $date_start
+     * @param \DateTime|null $date_premiere
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
-    public function setDateStart(\DateTime $date_start = null)
+    public function setDatePremiere(\DateTime $date_premiere = null)
     {
-        $this->date_start = $date_start ? clone $date_start : $date_start;
+        $this->date_premiere = $date_premiere ? clone $date_premiere : $date_premiere;
         return $this;
     }
 
     /**
-     * Get date start
+     * Get date premiere
      *
      * @return \DateTime|null
      */
-    public function getDateStart()
+    public function getDatePremiere()
     {
-        return $this->date_start ? clone $this->date_start : null;
+        return $this->date_premiere ? clone $this->date_premiere : null;
     }
 
     /**

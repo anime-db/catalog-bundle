@@ -106,12 +106,12 @@ class HomeController extends Controller
             'title' => 'Item rating',
             'name'  => 'Rating'
         ],
-        'date_start'  => [
-            'title' => 'Start date of production',
-            'name'  => 'Date start'
+        'date_premiere'  => [
+            'title' => 'Date premiere',
+            'name'  => 'Date premiere'
         ],
         'date_end'    => [
-            'title' => 'End date of production',
+            'title' => 'End date of issue',
             'name'  => 'Date end'
         ]
     ];

@@ -51,7 +51,7 @@ class Manager
         'name',
         'date_update',
         'rating',
-        'date_start',
+        'date_premiere',
         'date_end'
     ];
 

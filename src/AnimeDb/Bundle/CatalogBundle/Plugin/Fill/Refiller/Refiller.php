@@ -50,11 +50,11 @@ abstract class Refiller extends Plugin
     const FIELD_SUMMARY = 'summary';
 
     /**
-     * Item date start for refill
+     * Item date premiere for refill
      *
      * @var string
      */
-    const FIELD_DATE_START = 'date_start';
+    const FIELD_DATE_PREMIERE = 'date_premiere';
 
     /**
      * Item date end for refill

@@ -60,7 +60,7 @@ class Search extends AbstractType
                 'required' => false,
                 'help' => 'Will select all records added with the specified date'
             ])
-            ->add('date_start', 'date', [
+            ->add('date_premiere', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,

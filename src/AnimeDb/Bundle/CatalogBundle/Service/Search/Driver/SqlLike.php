@@ -81,10 +81,10 @@ class SqlLike implements DriverSearch
             $selector->andWhere('i.date_add >= :date_add')
                 ->setParameter('date_add', $data->getDateAdd()->format('Y-m-d'));
         }
-        // date start
-        if ($data->getDateStart() instanceof \DateTime) {
-            $selector->andWhere('i.date_start >= :date_start')
-                ->setParameter('date_start', $data->getDateStart()->format('Y-m-d'));
+        // date premiere
+        if ($data->getDatePremiere() instanceof \DateTime) {
+            $selector->andWhere('i.date_premiere >= :date_premiere')
+                ->setParameter('date_premiere', $data->getDatePremiere()->format('Y-m-d'));
         }
         // date end
         if ($data->getDateEnd() instanceof \DateTime) {
