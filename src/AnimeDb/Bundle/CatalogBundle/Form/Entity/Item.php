@@ -118,12 +118,14 @@ class Item extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data']),
+                'help' => 'Specify for completed series'
             ])
             ->add('episodes_number', null, [
                 'required' => false,
                 'label'    => 'Number of episodes',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data']),
+                'help' => 'For releasing the series, you can specify the actual number of episodes with a plus at the end. Example: 123+'
             ])
             ->add('duration', null, [
                 'attr' => $this->getRefillAttr(Refiller::FIELD_DURATION, $options['data'])
@@ -170,7 +172,8 @@ class Item extends AbstractType
             ])
             ->add('translate', 'textarea', [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2]
+                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2],
+                'help' => 'Description language soundtracks and subtitles in free form'
             ])
             ->add('summary', null, [
                 'required' => false,
