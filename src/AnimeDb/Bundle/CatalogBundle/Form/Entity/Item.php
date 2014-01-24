@@ -99,6 +99,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'Other names',
                 'options'      => [
                     'required' => false
@@ -109,21 +110,24 @@ class Item extends AbstractType
                 'required' => false
             ])
             ->add('rating', new RatingField())
-            ->add('date_start', 'date', [
+            ->add('date_premiere', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_START, $options['data'])
+                'required' => false,
+                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_PREMIERE, $options['data'])
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data']),
+                'help' => 'Specify for completed series'
             ])
             ->add('episodes_number', null, [
                 'required' => false,
                 'label'    => 'Number of episodes',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data']),
+                'help' => 'For releasing the series, you can specify the actual number of episodes with a plus at the end. Example: 123+'
             ])
             ->add('duration', null, [
                 'attr' => $this->getRefillAttr(Refiller::FIELD_DURATION, $options['data'])
@@ -137,6 +141,7 @@ class Item extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+                'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
             ->add('studio', 'entity', [
@@ -168,9 +173,10 @@ class Item extends AbstractType
                     'placeholder' => $this->getUserHomeDir()
                 ]
             ])
-            ->add('translate', null, [
+            ->add('translate', 'textarea', [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data'])
+                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2],
+                'help' => 'Description language soundtracks and subtitles in free form'
             ])
             ->add('summary', null, [
                 'required' => false,
@@ -189,6 +195,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'External sources',
                 'options'      => [
                     'required' => false
@@ -200,6 +207,7 @@ class Item extends AbstractType
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
+                'required'     => false,
                 'label'        => 'Other images',
                 'options'      => [
                     'required' => false

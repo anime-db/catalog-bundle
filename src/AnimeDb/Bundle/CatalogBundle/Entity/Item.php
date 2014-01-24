@@ -78,14 +78,14 @@ class Item
     protected $type;
 
     /**
-     * Date start release
+     * Date premiere
      *
      * @ORM\Column(type="date")
      * @Assert\Date()
      *
      * @var \DateTime
      */
-    protected $date_start;
+    protected $date_premiere;
 
     /**
      * Date end release
@@ -313,30 +313,30 @@ class Item
     }
 
     /**
-     * Set date_start
+     * Set date premiere
      *
-     * @param \DateTime|null $date_start
+     * @param \DateTime|null $date_premiere
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function setDateStart(\DateTime $date_start = null)
+    public function setDatePremiere(\DateTime $date_premiere = null)
     {
-        $this->date_start = $date_start ? clone $date_start : $date_start;
+        $this->date_premiere = $date_premiere ? clone $date_premiere : $date_premiere;
         return $this;
     }
 
     /**
-     * Get date_start
+     * Get date premiere
      *
      * @return \DateTime
      */
-    public function getDateStart()
+    public function getDatePremiere()
     {
-        return $this->date_start ? clone $this->date_start : null;
+        return $this->date_premiere ? clone $this->date_premiere : null;
     }
 
     /**
-     * Set date_end
+     * Set date end
      *
      * @param \DateTime|null $date_end
      *
@@ -349,7 +349,7 @@ class Item
     }
 
     /**
-     * Get date_end
+     * Get date end
      *
      * @return \DateTime|null
      */

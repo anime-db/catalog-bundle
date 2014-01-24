@@ -493,6 +493,9 @@ h1.logo a span {
 	width: 500px;
 	height: 200px;
 }
+#anime_db_catalog_entity_item_translate {
+	height: auto;
+}
 #anime_db_catalog_itemtype_file_info {
 	width: 500px;
 }
@@ -692,9 +695,6 @@ h1.logo a span {
 	margin: 0;
 }
 
-.b-search .b-name {
-	margin-bottom: 4px;
-}
 .b-search .b-name,
 .b-search .b-name .b-field,
 .b-search .b-name input {
@@ -716,6 +716,12 @@ h1.logo a span {
 	display: none;
 }
 .b-search .bt-toggle-block {
+	padding: 0;
+	margin-top: 0;
+	border: 0;
+	background: none;
+	font-weight: normal;
+	color: #db3400;
 	cursor: pointer;
 }
 .b-search .bt-toggle-block:hover {
@@ -893,8 +899,28 @@ h1.logo a span {
 	border: 1px #ff9f0b solid;
 	padding: 3px 5px;
 }
-#f-path-popup input {
-	width: 372px;
+#f-path-popup .t-path {
+	width: 100%;
+}
+#f-path-popup .t-path,
+#f-path-popup .t-path td,
+#f-path-popup .t-path tr {
+	border: 0;
+	padding: 0;
+}
+#f-path-popup .t-path .b-letter,
+#f-path-popup .t-path .b-letter select {
+	width: 36px;
+}
+#f-path-popup .t-path .b-letter {
+	padding-right: 5px;
+}
+#f-path-popup .t-path input {
+	width: 100%;
+}
+#f-path-popup .t-path .b-button {
+	width: 21px;
+	padding-left: 5px;
 }
 #f-path-popup .change-path {
 	display: inline-block;
@@ -919,6 +945,8 @@ h1.logo a span {
 	text-decoration: none;
 	text-indent: 19px;
 	background: url(../images/folder.png) no-repeat;
+	white-space: nowrap;
+	word-wrap: normal;
 }
 #f-path-popup.updating .folders {
 	background: white url(../images/loader.gif) no-repeat center center;
@@ -1012,6 +1040,10 @@ h1.logo a span {
 }
 .storages-list .list .control.deletable a:first-child {
 	float: left;
+}
+.storages-list .name {
+	white-space: nowrap;
+	word-wrap: normal;
 }
 
 /**
@@ -1122,7 +1154,7 @@ h1.logo a span {
 	margin-left: 5px;
 }
 
-#refill-form-anime_db_catalog_entity_item_date_start,
+#refill-form-anime_db_catalog_entity_item_date_premiere,
 #refill-form-anime_db_catalog_entity_item_date_end,
 #refill-form-anime_db_catalog_entity_item_episodes_number,
 #refill-form-anime_db_catalog_entity_item_duration,
@@ -1294,4 +1326,13 @@ h1.logo a span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+.b-form-note {
+	margin: 15px 0 0 20px;
+}
+label .starlet {
+	color: #db3400;
+	font-size: 1.2em;
+	line-height: 1em;
 }

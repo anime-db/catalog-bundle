@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="b-search">
+	<h2>{% trans %}Search of records in the database{% endtrans %}</h2>
 	<form action="{{ path('home_search') }}" method="get" {{ form_enctype(form) }}>
 		<table class="b-name">
 			<tr>
@@ -13,7 +14,10 @@
 		</table>
 
 		<section class="b-params">
-			<header class="bt-toggle-block" data-target="#b-search-params">{% trans %}Search options{% endtrans %}</header>
+			<header class="bt-toggle-block" data-target="#b-search-params">
+				{% trans %}Search options{% endtrans %}
+				<span class="bt-toggle-block-icon">▴</span>
+			</header>
 			<article id="b-search-params">
 				{{ form_widget(form, {'id': 'f-search'}) }}
 			</article>

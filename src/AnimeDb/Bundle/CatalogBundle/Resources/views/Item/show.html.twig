@@ -68,13 +68,19 @@
 			</div>
 			<div>
 				<strong>{% trans %}Status{% endtrans %}</strong>
-				{% if item.dateend %} {% trans %}came out in{% endtrans %} {% else %} {% trans %}goes from{% endtrans %} {% endif %}
-				<a href="{{ path('home_search', {'anime_db_catalog_search_items[date_start]': item.datestart|date('Y-01-01')}) }}">{{ item.datestart|date('Y') }}</a>{% if item.dateend and (item.datestart|date('Y') != item.dateend|date('Y')) %}-<a href="{{ path('home_search', {'search_items[date_end]': item.dateend|date('Y-01-01')}) }}">{{ item.dateend|date('Y') }}</a>{% endif %}
+				{% if item.dateend and item.datepremiere|date('Y') != item.dateend|date('Y') %}
+					{% trans %}came out in{% endtrans %}
+				{% elseif item.type.id != 'tv' %}
+					{% trans %}premiere in{% endtrans %}
+				{% else %}
+					{% trans %}goes from{% endtrans %}
+				{% endif %}
+				<a href="{{ path('home_search', {'anime_db_catalog_search_items[date_premiere]': item.datepremiere|date('Y-01-01')}) }}">{{ item.datepremiere|date('Y') }}</a>{% if item.dateend and item.datepremiere|date('Y') != item.dateend|date('Y') %}-<a href="{{ path('home_search', {'search_items[date_end]': item.dateend|date('Y-01-01')}) }}">{{ item.dateend|date('Y') }}</a>{% endif %}
 				{% trans %}y.{% endtrans %}
-				{# start date of issue  #}
-				{% set startdey = item.datestart|date('d') %}
-				{% set startmonth = item.datestart|date('F') ~ '|' ~ item.datestart|date('F') %}
-				{# end date of issue  #}
+				{# date premiere of issue  #}
+				{% set premieredey = item.datepremiere|date('d') %}
+				{% set premieremonth = item.datepremiere|date('F') ~ '|' ~ item.datepremiere|date('F') %}
+				{# date end of issue  #}
 				{% if item.dateend %}
 					{% set enddey = item.dateend|date('d') %}
 					{% set endmonth = item.dateend|date('F') ~ '|' ~ item.dateend|date('F') %}
@@ -82,7 +88,12 @@
 				{% else %}
 					{% set dateend = '' %}
 				{% endif %}
-				(<abbr title="{% trans %}From{% endtrans %} {{ startdey }} {{ startmonth|transchoice(startdey, {}, 'datechoice')|lower }} {{ item.datestart|date('Y') }} {% trans %}y.{% endtrans %}{{ dateend }}">?</abbr>)
+				{% if item.dateend or item.type.id == 'tv' %}
+					{% set from = 'From'|trans ~ ' ' %}
+				{% else %}
+					{% set from = '' %}
+				{% endif %}
+				(<abbr title="{{ from }}{{ premieredey }} {{ premieremonth|transchoice(premieredey, {}, 'datechoice')|lower }} {{ item.datepremiere|date('Y') }} {% trans %}y.{% endtrans %}{{ dateend }}">?</abbr>)
 			</div>
 			{% if item.studio %}
 				<div>

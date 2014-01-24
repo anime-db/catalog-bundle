@@ -1,6 +1,6 @@
 {% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
 
-{% block title %}{% trans with {'%plugin%': plugin_name} %}Fill item for %plugin%{% endtrans %}{% endblock %}
+{% block title %}{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}{% endblock %}
 
 {% block javascripts %}
 	{{ parent() }}
@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="b-source-filler b-source-filler-{{ plugin }}">
-	<h2>{% trans with {'%plugin%': plugin_name} %}Fill item for %plugin%{% endtrans %}</h2>
+	<h2>{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}</h2>
 	<form action="" method="get" {{ form_enctype(form) }}>
 		{{ form_widget(form) }}
 		<button type="submit">{% trans %}Fill{% endtrans %}</button>
@@ -21,6 +21,7 @@
 				{{ form_widget(fill_form) }}
 				<button type="submit">{% trans %}Add{% endtrans %}</button>
 			</form>
+			<img src="/bundles/animedbcatalog/images/fill.png" align="left" alt="" /> - {% trans %}fill the field from source{% endtrans %}<br />
 		</div>
 	{% endif %}
 </div>

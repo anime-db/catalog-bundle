@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 
 /**
  * Fill
@@ -46,9 +47,10 @@ class FillController extends Controller
         if ($form->isValid()) {
             $item = $filler->fill($form->getData());
             if (!($item instanceof Item)) {
-                throw new \Exception('Can`t get content from the specified source');
+                $form->addError(new FormError('Can`t get content from the specified source'));
+            } else {
+                $fill_form = $this->createForm('anime_db_catalog_entity_item', $item)->createView();
             }
-            $fill_form = $this->createForm('anime_db_catalog_entity_item', $item)->createView();
         }
 
         return $this->render('AnimeDbCatalogBundle:Fill:filler.html.twig', [
