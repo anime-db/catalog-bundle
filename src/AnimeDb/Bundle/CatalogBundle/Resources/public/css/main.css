@@ -146,6 +146,7 @@ h1.logo {
 	top: 10px;
 	left: 32px;
 	margin: 0;
+	background: #e9cd8e;
 }
 
 h1.logo,
@@ -282,23 +283,18 @@ h1.logo a span {
 /**
  * Background
  */
-#bg-left,
-#bg-right,
-#bg-buttom {
+#bg {
 	position: relative;
 	bottom: 0;
-	margin: -1431px auto 0 auto;
-	height: 1431px;
+	margin: -1200px auto 0 auto;
+	height: 1200px;
+	background: url(../images/bg.jpg) no-repeat bottom center;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
 }
-#bg-buttom {
-	background: #e9cd8e url(../images/bg.jpg) repeat-x bottom left;
-}
-#bg-left {
-	background: url(../images/bg-left.jpg) no-repeat bottom left;
-}
-#bg-right {
-	background: url(../images/bg-right.jpg) no-repeat bottom right;
-}
+
 #wrapper {
 	position:absolute;
 	top:0;
