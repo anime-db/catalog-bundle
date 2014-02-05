@@ -23,7 +23,6 @@ use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager as ManagerSearch;
-use Symfony\Component\Process\PhpExecutableFinder;
 
 /**
  * Main page of the catalog
@@ -377,8 +376,6 @@ class HomeController extends Controller
                 file_put_contents($file, Yaml::dump($parameters));
                 // change locale
                 $this->get('anime_db.listener.request')->setLocale($request, $entity->getLocale());
-                // clear cache
-                $this->executeCommand('cache:clear --no-warmup --env=prod');
 
                 return $this->redirect($this->generateUrl('home_settings'));
             }
@@ -387,29 +384,5 @@ class HomeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
         ]);
-    }
-
-    /**
-     * Execute command
-     *
-     * @throws \RuntimeException
-     *
-     * @param string $cmd
-     * @param integer|null $timeout
-     */
-    protected function executeCommand($cmd, $timeout = 300)
-    {
-        $phpFinder = new PhpExecutableFinder;
-        if (!($phpPath = $phpFinder->find())) {
-            throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
-        }
-        $php = escapeshellarg($phpPath);
-        $console = escapeshellarg($this->container->getParameter('kernel.root_dir').'/console');
-
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-            pclose(popen('start /b '.$php.' '.$console.' '.$cmd.' >nul 2>&1', 'r'));
-        } else {
-            exec($php.' '.$console.' '.$cmd.' >/dev/null 2>&1 &');
-        }
     }
 }
