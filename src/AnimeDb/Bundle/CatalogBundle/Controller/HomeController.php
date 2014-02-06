@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
@@ -210,6 +211,18 @@ class HomeController extends Controller
      */
     public function autocompleteNameAction(Request $request)
     {
+        $response = new JsonResponse();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $term = mb_strtolower($request->get('term'), 'UTF8');
         /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
         $service = $this->get('anime_db.search');
@@ -230,7 +243,8 @@ class HomeController extends Controller
                 }
             }
         }
-        return new JsonResponse($list);
+
+        return $response->setData($list);
     }
 
     /**
