@@ -23,6 +23,7 @@ use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager as ManagerSearch;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Main page of the catalog
@@ -376,6 +377,9 @@ class HomeController extends Controller
                 file_put_contents($file, Yaml::dump($parameters));
                 // change locale
                 $this->get('anime_db.listener.request')->setLocale($request, $entity->getLocale());
+                // clear cache
+                $fs = new Filesystem();
+                $fs->remove($this->container->getParameter('kernel.root_dir').'/cache/');
 
                 return $this->redirect($this->generateUrl('home_settings'));
             }
