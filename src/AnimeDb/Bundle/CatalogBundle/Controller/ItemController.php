@@ -16,6 +16,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Entity\Image;
 use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Item
@@ -79,6 +80,18 @@ class ItemController extends Controller
      */
     public function addManuallyAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $item = new Item();
 
         /* @var $form \Symfony\Component\Form\Form */
@@ -103,7 +116,7 @@ class ItemController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Item:add-manually.html.twig', [
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**
