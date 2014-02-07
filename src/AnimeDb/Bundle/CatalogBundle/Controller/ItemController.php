@@ -129,6 +129,22 @@ class ItemController extends Controller
      */
     public function changeAction(Item $item, Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+            // use item update date
+            if ($response->getLastModified() < $item->getDateUpdate()) {
+                $response->setLastModified($item->getDateUpdate());
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm('anime_db_catalog_entity_item', $item);
 
@@ -148,7 +164,7 @@ class ItemController extends Controller
         return $this->render('AnimeDbCatalogBundle:Item:change.html.twig', [
             'item' => $item,
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**
