@@ -370,6 +370,18 @@ class HomeController extends Controller
      */
     public function settingsAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $entity = new GeneralEntity();
         $entity->setSerialNumber($this->container->getParameter('serial_number'));
         $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
@@ -401,6 +413,6 @@ class HomeController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
-        ]);
+        ], $response);
     }
 }
