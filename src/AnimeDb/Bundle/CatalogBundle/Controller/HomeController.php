@@ -137,6 +137,26 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // check items last update
+            /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+            $last_update = $repository->getLastUpdate();
+            if ($response->getLastModified() < $last_update) {
+                $response->setLastModified($last_update);
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         // current page for paging
         $page = $request->get('page', 1);
         $current_page = $page > 1 ? $page : 1;
@@ -187,7 +207,7 @@ class HomeController extends Controller
             'pagination' => $pagination,
             'widget_top' => self::WIDGET_PALCE_TOP,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM
-        ]);
+        ], $response);
     }
 
     /**
