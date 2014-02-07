@@ -31,6 +31,27 @@ class PluginController extends Controller
     const API_HOST = 'http://anime-db.org/';
 
     /**
+     * API version
+     *
+     * @var string
+     */
+    const API_VERSION = 1;
+
+    /**
+     * API default locale
+     *
+     * @var string
+     */
+    const API_DEFAULT_LOCALE = 'en';
+
+    /**
+     * List of available locales
+     *
+     * @var array
+     */
+    protected $locales = ['ru', 'en'];
+
+    /**
      * Installed plugins
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -65,9 +86,12 @@ class PluginController extends Controller
      */
     public function storeAction()
     {
+        $locale = substr($this->container->getParameter('locale'), 0, 2);
+        $locale = in_array($locale, $this->locales) ? $locale : self::API_DEFAULT_LOCALE;
+        $path = 'api/v'.self::API_VERSION.'/'.$locale.'/plugin/';
         $client = new Client(self::API_HOST);
         /* @var $response \Guzzle\Http\Message\Response */
-        $response = $client->get('api/plugin/')->send();
+        $response = $client->get($path)->send();
 
         if ($response->isSuccessful()) {
             $data = json_decode($response->getBody(true), true);
