@@ -283,9 +283,18 @@ class HomeController extends Controller
 
             // check items last update
             if ($request->query->count()) {
-                /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-                $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-                $last_update = $repository->getLastUpdate();
+                // last item update
+                $last_update = $this->getDoctrine()
+                    ->getRepository('AnimeDbCatalogBundle:Item')
+                    ->getLastUpdate();
+                if ($response->getLastModified() < $last_update) {
+                    $response->setLastModified($last_update);
+                }
+
+                // last storage update
+                $last_update = $this->getDoctrine()
+                    ->getRepository('AnimeDbCatalogBundle:Storage')
+                    ->getLastUpdate();
                 if ($response->getLastModified() < $last_update) {
                     $response->setLastModified($last_update);
                 }
