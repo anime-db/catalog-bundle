@@ -58,17 +58,34 @@ class ItemController extends Controller
      * Show item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Item $item)
+    public function showAction(Item $item, Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+            // use item update date
+            if ($response->getLastModified() < $item->getDateUpdate()) {
+                $response->setLastModified($item->getDateUpdate());
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         return $this->render('AnimeDbCatalogBundle:Item:show.html.twig', [
             'item' => $item,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM,
             'widget_in_content' => self::WIDGET_PALCE_IN_CONTENT,
             'widget_right' => self::WIDGET_PALCE_RIGHT
-        ]);
+        ], $response);
     }
 
     /**
