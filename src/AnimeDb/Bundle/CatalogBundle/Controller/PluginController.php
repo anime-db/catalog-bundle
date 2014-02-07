@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Client;
 
 /**
@@ -31,15 +33,29 @@ class PluginController extends Controller
     /**
      * Installed plugins
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function installedAction()
+    public function installedAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $repository \Doctrine\ORM\EntityRepository */
         $repository = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
         return $this->render('AnimeDbCatalogBundle:Plugin:installed.html.twig', [
             'plugins' => $repository->findAll()
-        ]);
+        ], $response);
     }
 
     /**
