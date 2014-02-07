@@ -259,9 +259,19 @@ class HomeController extends Controller
     {
         $response = new Response();
         // caching
-        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
+        if ($last_update = $this->container->getParameter('last_update')) {
             $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
+
+            // check items last update
+            if ($request->query->count()) {
+                /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+                $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+                $last_update = $repository->getLastUpdate();
+                if ($response->getLastModified() < $last_update) {
+                    $response->setLastModified($last_update);
+                }
+            }
 
             // response was not modified for this request
             if ($response->isNotModified($request)) {
