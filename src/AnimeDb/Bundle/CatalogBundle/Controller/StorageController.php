@@ -28,15 +28,37 @@ class StorageController extends Controller
     /**
      * Storages list
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // last storage update
+            $last_update = $this->getDoctrine()
+                ->getRepository('AnimeDbCatalogBundle:Storage')
+                ->getLastUpdate();
+            if ($response->getLastModified() < $last_update) {
+                $response->setLastModified($last_update);
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
         return $this->render('AnimeDbCatalogBundle:Storage:list.html.twig', [
             'storages' => $repository->getList()
-        ]);
+        ], $response);
     }
 
     /**
@@ -134,9 +156,8 @@ class StorageController extends Controller
     public function getPathAction(Request $request)
     {
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
-        $storage = $this->getDoctrine()
-            ->getRepository('AnimeDbCatalogBundle:Storage')
-            ->find($request->get('id'));
+        $storage = $this->getDoctrine()->getManager()
+            ->find('AnimeDbCatalogBundle:Storage', $request->get('id'));
 
         return new JsonResponse([
             'required' => $storage->isPathRequired(),
