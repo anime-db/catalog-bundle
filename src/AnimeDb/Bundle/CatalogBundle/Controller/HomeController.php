@@ -11,11 +11,11 @@
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Query\Expr;
 use AnimeDb\Bundle\AppBundle\Service\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Settings\General as GeneralForm;
@@ -388,12 +388,12 @@ class HomeController extends Controller
                 $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
                 $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
                 $parameters['parameters']['default_search'] = $entity->getDefaultSearch();
-                file_put_contents($file, Yaml::dump($parameters));
+                $parameters['parameters']['last_update'] = gmdate('r');
+                file_put_contents($file, Yaml::dump($parameters)); 
                 // change locale
                 $this->get('anime_db.listener.request')->setLocale($request, $entity->getLocale());
                 // clear cache
-                $fs = new Filesystem();
-                $fs->remove($this->container->getParameter('kernel.root_dir').'/cache/');
+                $this->get('anime_db.cache_clearer')->clear();
 
                 return $this->redirect($this->generateUrl('home_settings'));
             }
