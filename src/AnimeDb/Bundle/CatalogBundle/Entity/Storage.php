@@ -21,6 +21,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\Entity
  * @ORM\Table(name="storage")
  * @Assert\Callback(methods={"isPathValid"})
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Storage")
  * @IgnoreAnnotation("ORM")
  *
@@ -154,6 +155,7 @@ class Storage
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->modified = new \DateTime();
     }
 
     /**
@@ -375,5 +377,15 @@ class Storage
     public function getModified()
     {
         return $this->modified;
+    }
+
+    /**
+     * Update date modified
+     *
+     * @ORM\PreUpdate
+     */
+    public function doUpdateDateModified()
+    {
+        $this->modified = new \DateTime();
     }
 }
