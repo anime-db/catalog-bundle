@@ -8,7 +8,7 @@
 	{% if confirmed == false %}
 		<div class="b-update-ask">
 			<div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
-			<form action="" method="get">
+			<form action="" method="post">
 				<a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>
 				<button type="submit" name="confirm" value="1">{% trans %}Yes{% endtrans %}</button>
 			</form>

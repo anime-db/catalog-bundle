@@ -51,7 +51,7 @@ class UpdateController extends Controller
             }
         }
 
-        if ($request->get('confirm')) {
+        if ($request->request->get('confirm')) {
             // delete or install package
             if ($plugin = $request->request->get('plugin')) {
                 $root = $this->container->getParameter('kernel.root_dir').'/../';
@@ -82,7 +82,7 @@ class UpdateController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
-            'confirmed' => $request->get('confirm'),
+            'confirmed' => $request->request->get('confirm'),
             'log_file' => '/update.log',
             'end_message' => self::END_MESSAGE
         ], $response);
