@@ -257,6 +257,18 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $data = new SearchEntity();
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new SearchForm($this->generateUrl('home_autocomplete_name')), $data);
@@ -358,7 +370,7 @@ class HomeController extends Controller
             'sort_by' => $sort_by,
             'sort_direction' => $sort_direction,
             'searched' => $request->query->count()
-        ]);
+        ], $response);
     }
 
     /**
