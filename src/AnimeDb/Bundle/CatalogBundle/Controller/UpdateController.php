@@ -39,7 +39,19 @@ class UpdateController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if ($request->getMethod() == 'POST') {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        if ($request->get('confirm')) {
             // delete or install package
             if ($plugin = $request->request->get('plugin')) {
                 $root = $this->container->getParameter('kernel.root_dir').'/../';
@@ -70,10 +82,10 @@ class UpdateController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
-            'confirmed' => $request->getMethod() == 'POST',
+            'confirmed' => $request->get('confirm'),
             'log_file' => '/update.log',
             'end_message' => self::END_MESSAGE
-        ]);
+        ], $response);
     }
 
     /**
