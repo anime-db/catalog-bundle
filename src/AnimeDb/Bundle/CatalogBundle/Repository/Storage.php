@@ -82,7 +82,7 @@ class Storage extends EntityRepository
                 FROM
                     AnimeDbCatalogBundle:Storage s
                 ORDER BY
-                    s.date_update DESC'
+                    s.modified DESC'
             )
                 ->setMaxResults(1)
                 ->getOneOrNullResult();
