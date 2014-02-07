@@ -71,6 +71,23 @@ class StorageController extends Controller
      */
     public function changeAction(Storage $storage, Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // use storage update date
+            if ($response->getLastModified() < $storage->getModified()) {
+                $response->setLastModified($storage->getModified());
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new StorageForm(), $storage);
 
@@ -87,7 +104,7 @@ class StorageController extends Controller
         return $this->render('AnimeDbCatalogBundle:Storage:change.html.twig', [
             'storage' => $storage,
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**

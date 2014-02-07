@@ -151,6 +151,7 @@ class ItemController extends Controller
         if ($last_update = $this->container->getParameter('last_update')) {
             $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
+
             // use item update date
             if ($response->getLastModified() < $item->getDateUpdate()) {
                 $response->setLastModified($item->getDateUpdate());
