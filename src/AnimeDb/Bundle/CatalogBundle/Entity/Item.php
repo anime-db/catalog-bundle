@@ -982,6 +982,7 @@ class Item
      * Update date item change
      *
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function doUpdateDateItemChange()
     {
