@@ -11,10 +11,11 @@
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\Query\Expr;
 use AnimeDb\Bundle\AppBundle\Service\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Settings\General as GeneralForm;
@@ -22,8 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager as ManagerSearch;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Main page of the catalog
@@ -136,6 +135,26 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // check items last update
+            /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+            $last_update = $repository->getLastUpdate();
+            if ($response->getLastModified() < $last_update) {
+                $response->setLastModified($last_update);
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         // current page for paging
         $page = $request->get('page', 1);
         $current_page = $page > 1 ? $page : 1;
@@ -186,7 +205,7 @@ class HomeController extends Controller
             'pagination' => $pagination,
             'widget_top' => self::WIDGET_PALCE_TOP,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM
-        ]);
+        ], $response);
     }
 
     /**
@@ -211,6 +230,18 @@ class HomeController extends Controller
      */
     public function autocompleteNameAction(Request $request)
     {
+        $response = new JsonResponse();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $term = mb_strtolower($request->get('term'), 'UTF8');
         /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
         $service = $this->get('anime_db.search');
@@ -231,7 +262,8 @@ class HomeController extends Controller
                 }
             }
         }
-        return new JsonResponse($list);
+
+        return $response->setData($list);
     }
 
     /**
@@ -243,6 +275,37 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // check items last update
+            if ($request->query->count()) {
+                // last item update
+                $last_update = $this->getDoctrine()
+                    ->getRepository('AnimeDbCatalogBundle:Item')
+                    ->getLastUpdate();
+                if ($response->getLastModified() < $last_update) {
+                    $response->setLastModified($last_update);
+                }
+
+                // last storage update
+                $last_update = $this->getDoctrine()
+                    ->getRepository('AnimeDbCatalogBundle:Storage')
+                    ->getLastUpdate();
+                if ($response->getLastModified() < $last_update) {
+                    $response->setLastModified($last_update);
+                }
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $data = new SearchEntity();
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new SearchForm($this->generateUrl('home_autocomplete_name')), $data);
@@ -268,8 +331,8 @@ class HomeController extends Controller
                 $limit = in_array($limit, self::$search_show_limit) ? $limit : self::SEARCH_ITEMS_PER_PAGE;
 
                 // get order
-                $current_sort_by = ManagerSearch::getValidSortColumn($request->get('sort_by'));
-                $current_sort_direction = ManagerSearch::getValidSortDirection($request->get('sort_direction'));
+                $current_sort_by = $service->getValidSortColumn($request->get('sort_by'));
+                $current_sort_direction = $service->getValidSortDirection($request->get('sort_direction'));
 
                 // do search
                 $result = $service->search(
@@ -344,7 +407,7 @@ class HomeController extends Controller
             'sort_by' => $sort_by,
             'sort_direction' => $sort_direction,
             'searched' => $request->query->count()
-        ]);
+        ], $response);
     }
 
     /**
@@ -356,6 +419,18 @@ class HomeController extends Controller
      */
     public function settingsAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $entity = new GeneralEntity();
         $entity->setSerialNumber($this->container->getParameter('serial_number'));
         $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
@@ -374,12 +449,12 @@ class HomeController extends Controller
                 $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
                 $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
                 $parameters['parameters']['default_search'] = $entity->getDefaultSearch();
-                file_put_contents($file, Yaml::dump($parameters));
+                $parameters['parameters']['last_update'] = gmdate('r');
+                file_put_contents($file, Yaml::dump($parameters)); 
                 // change locale
                 $this->get('anime_db.listener.request')->setLocale($request, $entity->getLocale());
                 // clear cache
-                $fs = new Filesystem();
-                $fs->remove($this->container->getParameter('kernel.root_dir').'/cache/');
+                $this->get('anime_db.cache_clearer')->clear();
 
                 return $this->redirect($this->generateUrl('home_settings'));
             }
@@ -387,6 +462,6 @@ class HomeController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
-        ]);
+        ], $response);
     }
 }

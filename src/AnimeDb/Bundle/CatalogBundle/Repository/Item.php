@@ -116,4 +116,40 @@ class Item extends EntityRepository
 
         return $duplicate;
     }
+
+    /**
+     * Get last update
+     *
+     * @param integer|null $id
+     *
+     * @return \DateTime|null
+     */
+    public function getLastUpdate($id = null)
+    {
+        if ($id) {
+            $result = $this->getEntityManager()->createQuery('
+                SELECT
+                    i.date_update
+                FROM
+                    AnimeDbCatalogBundle:Item i
+                WHERE
+                    i.id = :id'
+            )
+                ->setParameter(':id', $id)
+                ->getOneOrNullResult();
+        } else {
+            $result = $this->getEntityManager()->createQuery('
+                SELECT
+                    i.date_update
+                FROM
+                    AnimeDbCatalogBundle:Item i
+                ORDER BY
+                    i.date_update DESC'
+            )
+                ->setMaxResults(1)
+                ->getOneOrNullResult();
+        }
+
+        return $result ? $result['date_update'] : null;
+    }
 }
