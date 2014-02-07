@@ -23,8 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager as ManagerSearch;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Main page of the catalog
@@ -324,8 +322,8 @@ class HomeController extends Controller
                 $limit = in_array($limit, self::$search_show_limit) ? $limit : self::SEARCH_ITEMS_PER_PAGE;
 
                 // get order
-                $current_sort_by = ManagerSearch::getValidSortColumn($request->get('sort_by'));
-                $current_sort_direction = ManagerSearch::getValidSortDirection($request->get('sort_direction'));
+                $current_sort_by = $service->getValidSortColumn($request->get('sort_by'));
+                $current_sort_direction = $service->getValidSortDirection($request->get('sort_direction'));
 
                 // do search
                 $result = $service->search(
