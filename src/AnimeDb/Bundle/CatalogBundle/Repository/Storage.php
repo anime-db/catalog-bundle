@@ -54,4 +54,40 @@ class Storage extends EntityRepository
             ->setParameter(':types', $types)
             ->getResult();
     }
+
+    /**
+     * Get last update
+     *
+     * @param integer|null $id
+     *
+     * @return \DateTime|null
+     */
+    public function getLastUpdate($id = null)
+    {
+        if ($id) {
+            $result = $this->getEntityManager()->createQuery('
+                SELECT
+                    s.modified
+                FROM
+                    AnimeDbCatalogBundle:Storage s
+                WHERE
+                    s.id = :id'
+            )
+                ->setParameter(':id', $id)
+                ->getOneOrNullResult();
+        } else {
+            $result = $this->getEntityManager()->createQuery('
+                SELECT
+                    s.modified
+                FROM
+                    AnimeDbCatalogBundle:Storage s
+                ORDER BY
+                    s.date_update DESC'
+            )
+                ->setMaxResults(1)
+                ->getOneOrNullResult();
+        }
+
+        return $result ? $result['modified'] : null;
+    }
 }
