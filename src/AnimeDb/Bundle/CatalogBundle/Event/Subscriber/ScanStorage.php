@@ -114,6 +114,7 @@ class ScanStorage implements EventSubscriberInterface
         } else {
             $name = pathinfo($event->getFile()->getFilename(), PATHINFO_BASENAME);
         }
+        $name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $name));
 
         $link = null;
         // build link for search item by name from default plugin
