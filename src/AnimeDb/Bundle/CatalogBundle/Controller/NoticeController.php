@@ -54,9 +54,10 @@ class NoticeController extends Controller
         if ($request->isMethod('POST') && $notices) {
             if ($ids = (array)$request->request->get('id', [])) {
                 foreach ($ids as $id) {
-                    foreach ($notices as $notice) {
+                    foreach ($notices as $key => $notice) {
                         if ($notice->getId() == $id) {
                             $em->remove($notice);
+                            unset($notices[$key]);
                             break;
                         }
                     }
