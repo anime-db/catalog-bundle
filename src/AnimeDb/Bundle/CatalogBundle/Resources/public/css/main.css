@@ -4,7 +4,7 @@ body {
 	/* font-family: "Trebuchet MS",Verdana,sans-serif; */
 	font-size: 12px;
 	line-height: 1.4em;
-	background: #e9cd8e;
+	background: #f9d193;
 }
 html, body {
 	margin: 0;
@@ -282,23 +282,18 @@ h1.logo a span {
 /**
  * Background
  */
-#bg-left,
-#bg-right,
-#bg-buttom {
+#bg {
 	position: relative;
 	bottom: 0;
-	margin: -1431px auto 0 auto;
-	height: 1431px;
+	margin: -1200px auto 0 auto;
+	height: 1200px;
+	background: url(../images/bg.jpg) no-repeat bottom center;
+	background-size: cover;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
 }
-#bg-buttom {
-	background: #e9cd8e url(../images/bg.jpg) repeat-x bottom left;
-}
-#bg-left {
-	background: url(../images/bg-left.jpg) no-repeat bottom left;
-}
-#bg-right {
-	background: url(../images/bg-right.jpg) no-repeat bottom right;
-}
+
 #wrapper {
 	position:absolute;
 	top:0;
