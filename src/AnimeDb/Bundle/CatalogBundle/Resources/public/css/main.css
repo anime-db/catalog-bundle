@@ -1065,7 +1065,7 @@ h1.logo a span {
  */
 .b-notice {
 	position: absolute;
-	width: 950px;
+	width: 100%;
 	background-color: #fafad2;
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -1083,17 +1083,18 @@ h1.logo a span {
 	from {top:-60px;}
 	to {top:0;}
 }
-.b-notice .b-message {
+.b-message-wrapper {
 	width: 845px;
-	padding: 15px 0 15px 20px;
 	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+	margin: 15px 0 15px 20px;
 	float: left;
+}
+.b-notice .b-message {
+	white-space: nowrap;
 }
 .b-notice .b-controls {
 	height: 16px;
-	padding: 15px 20px;
+	margin: 15px 20px 15px 0;
 	float: right;
 }
 .b-notice .bt-close,
@@ -1107,9 +1108,44 @@ h1.logo a span {
 }
 .b-notice .bt-close {
 	background: url('../images/close_mini.png') 0 0 no-repeat;
+	float: right;
 }
 .b-notice .bt-see-later {
 	background: url('../images/clock.png') 0 0 no-repeat;
+	float: left;
+}
+.bt-notice-scroll {
+	position: absolute;
+	width: 55px;
+	margin: 0;
+	padding: 45px 0 0 55px;
+	background: none;
+	border: none;
+	overflow: hidden;
+	top: 0;
+	bottom: 0;
+	display: none;
+	opacity: 0.3;
+	filter: alpha(Opacity=30);
+	transition: background .20s ease-in-out;
+	background-position: center center;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	cursor: default;
+	z-index: 1;
+}
+.bt-notice-scroll-left {
+	left: 0
+}
+.bt-notice-scroll-left:hover {
+	background: gray url(../images/arrow-left.png) center center no-repeat;
+}
+.bt-notice-scroll-right {
+	right: 75px;
+}
+.bt-notice-scroll-right:hover {
+	background: gray url(../images/arrow-right.png) center center no-repeat;
 }
 
 /**
