@@ -981,9 +981,9 @@ class Item
     /**
      * Update date item change
      *
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
-    public function doUpdateDateItemChange()
+    public function doUpdateDateChange()
     {
         $this->date_update = new \DateTime();
     }

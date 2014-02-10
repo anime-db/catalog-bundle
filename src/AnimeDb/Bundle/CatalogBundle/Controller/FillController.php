@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormError;
 
 /**
@@ -33,6 +34,18 @@ class FillController extends Controller
      */
     public function fillerAction($plugin, Request $request)
     {
+        $response = new Response();
+        // caching
+        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $chain \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain */
         $chain = $this->get('anime_db.plugin.filler');
         if (!($filler = $chain->getPlugin($plugin))) {
@@ -58,7 +71,7 @@ class FillController extends Controller
             'plugin_name' => $filler->getTitle(),
             'form' => $form->createView(),
             'fill_form' => $fill_form,
-        ]);
+        ], $response);
     }
 
     /**
@@ -71,6 +84,18 @@ class FillController extends Controller
      */
     public function searchAction($plugin, Request $request)
     {
+        $response = new Response();
+        // caching
+        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $search \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
         if (!($search = $this->get('anime_db.plugin.search_fill')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
@@ -90,6 +115,6 @@ class FillController extends Controller
             'plugin_name' => $search->getTitle(),
             'list'   => $list,
             'form'   => $form->createView()
-        ]);
+        ], $response);
     }
 }
