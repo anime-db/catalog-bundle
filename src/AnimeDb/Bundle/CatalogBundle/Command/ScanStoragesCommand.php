@@ -67,7 +67,15 @@ class ScanStoragesCommand extends ContainerAwareCommand
             $finder = new Finder();
             $finder->in($storage->getPath())
                 ->ignoreUnreadableDirs()
-                ->depth('== 0');
+                ->depth('== 0')
+                // tmp files
+                ->notName('.DS_Store')
+                ->notName('._*')
+                ->notName('*~')
+                ->notName('.Spotlight-V100')
+                ->notName('.Trashes')
+                ->notName('ehthumbs.db')
+                ->notName('Thumbs.db');
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($finder as $file) {
