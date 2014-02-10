@@ -1085,15 +1085,16 @@ h1.logo a span {
 }
 .b-notice .b-message {
 	width: 845px;
-	padding: 15px 0 15px 20px;
+	padding: 15px 10px 15px 20px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	position: relative;
 	float: left;
 }
 .b-notice .b-controls {
 	height: 16px;
-	padding: 15px 20px;
+	padding: 15px 20px 15px 10px;
 	float: right;
 }
 .b-notice .bt-close,
@@ -1110,6 +1111,25 @@ h1.logo a span {
 }
 .b-notice .bt-see-later {
 	background: url('../images/clock.png') 0 0 no-repeat;
+}
+.bt-notice-scroll {
+	position: absolute;
+	width: 90px;
+	margin: 0;
+	padding: 0 0 0 90px;
+	background: none;
+	border: none;
+	overflow: hidden;
+	top: 0;
+	bottom: 0;
+	display: none;
+	cursor: default;
+}
+.bt-notice-scroll-left {
+	left: 0
+}
+.bt-notice-scroll-right {
+	right: 0;
 }
 
 /**
