@@ -4,7 +4,7 @@ body {
 	/* font-family: "Trebuchet MS",Verdana,sans-serif; */
 	font-size: 12px;
 	line-height: 1.4em;
-	background: #e9cd8e;
+	background: #f9d193;
 }
 html, body {
 	margin: 0;
@@ -146,7 +146,6 @@ h1.logo {
 	top: 10px;
 	left: 32px;
 	margin: 0;
-	background: #e9cd8e;
 }
 
 h1.logo,
@@ -289,10 +288,10 @@ h1.logo a span {
 	margin: -1200px auto 0 auto;
 	height: 1200px;
 	background: url(../images/bg.jpg) no-repeat bottom center;
-	-webkit-background-size: cover;
+	background-size: cover;
 	-o-background-size: cover;
 	-moz-background-size: cover;
-	background-size: cover;
+	-webkit-background-size: cover;
 }
 
 #wrapper {
