@@ -64,7 +64,7 @@ class NoticeController extends Controller
                 }
                 $em->flush();
             }
-            return $this->redirect($this->generateUrl('notice_list'));
+            return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
         }
 
         // get count all items
