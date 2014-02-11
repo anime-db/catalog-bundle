@@ -1001,11 +1001,11 @@ class Item
     }
 
     /**
-     * Update date item change
+     * Change item date update
      *
      * @ORM\PreUpdate
      */
-    public function doUpdateDateChange()
+    public function doChangeDateUpdate()
     {
         $this->date_update = new \DateTime();
     }
