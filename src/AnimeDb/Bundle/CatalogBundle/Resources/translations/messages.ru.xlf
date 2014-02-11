@@ -602,6 +602,10 @@
                 <source>required field</source>
                 <target>поле обязательное для заполнения</target>
             </trans-unit>
+            <trans-unit id="191">
+                <source>When detects a new item, the application will try to add it using the selected plugin</source>
+                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
