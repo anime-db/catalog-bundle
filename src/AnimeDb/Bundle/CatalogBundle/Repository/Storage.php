@@ -67,7 +67,7 @@ class Storage extends EntityRepository
         if ($id) {
             $result = $this->getEntityManager()->createQuery('
                 SELECT
-                    s.modified
+                    s.date_update
                 FROM
                     AnimeDbCatalogBundle:Storage s
                 WHERE
@@ -78,16 +78,16 @@ class Storage extends EntityRepository
         } else {
             $result = $this->getEntityManager()->createQuery('
                 SELECT
-                    s.modified
+                    s.date_update
                 FROM
                     AnimeDbCatalogBundle:Storage s
                 ORDER BY
-                    s.modified DESC'
+                    s.date_update DESC'
             )
                 ->setMaxResults(1)
                 ->getOneOrNullResult();
         }
 
-        return $result ? $result['modified'] : null;
+        return $result ? $result['date_update'] : null;
     }
 }
