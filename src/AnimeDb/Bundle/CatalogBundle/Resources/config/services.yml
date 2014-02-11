@@ -32,7 +32,7 @@ services:
 
     anime_db.subscriber.scan_storage:
         class: AnimeDb\Bundle\CatalogBundle\Event\Subscriber\ScanStorage
-        arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router ]
+        arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router, @form.factory ]
         tags: [{ name:kernel.event_subscriber }]
 
     anime_db.search.driver.sql_like:
