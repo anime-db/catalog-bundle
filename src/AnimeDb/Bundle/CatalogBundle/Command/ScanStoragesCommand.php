@@ -97,7 +97,7 @@ class ScanStoragesCommand extends ContainerAwareCommand
             }
 
             // update date modified
-            $storage->setModified(new \DateTime(date('Y-m-d H:i:s', filemtime($storage->getPath()))));
+            $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($storage->getPath()))));
             $em->persist($storage);
         }
         $em->flush();
