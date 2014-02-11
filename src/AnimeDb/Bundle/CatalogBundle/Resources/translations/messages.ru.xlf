@@ -598,6 +598,10 @@
                 <source>premiere in</source>
                 <target>премьера в</target>
             </trans-unit>
+            <trans-unit id="190">
+                <source>required field</source>
+                <target>поле обязательное для заполнения</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

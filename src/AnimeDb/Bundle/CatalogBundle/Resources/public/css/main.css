@@ -1362,8 +1362,19 @@ h1.logo a span {
 .b-form-note {
 	margin: 15px 0 0 20px;
 }
-label .starlet {
+label .starlet,
+.b-form-note .starlet {
 	color: #db3400;
 	font-size: 1.2em;
 	line-height: 1em;
+}
+.b-form-note .starlet {
+	width: 16px;
+	display: inline-block;
+	text-align: center;
+	margin-right: 4px;
+}
+.b-form-note img {
+	float: left;
+	margin-right: 4px;
 }
