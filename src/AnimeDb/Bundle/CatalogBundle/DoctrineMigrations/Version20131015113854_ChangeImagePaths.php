@@ -57,8 +57,10 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
                     `cover` = ?
                 WHERE
                     `id` = ?',
-                $path.$file->getBasename(),
-                $item['id']
+                [
+                    $path.$file->getBasename(),
+                    $item['id']
+                ]
             );
         }
 
@@ -86,8 +88,10 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
                     `source` = ?
                 WHERE
                     `id` = ?',
-                $path.$file->getBasename(),
-                $image['id']
+                [
+                    $path.$file->getBasename(),
+                    $image['id']
+                ]
             );
         }
 
