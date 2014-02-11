@@ -28,7 +28,7 @@ class Version20140211134113_AddDateUpdateForStorage extends AbstractMigration
             type VARCHAR(16) NOT NULL,
             path TEXT DEFAULT NULL,
             date_update DATE NOT NULL,
-            modified DATE DEFAULT NULL
+            file_modified DATE DEFAULT NULL
         )');
 
         $this->addSql('
@@ -72,7 +72,7 @@ class Version20140211134113_AddDateUpdateForStorage extends AbstractMigration
             INSERT INTO
                 "_new"
             SELECT
-                id, name, description, type, path, modified
+                id, name, description, type, path, file_modified
             FROM
                 "storage"
         ');
