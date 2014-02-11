@@ -77,9 +77,9 @@ class ItemController extends Controller
             // use storage update date
             if (
                 $item->getStorage() instanceof Storage &&
-                $response->getLastModified() < $item->getStorage()->getModified()
+                $response->getLastModified() < $item->getStorage()->getDateUpdate()
             ) {
-                $response->setLastModified($item->getStorage()->getModified());
+                $response->setLastModified($item->getStorage()->getDateUpdate());
             }
 
             // response was not modified for this request

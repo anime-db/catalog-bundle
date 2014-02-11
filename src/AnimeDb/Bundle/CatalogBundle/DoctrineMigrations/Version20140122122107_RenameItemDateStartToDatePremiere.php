@@ -116,7 +116,7 @@ class Version20140122122107_RenameItemDateStartToDatePremiere extends AbstractMi
                 name,
                 CASE WHEN date_premiere IS NOT NULL
                 THEN date_premiere
-                ELSE NOW()
+                ELSE "'.date('Y-m-d H:i:s').'"
                 END,
                 date_end,
                 duration,

@@ -78,8 +78,8 @@ class StorageController extends Controller
             $response->setLastModified(new \DateTime($last_update));
 
             // use storage update date
-            if ($response->getLastModified() < $storage->getModified()) {
-                $response->setLastModified($storage->getModified());
+            if ($response->getLastModified() < $storage->getDateUpdate()) {
+                $response->setLastModified($storage->getDateUpdate());
             }
 
             // response was not modified for this request

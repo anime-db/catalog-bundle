@@ -59,7 +59,7 @@ class ScanStoragesCommand extends ContainerAwareCommand
 
             // storage is exists and not modified
             if (!file_exists($storage->getPath()) ||
-                ($storage->getModified() && filemtime($storage->getPath()) == $storage->getModified()->getTimestamp())
+                ($storage->getFileModified() && filemtime($storage->getPath()) == $storage->getFileModified()->getTimestamp())
             ) {
                 continue;
             }
@@ -97,7 +97,7 @@ class ScanStoragesCommand extends ContainerAwareCommand
             }
 
             // update date modified
-            $storage->setModified(new \DateTime(date('Y-m-d H:i:s', filemtime($storage->getPath()))));
+            $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($storage->getPath()))));
             $em->persist($storage);
         }
         $em->flush();
