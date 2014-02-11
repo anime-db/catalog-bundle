@@ -101,6 +101,16 @@ abstract class Search extends Plugin
     }
 
     /**
+     * Get filler
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler
+     */
+    public function getFiller()
+    {
+        return $this->filler;
+    }
+
+    /**
      * Get link for fill item
      *
      * @param mixed $data
