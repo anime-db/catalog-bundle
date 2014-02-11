@@ -1,0 +1,7 @@
+{% set storage %}
+	<a href="{{ path('notice_show', {'id': storage.id }) }}">{{ storage.name }}</a>
+{% endset %}
+{% set name %}
+	<a href="{{ path('item_show', {'id': item.id, 'name': item.name}) }}">{{ item.name }}</a>
+{% endset %}
+{% trans with {'%name%': name, '%storage%': storage } %}Detected and added new item %name% on storage %storage%{% endtrans %}
