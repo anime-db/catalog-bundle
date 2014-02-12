@@ -153,25 +153,15 @@ class ScanStorage implements EventSubscriberInterface
                         $query = parse_url($list[0]->getLink(), PHP_URL_QUERY);
                         parse_str($query, $query);
 
-                        // get all form data for fill
-                        $form = $this->form_factory->create(
-                            $plugin->getFiller()->getForm(),
-                            $query[$plugin->getFiller()->getForm()->getName()]
-                        );
-                        $data = [];
-                        foreach ($form as $name => $node) {
-                            $data[$name] = $node->getData();
-                        }
-
                         // fill from link
                         try {
                             /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                            $item = $plugin->getFiller()->fill($data);
+                            $item = $plugin->getFiller()->fill($query[$plugin->getFiller()->getForm()->getName()]);
                             // save new item
                             $item->setStorage($event->getStorage());
-                            $item->setPath($event->getFile()->getFilename());
+                            $item->setPath($event->getFile()->getPathname());
                             $this->em->persist($item);
-                            $this->em->flush(); // TODO need move out this
+                            $this->em->flush();
 
                             // change notice message
                             $message = [
