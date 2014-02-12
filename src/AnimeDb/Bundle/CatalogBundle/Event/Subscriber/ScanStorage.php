@@ -159,7 +159,7 @@ class ScanStorage implements EventSubscriberInterface
                             $item = $plugin->getFiller()->fill($query[$plugin->getFiller()->getForm()->getName()]);
                             // save new item
                             $item->setStorage($event->getStorage());
-                            $item->setPath($event->getFile()->getFilename());
+                            $item->setPath($event->getFile()->getPathname());
                             $this->em->persist($item);
                             $this->em->flush();
 
