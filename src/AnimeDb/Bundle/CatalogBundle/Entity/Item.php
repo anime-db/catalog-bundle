@@ -1090,4 +1090,14 @@ class Item
             $this->not_cleared_path = '';
         }
     }
+
+    /**
+     * Get item name for url
+     *
+     * @return string
+     */
+    public function getUrlName()
+    {
+        return trim(preg_replace('/\s+/', '_', $this->name), '_');
+    }
 }
