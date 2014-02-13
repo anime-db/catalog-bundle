@@ -100,13 +100,13 @@ abstract class Filler extends Plugin
     }
 
     /**
-     * Fill by search result
+     * Fill from search result
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item $item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
      */
-    public function fillBySearchResult(ItemSearch $item)
+    public function fillFromSearchResult(ItemSearch $item)
     {
         $query = parse_url($item->getLink(), PHP_URL_QUERY);
         parse_str($query, $query);
