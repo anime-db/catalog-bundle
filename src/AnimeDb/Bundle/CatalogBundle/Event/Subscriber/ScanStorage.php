@@ -23,6 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
  * Storages scan subscriber
@@ -145,32 +146,34 @@ class ScanStorage implements EventSubscriberInterface
             $message[1]['link'] = $plugin->getLinkForSearch($name);
 
             if ($plugin->getFiller() instanceof Filler) {
+                $list = [];
+                // try search a new item
                 try {
-                    // try search to add new item
                     $list = $plugin->search(['name' => $name]);
-
-                    if (count($list) == 1) {
-                        $query = parse_url($list[0]->getLink(), PHP_URL_QUERY);
-                        parse_str($query, $query);
-
-                        // fill from link
-                        try {
-                            /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                            $item = $plugin->getFiller()->fill($query[$plugin->getFiller()->getForm()->getName()]);
-                            // save new item
-                            $item->setStorage($event->getStorage());
-                            $item->setPath($event->getFile()->getPathname());
-                            $this->em->persist($item);
-                            $this->em->flush();
-
-                            // change notice message
-                            $message = [
-                                'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
-                                ['storage' => $event->getStorage(), 'item' => $item]
-                            ];
-                        } catch (\Exception $e) {}
-                    }
                 } catch (\Exception $e) {}
+
+                // fill from search result
+                if (count($list) == 1) {
+                    $item = null;
+                    try {
+                        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                        $item = $plugin->getFiller()->fillFromSearchResult($list[0]);
+                    } catch (\Exception $e) {}
+
+                    if ($item instanceof Item) {
+                        // save new item
+                        $item->setStorage($event->getStorage());
+                        $item->setPath($event->getFile()->getPathname());
+                        $this->em->persist($item);
+                        $this->em->flush();
+
+                        // change notice message
+                        $message = [
+                            'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
+                            ['storage' => $event->getStorage(), 'item' => $item]
+                        ];
+                    }
+                }
             }
         }
         $notice = new Notice();
