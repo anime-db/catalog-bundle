@@ -14,6 +14,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Filler as FillerForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
 
 /**
  * Plugin filler
@@ -96,5 +97,19 @@ abstract class Filler extends Plugin
                 $this->getForm()->getName() => ['url' => $data]
             ]
         );
+    }
+
+    /**
+     * Fill by search result
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     */
+    public function fillBySearchResult(ItemSearch $item)
+    {
+        $query = parse_url($item->getLink(), PHP_URL_QUERY);
+        parse_str($query, $query);
+        return $this->fill($query);
     }
 }
