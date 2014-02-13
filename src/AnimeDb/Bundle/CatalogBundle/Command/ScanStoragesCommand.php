@@ -75,7 +75,8 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 ->notName('.Spotlight-V100')
                 ->notName('.Trashes')
                 ->notName('ehthumbs.db')
-                ->notName('Thumbs.db');
+                ->notName('Thumbs.db')
+                ->notName('desktop.ini');
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($finder as $file) {
