@@ -104,7 +104,7 @@ class UpdateController extends Controller
         }
 
         $root = $this->container->getParameter('kernel.root_dir');
-        $command = $phpPath.' '.$root.'/console animedb:update >web/update.log';
+        $command = $phpPath.' -d memory_limit=-1 -f '.$root.'/console animedb:update >web/update.log';
         file_put_contents($root.'/../web/update.log', '');
         chdir($root.'/../');
 
