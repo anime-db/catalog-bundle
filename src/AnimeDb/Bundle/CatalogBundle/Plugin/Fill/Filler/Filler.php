@@ -110,6 +110,6 @@ abstract class Filler extends Plugin
     {
         $query = parse_url($item->getLink(), PHP_URL_QUERY);
         parse_str($query, $query);
-        return $this->fill($query);
+        return $this->fill($query[$this->getForm()->getName()]);
     }
 }

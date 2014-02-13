@@ -23,6 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
  * Storages scan subscriber
@@ -153,12 +154,13 @@ class ScanStorage implements EventSubscriberInterface
 
                 // fill from search result
                 if (count($list) == 1) {
+                    $item = null;
                     try {
                         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
                         $item = $plugin->getFiller()->fillFromSearchResult($list[0]);
                     } catch (\Exception $e) {}
 
-                    if ($item) {
+                    if ($item instanceof Item) {
                         // save new item
                         $item->setStorage($event->getStorage());
                         $item->setPath($event->getFile()->getPathname());
