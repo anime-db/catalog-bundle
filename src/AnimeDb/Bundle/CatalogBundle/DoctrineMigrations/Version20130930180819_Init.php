@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Symfony\Component\Filesystem\Filesystem;
+use AnimeDb\Bundle\AppBundle\Util\Filesystem as FilesystemUtil;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -1363,7 +1364,7 @@ class Version20130930180819_Init extends AbstractMigration
 
     protected function addDataStorage()
     {
-        $this->addSql('INSERT INTO "storage" VALUES(1,"Local","Storage on local computer","folder","'.$this->getUserHomeDir().'Videos'.DIRECTORY_SEPARATOR.'")');
+        $this->addSql('INSERT INTO "storage" VALUES(1,"Local","Storage on local computer","folder","'.FilesystemUtil::getUserHomeDir().'")');
         // add sequence
         $this->addSql('INSERT INTO "sqlite_sequence" VALUES("storage",1)');
     }
@@ -1371,7 +1372,7 @@ class Version20130930180819_Init extends AbstractMigration
     protected function addDataItem()
     {
         // default path for store items
-        $path = $this->getUserHomeDir().'Videos'.DIRECTORY_SEPARATOR;
+        $path = FilesystemUtil::getUserHomeDir();
 
         $this->addSql('INSERT INTO "item" VALUES(1,"tv","JP",1,"Ван-Пис","1999-10-20",NULL,25,"Последние слова, произнесенные Королем Пиратов перед казнью, вдохновили многих: «Мои сокровища? Коли хотите, забирайте. Ищите – я их все оставил там!». Легендарная фраза Золотого Роджера ознаменовала начало Великой Эры Пиратов – тысячи людей в погоне за своими мечтами отправились на Гранд Лайн, самое опасное место в мире, желая стать обладателями мифических сокровищ... Но с каждым годом романтиков становилось все меньше, их постепенно вытесняли прагматичные пираты-разбойники, которым награбленное добро было куда ближе, чем какие-то «никчемные мечты». Но вот, одним прекрасным днем, семнадцатилетний Монки Д. Луффи исполнил заветную мечту детства - отправился в море. Его цель - ни много, ни мало стать новым Королем Пиратов. За достаточно короткий срок юному капитану удается собрать команду, состоящую из не менее амбициозных искателей приключений. И пусть ими движут совершенно разные устремления, главное, этим ребятам важны не столько деньги и слава, сколько куда более ценное – принципы и верность друзьям. И еще – служение Мечте. Что ж, пока по Гранд Лайн плавают такие люди, Великая Эра Пиратов всегда будет с нами!","'.$path.'One Piece (2011) [TV]",\'Первый сезон (эп. 1-61)
 Второй сезон (эп. 62-77)
@@ -2012,36 +2013,5 @@ class Version20130930180819_Init extends AbstractMigration
 27. All the Lights in the Sky are Stars (30.09.2007, 25 мин.)","27",NULL,"+ 2 спэшла","example/tengen-toppa-gurren-lagann.jpg","'.date('Y-m-d H:i:s').'","'.date('Y-m-d H:i:s').'")');
         // add sequence
         $this->addSql('INSERT INTO "sqlite_sequence" VALUES("item",12)');
-    }
-
-    protected function getUserHomeDir() {
-        // have home env var
-        if ($home = getenv('HOME')) {
-            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
-        }
-
-        // *nix os
-        if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
-            $username = get_current_user() ?: getenv('USERNAME');
-            return '/home/'.($username ? $username.'/' : '');
-        }
-
-        // have drive and path env vars
-        if (getenv('HOMEDRIVE') && getenv('HOMEPATH')) {
-            $home = getenv('HOMEDRIVE').getenv('HOMEPATH');
-            return in_array(substr($home, -1), ['/', '\\']) ? $home : $home.DIRECTORY_SEPARATOR;
-        }
-
-        // Windows
-        $username = get_current_user() ?: getenv('USERNAME');
-        if ($username && is_dir($win7path = 'C:\Users\\'.$username.'\\')) { // is Vista or older
-            return $win7path;
-        } elseif ($username) {
-            return 'C:\Documents and Settings\\'.$username.'\\';
-        } elseif (is_dir('C:\Users\\')) { // is Vista or older
-            return 'C:\Users\\';
-        } else {
-            return 'C:\Documents and Settings\\';
-        }
     }
 }
