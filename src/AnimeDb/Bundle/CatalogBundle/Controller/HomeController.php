@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
 use Doctrine\ORM\Query\Expr;
-use AnimeDb\Bundle\AppBundle\Service\Pagination;
+use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
