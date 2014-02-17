@@ -65,7 +65,7 @@ class DetectedNewFiles extends Event
         // get clean name
         $this->name = $file->getFilename();
         if ($file->isFile()) {
-            $this->name = pathinfo($this->name, PATHINFO_BASENAME);
+            $this->name = pathinfo($this->name, PATHINFO_FILENAME);
         }
         $this->name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $this->name));
     }
