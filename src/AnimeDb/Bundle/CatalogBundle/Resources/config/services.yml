@@ -35,8 +35,9 @@ services:
         arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router, @form.factory ]
         tags:
             - { name: kernel.event_listener, event: anime_db.storage.update_item_files, method: onUpdateItemFiles }
-            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles }
             - { name: kernel.event_listener, event: anime_db.storage.delete_item_files, method: onDeleteItemFiles }
+            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesTryAdd }
+            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles, priority: -255 }
 
     anime_db.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Driver\SqlLike

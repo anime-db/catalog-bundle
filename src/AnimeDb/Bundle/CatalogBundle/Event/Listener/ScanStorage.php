@@ -112,63 +112,26 @@ class ScanStorage
      */
     public function onDetectedNewFiles(DetectedNewFiles $event)
     {
-        if ($event->getFile()->isDir()) {
-            $name = $event->getFile()->getFilename();
-        } else {
-            $name = pathinfo($event->getFile()->getFilename(), PATHINFO_BASENAME);
-        }
-        $name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $name));
-
-        // default notice message
-        $message = [
-            'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
-            ['storage' => $event->getStorage(), 'name' => $name, 'link' => null]
-        ];
-
-        $plugin = null;
-        if (!($plugin = $this->search->getDafeultPlugin()) && ($plugins = $this->search->getPlugins())) {
-            $plugin = array_values($plugins)[0];
-        }
-
-        // search item by name from plugin
-        if ($plugin instanceof SearchFill) {
-            // link for search item
-            $message[1]['link'] = $plugin->getLinkForSearch($name);
-
-            if ($plugin->getFiller() instanceof Filler) {
-                $list = [];
-                // try search a new item
-                try {
-                    $list = $plugin->search(['name' => $name]);
-                } catch (\Exception $e) {}
-
-                // fill from search result
-                if (count($list) == 1) {
-                    $item = null;
-                    try {
-                        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                        $item = $plugin->getFiller()->fillFromSearchResult($list[0]);
-                    } catch (\Exception $e) {}
-
-                    if ($item instanceof Item) {
-                        // save new item
-                        $item->setStorage($event->getStorage());
-                        $item->setPath($event->getFile()->getPathname());
-                        $this->em->persist($item);
-                        $this->em->flush();
-
-                        // change notice message
-                        $message = [
-                            'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
-                            ['storage' => $event->getStorage(), 'item' => $item]
-                        ];
-                    }
-                }
-            }
-        }
-
         $notice = new Notice();
-        $notice->setMessage($this->templating->render($message[0], $message[1]));
+        if ($event->getItem() instanceof Item) {
+            $notice->setMessage($this->templating->render(
+                'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
+                ['storage' => $event->getStorage(), 'item' => $event->getItem()]
+            ));
+        } else {
+            // get link for search item
+            $link = null;
+            if ($plugin = $this->search->getDafeultPlugin()) {
+                $link = $plugin->getLinkForSearch($event->getName());
+            } elseif ($plugins = $this->search->getPlugins()) {
+                $link = array_values($plugins)[0]->getLinkForSearch($event->getName());
+            }
+
+            $notice->setMessage($this->templating->render(
+                'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
+                ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
+            ));
+        }
 
         $this->em->persist($notice);
     }
@@ -186,5 +149,47 @@ class ScanStorage
             ['item' => $event->getItem()]
         ));
         $this->em->persist($notice);
+    }
+
+    /**
+     * On detected new files try add it
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
+     */
+    public function onDetectedNewFilesTryAdd(DetectedNewFiles $event)
+    {
+        $plugin = null;
+        if (!($plugin = $this->search->getDafeultPlugin()) && ($plugins = $this->search->getPlugins())) {
+            $plugin = array_values($plugins)[0];
+        }
+
+        // search item by name from plugin
+        if ($plugin instanceof SearchFill && $plugin->getFiller() instanceof Filler) {
+            $list = [];
+            // try search a new item
+            try {
+                $list = $plugin->search(['name' => $event->getName()]);
+            } catch (\Exception $e) {}
+
+            // fill from search result
+            if (count($list) == 1) {
+                $item = null;
+                try {
+                    /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                    $item = $plugin->getFiller()->fillFromSearchResult($list[0]);
+                } catch (\Exception $e) {}
+
+                if ($item instanceof Item) {
+                    // save new item
+                    $item->setStorage($event->getStorage());
+                    $item->setPath($event->getFile()->getPathname());
+                    $this->em->persist($item);
+                    $this->em->flush();
+
+                    // store the item in event
+                    $event->setItem($item);
+                }
+            }
+        }
     }
 }
