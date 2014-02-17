@@ -38,6 +38,13 @@ class DetectedNewFiles extends Event
     protected $file;
 
     /**
+     * Name
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
      * Item
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
@@ -54,6 +61,13 @@ class DetectedNewFiles extends Event
     {
         $this->storage = $storage;
         $this->file = $file;
+
+        // get clean name
+        $this->name = $file->getFilename();
+        if ($file->isFile()) {
+            $this->name = pathinfo($this->name, PATHINFO_BASENAME);
+        }
+        $this->name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $this->name));
     }
 
     /**
@@ -81,7 +95,7 @@ class DetectedNewFiles extends Event
      *
      * @param $item \AnimeDb\Bundle\CatalogBundle\Entity\Item
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles
+     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\
      */
     public function setItem(Item $item)
     {
@@ -97,5 +111,15 @@ class DetectedNewFiles extends Event
     public function getItem()
     {
         return $this->item;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
