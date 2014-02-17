@@ -8,10 +8,8 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Event\Subscriber;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
@@ -24,14 +22,15 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search as SearchFill;
 
 /**
- * Storages scan subscriber
+ * Storages scan listener
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Subscriber
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class ScanStorage implements EventSubscriberInterface
+class ScanStorage
 {
     /**
      * Entity manager
@@ -92,19 +91,6 @@ class ScanStorage implements EventSubscriberInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\EventDispatcher.EventSubscriberInterface::getSubscribedEvents()
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            StoreEvents::DELETE_ITEM_FILES => 'onDeleteItemFiles',
-            StoreEvents::DETECTED_NEW_FILES => 'onDetectedNewFiles',
-            StoreEvents::UPDATE_ITEM_FILES => 'onUpdateItemFiles',
-        ];
-    }
-
-    /**
      * On delete item files
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles $event
@@ -139,9 +125,13 @@ class ScanStorage implements EventSubscriberInterface
             ['storage' => $event->getStorage(), 'name' => $name, 'link' => null]
         ];
 
-        // search item by name from default plugin
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
-        if ($plugin = $this->search->getDafeultPlugin()) {
+        $plugin = null;
+        if (!($plugin = $this->search->getDafeultPlugin()) && ($plugins = $this->search->getPlugins())) {
+            $plugin = array_values($plugins)[0];
+        }
+
+        // search item by name from plugin
+        if ($plugin instanceof SearchFill) {
             // link for search item
             $message[1]['link'] = $plugin->getLinkForSearch($name);
 
@@ -176,6 +166,7 @@ class ScanStorage implements EventSubscriberInterface
                 }
             }
         }
+
         $notice = new Notice();
         $notice->setMessage($this->templating->render($message[0], $message[1]));
 
