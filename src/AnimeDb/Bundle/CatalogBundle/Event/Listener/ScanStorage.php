@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search as SearchFill;
 
 /**
  * Storages scan listener
@@ -124,9 +125,13 @@ class ScanStorage
             ['storage' => $event->getStorage(), 'name' => $name, 'link' => null]
         ];
 
-        // search item by name from default plugin
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
-        if ($plugin = $this->search->getDafeultPlugin()) {
+        $plugin = null;
+        if (!($plugin = $this->search->getDafeultPlugin()) && ($plugins = $this->search->getPlugins())) {
+            $plugin = $plugins[0];
+        }
+
+        // search item by name from plugin
+        if ($plugin instanceof SearchFill) {
             // link for search item
             $message[1]['link'] = $plugin->getLinkForSearch($name);
 
@@ -161,6 +166,7 @@ class ScanStorage
                 }
             }
         }
+
         $notice = new Notice();
         $notice->setMessage($this->templating->render($message[0], $message[1]));
 
