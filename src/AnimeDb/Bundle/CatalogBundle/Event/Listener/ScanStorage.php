@@ -127,7 +127,7 @@ class ScanStorage
 
         $plugin = null;
         if (!($plugin = $this->search->getDafeultPlugin()) && ($plugins = $this->search->getPlugins())) {
-            $plugin = $plugins[0];
+            $plugin = array_values($plugins)[0];
         }
 
         // search item by name from plugin
