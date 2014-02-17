@@ -82,11 +82,8 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 ->ignoreUnreadableDirs()
                 ->depth('== 0')
                 // tmp files
-                ->notName('.DS_Store')
-                ->notName('._*')
+                ->notName('.*')
                 ->notName('*~')
-                ->notName('.Spotlight-V100')
-                ->notName('.Trashes')
                 ->notName('ehthumbs.db')
                 ->notName('Thumbs.db')
                 ->notName('desktop.ini');
