@@ -8,10 +8,8 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Event\Subscriber;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
@@ -26,12 +24,12 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
- * Storages scan subscriber
+ * Storages scan listener
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Subscriber
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class ScanStorage implements EventSubscriberInterface
+class ScanStorage
 {
     /**
      * Entity manager
@@ -89,19 +87,6 @@ class ScanStorage implements EventSubscriberInterface
         $this->search = $search;
         $this->router = $router;
         $this->form_factory = $form_factory;
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\EventDispatcher.EventSubscriberInterface::getSubscribedEvents()
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            StoreEvents::DELETE_ITEM_FILES => 'onDeleteItemFiles',
-            StoreEvents::DETECTED_NEW_FILES => 'onDetectedNewFiles',
-            StoreEvents::UPDATE_ITEM_FILES => 'onUpdateItemFiles',
-        ];
     }
 
     /**

@@ -30,10 +30,13 @@ services:
             - [ setTemplating, [ @templating ] ]
             - [ setRouter, [ @router ] ]
 
-    anime_db.subscriber.scan_storage:
-        class: AnimeDb\Bundle\CatalogBundle\Event\Subscriber\ScanStorage
+    anime_db.listener.scan_storage:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage
         arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router, @form.factory ]
-        tags: [{ name:kernel.event_subscriber }]
+        tags:
+            - { name: kernel.event_listener, event: anime_db.storage.update_item_files, method: onUpdateItemFiles }
+            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles }
+            - { name: kernel.event_listener, event: anime_db.storage.delete_item_files, method: onDeleteItemFiles }
 
     anime_db.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Driver\SqlLike
