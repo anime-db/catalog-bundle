@@ -86,15 +86,15 @@ class ScanStoragesCommand extends ContainerAwareCommand
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($finder as $file) {
-                // remove win:// if need
-                if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                    $file = new SplFileInfo(substr($file->getPathname(), 6), '', '');
-                }
-
                 if ($item = $this->getItemOfUpdatedFiles($storage, $file)) {
                     $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
                     $output->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
                 } else {
+                    // remove win:// if need
+                    if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+                        $file = new SplFileInfo(substr($file->getPathname(), 6), '', '');
+                    }
+
                     // it is a new item
                     $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);
                     $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
