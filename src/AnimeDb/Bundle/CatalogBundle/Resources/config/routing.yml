@@ -80,11 +80,6 @@ update:
     pattern:  /update/
     defaults: { _controller: AnimeDbCatalogBundle:Update:index }
 
-update_exec:
-    pattern:  /update/exec.html
-    defaults: { _controller: AnimeDbCatalogBundle:Update:exec }
-    methods:   [POST]
-
 
 fill_filler:
     pattern:  /filler/{plugin}.html
