@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\Finder;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
@@ -35,8 +36,24 @@ class ScanStoragesCommand extends ContainerAwareCommand
      */
     protected function configure()
     {
-        $this->setName('animedb:scan-storage')
-            ->setDescription('Scan storages for new items');
+        $this
+            ->setName('animedb:scan-storage')
+            ->setDescription('Scan storages for new items')
+            ->addArgument(
+                'storage',
+                InputArgument::OPTIONAL,
+                'Id scanned storage'
+            )
+            ->setHelp(<<<EOT
+Example scan all storages:
+
+<info>php app/console animedb:scan-storage</info>
+
+Example scan storage with id <info>1</info>:
+
+<info>php app/console animedb:scan-storage 1</info>
+EOT
+            );
     }
 
     /**
@@ -49,8 +66,15 @@ class ScanStoragesCommand extends ContainerAwareCommand
 
         $start = microtime(true);
 
-        $storages = $em->getRepository('AnimeDbCatalogBundle:Storage')
-            ->getList(Storage::getTypesWritable());
+        if ($input->getArgument('storage')) {
+            $storage = $em->getRepository('AnimeDbCatalogBundle:Storage')->find($input->getArgument('storage'));
+            if (!($storage instanceof Storage)) {
+                throw new \InvalidArgumentException('Not found the storage with id: '.$input->getArgument('storage'));
+            }
+            $storages = [$storage];
+        } else {
+            $storages = $em->getRepository('AnimeDbCatalogBundle:Storage')->getList(Storage::getTypesWritable());
+        }
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
