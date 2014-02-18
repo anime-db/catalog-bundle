@@ -98,6 +98,8 @@ EOT
             // update storage id if can
             if (!file_exists($path.Storage::ID_FILE)) {
                 file_put_contents($path.Storage::ID_FILE, $storage->getId());
+            } elseif (file_get_contents($path.Storage::ID_FILE) == $storage->getId()) {
+                // it my path. do nothing
             } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
                 // this path is reserved storage that was removed and now this path is free
                 file_put_contents($path.Storage::ID_FILE, $storage->getId());
