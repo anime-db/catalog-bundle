@@ -63,17 +63,19 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output) {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $dispatcher = $this->getContainer()->get('event_dispatcher');
+        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
+        $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
         $start = microtime(true);
 
         if ($input->getArgument('storage')) {
-            $storage = $em->getRepository('AnimeDbCatalogBundle:Storage')->find($input->getArgument('storage'));
+            $storage = $repository->find($input->getArgument('storage'));
             if (!($storage instanceof Storage)) {
                 throw new \InvalidArgumentException('Not found the storage with id: '.$input->getArgument('storage'));
             }
             $storages = [$storage];
         } else {
-            $storages = $em->getRepository('AnimeDbCatalogBundle:Storage')->getList(Storage::getTypesWritable());
+            $storages = $repository->getList(Storage::getTypesWritable());
         }
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
@@ -88,11 +90,27 @@ EOT
                 $path = 'win://'.$path;
             }
 
-            // storage is exists and not modified
-            if (!file_exists($path) || (
-                $storage->getFileModified() &&
-                filemtime($path) == $storage->getFileModified()->getTimestamp()
-            )) {
+            if (!file_exists($path)) {
+                $output->writeln('Storage is not available');
+                continue;
+            }
+
+            // update storage id if can
+            if (!file_exists($path.Storage::ID_FILE)) {
+                file_put_contents($path.Storage::ID_FILE, $storage->getId());
+            } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
+                // this path is reserved storage that was removed and now this path is free
+                file_put_contents($path.Storage::ID_FILE, $storage->getId());
+            } else {
+                /* @var $duplicate \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+                $output->writeln('Path <info>'.$storage->getPath().'</info> reserved storage <info>'
+                    .$duplicate->getName().'</info>');
+                continue;
+            }
+
+            // storage not modified
+            if ($storage->getFileModified() && filemtime($path) == $storage->getFileModified()->getTimestamp()) {
+                $output->writeln('Storage is not modified');
                 continue;
             }
 
