@@ -120,7 +120,7 @@ class Builder extends ContainerAware
         }
         /* @var $menu \Knp\Menu\ItemInterface */
         $menu = $factory->createItem('root');
-        $params = ['id' => $options['item']->getId(), 'name' => $options['item']->getName()];
+        $params = ['id' => $options['item']->getId(), 'name' => $options['item']->getUrlName()];
 
         $menu->addChild('Change record', ['route' => 'item_change', 'routeParameters' => $params])
             ->setLinkAttribute('class', 'icon-label icon-edit');
