@@ -4,7 +4,7 @@ body {
 	/* font-family: "Trebuchet MS",Verdana,sans-serif; */
 	font-size: 12px;
 	line-height: 1.4em;
-	background: #f9d193;
+	background: #f1c98e url(../images/bg-point.png) repeat 0 0;
 }
 html, body {
 	margin: 0;
@@ -83,6 +83,8 @@ a.button {
 	text-align: center;
 	zoom: 1;
 	overflow: visible;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #d8dcdf;
 	background: #eeeeee 50% 50%;
@@ -254,8 +256,8 @@ h1.logo a span {
 	visibility: hidden;
 	opacity: 0;
 	filter: alpha(Opacity=0);
-	transition: opacity .20s ease-in-out;
 	-webkit-transition: opacity .20s ease-in-out;
+	transition: opacity .20s ease-in-out;
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -288,10 +290,10 @@ h1.logo a span {
 	margin: -1200px auto 0 auto;
 	height: 1200px;
 	background: url(../images/bg.jpg) no-repeat bottom center;
-	background-size: cover;
 	-o-background-size: cover;
 	-moz-background-size: cover;
 	-webkit-background-size: cover;
+	background-size: cover;
 }
 
 #wrapper {
@@ -603,8 +605,8 @@ h1.logo a span {
 	text-decoration: none;
 	opacity: 0;
 	filter: alpha(Opacity=0);
-	transition: opacity .20s ease-in-out;
 	-webkit-transition: opacity .20s ease-in-out;
+	transition: opacity .20s ease-in-out;
 }
 .list-items .name strong {
 	display: block;
@@ -982,6 +984,8 @@ h1.logo a span {
 	-webkit-border-radius: 50%;
 	-moz-border-radius: 50%;
 	border-radius: 50%;
+	-moz-box-shadow: 0 0 1px rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0,.3);
 	box-shadow: 0 0 1px rgba(0,0,0,.3);
 	background-position: center center;
 	width: 17px;
@@ -1122,6 +1126,7 @@ h1.logo a span {
 	display: none;
 	opacity: 0.3;
 	filter: alpha(Opacity=30);
+	-webkit-transition: background .20s ease-in-out;
 	transition: background .20s ease-in-out;
 	background-position: center center;
 	-webkit-border-radius: 0;
