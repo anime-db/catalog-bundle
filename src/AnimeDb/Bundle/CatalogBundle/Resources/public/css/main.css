@@ -4,7 +4,7 @@ body {
 	/* font-family: "Trebuchet MS",Verdana,sans-serif; */
 	font-size: 12px;
 	line-height: 1.4em;
-	background: #f9d193;
+	background: #f1c98e url(../images/bg-point.png) repeat 0 0;
 }
 html, body {
 	margin: 0;
