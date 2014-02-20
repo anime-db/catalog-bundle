@@ -1,5 +1,5 @@
 {% set storage %}
-	<a href="{{ path('notice_show', {'id': storage.id }) }}">{{ storage.name }}</a>
+	<a href="{{ path('home_search', {'anime_db_catalog_search_items[storage]': storage.id}) }}">{{ storage.name }}</a>
 {% endset %}
 {% set name %}
 	{% if link is not null %}

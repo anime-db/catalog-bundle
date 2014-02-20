@@ -40,7 +40,7 @@ class Chain extends ChainPlugin
     /**
      * Get default search plugin
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin|null
+     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search|null
      */
     public function getDafeultPlugin()
     {

@@ -59,6 +59,13 @@ class Storage
     const TYPE_VIDEO = 'video';
 
     /**
+     * File name for store the storage id
+     *
+     * @var string
+     */
+    const ID_FILE = '.storage';
+
+    /**
      * Id
      *
      * @ORM\Id
@@ -108,13 +115,22 @@ class Storage
     protected $path;
 
     /**
-     * Date of last modified
+     * Date last update storage
      *
      * @ORM\Column(type="datetime")
      *
      * @var \DateTime
      */
-    protected $modified;
+    protected $date_update;
+
+    /**
+     * Date of files last modified
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    protected $file_modified;
 
     /**
      * Items list
@@ -124,6 +140,13 @@ class Storage
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $items;
+
+    /**
+     * List old paths
+     *
+     * @var array
+     */
+    protected $old_paths = [];
 
     /**
      * Type names
@@ -155,7 +178,7 @@ class Storage
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->modified = new \DateTime();
+        $this->date_update = new \DateTime();
     }
 
     /**
@@ -223,6 +246,9 @@ class Storage
      */
     public function setPath($path)
     {
+        if ($this->path) {
+            $this->old_paths[] = $this->path;
+        }
         $this->path = $path;
         return $this;
     }
@@ -357,35 +383,103 @@ class Storage
     }
 
     /**
-     * Set date of last modified
+     * Set date last update storage
      *
-     * @param \DateTime $modified
+     * @param \DateTime $date_update
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
      */
-    public function setModified(\DateTime $modified)
+    public function setDateUpdate(\DateTime $date_update)
     {
-        $this->modified = $modified;
+        $this->date_update = clone $date_update;
         return $this;
     }
 
     /**
-     * Get date of last modified
+     * Get date last update storage
      *
      * @return \DateTime
      */
-    public function getModified()
+    public function getDateUpdate()
     {
-        return $this->modified;
+        return $this->date_update;
     }
 
     /**
-     * Update date modified
+     * Set date of file last modified
+     *
+     * @param \DateTime $file_modified
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     */
+    public function setFileModified(\DateTime $file_modified)
+    {
+        $this->file_modified = clone $file_modified;
+        return $this;
+    }
+
+    /**
+     * Get date of file last modified
+     *
+     * @return \DateTime
+     */
+    public function getFileModified()
+    {
+        return $this->file_modified;
+    }
+
+    /**
+     * Change date update
      *
      * @ORM\PreUpdate
      */
-    public function doUpdateDateModified()
+    public function doChangeDateUpdate()
     {
-        $this->modified = new \DateTime();
+        $this->date_update = new \DateTime();
+    }
+
+    /**
+     * Save storage id
+     *
+     * @ORM\PostPersist
+     */
+    public function doSaveStorageId()
+    {
+        if (file_exists($this->getPath()) && !file_exists($this->getPath().self::ID_FILE)) {
+            file_put_contents($this->getPath().self::ID_FILE, $this->getId());
+        }
+    }
+
+    /**
+     * Remove storage id
+     *
+     * @ORM\PostRemove
+     */
+    public function doRemoveStorageId()
+    {
+        if (file_exists($this->getPath().self::ID_FILE) &&
+            (file_get_contents($this->getPath().self::ID_FILE) == $this->getId())
+        ) {
+            unlink($this->getPath().self::ID_FILE);
+        }
+    }
+
+    /**
+     * Update storage id
+     *
+     * @ORM\PostUpdate
+     */
+    public function doUpdateStorageId()
+    {
+        // remove old ids
+        foreach ($this->old_paths as $path) {
+            if (file_exists($path.self::ID_FILE) &&
+                (file_get_contents($path.self::ID_FILE) == $this->getId())
+            ) {
+                unlink($path.self::ID_FILE);
+            }
+        }
+
+        $this->doSaveStorageId();
     }
 }

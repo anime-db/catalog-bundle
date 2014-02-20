@@ -78,8 +78,8 @@ class StorageController extends Controller
             $response->setLastModified(new \DateTime($last_update));
 
             // use storage update date
-            if ($response->getLastModified() < $storage->getModified()) {
-                $response->setLastModified($storage->getModified());
+            if ($response->getLastModified() < $storage->getDateUpdate()) {
+                $response->setLastModified($storage->getDateUpdate());
             }
 
             // response was not modified for this request
@@ -139,6 +139,10 @@ class StorageController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
+
+                // scan storage
+                $this->get('anime_db.command')
+                    ->exec('php app/console animedb:scan-storage '.$storage->getId().' >/dev/null 2>&1');
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }
