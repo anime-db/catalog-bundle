@@ -9,6 +9,8 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain
     anime_db.plugin.import:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain
+    anime_db.plugin.export:
+        class: AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain
     anime_db.plugin.item:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Item\Chain
     anime_db.plugin.setting:
