@@ -610,6 +610,10 @@
                 <source>Detected and added new item %name% on storage %storage%</source>
                 <target>Обнаружена и добавлена новая запись %name% на хранилище %storage%</target>
             </trans-unit>
+            <trans-unit id="193">
+                <source>Export items</source>
+                <target>Экспорт записей</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

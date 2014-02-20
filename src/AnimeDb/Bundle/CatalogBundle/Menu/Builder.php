@@ -55,6 +55,8 @@ class Builder extends ContainerAware
             'Fill from source',
             'Fill record from source (example source is URL)'
         );
+        // add manually
+        $add->addChild('Fill manually', ['route' => 'item_add_manually']);
         // add import plugin items
         $this->addPluginItems(
             $this->container->get('anime_db.plugin.import'),
@@ -62,13 +64,16 @@ class Builder extends ContainerAware
             'Import items'
         );
 
-        // add manually
-        $add->addChild('Fill manually', ['route' => 'item_add_manually']);
-
         $settings->addChild('File storages', ['route' => 'storage_list']);
         $settings->addChild('List of notice', ['route' => 'notice_list']);
         $plugins = $settings->addChild('Plugins');
         $settings->addChild('Update', ['route' => 'update']);
+        // add export plugin items
+        $this->addPluginItems(
+            $this->container->get('anime_db.plugin.export'),
+            $settings,
+            'Export items'
+        );
         $settings->addChild('General', ['route' => 'home_settings']);
 
         // plugins
