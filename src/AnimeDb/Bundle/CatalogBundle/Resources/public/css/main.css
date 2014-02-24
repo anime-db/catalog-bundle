@@ -153,12 +153,12 @@ h1.logo {
 h1.logo,
 h1.logo a {
 	width: 276px;
-	height: 80px;
+	height: 78px;
 }
 
 h1.logo a {
 	display: block;
-	background: url(../images/logo.gif) no-repeat;
+	background: url(../images/logo.png) no-repeat;
 }
 
 h1.logo a span {
