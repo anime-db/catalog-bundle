@@ -614,6 +614,10 @@
                 <source>Export items</source>
                 <target>Экспорт записей</target>
             </trans-unit>
+            <trans-unit id="194">
+                <source>Synchronization</source>
+                <target>Синхронизация</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

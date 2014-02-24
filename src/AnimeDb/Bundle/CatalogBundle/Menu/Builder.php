@@ -39,6 +39,20 @@ class Builder extends ContainerAware
 
         $menu->addChild('Search', ['route' => 'home_search']);
         $add = $menu->addChild('Add record');
+
+        // synchronization items
+        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain */
+        $import = $this->container->get('anime_db.plugin.import');
+        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain */
+        $export = $this->container->get('anime_db.plugin.export');
+        if ($import->getPlugins() || $export->getPlugins()) {
+            $sync = $menu->addChild('Synchronization');
+            // add import plugin items
+            $this->addPluginItems($import, $sync, 'Import items');
+            // add export plugin items
+            $this->addPluginItems($export, $sync, 'Export items');
+        }
+
         $settings = $menu->addChild('Settings');
 
         // add search plugin items
@@ -57,23 +71,11 @@ class Builder extends ContainerAware
         );
         // add manually
         $add->addChild('Fill manually', ['route' => 'item_add_manually']);
-        // add import plugin items
-        $this->addPluginItems(
-            $this->container->get('anime_db.plugin.import'),
-            $add,
-            'Import items'
-        );
 
         $settings->addChild('File storages', ['route' => 'storage_list']);
         $settings->addChild('List of notice', ['route' => 'notice_list']);
         $plugins = $settings->addChild('Plugins');
         $settings->addChild('Update', ['route' => 'update']);
-        // add export plugin items
-        $this->addPluginItems(
-            $this->container->get('anime_db.plugin.export'),
-            $settings,
-            'Export items'
-        );
         $settings->addChild('General', ['route' => 'home_settings']);
 
         // plugins
@@ -97,7 +99,7 @@ class Builder extends ContainerAware
      */
     private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '')
     {
-        if (count($chain->getPlugins())) {
+        if ($chain->getPlugins()) {
             $group = $root->addChild($label);
             if ($title) {
                 $group->setAttribute('title', $this->container->get('translator')->trans($title));
