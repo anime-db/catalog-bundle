@@ -31,6 +31,43 @@ use Symfony\Component\Finder\SplFileInfo;
 class ScanStoragesCommand extends ContainerAwareCommand
 {
     /**
+     * Allowable extension
+     *
+     * @var array
+     */
+    protected $allow_ext = [
+        'avi',
+        'mkv',
+        'm1v',
+        'm2v',
+        'm4v',
+        'mov',
+        'qt',
+        'mpeg',
+        'mpg',
+        'mpe',
+        'ogg',
+        'rm',
+        'wmv',
+        'asf',
+        'wm',
+        'm2ts',
+        'mts',
+        'm2t',
+        'mp4',
+        'mov',
+        '3gp',
+        '3g2',
+        'k3g',
+        'mp2',
+        'mpv2',
+        'mod',
+        'vob',
+        'f4v',
+        'ismv'
+    ];
+
+    /**
      * (non-PHPdoc)
      * @see Symfony\Component\Console\Command.Command::configure()
      */
@@ -121,15 +158,17 @@ EOT
                 ->in($path)
                 ->ignoreUnreadableDirs()
                 ->depth('== 0')
-                // tmp files
-                ->notName('.*')
-                ->notName('*~')
-                ->notName('ehthumbs.db')
-                ->notName('Thumbs.db')
-                ->notName('desktop.ini');
+                ->notName('.*');
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($finder as $file) {
+                // ignore not supported files
+                if ($file->isFile() &&
+                    !in_array(strtolower(pathinfo($file->getFilename(), PATHINFO_EXTENSION)), $this->allow_ext)
+                ) {
+                    continue;
+                }
+
                 if ($item = $this->getItemOfUpdatedFiles($storage, $file)) {
                     $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
                     $output->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
