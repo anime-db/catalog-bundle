@@ -60,12 +60,16 @@
 			<div>
 				<strong>{% trans %}Type{% endtrans %}</strong> <a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}">{{ item.type.name }}</a>
 			</div>
-			<div>
-				<strong>{% trans %}Number of episodes{% endtrans %}</strong> {{ item.episodesnumber }} {% trans %}ep.{% endtrans %} 
-			</div>
-			<div>
-				<strong>{% trans %}The duration of the episode{% endtrans %}</strong> {{ item.duration }} {% trans %}m.{% endtrans %}
-			</div>
+			{% if item.episodesnumber %}
+				<div>
+					<strong>{% trans %}Number of episodes{% endtrans %}</strong> {{ item.episodesnumber }} {% trans %}ep.{% endtrans %} 
+				</div>
+			{% endif %}
+			{% if item.duration %}
+				<div>
+					<strong>{% trans %}The duration of the episode{% endtrans %}</strong> {{ item.duration }} {% trans %}m.{% endtrans %}
+				</div>
+			{% endif %}
 			<div>
 				<strong>{% trans %}Status{% endtrans %}</strong>
 				{% if item.dateend and item.datepremiere|date('Y') != item.dateend|date('Y') %}
