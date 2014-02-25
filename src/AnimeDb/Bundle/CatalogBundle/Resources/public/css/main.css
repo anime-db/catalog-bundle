@@ -32,8 +32,6 @@ h3 {
 	padding: 0 0 9px;
 }
 h4 {
-	padding-bottom: 21px;
-	border-bottom: 1px dashed #999;
 	font-size: 12px;
 	font-weight: bold;
 }
@@ -51,6 +49,12 @@ table, tr, th, td {
 }
 td, th {
 	padding: 5px 10px;
+}
+code {
+	display: inline-block;
+	padding: 10px 10px;
+	background-color: #eee;
+	border: 1px #aaa solid;
 }
 
 /**
