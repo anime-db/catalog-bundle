@@ -67,7 +67,7 @@ $('.bt-toggle-block').each(function() {
 	new ToggleBlock($(this));
 });
 
-$('.b-update-log').each(function() {
+$('.b-update-log code').each(function() {
 	new UpdateLogBlock($(this));
 });
 
