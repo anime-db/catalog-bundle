@@ -50,11 +50,16 @@ table, tr, th, td {
 td, th {
 	padding: 5px 10px;
 }
-code {
+pre {
 	display: inline-block;
-	padding: 10px 10px;
-	background-color: #eee;
-	border: 1px #aaa solid;
+	margin: 0;
+	padding: 6px 10px;
+	overflow: auto;
+	background-color: #f8f8f8;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
 }
 
 /**
