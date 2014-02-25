@@ -39,6 +39,9 @@ class UpdateController extends Controller
      */
     public function indexAction(Request $request)
     {
+        // update for Windows XP does not work
+        $can_update = strpos(php_uname('v'), 'Windows XP') === false;
+
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
@@ -51,7 +54,7 @@ class UpdateController extends Controller
             }
         }
 
-        if ($request->request->get('confirm')) {
+        if ($request->request->get('confirm') && $can_update) {
             // delete or install package
             if ($plugin = $request->request->get('plugin')) {
                 $root = $this->container->getParameter('kernel.root_dir').'/../';
@@ -79,7 +82,8 @@ class UpdateController extends Controller
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
             'confirmed' => $request->request->get('confirm'),
             'log_file' => '/update.log',
-            'end_message' => self::END_MESSAGE
+            'end_message' => self::END_MESSAGE,
+            'can_update' => $can_update
         ], $response);
     }
 }

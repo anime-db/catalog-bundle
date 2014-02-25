@@ -32,8 +32,6 @@ h3 {
 	padding: 0 0 9px;
 }
 h4 {
-	padding-bottom: 21px;
-	border-bottom: 1px dashed #999;
 	font-size: 12px;
 	font-weight: bold;
 }
@@ -51,6 +49,18 @@ table, tr, th, td {
 }
 td, th {
 	padding: 5px 10px;
+}
+pre {
+	display: inline-block;
+	margin: 0;
+	padding: 6px 10px;
+	overflow: auto;
+	background-color: #f8f8f8;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	text-align: left;
 }
 
 /**
@@ -1178,12 +1188,9 @@ h1.logo a span {
 }
 .b-update-container .b-update-log {
 	display: none;
-	text-align: left;
 	margin: 5px auto 0 auto;
 	width: 500px;
 	height: 200px;
-	border: 1px gray solid;
-	overflow: auto;
 }
 .f-refill {
 	position: relative;
