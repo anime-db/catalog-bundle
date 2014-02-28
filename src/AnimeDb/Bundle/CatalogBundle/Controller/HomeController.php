@@ -148,6 +148,7 @@ class HomeController extends Controller
             if ($response->getLastModified() < $last_update) {
                 $response->setLastModified($last_update);
             }
+            $response->setEtag(md5($repository->count()));
 
             // response was not modified for this request
             if ($response->isNotModified($request)) {
@@ -283,13 +284,13 @@ class HomeController extends Controller
 
             // check items last update
             if ($request->query->count()) {
+                $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
                 // last item update
-                $last_update = $this->getDoctrine()
-                    ->getRepository('AnimeDbCatalogBundle:Item')
-                    ->getLastUpdate();
+                $last_update = $repository->getLastUpdate();
                 if ($response->getLastModified() < $last_update) {
                     $response->setLastModified($last_update);
                 }
+                $response->setEtag(md5($repository->count()));
 
                 // last storage update
                 $last_update = $this->getDoctrine()
