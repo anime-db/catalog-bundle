@@ -598,6 +598,42 @@
                 <source>premiere in</source>
                 <target>премьера в</target>
             </trans-unit>
+            <trans-unit id="190">
+                <source>required field</source>
+                <target>поле обязательное для заполнения</target>
+            </trans-unit>
+            <trans-unit id="191">
+                <source>When detects a new item, the application will try to add it using the selected plugin</source>
+                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина</target>
+            </trans-unit>
+            <trans-unit id="192">
+                <source>Detected and added new item %name% on storage %storage%</source>
+                <target>Обнаружена и добавлена новая запись %name% на хранилище %storage%</target>
+            </trans-unit>
+            <trans-unit id="193">
+                <source>Export items</source>
+                <target>Экспорт записей</target>
+            </trans-unit>
+            <trans-unit id="194">
+                <source>Synchronization</source>
+                <target>Синхронизация</target>
+            </trans-unit>
+            <trans-unit id="195">
+                <source>In Your operating system the application update does not work</source>
+                <target>В Вашей операционной системе, обновление приложения не работает</target>
+            </trans-unit>
+            <trans-unit id="196">
+                <source>You can update the application from the command line:</source>
+                <target>Вы можете обновить приложения из командной строки:</target>
+            </trans-unit>
+            <trans-unit id="197">
+                <source>Apologize for any inconvenience.</source>
+                <target>Приносим свои извинения за доставленные неудобства.</target>
+            </trans-unit>
+            <trans-unit id="198">
+                <source><![CDATA[This problem is described in issue <a href="%link%">#%issue%</a>.]]></source>
+                <target><![CDATA[Эта проблема описана в задаче <a href="%link%">#%issue%</a>.]]></target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

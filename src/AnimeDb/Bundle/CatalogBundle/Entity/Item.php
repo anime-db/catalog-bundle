@@ -268,6 +268,13 @@ class Item
     protected $old_covers = [];
 
     /**
+     * Not cleared path
+     *
+     * @var string
+     */
+    protected $not_cleared_path = '';
+
+    /**
      * Construct
      */
     public function __construct() {
@@ -413,7 +420,12 @@ class Item
      */
     public function setPath($path)
     {
-        $this->path = $path;
+        if ($path) {
+            $this->not_cleared_path = $path;
+            $this->doClearPath();
+        } else {
+            $this->path = $path;
+        }
         return $this;
     }
 
@@ -424,6 +436,15 @@ class Item
      */
     public function getPath()
     {
+        $this->doClearPath();
+        // path not cleared
+        if ($this->not_cleared_path) {
+            return $this->not_cleared_path;
+        }
+        // use storage path as prefix
+        if ($this->getStorage() instanceof Storage && $this->getStorage()->getPath()) {
+            return $this->getStorage()->getPath().$this->path;
+        }
         return $this->path;
     }
 
@@ -666,6 +687,7 @@ class Item
                 $this->storage->addItem($this);
             }
         }
+        $this->doClearPath();
         return $this;
     }
 
@@ -979,11 +1001,11 @@ class Item
     }
 
     /**
-     * Update date item change
+     * Change item date update
      *
-     * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
-    public function doUpdateDateItemChange()
+    public function doChangeDateUpdate()
     {
         $this->date_update = new \DateTime();
     }
@@ -1007,12 +1029,8 @@ class Item
      */
     public function isPathValid(ExecutionContextInterface $context)
     {
-        if ($this->getStorage() instanceof Storage && $this->getStorage()->isPathRequired()) {
-            if (!$this->getPath()) {
-                $context->addViolationAt('path', 'Path is required to fill for current type of storage');
-            } elseif (strpos($this->getPath(), $this->getStorage()->getPath()) !== 0) {
-                $context->addViolationAt('path', 'Path to item does not match path to storage');
-            }
+        if ($this->getStorage() instanceof Storage && $this->getStorage()->isPathRequired() && !$this->getPath()) {
+            $context->addViolationAt('path', 'Path is required to fill for current type of storage');
         }
     }
 
@@ -1052,5 +1070,34 @@ class Item
             $this->cover = date('Y/m/d/His/', $this->date_add->getTimestamp()).$filename;
             $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
         }
+    }
+
+    /**
+     * Remove storage path in item path
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    protected function doClearPath()
+    {
+        if (
+            $this->not_cleared_path &&
+            $this->getStorage() instanceof Storage &&
+            $this->getStorage()->getPath() &&
+            strpos($this->not_cleared_path, $this->getStorage()->getPath()) === 0
+        ) {
+            $this->path = substr($this->not_cleared_path, strlen($this->getStorage()->getPath()));
+            $this->not_cleared_path = '';
+        }
+    }
+
+    /**
+     * Get item name for url
+     *
+     * @return string
+     */
+    public function getUrlName()
+    {
+        return trim(preg_replace('/\s+/', '_', $this->name), '_');
     }
 }

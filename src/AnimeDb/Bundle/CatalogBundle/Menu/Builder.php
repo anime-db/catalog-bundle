@@ -39,6 +39,20 @@ class Builder extends ContainerAware
 
         $menu->addChild('Search', ['route' => 'home_search']);
         $add = $menu->addChild('Add record');
+
+        // synchronization items
+        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain */
+        $import = $this->container->get('anime_db.plugin.import');
+        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain */
+        $export = $this->container->get('anime_db.plugin.export');
+        if ($import->getPlugins() || $export->getPlugins()) {
+            $sync = $menu->addChild('Synchronization');
+            // add import plugin items
+            $this->addPluginItems($import, $sync, 'Import items');
+            // add export plugin items
+            $this->addPluginItems($export, $sync, 'Export items');
+        }
+
         $settings = $menu->addChild('Settings');
 
         // add search plugin items
@@ -55,13 +69,6 @@ class Builder extends ContainerAware
             'Fill from source',
             'Fill record from source (example source is URL)'
         );
-        // add import plugin items
-        $this->addPluginItems(
-            $this->container->get('anime_db.plugin.import'),
-            $add,
-            'Import items'
-        );
-
         // add manually
         $add->addChild('Fill manually', ['route' => 'item_add_manually']);
 
@@ -92,7 +99,7 @@ class Builder extends ContainerAware
      */
     private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '')
     {
-        if (count($chain->getPlugins())) {
+        if ($chain->getPlugins()) {
             $group = $root->addChild($label);
             if ($title) {
                 $group->setAttribute('title', $this->container->get('translator')->trans($title));
@@ -120,7 +127,7 @@ class Builder extends ContainerAware
         }
         /* @var $menu \Knp\Menu\ItemInterface */
         $menu = $factory->createItem('root');
-        $params = ['id' => $options['item']->getId(), 'name' => $options['item']->getName()];
+        $params = ['id' => $options['item']->getId(), 'name' => $options['item']->getUrlName()];
 
         $menu->addChild('Change record', ['route' => 'item_change', 'routeParameters' => $params])
             ->setLinkAttribute('class', 'icon-label icon-edit');

@@ -1,6 +1,9 @@
-<img src="http://anime-db.org/images/logo.jpg" /><br />
-[![Build Status](https://travis-ci.org/anime-db/catalog-bundle.png)](https://travis-ci.org/anime-db/catalog-bundle)<br />
-<img src="http://www.php.net/images/logos/php5-power-micro.png" />
+<img src="http://anime-db.org/bundles/animedboffsite/images/logo.jpg" /><br />
+[![Latest Stable Version](https://poser.pugx.org/anime-db/catalog-bundle/v/stable.png)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/anime-db/catalog-bundle/v/unstable.png)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Build Status](https://travis-ci.org/anime-db/catalog-bundle.png)](https://travis-ci.org/anime-db/catalog-bundle)
+[![Total Downloads](https://poser.pugx.org/anime-db/catalog-bundle/downloads.png)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![License](https://poser.pugx.org/anime-db/catalog-bundle/license.png)](https://packagist.org/packages/anime-db/catalog-bundle)
 
 # Anime DB #
 

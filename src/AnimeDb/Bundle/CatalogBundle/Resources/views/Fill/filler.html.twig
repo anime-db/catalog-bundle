@@ -21,7 +21,10 @@
 				{{ form_widget(fill_form) }}
 				<button type="submit">{% trans %}Add{% endtrans %}</button>
 			</form>
-			<img src="/bundles/animedbcatalog/images/fill.png" align="left" alt="" /> - {% trans %}fill the field from source{% endtrans %}<br />
+			<blockquote class="b-form-note">
+				<span class="starlet">*</span>- {% trans %}required field{% endtrans %}<br />
+				<img src="/bundles/animedbcatalog/images/fill.png" alt="" />- {% trans %}fill the field from source{% endtrans %}<br />
+			</blockquote>
 		</div>
 	{% endif %}
 </div>

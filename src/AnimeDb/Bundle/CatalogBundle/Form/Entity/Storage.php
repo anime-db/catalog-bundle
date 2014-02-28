@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
+use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 
 /**
  * Storage form
@@ -36,7 +37,10 @@ class Storage extends AbstractType
             ])
             ->add('path', new LocalPathField(), [
                 'label' => 'Path',
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'placeholder' => Filesystem::getUserHomeDir()
+                ]
             ])
             ->add('type', 'choice', [
                 'choices' => StorageEntity::$type_titles,

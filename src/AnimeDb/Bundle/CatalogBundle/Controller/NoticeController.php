@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use AnimeDb\Bundle\AppBundle\Service\Pagination;
+use AnimeDb\Bundle\AppBundle\Util\Pagination;
 
 /**
  * Notice
@@ -50,25 +50,21 @@ class NoticeController extends Controller
         // get notices
         $notices = $repository->getList(self::NOTICE_PER_PAGE, ($current_page - 1) * self::NOTICE_PER_PAGE);
 
-        // remove notices if need
+        // remove selected notices if need
         if ($request->isMethod('POST') && $notices) {
-            if ((int)$request->request->get('check-all', 0)) { // remove all entitys
-                foreach ($notices as $notice) {
-                    $em->remove($notice);
-                }
-                $em->flush();
-            } elseif ($ids = (array)$request->request->get('id', [])) { // remove selected entitys
+            if ($ids = (array)$request->request->get('id', [])) {
                 foreach ($ids as $id) {
-                    foreach ($notices as $notice) {
+                    foreach ($notices as $key => $notice) {
                         if ($notice->getId() == $id) {
                             $em->remove($notice);
+                            unset($notices[$key]);
                             break;
                         }
                     }
                 }
                 $em->flush();
             }
-            return $this->redirect($this->generateUrl('notice_list'));
+            return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
         }
 
         // get count all items

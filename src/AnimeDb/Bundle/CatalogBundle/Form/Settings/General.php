@@ -68,7 +68,8 @@ class General extends AbstractType
             ->add('default_search', 'choice', [
                 'required' => false,
                 'choices' => $search_choices,
-                'label' => 'Default search plugin'
+                'label' => 'Default search plugin',
+                'help' => 'When detects a new item, the application will try to add it using the selected plugin'
             ]);
     }
 

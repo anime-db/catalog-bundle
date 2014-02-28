@@ -24,6 +24,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
 use Symfony\Component\Templating\EngineInterface as TemplatingInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 
 /**
  * Item form
@@ -170,7 +171,7 @@ class Item extends AbstractType
             ->add('path', new LocalPathField(), [
                 'required' => false,
                 'attr' => [
-                    'placeholder' => $this->getUserHomeDir()
+                    'placeholder' => Filesystem::getUserHomeDir()
                 ]
             ])
             ->add('translate', 'textarea', [
@@ -235,28 +236,6 @@ class Item extends AbstractType
     public function getName()
     {
         return 'anime_db_catalog_entity_item';
-    }
-
-    /**
-     * Get user home dir
-     *
-     * @return string
-     */
-    protected function getUserHomeDir() {
-        if ($home = getenv('HOME')) {
-            $last = substr($home, strlen($home), 1);
-            if ($last == '/' || $last == '\\') {
-                return $home;
-            } else {
-                return $home.DIRECTORY_SEPARATOR;
-            }
-        } elseif (!defined('PHP_WINDOWS_VERSION_BUILD')) {
-            return '/home/'.get_current_user().'/';
-        } elseif (is_dir($win7path = 'C:\Users\\'.get_current_user().'\\')) { // is Windows 7 or Vista
-            return $win7path;
-        } else {
-            return 'C:\Documents and Settings\\'.get_current_user().'\\';
-        }
     }
 
     /**

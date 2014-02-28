@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 
 use Symfony\Component\EventDispatcher\Event;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -37,6 +38,20 @@ class DetectedNewFiles extends Event
     protected $file;
 
     /**
+     * Name
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * Item
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    protected $item;
+
+    /**
      * Construct
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
@@ -46,6 +61,13 @@ class DetectedNewFiles extends Event
     {
         $this->storage = $storage;
         $this->file = $file;
+
+        // get clean name
+        $this->name = $file->getFilename();
+        if ($file->isFile()) {
+            $this->name = pathinfo($this->name, PATHINFO_FILENAME);
+        }
+        $this->name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $this->name));
     }
 
     /**
@@ -66,5 +88,38 @@ class DetectedNewFiles extends Event
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set item
+     *
+     * @param $item \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\
+     */
+    public function setItem(Item $item)
+    {
+        $this->item = $item;
+        return $this;
+    }
+
+    /**
+     * Get item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function getItem()
+    {
+        return $this->item;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

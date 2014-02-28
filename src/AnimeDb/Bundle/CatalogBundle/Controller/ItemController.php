@@ -15,7 +15,9 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Entity\Image;
 use AnimeDb\Bundle\CatalogBundle\Entity\Source;
+use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Item
@@ -57,17 +59,41 @@ class ItemController extends Controller
      * Show item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction(Item $item)
+    public function showAction(Item $item, Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+            // use item update date
+            if ($response->getLastModified() < $item->getDateUpdate()) {
+                $response->setLastModified($item->getDateUpdate());
+            }
+            // use storage update date
+            if (
+                $item->getStorage() instanceof Storage &&
+                $response->getLastModified() < $item->getStorage()->getDateUpdate()
+            ) {
+                $response->setLastModified($item->getStorage()->getDateUpdate());
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         return $this->render('AnimeDbCatalogBundle:Item:show.html.twig', [
             'item' => $item,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM,
             'widget_in_content' => self::WIDGET_PALCE_IN_CONTENT,
             'widget_right' => self::WIDGET_PALCE_RIGHT
-        ]);
+        ], $response);
     }
 
     /**
@@ -79,6 +105,18 @@ class ItemController extends Controller
      */
     public function addManuallyAction(Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         $item = new Item();
 
         /* @var $form \Symfony\Component\Form\Form */
@@ -103,7 +141,7 @@ class ItemController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Item:add-manually.html.twig', [
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**
@@ -116,6 +154,23 @@ class ItemController extends Controller
      */
     public function changeAction(Item $item, Request $request)
     {
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // use item update date
+            if ($response->getLastModified() < $item->getDateUpdate()) {
+                $response->setLastModified($item->getDateUpdate());
+            }
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm('anime_db_catalog_entity_item', $item);
 
@@ -135,7 +190,7 @@ class ItemController extends Controller
         return $this->render('AnimeDbCatalogBundle:Item:change.html.twig', [
             'item' => $item,
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**

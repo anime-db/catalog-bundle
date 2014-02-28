@@ -97,8 +97,8 @@ class Manager
             $data,
             ($limit > 0 ? (int)$limit : 0),
             ($offset > 0 ? (int)$offset : 0),
-            self::getValidSortColumn($sort_column),
-            self::getValidSortDirection($sort_direction)
+            $this->getValidSortColumn($sort_column),
+            $this->getValidSortDirection($sort_direction)
         );
     }
 
@@ -120,7 +120,7 @@ class Manager
      *
      * @return string
      */
-    public static function getValidSortColumn($column = self::DEFAULT_SORT_COLUMN)
+    public function getValidSortColumn($column = self::DEFAULT_SORT_COLUMN)
     {
         return in_array($column, self::$sort_columns) ? $column : self::DEFAULT_SORT_COLUMN;
     }
@@ -132,7 +132,7 @@ class Manager
      *
      * @return string
      */
-    public static function getValidSortDirection($direction = self::DEFAULT_SORT_DIRECTION)
+    public function getValidSortDirection($direction = self::DEFAULT_SORT_DIRECTION)
     {
         return in_array($direction, self::$sort_direction) ? $direction : self::DEFAULT_SORT_DIRECTION;
     }

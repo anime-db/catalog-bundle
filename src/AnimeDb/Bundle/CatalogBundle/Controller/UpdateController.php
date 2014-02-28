@@ -39,7 +39,22 @@ class UpdateController extends Controller
      */
     public function indexAction(Request $request)
     {
-        if ($request->getMethod() == 'POST') {
+        // update for Windows XP does not work
+        $can_update = strpos(php_uname('v'), 'Windows XP') === false;
+
+        $response = new Response();
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setPublic();
+            $response->setLastModified(new \DateTime($last_update));
+
+            // response was not modified for this request
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
+        }
+
+        if ($request->request->get('confirm') && $can_update) {
             // delete or install package
             if ($plugin = $request->request->get('plugin')) {
                 $root = $this->container->getParameter('kernel.root_dir').'/../';
@@ -59,49 +74,16 @@ class UpdateController extends Controller
                 file_put_contents($root.'composer.json', $composer);
             }
 
-            // push event to execute update
-            $host = $request->getHost().':'.$request->getPort();
-            $fp = fsockopen($host, 80, $errno, $errstr, 1);
-            $out = "POST ".$this->generateUrl('update_exec')." HTTP/1.1\r\n";
-            $out .= "Host: ".$host."\r\n";
-            $out .= "Connection: Close\r\n\r\n";
-            fwrite($fp, $out);
-            fclose($fp);
+            // execute update
+            $this->get('anime_db.command')
+                ->exec('php -d memory_limit=-1 -f app/console animedb:update >web/update.log');
         }
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
-            'confirmed' => $request->getMethod() == 'POST',
+            'confirmed' => $request->request->get('confirm'),
             'log_file' => '/update.log',
-            'end_message' => self::END_MESSAGE
-        ]);
-    }
-
-    /**
-     * Execute update
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function execAction()
-    {
-        ignore_user_abort(true);
-        set_time_limit(0);
-
-        $phpFinder = new PhpExecutableFinder();
-        if (!$phpPath = $phpFinder->find()) {
-            throw new \RuntimeException('The php executable could not be found, add it to your PATH environment variable and try again');
-        }
-
-        $root = $this->container->getParameter('kernel.root_dir');
-        $command = $phpPath.' '.$root.'/console animedb:update >web/update.log';
-        file_put_contents($root.'/../web/update.log', '');
-        chdir($root.'/../');
-
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-            pclose(popen('start /b '.$command, 'r'));
-        } else {
-            exec($command.' &');
-        }
-
-        return new Response();
+            'end_message' => self::END_MESSAGE,
+            'can_update' => $can_update
+        ], $response);
     }
 }
