@@ -40,12 +40,13 @@ class StorageController extends Controller
             $response->setLastModified(new \DateTime($last_update));
         }
         // last storage update
-        $last_update = $this->getDoctrine()
-            ->getRepository('AnimeDbCatalogBundle:Storage')
-            ->getLastUpdate();
+        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
+        $last_update = $repository->getLastUpdate();
         if ($response->getLastModified() < $last_update) {
             $response->setLastModified($last_update);
         }
+        $response->setEtag(md5($repository->count()));
+
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
