@@ -45,7 +45,6 @@ class UpdateController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request
