@@ -37,7 +37,6 @@ class FillController extends Controller
         $response = new Response();
         // caching
         if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request
@@ -87,7 +86,6 @@ class FillController extends Controller
         $response = new Response();
         // caching
         if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request

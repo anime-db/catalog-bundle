@@ -22,6 +22,21 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 class Storage extends EntityRepository
 {
     /**
+     * Get count storages
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->getEntityManager()->createQuery('
+            SELECT
+                COUNT(s)
+            FROM
+                AnimeDbCatalogBundle:Storage s
+        ')->getSingleScalarResult();
+    }
+
+    /**
      * Get storage list for types
      *
      * @param array $types

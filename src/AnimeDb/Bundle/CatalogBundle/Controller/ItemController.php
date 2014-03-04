@@ -68,24 +68,22 @@ class ItemController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
-            // use item update date
-            if ($response->getLastModified() < $item->getDateUpdate()) {
-                $response->setLastModified($item->getDateUpdate());
-            }
-            // use storage update date
-            if (
-                $item->getStorage() instanceof Storage &&
-                $response->getLastModified() < $item->getStorage()->getDateUpdate()
-            ) {
-                $response->setLastModified($item->getStorage()->getDateUpdate());
-            }
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        }
+        // use item update date
+        if ($response->getLastModified() < $item->getDateUpdate()) {
+            $response->setLastModified($item->getDateUpdate());
+        }
+        // use storage update date
+        if (
+            $item->getStorage() instanceof Storage &&
+            $response->getLastModified() < $item->getStorage()->getDateUpdate()
+        ) {
+            $response->setLastModified($item->getStorage()->getDateUpdate());
+        }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:show.html.twig', [
@@ -108,7 +106,6 @@ class ItemController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request
@@ -157,18 +154,15 @@ class ItemController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
-
-            // use item update date
-            if ($response->getLastModified() < $item->getDateUpdate()) {
-                $response->setLastModified($item->getDateUpdate());
-            }
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        }
+        // use item update date
+        if ($response->getLastModified() < $item->getDateUpdate()) {
+            $response->setLastModified($item->getDateUpdate());
+        }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         /* @var $form \Symfony\Component\Form\Form */

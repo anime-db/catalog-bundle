@@ -138,21 +138,20 @@ class HomeController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
+        }
+        // check items last update
+        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        $last_update = $repository->getLastUpdate();
+        if ($response->getLastModified() < $last_update) {
+            $response->setLastModified($last_update);
+        }
+        $response->setEtag(md5($repository->count()));
 
-            // check items last update
-            /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-            $last_update = $repository->getLastUpdate();
-            if ($response->getLastModified() < $last_update) {
-                $response->setLastModified($last_update);
-            }
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         // current page for paging
@@ -233,7 +232,6 @@ class HomeController extends Controller
         $response = new JsonResponse();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request
@@ -278,32 +276,29 @@ class HomeController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
-
-            // check items last update
-            if ($request->query->count()) {
-                // last item update
-                $last_update = $this->getDoctrine()
-                    ->getRepository('AnimeDbCatalogBundle:Item')
-                    ->getLastUpdate();
-                if ($response->getLastModified() < $last_update) {
-                    $response->setLastModified($last_update);
-                }
-
-                // last storage update
-                $last_update = $this->getDoctrine()
-                    ->getRepository('AnimeDbCatalogBundle:Storage')
-                    ->getLastUpdate();
-                if ($response->getLastModified() < $last_update) {
-                    $response->setLastModified($last_update);
-                }
+        }
+        // check items last update
+        if ($request->query->count()) {
+            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+            // last item update
+            $last_update = $repository->getLastUpdate();
+            if ($response->getLastModified() < $last_update) {
+                $response->setLastModified($last_update);
             }
+            $response->setEtag(md5($repository->count()));
 
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
+            // last storage update
+            $last_update = $this->getDoctrine()
+                ->getRepository('AnimeDbCatalogBundle:Storage')
+                ->getLastUpdate();
+            if ($response->getLastModified() < $last_update) {
+                $response->setLastModified($last_update);
             }
+        }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         $data = new SearchEntity();
@@ -422,7 +417,6 @@ class HomeController extends Controller
         $response = new Response();
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setPublic();
             $response->setLastModified(new \DateTime($last_update));
 
             // response was not modified for this request
