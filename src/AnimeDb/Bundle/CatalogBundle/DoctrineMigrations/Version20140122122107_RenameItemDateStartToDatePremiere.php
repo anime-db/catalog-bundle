@@ -89,6 +89,7 @@ class Version20140122122107_RenameItemDateStartToDatePremiere extends AbstractMi
             type VARCHAR(16) DEFAULT NULL,
             country VARCHAR(2) DEFAULT NULL,
             storage INTEGER DEFAULT NULL,
+            studio INTEGER DEFAULT NULL,
             name VARCHAR(256) NOT NULL,
             date_start DATE NOT NULL,
             date_end DATE DEFAULT NULL,
