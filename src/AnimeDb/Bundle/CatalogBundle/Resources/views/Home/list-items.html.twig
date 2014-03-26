@@ -25,9 +25,9 @@
 					<li><strong>{% trans %}On page{% endtrans %}:</strong></li>
 					{% for button in show_limit %}
 						{% if button.current %}
-							<li><span title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all items on page'|transchoice(button.count) }}">{{ button.name|trans }}</span></li>
+							<li><span title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all items on page'|transchoice(button.count) }}">{{ button.name|trans({'%total%': total}) }}</span></li>
 						{% else %}
-							<li><a href="{{ button.link }}" title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all items on page'|transchoice(button.count) }}">{{ button.name|trans }}</a></li>
+							<li><a href="{{ button.link }}" title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all items on page'|transchoice(button.count) }}">{{ button.name|trans({'%total%': total}) }}</a></li>
 						{% endif %}
 					{% endfor %}
 				</ul>

@@ -634,6 +634,10 @@
                 <source><![CDATA[This problem is described in issue <a href="%link%">#%issue%</a>.]]></source>
                 <target><![CDATA[Эта проблема описана в задаче <a href="%link%">#%issue%</a>.]]></target>
             </trans-unit>
+            <trans-unit id="199">
+                <source>All (%total%)</source>
+                <target>Все (%total%)</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
