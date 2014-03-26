@@ -271,8 +271,8 @@
                 <target>На странице</target>
             </trans-unit>
             <trans-unit id="70">
-                <source>Show one item on page|Show %count% items on page|{-1} Show all items on page</source>
-                <target>Показать %count% запись на странице|Показать %count% записи на странице|Показать %count% записей на странице|{-1} Показать все записи на странице</target>
+                <source>Show one item on page|Show %count% items on page|{-1} Show all %total% items on page</source>
+                <target>Показать %count% запись на странице|Показать %count% записи на странице|Показать %count% записей на странице|{-1} Показать все %total% записи на странице</target>
             </trans-unit>
             <trans-unit id="71">
                 <source>Sort ascending</source>
