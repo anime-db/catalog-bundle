@@ -622,17 +622,21 @@
                 <source>In Your operating system the application update does not work</source>
                 <target>В Вашей операционной системе, обновление приложения не работает</target>
             </trans-unit>
-            <trans-unit id="197">
+            <trans-unit id="196">
                 <source>Apologize for any inconvenience.</source>
                 <target>Приносим свои извинения за доставленные неудобства.</target>
             </trans-unit>
-            <trans-unit id="198">
+            <trans-unit id="197">
                 <source><![CDATA[We are <a href="%issue%">working</a> to resolve this problem. You can <a href="%doc%">update the application</a> from the command line:]]></source>
                 <target><![CDATA[Мы <a href="%issue%">работаем</a> над решением этой проблемы. Вы можете <a href="%doc%">обновить приложения</a> из командной строки:]]></target>
             </trans-unit>
-            <trans-unit id="199">
+            <trans-unit id="198">
                 <source>All (%total%)</source>
                 <target>Все (%total%)</target>
+            </trans-unit>
+            <trans-unit id="199">
+                <source>Help</source>
+                <target>Помощь</target>
             </trans-unit>
         </body>
     </file>
