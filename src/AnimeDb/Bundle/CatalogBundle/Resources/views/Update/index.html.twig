@@ -8,8 +8,8 @@
 	{% if can_update == false %}
 		<h3>{% trans %}In Your operating system the application update does not work{% endtrans %}</h3>
 		<p>
-			{% trans with {'%link%': 'https://github.com/anime-db/catalog-bundle/issues/71', '%issue%': '71' } %}This problem is described in issue <a href="%link%">#%issue%</a>.{% endtrans %}
-			{% trans %}You can update the application from the command line:{% endtrans %}
+			{% trans with { '%link%': 'https://github.com/anime-db/catalog-bundle/issues/71' } %}We are <a href="%link%">working</a> to resolve this problem.{% endtrans %}
+			{% trans with { '%link%': doc } %}You can <a href="%link%">update the application</a> from the command line:{% endtrans %}
 		</p>
 		<pre><code>php app/console animedb:update</code></pre>
 		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>

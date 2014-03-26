@@ -623,16 +623,16 @@
                 <target>В Вашей операционной системе, обновление приложения не работает</target>
             </trans-unit>
             <trans-unit id="196">
-                <source>You can update the application from the command line:</source>
-                <target>Вы можете обновить приложения из командной строки:</target>
+                <source><![CDATA[You can <a href="%link%">update the application</a> from the command line:]]></source>
+                <target><![CDATA[Вы можете <a href="%link%">обновить приложения</a> из командной строки:]]></target>
             </trans-unit>
             <trans-unit id="197">
                 <source>Apologize for any inconvenience.</source>
                 <target>Приносим свои извинения за доставленные неудобства.</target>
             </trans-unit>
             <trans-unit id="198">
-                <source><![CDATA[This problem is described in issue <a href="%link%">#%issue%</a>.]]></source>
-                <target><![CDATA[Эта проблема описана в задаче <a href="%link%">#%issue%</a>.]]></target>
+                <source><![CDATA[We are <a href="%link%">working</a> to resolve this problem.]]></source>
+                <target><![CDATA[Мы <a href="%link%">работаем</a> над решением этой проблемы.]]></target>
             </trans-unit>
             <trans-unit id="199">
                 <source>All (%total%)</source>
