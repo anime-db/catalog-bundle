@@ -312,7 +312,7 @@ class HomeController extends Controller
 
         $data = new SearchEntity();
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new SearchForm($this->generateUrl('home_autocomplete_name')), $data);
+        $form = $this->createForm('anime_db_catalog_search_items', $data);
         $items = [];
         $pagination = null;
         // list items controls
