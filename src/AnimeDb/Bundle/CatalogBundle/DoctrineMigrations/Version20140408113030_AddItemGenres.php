@@ -40,7 +40,6 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
         'Magic' => 'Магия',
         'Space' => 'Космос',
         'Super Power' => 'Супер сила',
-        'Yuri' => 'Юри',
         'Harem' => 'Гарем',
         'Supernatural' => 'Сверхъестественное',
         'Gender Bender' => 'Смена пола'
