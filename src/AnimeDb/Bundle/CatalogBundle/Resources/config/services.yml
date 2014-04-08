@@ -30,6 +30,7 @@ services:
         calls:
             - [ setRefillerChain, [ @anime_db.plugin.refiller ] ]
             - [ setTemplating, [ @templating ] ]
+            - [ setTranslator, [ @translator ] ]
             - [ setRouter, [ @router ] ]
 
     anime_db.listener.scan_storage:
