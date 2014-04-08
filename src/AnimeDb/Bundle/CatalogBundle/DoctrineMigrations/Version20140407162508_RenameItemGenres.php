@@ -46,6 +46,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
         'Fantastic' => 'Sci-fi',
         'Everyday' => 'Slice of life',
         'Vampires' => 'Vampire',
+        'Urey' => 'Yuri'
     ];
 
     /**
@@ -66,6 +67,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
         'Sci-fi' => 'Fantastic',
         'Slice of life' => 'Everyday',
         'Vampire' => 'Vampires',
+        'Yuri' => 'Urey'
     ];
 
     /**
