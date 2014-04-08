@@ -29,7 +29,7 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     protected $em;
 
     /**
-     * Rename genres
+     * Add genres
      *
      * @var array
      */
