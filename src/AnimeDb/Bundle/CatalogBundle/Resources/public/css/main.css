@@ -1420,3 +1420,7 @@ label .starlet,
 	float: left;
 	margin-right: 4px;
 }
+
+.content .widget-section article {
+	margin: 0;
+}
