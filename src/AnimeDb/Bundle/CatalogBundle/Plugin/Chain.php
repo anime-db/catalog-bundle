@@ -42,6 +42,8 @@ abstract class Chain
     public function addPlugin(Plugin $plugin) {
         $this->plugins[$plugin->getName()] = $plugin;
         $this->titles[$plugin->getName()] = $plugin->getTitle();
+        ksort($this->plugins);
+        ksort($this->titles);
     }
 
     /**
