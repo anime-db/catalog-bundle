@@ -104,7 +104,7 @@ class Studio
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
      */
-    public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function addItem(Item $item)
     {
         $this->items[] = $item->setStudio($this);
         return $this;
@@ -115,7 +115,7 @@ class Studio
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      */
-    public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
         $item->setStudio(null);
