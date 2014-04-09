@@ -43,6 +43,13 @@ class Item
     protected $link;
 
     /**
+     * Link for fill item
+     *
+     * @var string|null
+     */
+    protected $link_for_fill;
+
+    /**
      * Item in local catalog if have
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
@@ -137,6 +144,29 @@ class Item
     public function getLink()
     {
         return $this->link;
+    }
+
+    /**
+     * Set link for fill item
+     *
+     * @param string $link
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     */
+    public function setLinkForFill($link)
+    {
+        $this->link_for_fill = $link;
+        return $this;
+    }
+
+    /**
+     * Get link for fill item
+     *
+     * @return string
+     */
+    public function getLinkForFill()
+    {
+        return $this->link_for_fill;
     }
 
     /**
