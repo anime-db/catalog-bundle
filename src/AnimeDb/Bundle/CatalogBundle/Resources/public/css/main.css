@@ -638,11 +638,21 @@ h1.logo a span {
 	text-align: right;
 	list-style: none;
 }
+.list-items .add {
+	position: absolute;
+	right: 4px;
+	top: 3px;
+	width: 1em;
+	text-align: center;
+	overflow: hidden;
+	text-indent: 2em;
+}
 .list-items .genres .genre-item {
 	margin: 3px 0;
 }
 .list-items .genres .genre-item a,
-.list-items .type a {
+.list-items .type a,
+.list-items .add {
 	display: inline-block;
 	padding: 1px 4px;
 	text-decoration: none;
@@ -680,6 +690,20 @@ h1.logo a span {
 .list-items .controls a:hover {
 	text-decoration: underline;
 }
+.list-items .add {
+	background: #009827 url(../images/plus_white.png) no-repeat center center;
+}
+.list-items .add.already {
+	background: #db3400 url(../images/eye_white.png) no-repeat center center;
+}
+.list-items .add:hover {
+	background-color: #10b73b;
+}
+.list-items .add.already:hover {
+	background-color: #ff6600;
+}
+
+
 
 /*
  * UI State

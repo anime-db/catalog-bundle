@@ -1,0 +1,25 @@
+{% if items is defined and items %}
+<div class="list-items">
+	{% for item in items %}
+		<div class="item">
+			<img src="{{ item.cover|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
+			<a href="{{ item.link }}" class="name"><strong>{{ item.name }}</strong></a>
+			<div class="type">
+				<a href="{{ item.type.link }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
+			</div>
+			{% if item.item %}
+				<a href="{{ path('item_show', {'id': item.item.id, 'name': item.item.urlName}) }}" title="{% trans %}Show item{% endtrans %}" class="add already">↑</a>
+			{% elseif item.linkForFill %}
+				<a href="{{ item.linkForFill }}" title="{% trans %}Add item{% endtrans %}" class="add">+</a>
+			{% endif %}
+			<ul class="genres">
+				{% for genre in item.genres %}
+					<li class="genre-item">
+						<a href="{{ genre.link }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endfor %}
+</div>
+{% endif %}
