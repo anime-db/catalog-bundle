@@ -599,7 +599,13 @@ h1.logo a span {
 	margin: 10px;
 	position: relative;
 	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
 	float: left;
+}
+.list-items .item img {
+	max-width: 200px;
+	max-height: 250px;
 }
 .list-items .item:hover .name {
 	opacity: 0.8;
