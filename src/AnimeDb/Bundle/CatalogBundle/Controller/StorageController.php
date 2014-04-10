@@ -92,6 +92,10 @@ class StorageController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
+
+                // scan storage
+                $this->get('anime_db.command')
+                    ->exec('php app/console animedb:scan-storage '.$storage->getId().' >/dev/null 2>&1');
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }

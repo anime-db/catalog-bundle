@@ -54,6 +54,13 @@ class HomeController extends Controller
     const SHOW_LIMIT_ALL = -1;
 
     /**
+     * Limit name for show all items
+     *
+     * @var integer
+     */
+    const SHOW_LIMIT_ALL_NAME = 'All (%total%)';
+
+    /**
      * Widget place top
      *
      * @var string
@@ -147,7 +154,8 @@ class HomeController extends Controller
         if ($response->getLastModified() < $last_update) {
             $response->setLastModified($last_update);
         }
-        $response->setEtag(md5($repository->count()));
+        $total = $repository->count();
+        $response->setEtag(md5($total));
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -192,7 +200,7 @@ class HomeController extends Controller
         foreach (self::$home_show_limit as $value) {
             $show_limit[] = [
                 'link' => $this->generateUrl('home', ['limit' => $value]),
-                'name' => $value != -1 ? $value : 'All',
+                'name' => $value != -1 ? $value : self::SHOW_LIMIT_ALL_NAME,
                 'count' => $value,
                 'current' => $limit == $value
             ];
@@ -200,6 +208,7 @@ class HomeController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Home:index.html.twig', [
             'items' => $items,
+            'total' => $total,
             'show_limit' => $show_limit,
             'pagination' => $pagination,
             'widget_top' => self::WIDGET_PALCE_TOP,
@@ -303,13 +312,14 @@ class HomeController extends Controller
 
         $data = new SearchEntity();
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new SearchForm($this->generateUrl('home_autocomplete_name')), $data);
+        $form = $this->createForm('anime_db_catalog_search_items', $data);
         $items = [];
         $pagination = null;
         // list items controls
         $show_limit = null;
         $sort_by = null;
         $sort_direction = null;
+        $total = 0;
 
         if ($request->query->count()) {
             $form->handleRequest($request);
@@ -338,6 +348,7 @@ class HomeController extends Controller
                     $current_sort_direction
                 );
                 $items = $result['list'];
+                $total = $result['total'];
 
                 // build sort params for tamplate
                 $sort_by = [];
@@ -366,7 +377,7 @@ class HomeController extends Controller
                     }
                     $that = $this;
                     $pagination = $this->get('anime_db.pagination')->createNavigation(
-                        ceil($result['total']/$limit),
+                        ceil($total/$limit),
                         $current_page,
                         Pagination::DEFAULT_LIST_LENGTH,
                         function ($page) use ($that, $query) {
@@ -386,7 +397,7 @@ class HomeController extends Controller
                             'home_search',
                             array_merge($request->query->all(), ['limit' => $value])
                         ),
-                        'name' => $value != -1 ? $value : 'All',
+                        'name' => $value != -1 ? $value : self::SHOW_LIMIT_ALL_NAME,
                         'count' => $value,
                         'current' => !empty($limit) && $limit == $value
                     ];
@@ -397,11 +408,12 @@ class HomeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Home:search.html.twig', [
             'form'  => $form->createView(),
             'items' => $items,
+            'total' => $total,
             'show_limit' => $show_limit,
             'pagination' => $pagination,
             'sort_by' => $sort_by,
             'sort_direction' => $sort_direction,
-            'searched' => $request->query->count()
+            'searched' => !!$request->query->count()
         ], $response);
     }
 

@@ -13,3 +13,7 @@ avalanche_imagine:
         plugin:
             type:    thumbnail
             options: { size: [120, 120], mode: outbound }
+
+twig:
+    globals:
+        ga_account: "UA-42991303-2"

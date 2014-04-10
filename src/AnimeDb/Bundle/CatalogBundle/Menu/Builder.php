@@ -24,6 +24,28 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
  */
 class Builder extends ContainerAware
 {
+
+    /**
+     * Link to documentation by update the application on Windows XP
+     * 
+     * @var string
+     */
+    const DOC_LINK = 'http://anime-db.org/%locale%/guide/';
+
+    /**
+     * Default documentation locale
+     * 
+     * @var string
+     */
+    const DEFAULT_DOC_LOCALE = 'en';
+
+    /**
+     * Supported documentation locale
+     *
+     * @var array
+     */
+    protected $support_locales = ['en', 'ru'];
+
     /**
      * Builder main menu
      * 
@@ -85,6 +107,11 @@ class Builder extends ContainerAware
         foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
             $plugin->buildMenu($plugins);
         }
+
+        // add link to guide
+        $locale = substr($this->container->get('request')->getLocale(), 0, 2);
+        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
+        $settings->addChild('Help', ['uri' => str_replace('%locale%', $locale, self::DOC_LINK)]);
 
         return $menu;
     }

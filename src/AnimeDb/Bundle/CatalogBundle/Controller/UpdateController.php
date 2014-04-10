@@ -31,6 +31,27 @@ class UpdateController extends Controller
     const END_MESSAGE = '\r?\nUpdating the application has been completed\r?\n';
 
     /**
+     * Link to documentation by update the application on Windows XP
+     * 
+     * @var string
+     */
+    const DOC_LINK = 'http://anime-db.org/%locale%/guide/general/update.html#update-win-xp';
+
+    /**
+     * Default documentation locale
+     * 
+     * @var string
+     */
+    const DEFAULT_DOC_LOCALE = 'en';
+
+    /**
+     * Supported documentation locale
+     *
+     * @var array
+     */
+    protected $support_locales = ['en', 'ru'];
+
+    /**
      * Update page
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -78,11 +99,20 @@ class UpdateController extends Controller
                 ->exec('php -d memory_limit=-1 -f app/console animedb:update >web/update.log');
         }
 
+        // add link to documentation
+        $link = '';
+        if (!$can_update) {
+            $locale = substr($request->getLocale(), 0, 2);
+            $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
+            $link = str_replace('%locale%', $locale, self::DOC_LINK);
+        }
+
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
             'confirmed' => $request->request->get('confirm'),
             'log_file' => '/update.log',
             'end_message' => self::END_MESSAGE,
-            'can_update' => $can_update
+            'can_update' => $can_update,
+            'doc' => $link
         ], $response);
     }
 }

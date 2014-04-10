@@ -25,6 +25,9 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
 use Symfony\Component\Templating\EngineInterface as TemplatingInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
  * Item form
@@ -39,21 +42,28 @@ class Item extends AbstractType
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain
      */
-    private $chain;
+    protected $chain;
 
     /**
      * Templating
      *
      * @var \Symfony\Component\Templating\EngineInterface
      */
-    private $templating;
+    protected $templating;
+
+    /**
+     * Translator
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     */
+    protected $translator;
 
     /**
      * Router
      *
      * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
      */
-    private $router;
+    protected $router;
 
     /**
      * Set refiller chain
@@ -73,6 +83,16 @@ class Item extends AbstractType
     public function setTemplating(TemplatingInterface $templating)
     {
         $this->templating = $templating;
+    }
+
+    /**
+     * Set translator
+     *
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     */
+    public function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
     }
 
     /**
@@ -271,5 +291,25 @@ class Item extends AbstractType
             ];
         }
         return [];
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Symfony\Component\Form\AbstractType::finishView()
+     */
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        // order
+        $collator = new \Collator($this->translator->getLocale());
+        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+            return $collator->compare($a->vars['label'], $b->vars['label']);
+        });
+
+        $sort_field = function ($a, $b) use ($collator) {
+            return $collator->compare($a->label, $b->label);
+        };
+        usort($view->children['studio']->vars['choices'], $sort_field);
+        usort($view->children['country']->vars['choices'], $sort_field);
+        usort($view->children['storage']->vars['choices'], $sort_field);
     }
 }

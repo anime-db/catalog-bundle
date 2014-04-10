@@ -142,7 +142,7 @@ class Country implements Translatable
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function addItem(Item $item)
     {
         if (!$this->items->contains($item)) {
             $this->items[] = $item->setCountry($this);
@@ -155,7 +155,7 @@ class Country implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      */
-    public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
         $item->setCountry(null);

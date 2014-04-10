@@ -116,7 +116,7 @@ class Genre implements Translatable
      *
      * @return Genre
      */
-    public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function addItem(Item $item)
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
@@ -130,7 +130,7 @@ class Genre implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      */
-    public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);

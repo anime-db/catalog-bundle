@@ -30,6 +30,14 @@ services:
         calls:
             - [ setRefillerChain, [ @anime_db.plugin.refiller ] ]
             - [ setTemplating, [ @templating ] ]
+            - [ setTranslator, [ @translator ] ]
+            - [ setRouter, [ @router ] ]
+    anime_db.form.type.search:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Search
+        tags:
+            - { name: form.type, alias: anime_db_catalog_search_items }
+        calls:
+            - [ setTranslator, [ @translator ] ]
             - [ setRouter, [ @router ] ]
 
     anime_db.listener.scan_storage:

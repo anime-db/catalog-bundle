@@ -72,12 +72,12 @@ storage_path:
 
 
 notice_list:
-    pattern:  /notice/
+    pattern:  /notice.html
     defaults: { _controller: AnimeDbCatalogBundle:Notice:list }
 
 
 update:
-    pattern:  /update/
+    pattern:  /update.html
     defaults: { _controller: AnimeDbCatalogBundle:Update:index }
 
 

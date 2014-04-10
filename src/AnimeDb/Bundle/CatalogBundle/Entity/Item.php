@@ -54,7 +54,7 @@ class Item
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      *
-     * @var integer
+     * @var string
      */
     protected $name = '';
 
@@ -524,7 +524,7 @@ class Item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function addName(\AnimeDb\Bundle\CatalogBundle\Entity\Name $name)
+    public function addName(Name $name)
     {
         if (!$this->names->contains($name)) {
             $this->names->add($name);
@@ -538,7 +538,7 @@ class Item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Name $name
      */
-    public function removeName(\AnimeDb\Bundle\CatalogBundle\Entity\Name $name)
+    public function removeName(Name $name)
     {
         if ($this->names->contains($name)) {
             $this->names->removeElement($name);
@@ -735,7 +735,7 @@ class Item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function addSource(\AnimeDb\Bundle\CatalogBundle\Entity\Source $source)
+    public function addSource(Source $source)
     {
         if (!$this->sources->contains($source)) {
             $this->sources->add($source);
@@ -749,7 +749,7 @@ class Item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Source $source
      */
-    public function removeSource(\AnimeDb\Bundle\CatalogBundle\Entity\Source $source)
+    public function removeSource(Source $source)
     {
         if ($this->sources->contains($source)) {
             $this->sources->removeElement($source);
@@ -774,7 +774,7 @@ class Item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function addImage(\AnimeDb\Bundle\CatalogBundle\Entity\Image $image)
+    public function addImage(Image $image)
     {
         if (!$this->images->contains($image)) {
             $this->images->add($image);
@@ -788,7 +788,7 @@ class Item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Image $image
      */
-    public function removeImage(\AnimeDb\Bundle\CatalogBundle\Entity\Image $image)
+    public function removeImage(Image $image)
     {
         if ($this->images->contains($image)) {
             $this->images->removeElement($image);

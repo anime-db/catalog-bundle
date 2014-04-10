@@ -13,6 +13,10 @@ namespace AnimeDb\Bundle\CatalogBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -28,16 +32,33 @@ class Search extends AbstractType
      *
      * @var string|null
      */
-    private $source;
+    protected $source;
 
     /**
-     * Construct
+     * Translator
      *
-     * @param string|null $source
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
      */
-    public function __construct($source = null)
+    protected $translator;
+
+    /**
+     * Set translator
+     *
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     */
+    public function setTranslator(Translator $translator)
     {
-        $this->source = $source;
+        $this->translator = $translator;
+    }
+
+    /**
+     * Set router
+     *
+     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     */
+    public function setRouter(Router $router)
+    {
+        $this->source = $router->generate('home_autocomplete_name');
     }
 
     /**
@@ -126,6 +147,26 @@ class Search extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Search'
         ]);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Symfony\Component\Form\AbstractType::finishView()
+     */
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        // order
+        $collator = new \Collator($this->translator->getLocale());
+        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+            return $collator->compare($a->vars['label'], $b->vars['label']);
+        });
+
+        $sort_field = function ($a, $b) use ($collator) {
+            return $collator->compare($a->label, $b->label);
+        };
+        usort($view->children['studio']->vars['choices'], $sort_field);
+        usort($view->children['country']->vars['choices'], $sort_field);
+        usort($view->children['storage']->vars['choices'], $sort_field);
     }
 
     /**
