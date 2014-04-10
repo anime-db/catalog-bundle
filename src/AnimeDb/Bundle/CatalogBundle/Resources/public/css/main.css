@@ -619,6 +619,7 @@ h1.logo a span {
 	height: 250px;
 	background: #222;
 	text-decoration: none;
+	text-align: left;
 	opacity: 0;
 	filter: alpha(Opacity=0);
 	-webkit-transition: opacity .20s ease-in-out;
