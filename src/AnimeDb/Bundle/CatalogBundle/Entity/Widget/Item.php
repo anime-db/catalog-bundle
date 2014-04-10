@@ -202,7 +202,8 @@ class Item
     public function setType(Type $type)
     {
         if ($this->type !== $type) {
-            $this->type = $type->setItem($this);
+            $this->type = $type;
+            $type->setItem($this);
         }
         return $this;
     }
