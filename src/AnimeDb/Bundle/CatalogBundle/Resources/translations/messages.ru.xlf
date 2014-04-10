@@ -638,6 +638,14 @@
                 <source>Help</source>
                 <target>Помощь</target>
             </trans-unit>
+            <trans-unit id="200">
+                <source>Show item</source>
+                <target>Смотреть запись</target>
+            </trans-unit>
+            <trans-unit id="201">
+                <source>Add item</source>
+                <target>Добавить запись</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

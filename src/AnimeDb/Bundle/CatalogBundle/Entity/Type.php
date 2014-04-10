@@ -128,7 +128,7 @@ class Type implements Translatable
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
      */
-    public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $items)
+    public function addItem(Item $items)
     {
         $this->items[] = $items->setType($this);
         return $this;
@@ -139,7 +139,7 @@ class Type implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      */
-    public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
         $item->setType(null);

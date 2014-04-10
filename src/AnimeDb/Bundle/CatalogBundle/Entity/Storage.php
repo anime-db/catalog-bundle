@@ -270,7 +270,7 @@ class Storage
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
      */
-    public function addItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function addItem(Item $item)
     {
         $this->items[] = $item->setStorage($this);
         return $this;
@@ -281,7 +281,7 @@ class Storage
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      */
-    public function removeItem(\AnimeDb\Bundle\CatalogBundle\Entity\Item $item)
+    public function removeItem(Item $item)
     {
         $this->items->removeElement($item);
         $item->setStorage(null);
