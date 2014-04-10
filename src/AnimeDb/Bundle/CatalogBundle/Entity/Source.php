@@ -19,7 +19,9 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
  * Source for item fill
  *
  * @ORM\Entity
- * @ORM\Table(name="source")
+ * @ORM\Table(name="source", indexes={
+ *   @ORM\Index(name="source_url_idx", columns={"url"})
+ * })
  * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
