@@ -13,7 +13,7 @@
 				'%doc%': doc
 			} %}We are <a href="%issue%">working</a> to resolve this problem. You can <a href="%doc%">update the application</a> from the command line:{% endtrans %}
 		</p>
-		<pre><code>php app/console animedb:update</code></pre>
+		<pre><code>php app/console animedb:update --no-dev --prefer-dist</code></pre>
 		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
 	{% elseif confirmed == false %}
 		<div class="b-update-ask">

@@ -74,27 +74,27 @@ class UpdateController extends Controller
             }
         }
 
-        if ($request->request->get('confirm') && $can_update) {
-            // delete or install package
-            if ($plugin = $request->request->get('plugin')) {
-                $root = $this->container->getParameter('kernel.root_dir').'/../';
-                $composer = json_decode(file_get_contents($root.'composer.json'), true);
+        // delete or install package
+        if ($plugin = $request->request->get('plugin')) {
+            $root = $this->container->getParameter('kernel.root_dir').'/../';
+            $composer = json_decode(file_get_contents($root.'composer.json'), true);
 
-                if (!empty($plugin['delete'])) {
-                    unset($composer['require'][$plugin['delete']]);
-                } elseif (!empty($plugin['install'])) {
-                    $composer['require'][$plugin['install']['package']] = $plugin['install']['version'];
-                }
-
-                // lock file is longer not relevant
-                if (file_exists($root.'composer.lock')) {
-                    unlink($root.'composer.lock');
-                }
-                $composer = json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-                file_put_contents($root.'composer.json', $composer);
+            if (!empty($plugin['delete'])) {
+                unset($composer['require'][$plugin['delete']]);
+            } elseif (!empty($plugin['install'])) {
+                $composer['require'][$plugin['install']['package']] = $plugin['install']['version'];
             }
 
-            // execute update
+            // lock file is longer not relevant
+            if (file_exists($root.'composer.lock')) {
+                unlink($root.'composer.lock');
+            }
+            $composer = json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+            file_put_contents($root.'composer.json', $composer);
+        }
+
+        // execute update
+        if ($request->request->get('confirm') && $can_update) {
             $this->get('anime_db.command')
                 ->exec('php -d memory_limit=-1 -f app/console animedb:update >web/update.log');
         }
