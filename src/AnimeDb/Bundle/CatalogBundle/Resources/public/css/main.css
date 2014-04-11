@@ -1425,3 +1425,8 @@ label .starlet,
 .content .widget-section article {
 	margin: 0;
 }
+
+.b-hinclude-loader {
+	background: url(../images/loader-hinclude.gif) no-repeat 0 center;
+	padding-left: 22px;
+}
