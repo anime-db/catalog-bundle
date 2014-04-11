@@ -1430,3 +1430,7 @@ label .starlet,
 	background: url(../images/loader-hinclude.gif) no-repeat 0 center;
 	padding-left: 22px;
 }
+
+.widget-section {
+	clear: left;
+}
