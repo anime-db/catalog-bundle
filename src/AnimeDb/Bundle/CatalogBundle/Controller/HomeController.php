@@ -242,11 +242,20 @@ class HomeController extends Controller
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
             $response->setLastModified(new \DateTime($last_update));
+        }
+        // check items last update
+        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        $last_update = $repository->getLastUpdate();
+        if ($response->getLastModified() < $last_update) {
+            $response->setLastModified($last_update);
+        }
+        $total = $repository->count();
+        $response->setEtag(md5($total));
 
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
@@ -469,5 +478,45 @@ class HomeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
         ], $response);
+    }
+
+    /**
+     * Autocomplete label
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function autocompleteLabelAction(Request $request)
+    {
+        $response = new JsonResponse();
+
+        $term = mb_strtolower($request->get('term'), 'UTF8');
+
+        // register custom lower()
+        $conn = $this->getDoctrine()->getConnection()->getWrappedConnection();
+        if (method_exists($conn, 'sqliteCreateFunction')) {
+            $conn->sqliteCreateFunction('lower', function ($str) {
+                return mb_strtolower($str, 'UTF8');
+            }, 1);
+        }
+
+        $list = $this->getDoctrine()->getManager()->createQuery('
+            SELECT
+                l
+            FROM
+                AnimeDbCatalogBundle:Label l
+            WHERE
+                LOWER(l.name) LIKE :name
+        ')
+            ->setParameter('name', preg_replace('/%+/', '%%', $term).'%')
+            ->getResult();
+
+        /* @var $label \AnimeDb\Bundle\CatalogBundle\Entity\Label */
+        foreach ($list as $key => $label) {
+            $list[$key] = $label->getName();
+        }
+
+        return $response->setData($list);
     }
 }
