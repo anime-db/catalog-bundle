@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Image;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Source;
+use AnimeDb\Bundle\CatalogBundle\Form\Entity\Label;
 use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\AppBundle\Form\Field\Rating as RatingField;
@@ -164,6 +165,17 @@ class Item extends AbstractType
                 'expanded' => true,
                 'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
+            ])
+            ->add('labels', 'collection', [
+                'type'         => new Label(),
+                'allow_add'    => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'required'     => false,
+                'label'        => 'Labels',
+                'options'      => [
+                    'required' => false
+                ],
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
