@@ -47,6 +47,17 @@ FormContainer.registr(function(block) {
 	new TableCheckAllController(block.find('.f-table-check-all'));
 });
 
+// registr form text autocomplete
+FormContainer.registr(function(block) {
+	block.find('input[type=search]:not([data-source=""])').each(function() {
+		var input = $(this);
+		input.autocomplete({
+			source: input.data('source'),
+			minLength: 2
+		});
+	});
+});
+
 
 // apply form for document
 FormContainer.notify($(document));
@@ -104,15 +115,6 @@ refills.each(function() {
 				CollectionContainer.get('anime_db_catalog_entity_item_sources')
 			);
 		});
-});
-
-// text autocomplete
-$('input[type=search]:not([data-source=""])').each(function() {
-	var input = $(this);
-	input.autocomplete({
-		source: input.data('source'),
-		minLength: 2
-	});
 });
 
 if(jQuery().fancybox) {
