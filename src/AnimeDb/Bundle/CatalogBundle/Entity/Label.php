@@ -108,7 +108,7 @@ class Label
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
-            $item->addGenre($this);
+            $item->addLabel($this);
         }
         return $this;
     }
@@ -124,7 +124,7 @@ class Label
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
-            $item->removeGenre($this);
+            $item->removeLabel($this);
         }
         return $this;
     }
