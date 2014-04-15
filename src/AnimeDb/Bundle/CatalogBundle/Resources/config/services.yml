@@ -47,6 +47,10 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio
         calls:
             - [ setTranslator, [ @translator ] ]
+    anime_db.form.type.refill.gengres:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres
+        calls:
+            - [ setTranslator, [ @translator ] ]
 
 
     anime_db.listener.scan_storage:

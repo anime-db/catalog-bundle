@@ -19,7 +19,6 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Duration as DurationForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Episodes as EpisodesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as EpisodesNumberForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\FileInfo as FileInfoForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres as GengresForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Images as ImagesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
@@ -168,7 +167,7 @@ class RefillController extends Controller
                 $data = ['file_info' => $item_fill->getFileInfo()];
                 break;
             case Refiller::FIELD_GENRES:
-                $form = new GengresForm();
+                $form = $this->get('anime_db.form.type.refill.gengres');
                 $data = ['genres' => $item_fill->getGenres()];
                 break;
             case Refiller::FIELD_IMAGES:
