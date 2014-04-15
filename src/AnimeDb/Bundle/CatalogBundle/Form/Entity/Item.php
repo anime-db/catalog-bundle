@@ -167,7 +167,7 @@ class Item extends AbstractType
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
             ->add('labels', 'collection', [
-                'type'         => new Label(),
+                'type'         => new Label($this->router->generate('home_autocomplete_label')),
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,
