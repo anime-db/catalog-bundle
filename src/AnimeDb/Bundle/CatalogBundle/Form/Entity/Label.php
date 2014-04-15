@@ -45,10 +45,16 @@ class Label extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $attr = [
+            'data-min-length' => 0,
+        ];
+        if ($this->source) {
+            $attr['data-source'] = $this->source;
+        }
         $builder
             ->add('name', 'search', [
                 'label' => 'Name',
-                'attr' => $this->source ? ['data-source' => $this->source] : []
+                'attr' => $attr
             ]);
     }
 

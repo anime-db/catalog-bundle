@@ -51,9 +51,13 @@ FormContainer.registr(function(block) {
 FormContainer.registr(function(block) {
 	block.find('input[type=search]:not([data-source=""])').each(function() {
 		var input = $(this);
+		var length = 2;
+		if (typeof input.data('min-length') !== 'undefined') {
+			length = input.data('min-length');
+		}
 		input.autocomplete({
 			source: input.data('source'),
-			minLength: 2
+			minLength: length
 		});
 	});
 });
