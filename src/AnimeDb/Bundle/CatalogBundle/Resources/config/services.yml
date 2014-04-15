@@ -39,6 +39,11 @@ services:
         calls:
             - [ setTranslator, [ @translator ] ]
             - [ setRouter, [ @router ] ]
+    anime_db.form.type.refill.country:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country
+        calls:
+            - [ setTranslator, [ @translator ] ]
+
 
     anime_db.listener.scan_storage:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage

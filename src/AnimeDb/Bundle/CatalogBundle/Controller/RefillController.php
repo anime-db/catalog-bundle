@@ -21,7 +21,6 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as Episodes
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\FileInfo as FileInfoForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres as GengresForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Images as ImagesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country as CountryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Summary as SummaryForm;
@@ -178,7 +177,7 @@ class RefillController extends Controller
                 $data = ['images' => $item_fill->getImages()];
                 break;
             case Refiller::FIELD_COUNTRY:
-                $form = new CountryForm();
+                $form = $this->get('anime_db.form.type.refill.country');
                 $data = ['country' => $item_fill->getCountry()];
                 break;
             case Refiller::FIELD_NAMES:
