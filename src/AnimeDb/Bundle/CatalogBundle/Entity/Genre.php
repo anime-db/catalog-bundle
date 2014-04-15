@@ -114,7 +114,7 @@ class Genre implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      *
-     * @return Genre
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
      */
     public function addItem(Item $item)
     {
@@ -129,6 +129,8 @@ class Genre implements Translatable
      * Remove items
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
      */
     public function removeItem(Item $item)
     {
@@ -136,6 +138,7 @@ class Genre implements Translatable
             $this->items->removeElement($item);
             $item->removeGenre($this);
         }
+        return $this;
     }
 
     /**

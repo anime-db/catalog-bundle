@@ -17,6 +17,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -106,6 +107,16 @@ class Item
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $genres;
+
+    /**
+     * Label list
+     *
+     * @ORM\ManyToMany(targetEntity="Label", inversedBy="items", cascade={"persist"})
+     * @ORM\JoinTable(name="items_labels")
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $labels;
 
     /**
      * Country
@@ -278,10 +289,11 @@ class Item
      * Construct
      */
     public function __construct() {
-        $this->genres  = new ArrayCollection();
-        $this->names   = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->labels = new ArrayCollection();
+        $this->names = new ArrayCollection();
         $this->sources = new ArrayCollection();
-        $this->images  = new ArrayCollection();
+        $this->images = new ArrayCollection();
         $this->date_add = new \DateTime();
         $this->date_update = new \DateTime();
     }
@@ -592,7 +604,7 @@ class Item
     }
 
     /**
-     * Add genres
+     * Add genre
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
      *
@@ -608,9 +620,11 @@ class Item
     }
 
     /**
-     * Remove genres
+     * Remove genre
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeGenre(Genre $genre)
     {
@@ -618,6 +632,7 @@ class Item
             $this->genres->removeElement($genre);
             $genre->removeItem($this);
         }
+        return $this;
     }
 
     /**
@@ -628,6 +643,48 @@ class Item
     public function getGenres()
     {
         return $this->genres;
+    }
+
+    /**
+     * Add label
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function addLabel(Label $label)
+    {
+        if (!$this->labels->contains($label)) {
+            $this->labels->add($label);
+            $label->addItem($this);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove label
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     */
+    public function removeLabel(Label $label)
+    {
+        if ($this->labels->contains($label)) {
+            $this->labels->removeElement($label);
+            $label->removeItem($this);
+        }
+        return $this;
+    }
+
+    /**
+     * Get labels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLabels()
+    {
+        return $this->labels;
     }
 
     /**
