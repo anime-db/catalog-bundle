@@ -25,7 +25,6 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Summary as SummaryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Translate as TranslateForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio as StudioForm;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -197,7 +196,7 @@ class RefillController extends Controller
                 $data = ['translate' => $item_fill->getTranslate()];
                 break;
             case Refiller::FIELD_STUDIO:
-                $form = new StudioForm();
+                $form = $this->get('anime_db.form.type.refill.studio');
                 $data = ['studio' => $item_fill->getStudio()];
                 break;
             default:
