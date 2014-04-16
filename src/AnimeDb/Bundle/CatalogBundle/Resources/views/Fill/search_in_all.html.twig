@@ -9,5 +9,14 @@
 		{{ form_widget(form) }}
 		<button type="submit">{% trans %}Find{% endtrans %}</button>
 	</form>
+	{% if app.request.query.count() and plugins %}
+		<div class="b-filler-search">
+			<h2>{% trans %}List of results{% endtrans %}</h2>
+			<span>{% trans %}Select the entry you want to add{% endtrans %}</span>
+			{% for plugin in plugins %}
+				{{ render_hinclude(path('fill_search', {'plugin': plugin.name}|merge(app.request.query.all)|merge({'hinclude': 1}) )) }}
+			{% endfor %}
+		</div>
+	{% endif%}
 </div>
 {% endblock %}
