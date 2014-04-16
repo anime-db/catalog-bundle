@@ -645,6 +645,15 @@ h1.logo a span {
 	text-align: right;
 	list-style: none;
 }
+.list-items .labels {
+	position: absolute;
+	bottom: 0;
+	left: 4px;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	list-style: none;
+}
 .list-items .add {
 	position: absolute;
 	right: 4px;
@@ -654,10 +663,12 @@ h1.logo a span {
 	overflow: hidden;
 	text-indent: 2em;
 }
-.list-items .genres .genre-item {
+.list-items .genres .genre-item,
+.list-items .labels .label-item {
 	margin: 3px 0;
 }
 .list-items .genres .genre-item a,
+.list-items .labels .label-item a,
 .list-items .type a,
 .list-items .add {
 	display: inline-block;
@@ -670,6 +681,7 @@ h1.logo a span {
 	border-radius: 4px;
 }
 .list-items .genres .genre-item a:hover,
+.list-items .labels .label-item a:hover,
 .list-items .type a:hover {
 	background: #ff6600;
 }
