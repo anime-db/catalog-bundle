@@ -16,7 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Image;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Source;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Label;
 use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\AppBundle\Form\Field\Rating as RatingField;
@@ -166,16 +165,12 @@ class Item extends AbstractType
                 'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
-            ->add('labels', 'collection', [
-                'type'         => new Label($this->router->generate('home_autocomplete_label')),
-                'allow_add'    => true,
-                'by_reference' => false,
-                'allow_delete' => true,
-                'required'     => false,
-                'label'        => 'Labels',
-                'options'      => [
-                    'required' => false
-                ],
+            ->add('labels', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Label',
+                'property' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false
             ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
@@ -313,15 +308,17 @@ class Item extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
-        });
+        };
+        usort($view->children['genres']->children, $sorter);
+        usort($view->children['labels']->children, $sorter);
 
-        $sort_field = function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->label, $b->label);
         };
-        usort($view->children['studio']->vars['choices'], $sort_field);
-        usort($view->children['country']->vars['choices'], $sort_field);
-        usort($view->children['storage']->vars['choices'], $sort_field);
+        usort($view->children['studio']->vars['choices'], $sorter);
+        usort($view->children['country']->vars['choices'], $sorter);
+        usort($view->children['storage']->vars['choices'], $sorter);
     }
 }
