@@ -467,7 +467,7 @@
                 <target>Да</target>
             </trans-unit>
             <trans-unit id="157">
-                <source>Search items for %plugin%</source>
+                <source>Search items on %plugin%</source>
                 <target>Поиск записи на %plugin%</target>
             </trans-unit>
             <trans-unit id="158">
@@ -665,6 +665,10 @@
             <trans-unit id="206">
                 <source>Search items in all plugins</source>
                 <target>Поиск записей во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="207">
+                <source>Items on %plugin%</source>
+                <target>Записи на %plugin%</target>
             </trans-unit>
         </body>
     </file>

@@ -1,10 +1,10 @@
 {% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
 
-{% block title %}{% trans with {'%plugin%': plugin_name} %}Search items for %plugin%{% endtrans %}{% endblock %}
+{% block title %}{% trans with {'%plugin%': plugin_name} %}Search items on %plugin%{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="b-search-source b-search-source-{{ plugin }}">
-	<h2>{% trans with {'%plugin%': plugin_name} %}Search items for %plugin%{% endtrans %}</h2>
+	<h2>{% trans with {'%plugin%': plugin_name} %}Search items on %plugin%{% endtrans %}</h2>
 	<form action="" method="get" {{ form_enctype(form) }}>
 		{{ form_widget(form) }}
 		<button type="submit">{% trans %}Find{% endtrans %}</button>
@@ -12,7 +12,7 @@
 	{% if list is not empty %}
 		<div class="b-filler-search">
 			<h2>{% trans %}List of results{% endtrans %}</h2>
-			<span>{% trans %}Select the entry you want to add{% endtrans %}</span>
+			<p>{% trans %}Select the entry you want to add{% endtrans %}</p>
 			<ul>
 				{% for item in list %}
 					<li>
