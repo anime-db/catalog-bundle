@@ -1135,7 +1135,7 @@ class Item
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    protected function doClearPath()
+    public function doClearPath()
     {
         if (
             $this->not_cleared_path &&

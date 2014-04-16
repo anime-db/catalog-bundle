@@ -96,6 +96,7 @@ class Builder extends ContainerAware
 
         $settings->addChild('File storages', ['route' => 'storage_list']);
         $settings->addChild('List of notice', ['route' => 'notice_list']);
+        $settings->addChild('Labels', ['route' => 'home_labels']);
         $plugins = $settings->addChild('Plugins');
         $settings->addChild('Update', ['route' => 'update']);
         $settings->addChild('General', ['route' => 'home_settings']);

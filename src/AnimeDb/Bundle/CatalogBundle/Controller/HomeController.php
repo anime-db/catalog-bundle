@@ -23,6 +23,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
+use AnimeDb\Bundle\CatalogBundle\Form\Labels;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Main page of the catalog
@@ -518,5 +520,50 @@ class HomeController extends Controller
         }
 
         return $response->setData($list);
+    }
+
+    /**
+     * Edit labels
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function labelsAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $labels = new ArrayCollection($em->getRepository('AnimeDbCatalogBundle:Label')->findAll());
+
+        $form = $this->createForm($this->get('anime_db.form.type.labels'), ['labels' => $labels]);
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $new_labels = $form->getData()['labels'];
+
+                // remove labals
+                foreach ($labels as $label) {
+                    if (!$new_labels->contains($label)) {
+                        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                        foreach ($label->getItems() as $item) {
+                            $item->removeLabel($label);
+                        }
+                        $em->remove($label);
+                    }
+                }
+
+                // add new labals
+                foreach ($new_labels as $label) {
+                    if (!$labels->contains($label)) {
+                        $em->persist($label);
+                    }
+                }
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('home_labels'));
+            }
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Home:labels.html.twig', [
+            'form'  => $form->createView()
+        ]);
     }
 }
