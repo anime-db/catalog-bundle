@@ -611,6 +611,21 @@ h1.logo a span {
 	opacity: 0.8;
 	filter: alpha(Opacity=80);
 }
+.list-items .item.keep-hover .type,
+.list-items .item.keep-hover .genres,
+.list-items .item.keep-hover .labels {
+	opacity: 0;
+	filter: alpha(Opacity=0);
+	visibility: hidden;
+	-webkit-transition: opacity .20s ease-in-out, visibility .20s;
+	transition: opacity .20s ease-in-out, visibility .20s;
+}
+.list-items .item.keep-hover .name {
+	opacity: 0.6;
+	filter: alpha(Opacity=60);
+	-webkit-transition: opacity .20s ease-in-out;
+	transition: opacity .20s ease-in-out;
+}
 .list-items .name {
 	position: absolute;
 	left: 0;
