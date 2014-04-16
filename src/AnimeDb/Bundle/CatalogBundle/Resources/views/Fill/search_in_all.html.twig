@@ -1,0 +1,13 @@
+{% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
+
+{% block title %}{% trans %}Search items in all plugins{% endtrans %}{% endblock %}
+
+{% block content %}
+<div class="b-search-source b-search-source-in-all">
+	<h2>{% trans %}Search items in all plugins{% endtrans %}</h2>
+	<form action="" method="get" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+		<button type="submit">{% trans %}Find{% endtrans %}</button>
+	</form>
+</div>
+{% endblock %}
