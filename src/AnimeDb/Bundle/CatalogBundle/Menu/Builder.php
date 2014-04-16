@@ -79,16 +79,16 @@ class Builder extends ContainerAware
 
         // add search plugin items
         $chain = $this->container->get('anime_db.plugin.search_fill');
-        if ($chain->getPlugins()) {
-            $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
-                ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'));
-        }
         $this->addPluginItems(
             $chain,
             $add,
             'Search by name',
             'Search by name the source of filling item'
         );
+        if ($chain->getPlugins()) {
+            $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
+                ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'));
+        }
         // add filler plugin items
         $this->addPluginItems(
             $this->container->get('anime_db.plugin.filler'),
