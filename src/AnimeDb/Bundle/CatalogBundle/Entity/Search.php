@@ -17,6 +17,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 
 /**
  * Item search
