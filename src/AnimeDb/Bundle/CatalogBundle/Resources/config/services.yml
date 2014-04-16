@@ -51,6 +51,10 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres
         calls:
             - [ setTranslator, [ @translator ] ]
+    anime_db.form.type.labels:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Labels
+        calls:
+            - [ setTranslator, [ @translator ] ]
 
 
     anime_db.listener.scan_storage:

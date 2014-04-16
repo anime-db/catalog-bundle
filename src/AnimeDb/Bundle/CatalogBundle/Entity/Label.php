@@ -13,20 +13,18 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
- * Genre
+ * Label
  *
  * @ORM\Entity
- * @ORM\Table(name="genre")
+ * @ORM\Table(name="label")
  * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Genre implements Translatable
+class Label
 {
     /**
      * Id
@@ -40,11 +38,10 @@ class Genre implements Translatable
     protected $id;
 
     /**
-     * Gender name
+     * Label name
      *
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
-     * @Gedmo\Translatable
      *
      * @var string
      */
@@ -53,20 +50,11 @@ class Genre implements Translatable
     /**
      * Items list
      *
-     * @ORM\ManyToMany(targetEntity="Item", mappedBy="genres")
+     * @ORM\ManyToMany(targetEntity="Item", mappedBy="labels")
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $items;
-
-    /**
-     * Entity locale
-     *
-     * @Gedmo\Locale
-     *
-     * @var string
-     */
-    protected $locale;
 
     /**
      * Construct
@@ -91,7 +79,7 @@ class Genre implements Translatable
      *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
      */
     public function setName($name)
     {
@@ -114,13 +102,13 @@ class Genre implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
      */
     public function addItem(Item $item)
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
-            $item->addGenre($this);
+            $item->addLabel($this);
         }
         return $this;
     }
@@ -130,13 +118,13 @@ class Genre implements Translatable
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
      */
     public function removeItem(Item $item)
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
-            $item->removeGenre($this);
+            $item->removeLabel($this);
         }
         return $this;
     }
@@ -149,18 +137,5 @@ class Genre implements Translatable
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
-     */
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-        return $this;
     }
 }

@@ -646,6 +646,14 @@
                 <source>Add item</source>
                 <target>Добавить запись</target>
             </trans-unit>
+            <trans-unit id="202">
+                <source>Labels</source>
+                <target>Метки</target>
+            </trans-unit>
+            <trans-unit id="203">
+                <source>Select multiple labels to narrow your search</source>
+                <target>Выберете несколько меток, чтобы сузить поиск</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

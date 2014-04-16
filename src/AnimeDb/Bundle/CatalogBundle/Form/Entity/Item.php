@@ -165,6 +165,13 @@ class Item extends AbstractType
                 'required' => false,
                 'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
             ])
+            ->add('labels', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Label',
+                'property' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'required' => false
+            ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
                 'property' => 'name',
@@ -301,15 +308,17 @@ class Item extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
-        });
+        };
+        usort($view->children['genres']->children, $sorter);
+        usort($view->children['labels']->children, $sorter);
 
-        $sort_field = function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->label, $b->label);
         };
-        usort($view->children['studio']->vars['choices'], $sort_field);
-        usort($view->children['country']->vars['choices'], $sort_field);
-        usort($view->children['storage']->vars['choices'], $sort_field);
+        usort($view->children['studio']->vars['choices'], $sorter);
+        usort($view->children['country']->vars['choices'], $sorter);
+        usort($view->children['storage']->vars['choices'], $sorter);
     }
 }
