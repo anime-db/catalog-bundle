@@ -603,8 +603,8 @@
                 <target>поле обязательное для заполнения</target>
             </trans-unit>
             <trans-unit id="191">
-                <source>When detects a new item, the application will try to add it using the selected plugin</source>
-                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина</target>
+                <source>When detects a new item, the application will try to add it using the selected plugin, otherwise will be used all the plugins</source>
+                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина, иначе будут использованы все плагины</target>
             </trans-unit>
             <trans-unit id="192">
                 <source>Detected and added new item %name% on storage %storage%</source>
