@@ -109,11 +109,18 @@ class FillController extends Controller
             $list = $search->search($form->getData());
         }
 
-        return $this->render('AnimeDbCatalogBundle:Fill:search.html.twig', [
+        // full page or hinclude
+        if ($request->get('hinclude', 0)) {
+            $tpl = 'AnimeDbCatalogBundle:Fill:search_hinclude.html.twig';
+        } else {
+            $tpl = 'AnimeDbCatalogBundle:Fill:search.html.twig';
+        }
+
+        return $this->render($tpl, [
             'plugin' => $plugin,
             'plugin_name' => $search->getTitle(),
-            'list'   => $list,
-            'form'   => $form->createView()
+            'list' => $list,
+            'form' => $form->createView()
         ], $response);
     }
 
@@ -146,6 +153,7 @@ class FillController extends Controller
 
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new Search());
+        $form->handleRequest($request);
 
         return $this->render('AnimeDbCatalogBundle:Fill:search_in_all.html.twig', [
             'plugins' => $plugins,

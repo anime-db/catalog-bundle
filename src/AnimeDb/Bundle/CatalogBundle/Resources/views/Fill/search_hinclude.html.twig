@@ -1,0 +1,17 @@
+<div class="b-search-source-hinclude b-search-source-hinclude-{{ plugin }}">
+	<h2>{% trans with {'%plugin%': plugin_name} %}Search items for %plugin%{% endtrans %}</h2>
+	<ul>
+		{% for item in list %}
+			<li>
+				<a href="{{ item.link }}" class="image" title="{% trans %}Use to fill{% endtrans %}">
+					<img src="{{ item.image|dummy('card') }}" alt="{{ item.name }}" />
+				</a>
+				<div class="info">
+					<a href="{{ item.link }}" title="{% trans %}Use to fill{% endtrans %}">{{ item.name }}</a>
+					<div>{{ item.description|nl2br }}</div>
+				</div>
+				<br clear="both">
+			</li>
+		{% endfor %}
+	</ul>
+</div>
