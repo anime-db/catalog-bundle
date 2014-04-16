@@ -112,6 +112,17 @@ class Search extends AbstractType
                 'multiple' => true,
                 'help' => 'Select multiple genres to narrow your search'
             ])
+            ->add('labels', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Label',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('l')->innerJoin('l.items', 'i');
+                },
+                'property' => 'name',
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'help' => 'Select multiple labels to narrow your search'
+            ])
             ->add('studio', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Studio',
                 'query_builder' => function (EntityRepository $rep) {
@@ -157,16 +168,18 @@ class Search extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
-        });
+        };
+        usort($view->children['genres']->children, $sorter);
+        usort($view->children['labels']->children, $sorter);
 
-        $sort_field = function ($a, $b) use ($collator) {
+        $sorter = function ($a, $b) use ($collator) {
             return $collator->compare($a->label, $b->label);
         };
-        usort($view->children['studio']->vars['choices'], $sort_field);
-        usort($view->children['country']->vars['choices'], $sort_field);
-        usort($view->children['storage']->vars['choices'], $sort_field);
+        usort($view->children['studio']->vars['choices'], $sorter);
+        usort($view->children['country']->vars['choices'], $sorter);
+        usort($view->children['storage']->vars['choices'], $sorter);
     }
 
     /**

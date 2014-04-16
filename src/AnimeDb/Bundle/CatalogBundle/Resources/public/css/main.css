@@ -1379,7 +1379,7 @@ h1.logo a span {
 #anime_db_catalog_entity_item_genres,
 #anime_db_catalog_search_items_genres,
 #anime_db_catalog_entity_item_labels,
-#anime_db_catalog_search_item_labels {
+#anime_db_catalog_search_items_labels {
 	width: 595px;
 }
 #anime_db_catalog_entity_item_genres input,
@@ -1388,14 +1388,14 @@ h1.logo a span {
 #anime_db_catalog_search_items_genres label,
 #anime_db_catalog_entity_item_labels input,
 #anime_db_catalog_entity_item_labels label,
-#anime_db_catalog_search_item_labels input,
-#anime_db_catalog_search_item_labels label {
+#anime_db_catalog_search_items_labels input,
+#anime_db_catalog_search_items_labels label {
 	display: inline-block;
 }
 #anime_db_catalog_entity_item_genres input,
 #anime_db_catalog_search_items_genres input,
 #anime_db_catalog_entity_item_labels input,
-#anime_db_catalog_search_item_labels input {
+#anime_db_catalog_search_items_labels input {
 	margin: 0;
 	position: relative;
 	vertical-align: middle;
@@ -1404,7 +1404,7 @@ h1.logo a span {
 #anime_db_catalog_entity_item_genres label,
 #anime_db_catalog_search_items_genres label,
 #anime_db_catalog_entity_item_labels label,
-#anime_db_catalog_search_item_labels label {
+#anime_db_catalog_search_items_labels label {
 	width: 130px;
 	margin-left: 3px;
 	overflow: hidden;
