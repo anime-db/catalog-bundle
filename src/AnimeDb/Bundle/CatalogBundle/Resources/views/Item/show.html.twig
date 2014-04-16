@@ -150,6 +150,16 @@
 			</article>
 		</section>
 	{% endif %}
+	{% if item.labels is not empty %}
+		<section class="item-labels">
+			<header>{% trans %}Labels{% endtrans %}</header>
+			<article>
+					{% for label in item.labels %}
+						<a href="{{ path('home_search', {'anime_db_catalog_search_items[labels][]': label.id}) }}">{{ label.name }}</a>{% if not loop.last %}, {% endif %}
+					{% endfor %}
+			</article>
+		</section>
+	{% endif %}
 	{% if item.sources is not empty %}
 		<section class="item-sources">
 			<header>{% trans %}Sources{% endtrans %}</header>
