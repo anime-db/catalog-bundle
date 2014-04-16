@@ -654,6 +654,18 @@
                 <source>Select multiple labels to narrow your search</source>
                 <target>Выберете несколько меток, чтобы сузить поиск</target>
             </trans-unit>
+            <trans-unit id="204">
+                <source>Search in all plugins</source>
+                <target>Поиск во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="205">
+                <source>Search by name in all plugins</source>
+                <target>Поиск по названию во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="206">
+                <source>Search items in all plugins</source>
+                <target>Поиск записей во всех плагинах</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
