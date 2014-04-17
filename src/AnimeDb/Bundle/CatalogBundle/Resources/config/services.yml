@@ -52,7 +52,7 @@ services:
         calls:
             - [ setTranslator, [ @translator ] ]
     anime_db.form.type.labels:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Labels
+        class: AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels
         calls:
             - [ setTranslator, [ @translator ] ]
 

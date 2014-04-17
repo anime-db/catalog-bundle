@@ -23,7 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
-use AnimeDb\Bundle\CatalogBundle\Form\Labels;
+use AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
