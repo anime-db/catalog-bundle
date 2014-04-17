@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Settings;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 /**
  * labels form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Settings
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Labels extends AbstractType
