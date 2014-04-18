@@ -467,7 +467,7 @@
                 <target>Да</target>
             </trans-unit>
             <trans-unit id="157">
-                <source>Search items for %plugin%</source>
+                <source>Search items on %plugin%</source>
                 <target>Поиск записи на %plugin%</target>
             </trans-unit>
             <trans-unit id="158">
@@ -603,8 +603,8 @@
                 <target>поле обязательное для заполнения</target>
             </trans-unit>
             <trans-unit id="191">
-                <source>When detects a new item, the application will try to add it using the selected plugin</source>
-                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина</target>
+                <source>When detects a new item, the application will try to add it using the selected plugin, otherwise will be used all the plugins</source>
+                <target>При обнаружении новой записи, приложение будет пытаться добавить его с помощью выбранного плагина, иначе будут использованы все плагины</target>
             </trans-unit>
             <trans-unit id="192">
                 <source>Detected and added new item %name% on storage %storage%</source>
@@ -653,6 +653,22 @@
             <trans-unit id="203">
                 <source>Select multiple labels to narrow your search</source>
                 <target>Выберете несколько меток, чтобы сузить поиск</target>
+            </trans-unit>
+            <trans-unit id="204">
+                <source>Search in all plugins</source>
+                <target>Поиск во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="205">
+                <source>Search by name in all plugins</source>
+                <target>Поиск по названию во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="206">
+                <source>Search items in all plugins</source>
+                <target>Поиск записей во всех плагинах</target>
+            </trans-unit>
+            <trans-unit id="207">
+                <source>Items on %plugin%</source>
+                <target>Записи на %plugin%</target>
             </trans-unit>
         </body>
     </file>

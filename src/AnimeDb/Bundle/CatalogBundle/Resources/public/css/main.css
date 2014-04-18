@@ -721,7 +721,7 @@ h1.logo a span {
 	margin: 5px 0;
 }
 .ui-state-error .ui-icon-alert,
-.ui-widget .ui-state-highlight .ui-icon-info {
+.ui-state-highlight .ui-icon-info {
 	float: left;
 	margin-right: .5em;
 }
