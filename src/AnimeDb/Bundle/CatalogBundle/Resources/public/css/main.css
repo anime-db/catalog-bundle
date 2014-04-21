@@ -466,6 +466,9 @@ h1.logo a span {
 /**
  * Filler search page
  */
+.b-filler-search {
+	clear: both;
+}
 .b-filler-search ul {
 	padding: 0;
 }
@@ -1093,6 +1096,10 @@ h1.logo a span {
 #anime_db_catalog_plugin_filler {
 	margin: 3px 10px 0 0;
 	float: left;
+}
+.b-large-form #anime_db_catalog_plugin_search,
+.b-large-form #anime_db_catalog_plugin_filler {
+	float: none;
 }
 #anime_db_catalog_plugin_search label,
 #anime_db_catalog_plugin_filler label {
