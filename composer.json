@@ -32,7 +32,8 @@
         "patchwork/utf8": "dev-lab-windows-fs"
     },
     "suggest": {
-        "anime-db/world-art-filler-bundle": "Allows import data from a site World-Art.ru"
+        "anime-db/world-art-filler-bundle": "Allows import data from a site World-Art.ru",
+        "anime-db/shikimori-filler-bundle": "Allows import data from a site Shikimori.org"
     },
     "minimum-stability": "dev"
 }
