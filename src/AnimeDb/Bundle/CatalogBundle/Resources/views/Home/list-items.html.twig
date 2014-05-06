@@ -38,30 +38,36 @@
 		{% include 'AnimeDbAppBundle::pagination.html.twig' %}
 	{% endif %}
 	{% for item in items %}
-		<div class="item">
-			<img src="{{ item.coverWebPath|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
-			<a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}" class="name"><strong>{{ item.name }}</strong></a>
-			<div class="type">
-				<a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
+		<div class="item-container">
+			<div class="item">
+				<figure class="back">
+					<a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}" class="name"><strong>{{ item.name }}</strong></a>
+					<div class="links-item type">
+						<a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
+					</div>
+					{% if item.genres is not empty %}
+						<ul class="links genres">
+							{% for genre in item.genres %}
+								<li class="links-item">
+									<a href="{{ path('home_search', {'anime_db_catalog_search_items[genres][]': genre.id}) }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+					{% if item.labels is not empty %}
+						<ul class="links labels">
+							{% for label in item.labels %}
+								<li class="links-item">
+									<a href="{{ path('home_search', {'anime_db_catalog_search_items[labels][]': label.id}) }}" title="{% trans %}Label{% endtrans %}">{{ label.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</figure>
+				<figure class="front">
+					<img src="{{ item.coverWebPath|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
+				</figure>
 			</div>
-			{% if item.genres is not empty %}
-				<ul class="genres">
-					{% for genre in item.genres %}
-						<li class="genre-item">
-							<a href="{{ path('home_search', {'anime_db_catalog_search_items[genres][]': genre.id}) }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
-						</li>
-					{% endfor %}
-				</ul>
-			{% endif %}
-			{% if item.labels is not empty %}
-				<ul class="labels">
-					{% for label in item.labels %}
-						<li class="label-item">
-							<a href="{{ path('home_search', {'anime_db_catalog_search_items[labels][]': label.id}) }}" title="{% trans %}Label{% endtrans %}">{{ label.name }}</a>
-						</li>
-					{% endfor %}
-				</ul>
-			{% endif %}
 		</div>
 	{% endfor %}
 </div>

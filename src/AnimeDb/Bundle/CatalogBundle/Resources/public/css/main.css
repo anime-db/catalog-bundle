@@ -593,17 +593,36 @@ h1.logo a span {
 /**
  * list of items
  */
-.list-items .item {
+.list-items .item-container {
 	width: 200px;
 	height: 250px;
 	margin: 10px;
 	position: relative;
-	overflow: hidden;
 	text-align: center;
 	vertical-align: middle;
 	float: left;
+
 }
-.list-items .item img {
+.list-items .item {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+.list-items figure,
+.list-items .name {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	margin: 0;
+}
+.list-items .back {
+	z-index: 1;
+}
+.list-items .front img {
 	max-width: 200px;
 	max-height: 250px;
 }
@@ -611,9 +630,7 @@ h1.logo a span {
 	opacity: 0.8;
 	filter: alpha(Opacity=80);
 }
-.list-items .item.keep-hover .type,
-.list-items .item.keep-hover .genres,
-.list-items .item.keep-hover .labels {
+.list-items .item.keep-hover .links-item {
 	opacity: 0;
 	filter: alpha(Opacity=0);
 	visibility: hidden;
@@ -621,17 +638,14 @@ h1.logo a span {
 	transition: opacity .20s ease-in-out, visibility .20s;
 }
 .list-items .item.keep-hover .name {
-	opacity: 0.6;
-	filter: alpha(Opacity=60);
+	opacity: 0.9;
+	filter: alpha(Opacity=90);
 	-webkit-transition: opacity .20s ease-in-out;
 	transition: opacity .20s ease-in-out;
 }
 .list-items .name {
-	position: absolute;
-	left: 0;
 	top: 0;
-	width: 200px;
-	height: 250px;
+	left: 0;
 	background: #222;
 	text-decoration: none;
 	text-align: left;
@@ -646,31 +660,30 @@ h1.logo a span {
 	font-size: 120%;
 	color: #fff;
 }
+.list-items .links {
+	position: absolute;
+	list-style: none;
+}
 .list-items .type {
 	position: absolute;
 	left: 4px;
 	top: 3px;
 }
 .list-items .genres {
-	position: absolute;
 	bottom: 0;
 	right: 4px;
 	margin: 0;
 	padding: 0;
 	text-align: right;
-	list-style: none;
 }
 .list-items .labels {
-	position: absolute;
 	bottom: 0;
 	left: 4px;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	list-style: none;
 }
 .list-items .add {
-	position: absolute;
 	right: 4px;
 	top: 3px;
 	width: 1em;
@@ -678,14 +691,10 @@ h1.logo a span {
 	overflow: hidden;
 	text-indent: 2em;
 }
-.list-items .genres .genre-item,
-.list-items .labels .label-item {
+.list-items .links .links-item {
 	margin: 3px 0;
 }
-.list-items .genres .genre-item a,
-.list-items .labels .label-item a,
-.list-items .type a,
-.list-items .add {
+.list-items .links-item a {
 	display: inline-block;
 	padding: 1px 4px;
 	text-decoration: none;
@@ -694,17 +703,36 @@ h1.logo a span {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+	opacity: 0;
+	filter: alpha(Opacity=0);
+	-webkit-transition: opacity .20s ease-in-out;
+	transition: opacity .20s ease-in-out;
 }
-.list-items .genres .genre-item a:hover,
-.list-items .labels .label-item a:hover,
-.list-items .type a:hover {
+.list-items .item:hover .links-item a {
+	opacity: 1;
+	filter: alpha(Opacity=100);
+}
+.list-items .links-item a:hover {
 	background: #ff6600;
+}
+.list-items .add a {
+	background: #009827 url(../images/plus_white.png) no-repeat center center;
+}
+.list-items .add.already a {
+	background: #db3400 url(../images/eye_white.png) no-repeat center center;
+}
+.list-items .add:hover a {
+	background-color: #10b73b;
+}
+.list-items .add.already:hover {
+	background-color: #ff6600;
 }
 .list-items .controls {
 	height: 16px;
 	margin-top: 10px;
 	color: #666;
 }
+/* list sort and order controls */
 .list-items .controls ul,
 .list-items .controls li {
 	margin: 0;
@@ -721,20 +749,84 @@ h1.logo a span {
 .list-items .controls a {
 	text-decoration: none;
 }
-.list-items .controls a:hover {
+.list-items .controls:hover a {
 	text-decoration: underline;
 }
-.list-items .add {
-	background: #009827 url(../images/plus_white.png) no-repeat center center;
-}
-.list-items .add.already {
-	background: #db3400 url(../images/eye_white.png) no-repeat center center;
-}
-.list-items .add:hover {
-	background-color: #10b73b;
-}
-.list-items .add.already:hover {
-	background-color: #ff6600;
+/* 3D rotate covers */
+@supports (
+	(
+		(-webkit-perspective: 600px) or
+		(-moz-perspective: 600px) or
+		(-ms-perspective: 600px) or
+		(-o-perspective: 600px) or
+		(perspective: 600px)
+	) and
+	(
+		(-webkit-transform-style: preserve-3d) or
+		(-moz-transform-style: preserve-3d) or
+		(-ms-transform-style: preserve-3d) or
+		(-o-transform-style: preserve-3d) or
+		(transform-style: preserve-3d)
+	) and
+	(
+		(-webkit-transform: rotateY(-180deg)) or
+		(-moz-transform: rotateY(-180deg)) or
+		(-ms-transform: rotateY(-180deg)) or
+		(-o-transform: rotateY(-180deg)) or
+		(transform: rotateY(-180deg))
+	)
+) {
+	.list-items figure {
+		top: auto;
+		left: auto;
+	}
+	.list-items .item-container {
+		-webkit-perspective: 600px;
+		-moz-perspective: 600px;
+		-ms-perspective: 600px;
+		-o-perspective: 600px;
+		perspective: 600px;
+	}
+	.list-items .item {
+		-webkit-transition: -webkit-transform 0.7s ease-in-out;
+		-moz-transition: -moz-transform 0.7s ease-in-out;
+		-ms-transition: -moz-transform 0.7s ease-in-out;
+		-o-transition: -o-transform 0.7s ease-in-out;
+		transition: transform 0.7s ease-in-out;
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		-o-transform-style: preserve-3d;
+		transform-style: preserve-3d; 
+	}
+	.list-items .item:hover {
+		-webkit-transform: rotateY(-180deg);
+		-moz-transform: rotateY(-180deg);
+		-ms-transform: rotateY(-180deg);
+		-o-transform: rotateY(-180deg);
+		transform: rotateY(-180deg);
+	}
+	.list-items figure {
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+		-ms-backface-visibility: hidden;
+		-o-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+	.list-items .back {
+		-webkit-transform: rotateY(-180deg);
+		-moz-transform: rotateY(-180deg);
+		-ms-transform: rotateY(-180deg);
+		-o-transform: rotateY(-180deg);
+		transform: rotateY(-180deg);
+	}
+	.list-items .name,
+	.list-items .item:hover .name,
+	.list-items .item.keep-hover .name,
+	.list-items .item .links-item a {
+		opacity: 1;
+		filter: alpha(Opacity=100);
+	}
 }
 
 
