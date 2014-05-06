@@ -611,7 +611,8 @@ h1.logo a span {
 	position: absolute;
 }
 .list-items figure,
-.list-items .name {
+.list-items .name,
+.list-items .front a {
 	top: 0;
 	left: 0;
 	width: 100%;

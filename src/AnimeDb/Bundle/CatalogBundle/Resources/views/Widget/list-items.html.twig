@@ -30,7 +30,9 @@
 					{% endif %}
 				</figure>
 				<figure class="front">
-					<img src="{{ item.cover|dummy('catalog') }}" alt="{{ item.name }}" />
+					<a href="{{ item.link }}">
+						<img src="{{ item.cover|dummy('catalog') }}" alt="{{ item.name }}" />
+					</a>
 				</figure>
 			</div>
 		</div>

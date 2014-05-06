@@ -65,7 +65,9 @@
 					{% endif %}
 				</figure>
 				<figure class="front">
-					<img src="{{ item.coverWebPath|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
+					<a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}">
+						<img src="{{ item.coverWebPath|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
+					</a>
 				</figure>
 			</div>
 		</div>
