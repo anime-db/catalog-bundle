@@ -1235,79 +1235,79 @@ h1.logo a span {
 	margin-left: 5px;
 }
 
-#refill-form-anime_db_catalog_entity_item_date_premiere,
-#refill-form-anime_db_catalog_entity_item_date_end,
-#refill-form-anime_db_catalog_entity_item_episodes_number,
-#refill-form-anime_db_catalog_entity_item_duration,
-#refill-form-anime_db_catalog_entity_item_country,
-#refill-form-anime_db_catalog_entity_item_country #anime_db_catalog_entity_item_country {
+.refill-form-anime_db_catalog_entity_item_date_premiere,
+.refill-form-anime_db_catalog_entity_item_date_end,
+.refill-form-anime_db_catalog_entity_item_episodes_number,
+.refill-form-anime_db_catalog_entity_item_duration,
+.refill-form-anime_db_catalog_entity_item_country,
+.refill-form-anime_db_catalog_entity_item_country #anime_db_catalog_entity_item_country {
 	width: 310px;
 }
-#refill-form-anime_db_catalog_entity_item_genres {
+.refill-form-anime_db_catalog_entity_item_genres {
 	width: 580px;
 }
 /* hav textarea in form */
-#refill-form-anime_db_catalog_entity_item_summary,
-#refill-form-anime_db_catalog_entity_item_episodes {
+.refill-form-anime_db_catalog_entity_item_summary,
+.refill-form-anime_db_catalog_entity_item_episodes {
 	width: 510px;
 	height: 248px;
 }
 /* hav a form collection */
-#refill-form-anime_db_catalog_entity_item_names,
-#refill-form-anime_db_catalog_entity_item_sources,
-#refill-form-anime_db_catalog_entity_item_images {
+.refill-form-anime_db_catalog_entity_item_names,
+.refill-form-anime_db_catalog_entity_item_sources,
+.refill-form-anime_db_catalog_entity_item_images {
 	max-height: 300px;
 	overflow-x: hidden;
 	overflow-y: auto;
 }
-#refill-form-anime_db_catalog_entity_item_names,
-#refill-form-anime_db_catalog_entity_item_names .content,
-#refill-form-anime_db_catalog_entity_item_sources,
-#refill-form-anime_db_catalog_entity_item_sources .content {
+.refill-form-anime_db_catalog_entity_item_names,
+.refill-form-anime_db_catalog_entity_item_names .content,
+.refill-form-anime_db_catalog_entity_item_sources,
+.refill-form-anime_db_catalog_entity_item_sources .content {
 	width: 333px;
 }
-#refill-form-anime_db_catalog_entity_item_names .f-collection,
-#refill-form-anime_db_catalog_entity_item_sources .f-collection,
-#refill-form-anime_db_catalog_entity_item_images .f-collection {
+.refill-form-anime_db_catalog_entity_item_names .f-collection,
+.refill-form-anime_db_catalog_entity_item_sources .f-collection,
+.refill-form-anime_db_catalog_entity_item_images .f-collection {
 	margin: 0;
 }
-#refill-form-anime_db_catalog_entity_item_names .f-collection .f-fields,
-#refill-form-anime_db_catalog_entity_item_sources .f-collection .f-fields {
+.refill-form-anime_db_catalog_entity_item_names .f-collection .f-fields,
+.refill-form-anime_db_catalog_entity_item_sources .f-collection .f-fields {
 	width: 310px;
 }
-#refill-form-anime_db_catalog_entity_item_names .f-collection label,
-#refill-form-anime_db_catalog_entity_item_sources .f-collection label,
-#refill-form-anime_db_catalog_entity_item_images .f-collection label,
-#refill-form-anime_db_catalog_entity_item_images .f-image .change-button {
+.refill-form-anime_db_catalog_entity_item_names .f-collection label,
+.refill-form-anime_db_catalog_entity_item_sources .f-collection label,
+.refill-form-anime_db_catalog_entity_item_images .f-collection label,
+.refill-form-anime_db_catalog_entity_item_images .f-image .change-button {
 	display: none;
 }
-#refill-form-anime_db_catalog_entity_item_images {
+.refill-form-anime_db_catalog_entity_item_images {
 	max-height: 400px;
 }
-#refill-form-anime_db_catalog_entity_item_images,
-#refill-form-anime_db_catalog_entity_item_images .content {
+.refill-form-anime_db_catalog_entity_item_images,
+.refill-form-anime_db_catalog_entity_item_images .content {
 	width: 183px;
 }
-#refill-form-anime_db_catalog_entity_item_images .f-collection .f-fields {
+.refill-form-anime_db_catalog_entity_item_images .f-collection .f-fields {
 	width: 164px;
 }
-#refill-form-anime_db_catalog_entity_item_studio {
+.refill-form-anime_db_catalog_entity_item_studio {
 	width: 280px;
 	text-align: center;
 }
 
-#refill-search {
+.popup.refill-search {
 	width: 470px;
 	height: 200px;
 }
-#refill-search h2 {
+.popup.refill-search h2 {
 	margin-top: 0;
 }
-#refill-search ul {
+.popup.refill-search ul {
 	margin: 5px 0 0 0;
 	padding: 0;
 }
-#refill-search li {
+.popup.refill-search li {
 	list-style: none;
 	margin-bottom: 5px;
 }
