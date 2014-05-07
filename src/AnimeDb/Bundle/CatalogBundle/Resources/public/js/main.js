@@ -163,7 +163,7 @@ $('.list-items .item').each(function() {
 			var that = this;
 			this.timer = setTimeout(function() {
 				that.setKeep();
-			}, 1000);
+			}, 1200);
 		},
 		stopTimer: function() {
 			clearTimeout(this.timer);
