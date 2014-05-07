@@ -149,36 +149,6 @@ $('.b-search .bt-toggle-block').each(function() {
 });
 
 $('.list-items .item-container').each(function() {
-	var KeepHover = function(el) {
-		var that = this;
-		this.timer;
-		this.el = el.hover(function() {
-			that.startTimer();
-		}, function() {
-			that.stopTimer();
-			that.removeKeep();
-		}).mousemove(function() {
-			that.stopTimer();
-			that.startTimer();
-		});
-	};
-	KeepHover.prototype = {
-		startTimer: function() {
-			var that = this;
-			this.timer = setTimeout(function() {
-				that.setKeep();
-			}, 1000);
-		},
-		stopTimer: function() {
-			clearTimeout(this.timer);
-		},
-		setKeep: function() {
-			this.el.addClass('keep-hover')
-		},
-		removeKeep: function() {
-			this.el.removeClass('keep-hover')
-		}
-	};
 	new KeepHover($(this));
 });
 
