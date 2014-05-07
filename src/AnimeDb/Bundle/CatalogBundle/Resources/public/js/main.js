@@ -104,7 +104,11 @@ refills.each(function() {
 			CollectionContainer
 		);
 	} else {
-		var controller = new FormRefillSimple(field);
+		if (field.find('input').size() > 1) {
+			var controller = new FormRefillMulti(field);
+		} else {
+			var controller = new FormRefillSimple(field);
+		}
 	}
 
 	// add plugin links and hendler
