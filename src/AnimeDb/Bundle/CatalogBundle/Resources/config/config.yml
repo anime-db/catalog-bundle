@@ -17,3 +17,14 @@ avalanche_imagine:
 twig:
     globals:
         ga_account: "UA-42991303-2"
+
+assetic:
+    bundles: [ AnimeDbCatalogBundle ]
+    assets:
+        stylesheets:
+            inputs:
+                - @AnimeDbCatalogBundle/Resources/public/css/*.css
+                - @AnimeDbCatalogBundle/Resources/public/css/*/*.css
+        javascripts:
+            inputs:
+                - @AnimeDbCatalogBundle/Resources/public/js/*.js
