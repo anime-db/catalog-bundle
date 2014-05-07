@@ -144,7 +144,7 @@ $('.b-search .bt-toggle-block').each(function() {
 	});
 });
 
-$('.list-items .item').each(function() {
+$('.list-items .item-container').each(function() {
 	var KeepHover = function(el) {
 		var that = this;
 		this.timer;
@@ -163,7 +163,7 @@ $('.list-items .item').each(function() {
 			var that = this;
 			this.timer = setTimeout(function() {
 				that.setKeep();
-			}, 1200);
+			}, 1000);
 		},
 		stopTimer: function() {
 			clearTimeout(this.timer);
