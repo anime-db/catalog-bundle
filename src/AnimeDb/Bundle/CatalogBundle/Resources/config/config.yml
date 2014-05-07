@@ -24,7 +24,6 @@ assetic:
         stylesheets:
             inputs:
                 - @AnimeDbCatalogBundle/Resources/public/css/*.css
-                - @AnimeDbCatalogBundle/Resources/public/css/*/*.css
         javascripts:
             inputs:
                 - @AnimeDbCatalogBundle/Resources/public/js/*.js
