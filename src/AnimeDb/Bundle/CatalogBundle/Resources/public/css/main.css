@@ -590,6 +590,7 @@ h1.logo a span {
 	float: left;
 }
 
+
 /**
  * list of items
  */
@@ -713,6 +714,9 @@ h1.logo a span {
 	opacity: 1;
 	filter: alpha(Opacity=100);
 }
+.list-items .labels .links-item a {
+	background: #db552b;
+}
 .list-items .links-item a:hover {
 	background: #ff6600;
 }
@@ -728,12 +732,12 @@ h1.logo a span {
 .list-items .add.already:hover {
 	background-color: #ff6600;
 }
+/* list sort and order controls */
 .list-items .controls {
 	height: 16px;
 	margin-top: 10px;
 	color: #666;
 }
-/* list sort and order controls */
 .list-items .controls ul,
 .list-items .controls li {
 	margin: 0;
@@ -777,6 +781,9 @@ h1.logo a span {
 		(transform: rotateY(-180deg))
 	)
 ) {
+	.list-items .back {
+		z-index: auto;
+	}
 	.list-items figure {
 		top: auto;
 		left: auto;
@@ -845,6 +852,7 @@ h1.logo a span {
 	float: left;
 	margin-right: .5em;
 }
+
 
 /**
  * Search items
