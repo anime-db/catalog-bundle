@@ -66,6 +66,7 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
         'A.C.G.T' => 'A.C.G.T.',
         'Zexcs' => 'ZEXCS'
     ];
+
     /**
      * Set container
      *

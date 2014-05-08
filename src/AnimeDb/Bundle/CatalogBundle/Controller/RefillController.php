@@ -19,14 +19,11 @@ use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Duration as DurationForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Episodes as EpisodesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as EpisodesNumberForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\FileInfo as FileInfoForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres as GengresForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Images as ImagesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country as CountryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Summary as SummaryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Translate as TranslateForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio as StudioForm;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -170,7 +167,7 @@ class RefillController extends Controller
                 $data = ['file_info' => $item_fill->getFileInfo()];
                 break;
             case Refiller::FIELD_GENRES:
-                $form = new GengresForm();
+                $form = $this->get('anime_db.form.type.refill.gengres');
                 $data = ['genres' => $item_fill->getGenres()];
                 break;
             case Refiller::FIELD_IMAGES:
@@ -178,7 +175,7 @@ class RefillController extends Controller
                 $data = ['images' => $item_fill->getImages()];
                 break;
             case Refiller::FIELD_COUNTRY:
-                $form = new CountryForm();
+                $form = $this->get('anime_db.form.type.refill.country');
                 $data = ['country' => $item_fill->getCountry()];
                 break;
             case Refiller::FIELD_NAMES:
@@ -198,7 +195,7 @@ class RefillController extends Controller
                 $data = ['translate' => $item_fill->getTranslate()];
                 break;
             case Refiller::FIELD_STUDIO:
-                $form = new StudioForm();
+                $form = $this->get('anime_db.form.type.refill.studio');
                 $data = ['studio' => $item_fill->getStudio()];
                 break;
             default:

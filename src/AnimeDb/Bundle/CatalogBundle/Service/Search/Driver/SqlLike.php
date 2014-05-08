@@ -19,6 +19,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio as StudioEntity;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label as LabelEntity;
 
 /**
  * Search driver use a SQL LIKE for select name
@@ -114,6 +115,15 @@ class SqlLike implements DriverSearch
             }
             $selector->innerJoin('i.genres', 'g')
                 ->andWhere('g.id IN ('.implode(',', $ids).')');
+        }
+        // labels
+        if ($data->getLabels()->count()) {
+            $ids = [];
+            foreach ($data->getLabels() as $key => $label) {
+                $ids[] = (int)$label->getId();
+            }
+            $selector->innerJoin('i.labels', 'l')
+                ->andWhere('l.id IN ('.implode(',', $ids).')');
         }
         // studio
         if ($data->getStudio() instanceof StudioEntity) {

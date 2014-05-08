@@ -13,6 +13,9 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 /**
  * Refill item field gengres
@@ -22,6 +25,23 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class Gengres extends AbstractType
 {
+    /**
+     * Translator
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     */
+    protected $translator;
+
+    /**
+     * Set translator
+     *
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     */
+    public function setTranslator(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * (non-PHPdoc)
      * @see Symfony\Component\Form.AbstractType::buildForm()
@@ -40,6 +60,19 @@ class Gengres extends AbstractType
                 'required' => false,
                 'label'    => false
             ]);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Symfony\Component\Form\AbstractType::finishView()
+     */
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        // order
+        $collator = new \Collator($this->translator->getLocale());
+        usort($view->children['genres']->children, function ($a, $b) use ($collator) {
+            return $collator->compare($a->vars['label'], $b->vars['label']);
+        });
     }
 
     /**

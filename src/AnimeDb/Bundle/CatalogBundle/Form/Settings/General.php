@@ -69,7 +69,7 @@ class General extends AbstractType
                 'required' => false,
                 'choices' => $search_choices,
                 'label' => 'Default search plugin',
-                'help' => 'When detects a new item, the application will try to add it using the selected plugin'
+                'help' => 'When detects a new item, the application will try to add it using the selected plugin, otherwise will be used all the plugins'
             ]);
     }
 

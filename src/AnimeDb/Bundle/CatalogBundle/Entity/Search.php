@@ -17,6 +17,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 
 /**
  * Item search
@@ -61,6 +62,13 @@ class Search
     protected $genres;
 
     /**
+     * Labels
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $labels;
+
+    /**
      * Country
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country|null
@@ -99,7 +107,8 @@ class Search
      * Construct
      */
     public function __construct() {
-        $this->genres  = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->labels = new ArrayCollection();
     }
 
     /**
@@ -195,19 +204,6 @@ class Search
     }
 
     /**
-     * Set genre
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
-     */
-    public function setGenre(Genre $genre)
-    {
-        $this->genre = $genre;
-        return $this;
-    }
-
-    /**
      * Add genres
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
@@ -238,6 +234,39 @@ class Search
     public function getGenres()
     {
         return $this->genres;
+    }
+
+    /**
+     * Add label
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function addLabel(Label $label)
+    {
+        $this->labels->add($label);
+        return $this;
+    }
+
+    /**
+     * Remove label
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     */
+    public function removeLabel(Label $label)
+    {
+        $this->labels->removeElement($label);
+    }
+
+    /**
+     * Get labels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLabels()
+    {
+        return $this->labels;
     }
 
     /**

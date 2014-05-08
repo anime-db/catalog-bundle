@@ -123,8 +123,11 @@ class ScanStorage
             $link = null;
             if ($plugin = $this->search->getDafeultPlugin()) {
                 $link = $plugin->getLinkForSearch($event->getName());
-            } elseif ($plugins = $this->search->getPlugins()) {
-                $link = array_values($plugins)[0]->getLinkForSearch($event->getName());
+            } elseif ($this->search->getPlugins()) {
+                $link = $this->router->generate(
+                    'fill_search_in_all',
+                    [SearchPluginForm::FORM_NAME => ['name' => $event->getName()]]
+                );
             }
 
             $notice->setMessage($this->templating->render(

@@ -23,6 +23,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
+use AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Main page of the catalog
@@ -242,11 +244,20 @@ class HomeController extends Controller
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
             $response->setLastModified(new \DateTime($last_update));
+        }
+        // check items last update
+        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        $last_update = $repository->getLastUpdate();
+        if ($response->getLastModified() < $last_update) {
+            $response->setLastModified($last_update);
+        }
+        $total = $repository->count();
+        $response->setEtag(md5($total));
 
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
@@ -469,5 +480,90 @@ class HomeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
         ], $response);
+    }
+
+    /**
+     * Autocomplete label
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function autocompleteLabelAction(Request $request)
+    {
+        $response = new JsonResponse();
+
+        $term = mb_strtolower($request->get('term'), 'UTF8');
+
+        // register custom lower()
+        $conn = $this->getDoctrine()->getConnection()->getWrappedConnection();
+        if (method_exists($conn, 'sqliteCreateFunction')) {
+            $conn->sqliteCreateFunction('lower', function ($str) {
+                return mb_strtolower($str, 'UTF8');
+            }, 1);
+        }
+
+        $list = $this->getDoctrine()->getManager()->createQuery('
+            SELECT
+                l
+            FROM
+                AnimeDbCatalogBundle:Label l
+            WHERE
+                LOWER(l.name) LIKE :name
+        ')
+            ->setParameter('name', preg_replace('/%+/', '%%', $term).'%')
+            ->getResult();
+
+        /* @var $label \AnimeDb\Bundle\CatalogBundle\Entity\Label */
+        foreach ($list as $key => $label) {
+            $list[$key] = $label->getName();
+        }
+
+        return $response->setData($list);
+    }
+
+    /**
+     * Edit labels
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function labelsAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $labels = new ArrayCollection($em->getRepository('AnimeDbCatalogBundle:Label')->findAll());
+
+        $form = $this->createForm($this->get('anime_db.form.type.labels'), ['labels' => $labels]);
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $new_labels = $form->getData()['labels'];
+
+                // remove labals
+                foreach ($labels as $label) {
+                    if (!$new_labels->contains($label)) {
+                        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                        foreach ($label->getItems() as $item) {
+                            $item->removeLabel($label);
+                        }
+                        $em->remove($label);
+                    }
+                }
+
+                // add new labals
+                foreach ($new_labels as $label) {
+                    if (!$labels->contains($label)) {
+                        $em->persist($label);
+                    }
+                }
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('home_labels'));
+            }
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Home:labels.html.twig', [
+            'form'  => $form->createView()
+        ]);
     }
 }
