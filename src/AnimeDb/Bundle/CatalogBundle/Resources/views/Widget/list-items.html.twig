@@ -21,7 +21,7 @@
 					{% endif %}
 					{% if item.genres is not empty %}
 						<ul class="links genres">
-							{% for genre in item.genres %}
+							{% for genre in item.genres|slice(0, 10) %}
 								<li class="links-item">
 									<a href="{{ genre.link }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
 								</li>
