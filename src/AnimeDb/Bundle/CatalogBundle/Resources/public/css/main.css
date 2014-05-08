@@ -693,12 +693,9 @@ h1.logo a span {
 	text-align: left;
 }
 .list-items .add {
+	position: absolute;
 	right: 4px;
 	top: 3px;
-	width: 1em;
-	text-align: center;
-	overflow: hidden;
-	text-indent: 2em;
 }
 .list-items .links .links-item {
 	margin: 3px 0;
@@ -728,6 +725,10 @@ h1.logo a span {
 	background: #ff6600;
 }
 .list-items .add a {
+	width: 1em;
+	text-align: center;
+	overflow: hidden;
+	text-indent: 2em;
 	background: #009827 url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
 }
 .list-items .add.already a {
