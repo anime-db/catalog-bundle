@@ -92,7 +92,7 @@ $('.f-storage').each(function() {
 	new FormStorage(storage, storage.data('source'), $(storage.data('target')));
 });
 
-// init form field refill 
+// init form field refill
 var refills = $('[data-type=refill]');
 var form = refills.closest('form');
 refills.each(function() {
@@ -125,7 +125,7 @@ refills.each(function() {
 		});
 });
 
-if(jQuery().fancybox) {
+if (jQuery().fancybox) {
 	$('[data-control="gallery"]').fancybox({
 		titlePosition: 'over',
 		openEffect: 'fade',
