@@ -627,6 +627,7 @@ h1.logo a span {
 	display: block;
 	height: 100%;
 	width: 100%;
+	line-height: 250px;
 }
 .list-items .back {
 	z-index: 1;
@@ -634,6 +635,7 @@ h1.logo a span {
 .list-items .front img {
 	max-width: 200px;
 	max-height: 250px;
+	vertical-align: middle;
 }
 .list-items .item-container:hover .name {
 	opacity: 0.8;
