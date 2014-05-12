@@ -737,10 +737,10 @@ h1.logo a span {
 	background: #db3400 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
 }
 .list-items .add:hover a {
-	background-color: #10b73b;
+	background: #10b73b url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
 }
-.list-items .add.already:hover {
-	background-color: #ff6600;
+.list-items .add.already:hover a {
+	background: #ff6600 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
 }
 /* list sort and order controls */
 .list-items .controls {
