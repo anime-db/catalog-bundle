@@ -627,6 +627,7 @@ h1.logo a span {
 	display: block;
 	height: 100%;
 	width: 100%;
+	line-height: 250px;
 }
 .list-items .back {
 	z-index: 1;
@@ -634,6 +635,7 @@ h1.logo a span {
 .list-items .front img {
 	max-width: 200px;
 	max-height: 250px;
+	vertical-align: middle;
 }
 .list-items .item-container:hover .name {
 	opacity: 0.8;
@@ -693,12 +695,9 @@ h1.logo a span {
 	text-align: left;
 }
 .list-items .add {
+	position: absolute;
 	right: 4px;
 	top: 3px;
-	width: 1em;
-	text-align: center;
-	overflow: hidden;
-	text-indent: 2em;
 }
 .list-items .links .links-item {
 	margin: 3px 0;
@@ -728,16 +727,20 @@ h1.logo a span {
 	background: #ff6600;
 }
 .list-items .add a {
+	width: 1em;
+	text-align: center;
+	overflow: hidden;
+	text-indent: 2em;
 	background: #009827 url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
 }
 .list-items .add.already a {
 	background: #db3400 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
 }
 .list-items .add:hover a {
-	background-color: #10b73b;
+	background: #10b73b url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
 }
-.list-items .add.already:hover {
-	background-color: #ff6600;
+.list-items .add.already:hover a {
+	background: #ff6600 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
 }
 /* list sort and order controls */
 .list-items .controls {
@@ -1588,5 +1591,6 @@ label .starlet,
 }
 
 .widget-section {
+	margin-top: 10px;
 	clear: left;
 }
