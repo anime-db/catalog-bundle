@@ -72,9 +72,9 @@ class Builder extends ContainerAware
         if ($import->getPlugins() || $export->getPlugins()) {
             $sync = $menu->addChild('Synchronization');
             // add import plugin items
-            $this->addPluginItems($import, $sync, 'Import items');
+            $this->addPluginItems($import, $sync, 'Import items', '', 'icon-label icon-white-import');
             // add export plugin items
-            $this->addPluginItems($export, $sync, 'Export items');
+            $this->addPluginItems($export, $sync, 'Export items', '', 'icon-label icon-white-export');
         }
 
         $settings = $menu->addChild('Settings')
@@ -86,19 +86,21 @@ class Builder extends ContainerAware
             $chain,
             $add,
             'Search by name',
-            'Search by name the source of filling item'
+            'Search by name the source of filling item',
+            'icon-label icon-white-search'
         );
         if ($chain->getPlugins()) {
             $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
                 ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'))
-                ->setLinkAttribute('class', 'icon-label icon-white-search');
+                ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
         }
         // add filler plugin items
         $this->addPluginItems(
             $this->container->get('anime_db.plugin.filler'),
             $add,
             'Fill from source',
-            'Fill record from source (example source is URL)'
+            'Fill record from source (example source is URL)',
+            'icon-label icon-white-share'
         );
         // add manually
         $add->addChild('Fill manually', ['route' => 'item_add_manually'])
@@ -144,12 +146,15 @@ class Builder extends ContainerAware
      * @param string $label
      * @param string|null $title
      */
-    private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '')
+    private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '', $class = '')
     {
         if ($chain->getPlugins()) {
             $group = $root->addChild($label);
             if ($title) {
                 $group->setAttribute('title', $this->container->get('translator')->trans($title));
+            }
+            if ($class) {
+                $group->setLabelAttribute('class', $class);
             }
         }
 

@@ -1242,8 +1242,14 @@ h1.logo a span {
 .icon-white-search {
 	background-image: url(/bundles/animedbcatalog/images/icon/white/search.png);
 }
+.icon-white-cloud-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_search.png);
+}
 .icon-white-add {
 	background-image: url(/bundles/animedbcatalog/images/icon/white/add.png);
+}
+.icon-white-share {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/share.png);
 }
 
 /**
