@@ -90,7 +90,8 @@ class Builder extends ContainerAware
         );
         if ($chain->getPlugins()) {
             $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
-                ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'));
+                ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'))
+                ->setLinkAttribute('class', 'icon-label icon-white-search');
         }
         // add filler plugin items
         $this->addPluginItems(
@@ -100,7 +101,8 @@ class Builder extends ContainerAware
             'Fill record from source (example source is URL)'
         );
         // add manually
-        $add->addChild('Fill manually', ['route' => 'item_add_manually']);
+        $add->addChild('Fill manually', ['route' => 'item_add_manually'])
+            ->setLinkAttribute('class', 'icon-label icon-white-add');
 
         $settings->addChild('File storages', ['route' => 'storage_list'])
             ->setLinkAttribute('class', 'icon-label icon-white-storage');
@@ -116,8 +118,10 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-white-settings');
 
         // plugins
-        $plugins->addChild('Installed', ['route' => 'plugin_installed']);
-        $plugins->addChild('Store', ['route' => 'plugin_store']);
+        $plugins->addChild('Installed', ['route' => 'plugin_installed'])
+            ->setLinkAttribute('class', 'icon-label icon-white-plugin');
+        $plugins->addChild('Store', ['route' => 'plugin_store'])
+            ->setLinkAttribute('class', 'icon-label icon-white-shop');
         // add settings plugin items
         foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
             $plugin->buildMenu($plugins);

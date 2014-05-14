@@ -1236,6 +1236,15 @@ h1.logo a span {
 .icon-white-help {
 	background-image: url(/bundles/animedbcatalog/images/icon/white/help.png);
 }
+.icon-white-shop {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/shop.png);
+}
+.icon-white-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/search.png);
+}
+.icon-white-add {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/add.png);
+}
 
 /**
  * Storages list
