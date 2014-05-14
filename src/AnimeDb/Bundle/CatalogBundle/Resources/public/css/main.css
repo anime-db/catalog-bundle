@@ -734,16 +734,16 @@ h1.logo a span {
 	text-align: center;
 	overflow: hidden;
 	text-indent: 2em;
-	background: #009827 url(/bundles/animedbcatalog/images/icon/plus_white.png) no-repeat center center;
+	background: #009827 url(/bundles/animedbcatalog/images/icon/white/plus.png) no-repeat center center;
 }
 .list-items .add.already a {
-	background: #db3400 url(/bundles/animedbcatalog/images/icon/eye_white.png) no-repeat center center;
+	background: #db3400 url(/bundles/animedbcatalog/images/icon/white/eye.png) no-repeat center center;
 }
 .list-items .add:hover a {
-	background: #10b73b url(/bundles/animedbcatalog/images/icon/plus_white.png) no-repeat center center;
+	background: #10b73b url(/bundles/animedbcatalog/images/icon/white/plus.png) no-repeat center center;
 }
 .list-items .add.already:hover a {
-	background: #ff6600 url(/bundles/animedbcatalog/images/icon/eye_white.png) no-repeat center center;
+	background: #ff6600 url(/bundles/animedbcatalog/images/icon/white/eye.png) no-repeat center center;
 }
 /* list sort and order controls */
 .list-items .controls {
