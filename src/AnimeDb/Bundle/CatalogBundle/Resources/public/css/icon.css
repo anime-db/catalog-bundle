@@ -1,0 +1,110 @@
+/**
+ * Icons
+ */
+.icon,
+.icon-label {
+	display: inline-block;
+	background: none;
+	border: 0;
+	width: 0;
+	height: 0;
+	padding: 16px 0 0 16px;
+	overflow: hidden;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+.icon-label {
+	overflow: visible;
+	width: auto;
+	height: 16px;
+	padding: 0 0 0 18px;
+	font-weight: normal;
+}
+.icon-plus {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABXSURBVHjaYvz//z8DsYAJi9hrIP4IxM/RJViwKOYHYlYoJmjyLzQaDhihbgZZy0fAyYxMDCQAshSDPMUIxd+gYp+QxBgJmfwflwdxKWIkFM6MuKwCCDAA8cYS25GxIRkAAAAASUVORK5CYII=');
+	background-color: #33bb33;
+}
+.icon-minus {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAkSURBVHjaYvz//z8DsYCJgQRAe8Ufgfg/AUxDZzAOwaADCDAADKwO+JOzCXsAAAAASUVORK5CYII=');
+	background-color: #bbbbbb;
+}
+.icon-plus,
+.icon-minus {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	-moz-box-shadow: 0 0 1px rgba(0,0,0,.3);
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0,.3);
+	box-shadow: 0 0 1px rgba(0,0,0,.3);
+	background-position: center center;
+	width: 17px;
+	height: 17px;
+	text-indent: 17px;
+}
+.icon-minus[disabled~=disabled] {
+	background-color: #dddddd;
+	cursor: default;
+}
+.icon-edit {
+	background-image: url(/bundles/animedbcatalog/images/icon/edit.png);
+}
+.icon-delete {
+	background-image: url(/bundles/animedbcatalog/images/icon/delete.png);
+}
+.icon-storage {
+	background-image: url(/bundles/animedbcatalog/images/icon/storage.png);
+}
+.icon-plugin-delete {
+	background-image: url(/bundles/animedbcatalog/images/icon/plugin_delete.png);
+}
+.icon-plugin-install {
+	background-image: url(/bundles/animedbcatalog/images/icon/plugin_install.png);
+}
+.icon-fill {
+	background-image: url(/bundles/animedbcatalog/images/icon/fill.png);
+}
+.icon-gray-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/search.png);
+}
+.icon-gray-add {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/add.png);
+}
+.icon-gray-settings {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/settings.png);
+}
+.icon-white-storage {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/storage.png);
+}
+.icon-white-alert {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/alert.png);
+}
+.icon-white-label {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/label.png);
+}
+.icon-white-plugin {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/plugin.png);
+}
+.icon-white-settings {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/settings.png);
+}
+.icon-white-update {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/update.png);
+}
+.icon-white-help {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/help.png);
+}
+.icon-white-shop {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/shop.png);
+}
+.icon-white-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/search.png);
+}
+.icon-white-cloud-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_search.png);
+}
+.icon-white-add {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/add.png);
+}
+.icon-white-share {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/share.png);
+}
