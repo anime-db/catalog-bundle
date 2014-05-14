@@ -730,16 +730,16 @@ h1.logo a span {
 	text-align: center;
 	overflow: hidden;
 	text-indent: 2em;
-	background: #009827 url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
+	background: #009827 url(/bundles/animedbcatalog/images/icon/plus_white.png) no-repeat center center;
 }
 .list-items .add.already a {
-	background: #db3400 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
+	background: #db3400 url(/bundles/animedbcatalog/images/icon/eye_white.png) no-repeat center center;
 }
 .list-items .add:hover a {
-	background: #10b73b url(/bundles/animedbcatalog/images/plus_white.png) no-repeat center center;
+	background: #10b73b url(/bundles/animedbcatalog/images/icon/plus_white.png) no-repeat center center;
 }
 .list-items .add.already:hover a {
-	background: #ff6600 url(/bundles/animedbcatalog/images/eye_white.png) no-repeat center center;
+	background: #ff6600 url(/bundles/animedbcatalog/images/icon/eye_white.png) no-repeat center center;
 }
 /* list sort and order controls */
 .list-items .controls {
@@ -988,7 +988,7 @@ h1.logo a span {
 	margin: 0;
 	padding: 24px 0 0 24px;
 	overflow: hidden;
-	background: url(/bundles/animedbcatalog/images/close.png) no-repeat 24px 0;
+	background: url(/bundles/animedbcatalog/images/icon/close.png) no-repeat 24px 0;
 	border: 0;
 	opacity: 0.7;
 	filter: alpha(Opacity=70);
@@ -1062,7 +1062,7 @@ h1.logo a span {
  * Form local path
  */
 .f-local-path .change-path {
-	background: url(/bundles/animedbcatalog/images/folder.png) no-repeat;
+	background: url(/bundles/animedbcatalog/images/icon/folder.png) no-repeat;
 	border: none;
 	height: 16px;
 	width: 16px;
@@ -1112,7 +1112,7 @@ h1.logo a span {
 	padding: 0;
 	text-indent: 16px;
 	border: 0;
-	background: url(/bundles/animedbcatalog/images/right.png) no-repeat;
+	background: url(/bundles/animedbcatalog/images/icon/right.png) no-repeat;
 	overflow: hidden;
 	float: right;
 }
@@ -1126,7 +1126,7 @@ h1.logo a span {
 	display: block;
 	text-decoration: none;
 	text-indent: 19px;
-	background: url(/bundles/animedbcatalog/images/folder.png) no-repeat;
+	background: url(/bundles/animedbcatalog/images/icon/folder.png) no-repeat;
 	white-space: nowrap;
 	word-wrap: normal;
 }
@@ -1182,22 +1182,22 @@ h1.logo a span {
 	cursor: default;
 }
 .icon-edit {
-	background-image: url(/bundles/animedbcatalog/images/edit.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/edit.png);
 }
 .icon-delete {
-	background-image: url(/bundles/animedbcatalog/images/delete.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/delete.png);
 }
 .icon-storage {
-	background-image: url(/bundles/animedbcatalog/images/storage.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/storage.png);
 }
 .icon-plugin-delete {
-	background-image: url(/bundles/animedbcatalog/images/plugin_delete.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/plugin_delete.png);
 }
 .icon-plugin-install {
-	background-image: url(/bundles/animedbcatalog/images/plugin_install.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/plugin_install.png);
 }
 .icon-fill {
-	background-image: url(/bundles/animedbcatalog/images/fill.png);
+	background-image: url(/bundles/animedbcatalog/images/icon/fill.png);
 }
 
 /**
@@ -1295,11 +1295,11 @@ h1.logo a span {
 	overflow: hidden;
 }
 .b-notice .bt-close {
-	background: url('/bundles/animedbcatalog/images/close_mini.png') 0 0 no-repeat;
+	background: url('/bundles/animedbcatalog/images/icon/close_mini.png') 0 0 no-repeat;
 	float: right;
 }
 .b-notice .bt-see-later {
-	background: url('/bundles/animedbcatalog/images/clock.png') 0 0 no-repeat;
+	background: url('/bundles/animedbcatalog/images/icon/clock.png') 0 0 no-repeat;
 	float: left;
 }
 .bt-notice-scroll {
@@ -1328,13 +1328,13 @@ h1.logo a span {
 	left: 0
 }
 .bt-notice-scroll-left:hover {
-	background: gray url(/bundles/animedbcatalog/images/arrow-left.png) center center no-repeat;
+	background: gray url(/bundles/animedbcatalog/images/icon/arrow-left.png) center center no-repeat;
 }
 .bt-notice-scroll-right {
 	right: 75px;
 }
 .bt-notice-scroll-right:hover {
-	background: gray url(/bundles/animedbcatalog/images/arrow-right.png) center center no-repeat;
+	background: gray url(/bundles/animedbcatalog/images/icon/arrow-right.png) center center no-repeat;
 }
 
 /**
