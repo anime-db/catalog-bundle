@@ -102,12 +102,18 @@ class Builder extends ContainerAware
         // add manually
         $add->addChild('Fill manually', ['route' => 'item_add_manually']);
 
-        $settings->addChild('File storages', ['route' => 'storage_list']);
-        $settings->addChild('List of notice', ['route' => 'notice_list']);
-        $settings->addChild('Labels', ['route' => 'home_labels']);
-        $plugins = $settings->addChild('Plugins');
-        $settings->addChild('Update', ['route' => 'update']);
-        $settings->addChild('General', ['route' => 'home_settings']);
+        $settings->addChild('File storages', ['route' => 'storage_list'])
+            ->setLinkAttribute('class', 'icon-label icon-white-storage');
+        $settings->addChild('List of notice', ['route' => 'notice_list'])
+            ->setLinkAttribute('class', 'icon-label icon-white-alert');
+        $settings->addChild('Labels', ['route' => 'home_labels'])
+            ->setLinkAttribute('class', 'icon-label icon-white-label');
+        $plugins = $settings->addChild('Plugins')
+            ->setLabelAttribute('class', 'icon-label icon-white-plugin');
+        $settings->addChild('Update', ['route' => 'update'])
+            ->setLinkAttribute('class', 'icon-label icon-white-update');
+        $settings->addChild('General', ['route' => 'home_settings'])
+            ->setLinkAttribute('class', 'icon-label icon-white-settings');
 
         // plugins
         $plugins->addChild('Installed', ['route' => 'plugin_installed']);
@@ -120,7 +126,8 @@ class Builder extends ContainerAware
         // add link to guide
         $locale = substr($this->container->get('request')->getLocale(), 0, 2);
         $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-        $settings->addChild('Help', ['uri' => str_replace('%locale%', $locale, self::DOC_LINK)]);
+        $settings->addChild('Help', ['uri' => str_replace('%locale%', $locale, self::DOC_LINK)])
+            ->setLinkAttribute('class', 'icon-label icon-white-help');
 
         return $menu;
     }

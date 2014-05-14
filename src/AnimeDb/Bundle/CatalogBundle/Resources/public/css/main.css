@@ -249,6 +249,9 @@ h1.logo a span {
 #navigation li li a,
 #navigation li li span {
 	width: 100%;
+	background-position: left 12px;
+	margin-left: 10px;
+	padding-left: 24px;
 }
 #navigation .selected a,
 #navigation .selected span {
@@ -1211,6 +1214,27 @@ h1.logo a span {
 }
 .icon-gray-settings {
 	background-image: url(/bundles/animedbcatalog/images/icon/gray/settings.png);
+}
+.icon-white-storage {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/storage.png);
+}
+.icon-white-alert {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/alert.png);
+}
+.icon-white-label {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/label.png);
+}
+.icon-white-plugin {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/plugin.png);
+}
+.icon-white-settings {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/settings.png);
+}
+.icon-white-update {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/update.png);
+}
+.icon-white-help {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/help.png);
 }
 
 /**
