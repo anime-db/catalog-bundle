@@ -234,13 +234,17 @@ h1.logo a span {
 #navigation span {
 	cursor: default;
 }
-#navigation nav > ul > li > a,
-#navigation nav > ul > li > span {
+#navigation nav > ul > li {
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAApCAIAAACQv2+GAAAAa0lEQVR42m2OuQ0DMQwEhw8EKVMn6r85rhMeToYdLbC/nXOAHGOstSIi5pwOAF5VkhyoqosEHJDkkgA3M0mP9p1rsi0daIukC95cA/Bf605J/ex33cyq6tl7714tksysf1pEZGbuvYGccwIfCFCB66/lvLwAAAAASUVORK5CYII=') no-repeat scroll right top transparent;
 }
-#navigation nav > ul > li.last > a,
-#navigation nav > ul > li.last > span {
+#navigation nav > ul > li.last {
 	background: none;
+}
+#navigation nav > ul > li > a,
+#navigation nav > ul > li > span {
+	background-position: left 12px;
+	padding-left: 24px;
+	margin-left: 10px;
 }
 #navigation li li a,
 #navigation li li span {
@@ -1198,6 +1202,15 @@ h1.logo a span {
 }
 .icon-fill {
 	background-image: url(/bundles/animedbcatalog/images/icon/fill.png);
+}
+.icon-gray-search {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/search.png);
+}
+.icon-gray-add {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/add.png);
+}
+.icon-gray-settings {
+	background-image: url(/bundles/animedbcatalog/images/icon/gray/settings.png);
 }
 
 /**

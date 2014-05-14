@@ -59,8 +59,10 @@ class Builder extends ContainerAware
         /* @var $menu \Knp\Menu\ItemInterface */
         $menu = $factory->createItem('root');
 
-        $menu->addChild('Search', ['route' => 'home_search']);
-        $add = $menu->addChild('Add record');
+        $menu->addChild('Search', ['route' => 'home_search'])
+            ->setLinkAttribute('class', 'icon-label icon-gray-search');
+        $add = $menu->addChild('Add record')
+            ->setLabelAttribute('class', 'icon-label icon-gray-add');
 
         // synchronization items
         /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain */
@@ -75,7 +77,8 @@ class Builder extends ContainerAware
             $this->addPluginItems($export, $sync, 'Export items');
         }
 
-        $settings = $menu->addChild('Settings');
+        $settings = $menu->addChild('Settings')
+            ->setLabelAttribute('class', 'icon-label icon-gray-settings');
 
         // add search plugin items
         $chain = $this->container->get('anime_db.plugin.search_fill');
