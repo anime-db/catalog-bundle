@@ -2,7 +2,7 @@
 	<span title="{% trans %}Fill this field from the source{% endtrans %}" class="icon icon-fill">{% trans %}Refill{% endtrans %}</span>
 	<ul>
 		{% for plugin in plugins %}
-			<li><a
+			<li class="b-node-{{ plugin.name }}"><a
 				{% if plugin.can_refill %}
 					href="{{ path('refiller_refill', {plugin: plugin.name, field: field, id: item.id}) }}"
 				{% else %}
