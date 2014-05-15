@@ -1,9 +1,6 @@
 # Avalanche Configuration
 avalanche_imagine:
     filters:
-        card:
-            type:    thumbnail
-            options: { size: [240, 300], mode: outbound }
         catalog:
             type:    thumbnail
             options: { size: [200, 250], mode: outbound }

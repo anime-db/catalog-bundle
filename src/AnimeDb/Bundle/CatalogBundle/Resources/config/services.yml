@@ -66,6 +66,13 @@ services:
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesTryAdd }
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles, priority: -255 }
 
+    anime_db.listener.package:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Package
+        arguments: [ @filesystem, %kernel.root_dir% ]
+        tags:
+            - { name: kernel.event_listener, event: anime_db.package.installed, method: onInstall }
+            - { name: kernel.event_listener, event: anime_db.package.updated, method: onUpdate }
+
     anime_db.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Driver\SqlLike
         arguments: [ @doctrine ]
