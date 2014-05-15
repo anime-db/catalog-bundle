@@ -55,7 +55,10 @@ class Package
     public function onUpdate(Updated $event)
     {
         if ($event->getPackage() == 'anime-db/catalog-bundle') {
-            // TODO update data
+            copy(
+                __DIR__.'/../../Resources/views/knp_menu.html.twig',
+                $this->root_dir.'/Resources/views/knp_menu.html.twig'
+            );
         }
     }
 
@@ -67,7 +70,10 @@ class Package
     public function onInstall(Installed $event)
     {
         if ($event->getPackage() == 'anime-db/catalog-bundle') {
-            // TODO update data
+            copy(
+                __DIR__.'/../../Resources/views/knp_menu.html.twig',
+                $this->root_dir.'/Resources/views/knp_menu.html.twig'
+            );
         }
     }
 }

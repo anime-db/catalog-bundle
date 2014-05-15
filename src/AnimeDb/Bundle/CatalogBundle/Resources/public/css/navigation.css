@@ -63,8 +63,11 @@
 #navigation nav > ul > li.last {
 	background: none;
 }
-#navigation nav > ul > li > a,
-#navigation nav > ul > li > span {
+#navigation nav a,
+#navigation nav span {
+	padding-left: 34px;
+}
+#navigation .icon-label {
 	background-position: left 12px;
 	padding-left: 24px;
 	margin-left: 10px;
@@ -72,9 +75,6 @@
 #navigation li li a,
 #navigation li li span {
 	width: 100%;
-	background-position: left 12px;
-	margin-left: 10px;
-	padding-left: 24px;
 }
 #navigation .selected a,
 #navigation .selected span {
