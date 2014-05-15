@@ -26,36 +26,38 @@
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAArCAYAAACwyUKjAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADtSURBVHjajFNBCsIwEEzS0iIWhF78gBcPufgEf+gzfIxHvYsnoYLiRdAmzpZsiE1CDWy3nZ1tZidtobU+tG177rruIoQwCKGklJuqqvYorPBcD6C1lvKiaZot8pwwRQgV+r4nYIYoSsfkRSSpjDEDMyzSRoJfwascswaQ2sdMJRLLt/8wuT3JDIteZwj6iVivl0RAxIzEMxBJctbF7eFGyTHzOqOJxnKyGyXbvfNJQybPKG0Iz5wUP33Ef59mnpn1M/o+nUsPh1n284SOI/KbwAKXJQo75CvihniRs2u6QdwRT8RHuH+nDqf7CjAA7YTqjBSccpgAAAAASUVORK5CYII=') no-repeat scroll right top transparent;
 	width: 5px;
 }
-#navigation ul,
-#navigation ul li,
-.f-refill ul,
-.f-refill ul li {
+.b-dropdown-menu ul,
+.b-dropdown-menu ul li {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 	font-size: 13px;
 	line-height: 38px;
 }
-#navigation ul,
-.f-refill ul {
+.b-dropdown-menu ul {
 	white-space: nowrap;
 	position: relative;
 }
 #navigation nav > ul > li {
 	float: left;
 }
-#navigation a,
-#navigation span,
-.f-refill a {
-	color: #ccc;
-	display: block;
-	float: left;
+.b-dropdown-menu a,
+.b-dropdown-menu span {
+	width: 100%;
 	height: 41px;
-	padding: 0 18px;
+	display: block;
 	text-decoration: none;
+	color: #ccc;
+	float: left;
 }
-#navigation span {
+.b-dropdown-menu span {
 	cursor: default;
+}
+.b-dropdown-menu .icon {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	float: none;
 }
 #navigation nav > ul > li {
 	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAApCAIAAACQv2+GAAAAa0lEQVR42m2OuQ0DMQwEhw8EKVMn6r85rhMeToYdLbC/nXOAHGOstSIi5pwOAF5VkhyoqosEHJDkkgA3M0mP9p1rsi0daIukC95cA/Bf605J/ex33cyq6tl7714tksysf1pEZGbuvYGccwIfCFCB66/lvLwAAAAASUVORK5CYII=') no-repeat scroll right top transparent;
@@ -63,18 +65,14 @@
 #navigation nav > ul > li.last {
 	background: none;
 }
-#navigation nav > ul > li > a,
-#navigation nav > ul > li > span {
-	background-position: left 12px;
-	padding-left: 24px;
-	margin-left: 10px;
+.b-dropdown-menu strong {
+	font-weight: normal;
+	padding: 0 18px 0 34px;
+	color: #ccc;
 }
-#navigation li li a,
-#navigation li li span {
-	width: 100%;
-	background-position: left 12px;
-	margin-left: 10px;
-	padding-left: 24px;
+.b-dropdown-menu .icon-label {
+	background-position: 10px 12px;
+	padding: 0;
 }
 #navigation .selected a,
 #navigation .selected span {
@@ -84,8 +82,8 @@
 #navigation .settings > span {
 	background-image: none;
 }
-#navigation li:hover a,
-#navigation li:hover span {
+.b-dropdown-menu li:hover a,
+.b-dropdown-menu li:hover span {
 	color: #fff;
 }
 #navigation ul ul,
