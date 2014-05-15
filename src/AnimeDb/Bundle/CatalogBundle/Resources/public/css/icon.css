@@ -108,3 +108,12 @@
 .icon-white-share {
 	background-image: url(/bundles/animedbcatalog/images/icon/white/share.png);
 }
+.icon-white-cloud-sync {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_sync.png);
+}
+.icon-white-cloud-arrow-up {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_arrow_up.png);
+}
+.icon-white-cloud-download {
+	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_download.png);
+}

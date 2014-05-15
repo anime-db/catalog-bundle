@@ -70,11 +70,12 @@ class Builder extends ContainerAware
         /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain */
         $export = $this->container->get('anime_db.plugin.export');
         if ($import->getPlugins() || $export->getPlugins()) {
-            $sync = $menu->addChild('Synchronization');
+            $sync = $menu->addChild('Synchronization')
+                ->setLabelAttribute('class', 'icon-label icon-white-cloud-sync');
             // add import plugin items
-            $this->addPluginItems($import, $sync, 'Import items', '', 'icon-label icon-white-import');
+            $this->addPluginItems($import, $sync, 'Import items', '', 'icon-label icon-white-cloud-download');
             // add export plugin items
-            $this->addPluginItems($export, $sync, 'Export items', '', 'icon-label icon-white-export');
+            $this->addPluginItems($export, $sync, 'Export items', '', 'icon-label icon-white-cloud-arrow-up');
         }
 
         $settings = $menu->addChild('Settings')
