@@ -1,4 +1,4 @@
-<span class="f-refill">
+<span class="f-refill b-dropdown-menu">
 	<span title="{% trans %}Fill this field from the source{% endtrans %}" class="icon icon-fill">{% trans %}Refill{% endtrans %}</span>
 	<ul>
 		{% for plugin in plugins %}
@@ -11,7 +11,7 @@
 				data-plugin="{{ plugin.name }}"
 				data-can-refill="{{ plugin.can_refill }}"
 				data-link-refill="{{ path('refiller_refill', {plugin: plugin.name, field: field, id: item.id}) }}"
-			>{{ plugin.title }}</a></li>
+			><strong>{{ plugin.title }}</strong></a></li>
 		{% endfor %}
 	</ul>
 </span>
