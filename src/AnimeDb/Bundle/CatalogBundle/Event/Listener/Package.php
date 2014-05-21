@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated;
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Package listener
@@ -23,13 +22,6 @@ use Symfony\Component\Filesystem\Filesystem;
 class Package
 {
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
-     */
-    protected $fs;
-
-    /**
      * Root dir
      *
      * @var string
@@ -39,11 +31,9 @@ class Package
     /**
      * Construct
      *
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param string $root_dir
      */
-    public function __construct(Filesystem $fs, $root_dir) {
-        $this->fs = $fs;
+    public function __construct($root_dir) {
         $this->root_dir = $root_dir;
     }
 
@@ -54,7 +44,7 @@ class Package
      */
     public function onUpdate(Updated $event)
     {
-        if ($event->getPackage() == 'anime-db/catalog-bundle') {
+        if ($event->getPackage()->getName() == 'anime-db/catalog-bundle') {
             copy(
                 __DIR__.'/../../Resources/views/knp_menu.html.twig',
                 $this->root_dir.'/Resources/views/knp_menu.html.twig'
@@ -69,7 +59,7 @@ class Package
      */
     public function onInstall(Installed $event)
     {
-        if ($event->getPackage() == 'anime-db/catalog-bundle') {
+        if ($event->getPackage()->getName() == 'anime-db/catalog-bundle') {
             copy(
                 __DIR__.'/../../Resources/views/knp_menu.html.twig',
                 $this->root_dir.'/Resources/views/knp_menu.html.twig'

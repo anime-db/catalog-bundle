@@ -17,7 +17,7 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Setting\Chain
 
     # Twig extension
-    anime_db.catalog_twig_extension:
+    anime_db.catalog.twig_extension:
         class: AnimeDb\Bundle\CatalogBundle\Service\TwigExtension
         tags:
             - { name: twig.extension }
@@ -57,7 +57,7 @@ services:
             - [ setTranslator, [ @translator ] ]
 
 
-    anime_db.listener.scan_storage:
+    anime_db.catalog.listener.scan_storage:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage
         arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router, @form.factory ]
         tags:
@@ -66,9 +66,9 @@ services:
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesTryAdd }
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles, priority: -255 }
 
-    anime_db.listener.package:
+    anime_db.catalog.listener.package:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Package
-        arguments: [ @filesystem, %kernel.root_dir% ]
+        arguments: [ %kernel.root_dir% ]
         tags:
             - { name: kernel.event_listener, event: anime_db.package.installed, method: onInstall }
             - { name: kernel.event_listener, event: anime_db.package.updated, method: onUpdate }
