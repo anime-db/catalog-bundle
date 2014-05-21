@@ -68,7 +68,7 @@ services:
 
     anime_db.listener.package:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Package
-        arguments: [ @filesystem, %kernel.root_dir% ]
+        arguments: [ %kernel.root_dir% ]
         tags:
             - { name: kernel.event_listener, event: anime_db.package.installed, method: onInstall }
             - { name: kernel.event_listener, event: anime_db.package.updated, method: onUpdate }
