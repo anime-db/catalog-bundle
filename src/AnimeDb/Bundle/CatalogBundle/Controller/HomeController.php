@@ -469,7 +469,7 @@ class HomeController extends Controller
                 $parameters['parameters']['last_update'] = gmdate('r');
                 file_put_contents($file, Yaml::dump($parameters)); 
                 // change locale
-                $this->get('anime_db.listener.request')->setLocale($request, $entity->getLocale());
+                $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
                 // clear cache
                 $this->get('anime_db.cache_clearer')->clear();
 
