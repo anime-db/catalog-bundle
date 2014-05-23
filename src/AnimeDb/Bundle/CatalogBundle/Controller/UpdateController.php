@@ -96,7 +96,7 @@ class UpdateController extends Controller
         // execute update
         if ($request->request->get('confirm') && $can_update) {
             $this->get('anime_db.command')
-                ->exec('php -d memory_limit=-1 -f app/console animedb:update >web/update.log');
+                ->exec('php app/console animedb:update --env=prod >web/update.log');
         }
 
         // add link to documentation

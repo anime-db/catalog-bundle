@@ -336,6 +336,7 @@ h1.logo a span {
 
 .content section {
 	margin-bottom: 10px;
+	clear: both;
 }
 .content section > h3 {
 	margin: 0 0 5px 0;
