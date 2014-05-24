@@ -1,0 +1,27 @@
+{% extends 'AnimeDbAppBundle::layout.html.twig' %}
+
+{% block title %}{% trans %}Page Not Found{% endtrans %}{% endblock %}
+
+{% block body %}
+<div id="wrapper">
+	<div id="header">
+		<h1 class="logo">
+			<a href="{{ path('home') }}" title="{% trans %}Home Anime DB{% endtrans %}">
+				<span>{% trans %}Home Anime DB{% endtrans %}</span>
+			</a>
+		</h1>
+	</div>
+	<div id="content-wrapper">
+		<div class="content">
+			<h1>{% trans %}Oops! Page Not Found{% endtrans %}</h1>
+			<div>{% trans with {'%email%': admin_email} %}Please e-mail us at <a href="mailto:%email%">%email%</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.{% endtrans %}</div>
+		</div>
+	</div>
+	<div id="footer">
+		<div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The program is licensed under the %license%.{% endtrans %}</div>
+		<div class="copy">&copy; 2011-{{ "now"|date("Y") }} <a href="http://anime-db.org/">Anime DB</a></div>
+	</div>
+	<div id="line"></div>
+	<div id="bg"></div>
+</div>
+{% endblock %}
