@@ -45,10 +45,7 @@ class Package
     public function onUpdate(Updated $event)
     {
         if ($event->getPackage()->getName() == 'anime-db/catalog-bundle') {
-            copy(
-                __DIR__.'/../../Resources/views/knp_menu.html.twig',
-                $this->root_dir.'/Resources/views/knp_menu.html.twig'
-            );
+            $this->copyTemplates();
         }
     }
 
@@ -60,10 +57,22 @@ class Package
     public function onInstall(Installed $event)
     {
         if ($event->getPackage()->getName() == 'anime-db/catalog-bundle') {
-            copy(
-                __DIR__.'/../../Resources/views/knp_menu.html.twig',
-                $this->root_dir.'/Resources/views/knp_menu.html.twig'
-            );
+            $this->copyTemplates();
         }
+    }
+
+    /**
+     * Copy templates
+     */
+    protected function copyTemplates()
+    {
+        $from = __DIR__.'/../../Resources/views/';
+        $to = $this->root_dir.'/Resources/';
+        // overwrite knp menu tpl
+        copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig');
+        // overwrite twig error tpls
+        mkdir($to.'TwigBundle/views/Exception/', 0755, true);
+        copy($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig');
+        copy($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig');
     }
 }
