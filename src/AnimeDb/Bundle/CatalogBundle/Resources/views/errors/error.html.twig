@@ -1,25 +1,25 @@
 {% extends 'AnimeDbAppBundle::layout.html.twig' %}
 
-{% block title %}{% trans with {'%text%': status_text} %}An Error Occurred: %text%{% endtrans %}{% endblock %}
+{% block title %}An Error Occurred: {{ status_text }}{% endblock %}
 
 {% block body %}
 <div id="wrapper">
 	<div id="header">
 		<h1 class="logo">
-			<a href="{{ path('home') }}" title="{% trans %}Home Anime DB{% endtrans %}">
-				<span>{% trans %}Home Anime DB{% endtrans %}</span>
+			<a href="{{ path('home') }}" title="Home Anime DB">
+				<span>Home Anime DB</span>
 			</a>
 		</h1>
 	</div>
 	<div id="content-wrapper">
 		<div class="content">
-			<h1>{% trans %}Oops! An Error Occurred{% endtrans %}</h1>
-			<h2>{% trans with {'%code%': status_code, '%text%': status_text} %}The server returned a "%code% %text%".{% endtrans %}</h2>
-			<div>{% trans with {'%email%': admin_email} %}Something is broken. Please e-mail us at <a href="mailto:%email%">%email%</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.{% endtrans %}</div>
+			<h1>Oops! An Error Occurred</h1>
+			<h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+			<div>Something is broken. Please e-mail us at <a href="mailto:{{ admin_email }}">{{ admin_email }}</a> and let us know what you were doing when this error occurred. We will fix it as soon as possible. Sorry for any inconvenience caused.</div>
 		</div>
 	</div>
 	<div id="footer">
-		<div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The program is licensed under the %license%.{% endtrans %}</div>
+		<div class="license">The program is licensed under the <a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>.</div>
 		<div class="copy">&copy; 2011-{{ "now"|date("Y") }} <a href="http://anime-db.org/">Anime DB</a></div>
 	</div>
 	<div id="line"></div>
