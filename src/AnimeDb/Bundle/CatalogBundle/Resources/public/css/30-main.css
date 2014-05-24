@@ -336,7 +336,6 @@ h1.logo a span {
 
 .content section {
 	margin-bottom: 10px;
-	clear: both;
 }
 .content section > h3 {
 	margin: 0 0 5px 0;
@@ -416,6 +415,7 @@ h1.logo a span {
 	border-left: 5px #db3400 solid;
 	margin: 2px 0 5px;
 	padding: 3px 7px 2px 5px;
+	clear: both;
 }
 .content section article {
 	margin-left: 3px;
