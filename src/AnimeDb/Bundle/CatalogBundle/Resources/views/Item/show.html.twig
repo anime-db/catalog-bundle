@@ -2,16 +2,6 @@
 
 {% block title %}{{ item.name }}{% endblock %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	<link href="{{ asset('/bundles/animedbcatalog/css/jquery.fancybox.css') }}" type="text/css" rel="stylesheet">
-{% endblock %}
-
-{% block javascripts %}
-	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('/bundles/animedbcatalog/js/jquery.fancybox.pack.js') }}"></script>
-{% endblock %}
-
 {% block content %}
 <section class="item-show-left">
 	<h2>{{ item.name }}</h2>
