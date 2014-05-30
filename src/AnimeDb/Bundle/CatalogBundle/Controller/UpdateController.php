@@ -28,7 +28,7 @@ class UpdateController extends Controller
      *
      * @var string
      */
-    const END_MESSAGE = '\r?\nUpdating the application has been completed\r?\n';
+    const END_MESSAGE = 'Updating the application has been completed';
 
     /**
      * Link to documentation by update the application on Windows XP
