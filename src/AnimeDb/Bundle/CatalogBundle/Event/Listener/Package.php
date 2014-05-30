@@ -71,7 +71,9 @@ class Package
         // overwrite knp menu tpl
         copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig');
         // overwrite twig error tpls
-        mkdir($to.'TwigBundle/views/Exception/', 0755, true);
+        if (!file_exists($to.'TwigBundle/views/Exception/')) {
+            mkdir($to.'TwigBundle/views/Exception/', 0755, true);
+        }
         copy($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig');
         copy($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig');
     }
