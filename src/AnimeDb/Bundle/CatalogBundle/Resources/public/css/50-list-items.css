@@ -148,8 +148,8 @@
 }
 /* list sort and order controls */
 .list-items .controls {
-	height: 16px;
-	margin-top: 10px;
+	height: 1.4em;
+	margin: 10px 0 1px 0;
 	color: #666;
 }
 .list-items .controls ul,
