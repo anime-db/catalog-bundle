@@ -203,7 +203,7 @@ class ScanStorage
             $item = null;
             try {
                 /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                $item = $filler->fillFromSearchResult($list[0]);
+                $item = $filler->fillFromSearchResult(array_pop($list));
             } catch (\Exception $e) {}
 
             if ($item instanceof Item) {
