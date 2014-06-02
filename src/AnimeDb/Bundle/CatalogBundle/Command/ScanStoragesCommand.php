@@ -184,6 +184,7 @@ EOT
                     $output->writeln('Detected files for new item <info>'.$name.'</info>');
                 }
             }
+            $em->refresh($storage);
 
             // check of delete file for item
             foreach ($this->getItemsOfDeletedFiles($storage, $finder) as $item) {
