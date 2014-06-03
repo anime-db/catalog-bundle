@@ -95,6 +95,7 @@ class UpdateController extends Controller
 
         // execute update
         if ($request->request->get('confirm') && $can_update) {
+            file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
             $this->get('anime_db.command')
                 ->exec('php app/console animedb:update --env=prod >web/update.log');
         }
