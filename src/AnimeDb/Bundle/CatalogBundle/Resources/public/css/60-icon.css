@@ -10,7 +10,7 @@
 	height: 0;
 	padding: 16px 0 0 16px;
 	overflow: hidden;
-	background-position: top left;
+	background-position: left top;
 	background-repeat: no-repeat;
 }
 .icon-label {
@@ -19,6 +19,11 @@
 	height: 16px;
 	padding: 0 0 0 18px;
 	font-weight: normal;
+}
+.icon-button {
+	background-position: .4em center;
+	background-repeat: no-repeat;
+	text-indent: 16px;
 }
 .icon-plus {
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABXSURBVHjaYvz//z8DsYAJi9hrIP4IxM/RJViwKOYHYlYoJmjyLzQaDhihbgZZy0fAyYxMDCQAshSDPMUIxd+gYp+QxBgJmfwflwdxKWIkFM6MuKwCCDAA8cYS25GxIRkAAAAASUVORK5CYII=');
