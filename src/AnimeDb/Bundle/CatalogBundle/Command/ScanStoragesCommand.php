@@ -189,7 +189,7 @@ EOT
             // check of delete file for item
             foreach ($this->getItemsOfDeletedFiles($storage, $finder) as $item) {
                 $dispatcher->dispatch(StoreEvents::DELETE_ITEM_FILES, new DeleteItemFiles($item));
-                $output->writeln('<error>Files for item "'.$item->getName().'" is removed</error>');
+                $output->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
             }
 
             // update date modified
