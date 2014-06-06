@@ -25,13 +25,13 @@
 							<input type="hidden" name="plugin[install][version]" value="{{ plugin.version }}" />
 							<button type="submit"
 								title="{% trans with {'%name%': plugin.title} %}Install plugin %name%{% endtrans %}"
-								class="icon-button icon-plugin-install"
+								class="icon-button icon-green-add"
 							>{% trans %}Install{% endtrans %}</button>
 						{% else %}
 							<input type="hidden" name="plugin[delete]" value="{{ plugin.name }}" />
 							<button type="submit"
 								title="{% trans with {'%name%': plugin.title} %}Delete plugin %name%{% endtrans %}"
-								class="icon-button icon-plugin-delete"
+								class="icon-button icon-orange-delete"
 							>{% trans %}Delete{% endtrans %}</button>
 						{% endif %}
 					</form>

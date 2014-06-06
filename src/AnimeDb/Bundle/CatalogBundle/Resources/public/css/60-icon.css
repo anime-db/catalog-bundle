@@ -59,12 +59,6 @@
 .icon-storage {
 	background-image: url(/bundles/animedbcatalog/images/icon/storage.png);
 }
-.icon-plugin-delete {
-	background-image: url(/bundles/animedbcatalog/images/icon/plugin_delete.png);
-}
-.icon-plugin-install {
-	background-image: url(/bundles/animedbcatalog/images/icon/plugin_install.png);
-}
 .icon-fill {
 	background-image: url(/bundles/animedbcatalog/images/icon/fill.png);
 }
@@ -121,4 +115,10 @@
 }
 .icon-white-cloud-download {
 	background-image: url(/bundles/animedbcatalog/images/icon/white/cloud_download.png);
+}
+.icon-green-add {
+	background-image: url(/bundles/animedbcatalog/images/icon/green/add.png);
+}
+.icon-orange-delete {
+	background-image: url(/bundles/animedbcatalog/images/icon/orange/delete.png);
 }
