@@ -184,11 +184,12 @@ EOT
                     $output->writeln('Detected files for new item <info>'.$name.'</info>');
                 }
             }
+            $em->refresh($storage);
 
             // check of delete file for item
             foreach ($this->getItemsOfDeletedFiles($storage, $finder) as $item) {
                 $dispatcher->dispatch(StoreEvents::DELETE_ITEM_FILES, new DeleteItemFiles($item));
-                $output->writeln('<error>Files for item "'.$item->getName().'" is removed</error>');
+                $output->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
             }
 
             // update date modified

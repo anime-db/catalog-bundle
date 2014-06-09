@@ -28,7 +28,7 @@ class UpdateController extends Controller
      *
      * @var string
      */
-    const END_MESSAGE = '\r?\nUpdating the application has been completed\r?\n';
+    const END_MESSAGE = 'Updating the application has been completed';
 
     /**
      * Link to documentation by update the application on Windows XP
@@ -95,6 +95,7 @@ class UpdateController extends Controller
 
         // execute update
         if ($request->request->get('confirm') && $can_update) {
+            file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
             $this->get('anime_db.command')
                 ->exec('php app/console animedb:update --env=prod >web/update.log');
         }

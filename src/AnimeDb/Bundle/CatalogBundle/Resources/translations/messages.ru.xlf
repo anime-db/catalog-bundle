@@ -399,8 +399,8 @@
                 <target>Плагин поиска по умолчанию</target>
             </trans-unit>
             <trans-unit id="102">
-                <source>Files for item %name% is removed</source>
-                <target>Файлы для записи %name% удалены</target>
+                <source>Files for item %name% is not found</source>
+                <target>Файлы для записи %name% не найдены</target>
             </trans-unit>
             <trans-unit id="103">
                 <source>Detected files for new item %name% on storage %storage%</source>
@@ -536,7 +536,7 @@
             </trans-unit>
             <trans-unit id="174">
                 <source>Rating</source>
-                <target>Райтинг</target>
+                <target>Рейтинг</target>
             </trans-unit>
             <trans-unit id="175">
                 <source>Item rating</source>
