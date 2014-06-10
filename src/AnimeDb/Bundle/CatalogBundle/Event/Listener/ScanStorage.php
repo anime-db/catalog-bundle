@@ -206,8 +206,6 @@ class ScanStorage
                 // save new item
                 $item->setStorage($event->getStorage());
                 $item->setPath($event->getFile()->getPathname());
-                $this->em->persist($item);
-                $this->em->flush();
 
                 // stop current event and dispatch new event of added item
                 $event->stopPropagation();
@@ -231,5 +229,16 @@ class ScanStorage
             ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
         ));
         $this->em->persist($notice);
+    }
+
+    /**
+     * On added new item persist it
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem $event
+     */
+    public function onAddNewItemPersistIt(AddNewItem $event)
+    {
+        $this->em->persist($event->getItem());
+        $this->em->flush();
     }
 }
