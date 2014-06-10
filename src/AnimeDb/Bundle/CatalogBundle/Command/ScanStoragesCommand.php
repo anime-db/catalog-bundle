@@ -103,7 +103,7 @@ EOT
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
-        $start = microtime(true);
+        $start = time();
 
         if ($input->getArgument('storage')) {
             $storage = $repository->find($input->getArgument('storage'));
@@ -169,9 +169,12 @@ EOT
                     continue;
                 }
 
-                if ($item = $this->getItemOfUpdatedFiles($storage, $file)) {
-                    $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
-                    $output->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
+                // item is exists and modified
+                if ($item = $this->getItemFromFile($storage, $file)) {
+                    if ($item->getDateUpdate()->getTimestamp() < $file->getPathInfo()->getMTime()) {
+                        $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
+                        $output->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
+                    }
                 } else {
                     // remove win:// if need
                     if (defined('PHP_WINDOWS_VERSION_BUILD')) {
@@ -199,7 +202,7 @@ EOT
         $em->flush();
 
         $output->writeln('');
-        $output->writeln('Time: <info>'.round((microtime(true)-$start)*1000, 2).'</info> s.');
+        $output->writeln('Time: <info>'.(time()-$start).'</info> s.');
     }
 
     /**
@@ -226,23 +229,19 @@ EOT
     }
 
     /**
-     * Get item of updated files
+     * Get item from files
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \Symfony\Component\Finder\SplFileInfo $file
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|boolean
      */
-    protected function getItemOfUpdatedFiles(Storage $storage, SplFileInfo $file)
+    protected function getItemFromFile(Storage $storage, SplFileInfo $file)
     {
         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
         foreach ($storage->getItems() as $item) {
             if ($item->getPath() == $file->getPathname()) {
-                // item is exists and modified
-                if ($item->getDateUpdate()->getTimestamp() < $file->getPathInfo()->getMTime()) {
-                    return $item;
-                }
-                return false;
+                return $item;
             }
         }
         return false;
