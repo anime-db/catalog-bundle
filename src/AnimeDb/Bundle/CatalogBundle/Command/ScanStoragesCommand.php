@@ -238,9 +238,17 @@ EOT
      */
     protected function getItemFromFile(Storage $storage, SplFileInfo $file)
     {
+        // remove win:// if need
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+            $path = substr($file->getPathname(), 6);
+        } else {
+            $path = $file->getPathname();
+        }
+        $path .= $file->isDir() ? DIRECTORY_SEPARATOR : '';
+
         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
         foreach ($storage->getItems() as $item) {
-            if ($item->getPath() == $file->getPathname()) {
+            if ($item->getPath() == $path) {
                 return $item;
             }
         }

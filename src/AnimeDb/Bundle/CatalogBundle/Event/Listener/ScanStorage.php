@@ -205,7 +205,10 @@ class ScanStorage
             if ($item instanceof Item) {
                 // save new item
                 $item->setStorage($event->getStorage());
-                $item->setPath($event->getFile()->getPathname());
+                $item->setPath(
+                    $event->getFile()->getPathname().
+                    ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
+                );
 
                 // stop current event and dispatch new event of added item
                 $event->stopPropagation();
