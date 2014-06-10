@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 
 use Symfony\Component\EventDispatcher\Event;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -43,13 +42,6 @@ class DetectedNewFiles extends Event
      * @var string
      */
     protected $name;
-
-    /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
-     */
-    protected $item;
 
     /**
      * Construct
@@ -88,29 +80,6 @@ class DetectedNewFiles extends Event
     public function getFile()
     {
         return $this->file;
-    }
-
-    /**
-     * Set item
-     *
-     * @param $item \AnimeDb\Bundle\CatalogBundle\Entity\Item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\
-     */
-    public function setItem(Item $item)
-    {
-        $this->item = $item;
-        return $this;
-    }
-
-    /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
-     */
-    public function getItem()
-    {
-        return $this->item;
     }
 
     /**

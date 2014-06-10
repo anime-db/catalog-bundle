@@ -64,7 +64,8 @@ services:
             - { name: kernel.event_listener, event: anime_db.storage.update_item_files, method: onUpdateItemFiles }
             - { name: kernel.event_listener, event: anime_db.storage.delete_item_files, method: onDeleteItemFiles }
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesTryAdd }
-            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles, priority: -255 }
+            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesSendNotice, priority: -255 }
+            - { name: kernel.event_listener, event: anime_db.storage.add_new_item, method: onAddNewItemSendNotice, priority: -255 }
 
     anime_db.catalog.listener.package:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Package

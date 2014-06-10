@@ -38,4 +38,11 @@ final class StoreEvents
      * @var string
      */
     const DELETE_ITEM_FILES = 'anime_db.storage.delete_item_files';
+
+    /**
+     * Event thrown when item is added
+     *
+     * @var string
+     */
+    const ADD_NEW_ITEM = 'anime_db.storage.add_new_item';
 }
