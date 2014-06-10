@@ -14,6 +14,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\TwigBundle\TwigEngine;
@@ -210,7 +211,7 @@ class ScanStorage
 
                 // stop current event and dispatch new event of added item
                 $event->stopPropagation();
-                $event->getDispatcher()->dispatch(new AddNewItem($item, $filler));
+                $event->getDispatcher()->dispatch(StoreEvents::ADD_NEW_ITEM, new AddNewItem($item, $filler));
                 return true;
             }
         }
