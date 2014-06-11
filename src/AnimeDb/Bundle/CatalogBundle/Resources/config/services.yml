@@ -83,3 +83,7 @@ services:
     anime_db.search:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
         arguments: [ @anime_db.search.driver ]
+
+    anime_db.api_client:
+        class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
+        arguments: [ %locale% ]
