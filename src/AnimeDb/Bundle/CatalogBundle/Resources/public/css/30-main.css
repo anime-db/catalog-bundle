@@ -932,6 +932,22 @@ h1.logo a span {
 	width: 500px;
 	height: 200px;
 }
+.b-update .b-message {
+	width: 570px;
+	margin: 0 auto;
+}
+.b-update h3 {
+	font-weight: bold;
+}
+.b-update .b-list-plugins {
+	width: 550px;
+	margin: 0 auto 1em auto;
+}
+.b-update .b-list-plugins .info {
+	width: 420px;
+	text-align: left;
+}
+
 .f-refill {
 	position: relative;
 	margin-left: 5px;
