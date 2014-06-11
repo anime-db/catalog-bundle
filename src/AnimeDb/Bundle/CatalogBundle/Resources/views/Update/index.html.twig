@@ -17,6 +17,14 @@
 		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
 	{% elseif confirmed == false %}
 		<div class="b-update-ask">
+			{% if action != false %}
+				{% if action == 'install' %}
+					<div class="b-message">{% trans with {'%link%': referer} %}Installing plugins occurs together with an update of the application.<br />You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
+				{% else %}
+					<div class="b-message">{% trans with {'%link%': referer} %}Removing plugins occurs together with an update of the application.<br />You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
+				{% endif %}
+				<br />
+			{% endif %}
 			<div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
 			<form action="" method="post">
 				<a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>

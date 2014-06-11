@@ -127,6 +127,7 @@ class UpdateController extends Controller
             'end_message' => self::END_MESSAGE,
             'can_update' => $can_update,
             'doc' => $link,
+            'referer' => $request->headers->get('referer'),
             'plugin' => $plugin,
             'action' => $action
         ], $response);
