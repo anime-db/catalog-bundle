@@ -75,22 +75,35 @@ class UpdateController extends Controller
         }
 
         // delete or install package
+        $action = false;
         if ($plugin = $request->request->get('plugin')) {
             $root = $this->container->getParameter('kernel.root_dir').'/../';
             $composer = json_decode(file_get_contents($root.'composer.json'), true);
 
             if (!empty($plugin['delete'])) {
                 unset($composer['require'][$plugin['delete']]);
+                $action = 'delete';
             } elseif (!empty($plugin['install'])) {
                 $composer['require'][$plugin['install']['package']] = $plugin['install']['version'];
+                $action = 'install';
             }
 
-            // lock file is longer not relevant
-            if (file_exists($root.'composer.lock')) {
-                unlink($root.'composer.lock');
+            if ($action) {
+                // lock file is longer not relevant
+                if (file_exists($root.'composer.lock')) {
+                    unlink($root.'composer.lock');
+                }
+                $composer = json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+                file_put_contents($root.'composer.json', $composer);
+
+                // get info about plugin
+                $api_response = $this->container->get('anime_db.api_client')
+                    ->get('plugin/'.$plugin['install']['package'].'/');
+                $plugin = false;
+                if ($api_response->isSuccessful()) {
+                    $plugin = json_decode($api_response->getBody(true), true);
+                }
             }
-            $composer = json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-            file_put_contents($root.'composer.json', $composer);
         }
 
         // execute update
@@ -113,7 +126,9 @@ class UpdateController extends Controller
             'log_file' => '/update.log',
             'end_message' => self::END_MESSAGE,
             'can_update' => $can_update,
-            'doc' => $link
+            'doc' => $link,
+            'plugin' => $plugin,
+            'action' => $action
         ], $response);
     }
 }
