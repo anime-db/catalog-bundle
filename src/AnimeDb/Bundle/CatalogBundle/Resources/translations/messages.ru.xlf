@@ -674,6 +674,10 @@
                 <source>Items on %plugin%</source>
                 <target>Записи на %plugin%</target>
             </trans-unit>
+            <trans-unit id="209">
+                <source>New</source>
+                <target>Новое</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
