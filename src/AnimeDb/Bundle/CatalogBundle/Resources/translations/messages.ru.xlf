@@ -678,6 +678,22 @@
                 <source>New</source>
                 <target>Новое</target>
             </trans-unit>
+            <trans-unit id="210">
+                <source><![CDATA[Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.]]></source>
+                <target><![CDATA[Установка плагинов происходит вместе с обновлением приложения. Вы можете вернуться обратно в <a href="%link%">магазин плагинов</a> и выбрать еще плагины что бы устанавить сразу несколько плагинов.]]></target>
+            </trans-unit>
+            <trans-unit id="211">
+                <source><![CDATA[Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would delete several plugins.]]></source>
+                <target><![CDATA[Удаление плагинов происходит вместе с обновлением приложения. Вы можете вернуться обратно в <a href="%link%">магазин плагинов</a> и выбрать еще плагины что бы удалить сразу несколько плагинов.]]></target>
+            </trans-unit>
+            <trans-unit id="212">
+                <source>The next update will be installed plugin:</source>
+                <target>При следующем обновлении будет установлен плагин:</target>
+            </trans-unit>
+            <trans-unit id="213">
+                <source>The next update will be deleted plugin:</source>
+                <target>При следующем обновлении будет удален плагин:</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
