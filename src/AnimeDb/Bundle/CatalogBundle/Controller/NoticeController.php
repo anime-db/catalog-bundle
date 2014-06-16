@@ -95,7 +95,7 @@ class NoticeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $notices,
             'pagination' => $pagination,
-            'filter' => $filter->createView()
+            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false
         ]);
     }
 }
