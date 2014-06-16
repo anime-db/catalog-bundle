@@ -31,6 +31,7 @@ class Filter extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setMethod('GET')
             ->add('type', 'choice', [
                 'choices' => $this->getNormalLabels([
                     Notice::DEFAULT_TYPE,

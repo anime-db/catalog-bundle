@@ -7,7 +7,7 @@
 	<h2>{% trans %}List of notice{% endtrans %}</h2>
 	{% if filter %}
 		<div class="b-filter-notices">
-			<form action="{{ path('notice_list') }}" method="post" {{ form_enctype(filter) }}>
+			<form action="{{ path('notice_list') }}" method="get" {{ form_enctype(filter) }}>
 				<strong>{% trans %}Filter notices by type{% endtrans %}</strong>
 				{{ form_widget(filter.type) }}
 				<button type="submit">{% trans %}Filter{% endtrans %}</button>

@@ -50,7 +50,7 @@ class NoticeController extends Controller
 
         // filter list notice
         $filter = $this->createForm(new FilterNotice(), ['type' => null]);
-        if ($request->getMethod() == 'POST') {
+        if ($request->query->count()) {
             $filter->handleRequest($request);
         }
 
