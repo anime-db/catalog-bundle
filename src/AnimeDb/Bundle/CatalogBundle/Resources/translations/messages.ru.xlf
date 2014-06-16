@@ -706,6 +706,22 @@
                 <source>Show all</source>
                 <target>Показать все</target>
             </trans-unit>
+            <trans-unit id="217">
+                <source>Item files not found</source>
+                <target>Файлы записи не найдены</target>
+            </trans-unit>
+            <trans-unit id="218">
+                <source>Detected files for new item</source>
+                <target>Обнаруженны файлы для новой записи</target>
+            </trans-unit>
+            <trans-unit id="219">
+                <source>Updated item files</source>
+                <target>Обновлены файлы записи</target>
+            </trans-unit>
+            <trans-unit id="220">
+                <source>Added new item</source>
+                <target>Добавлена новая запись</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
