@@ -694,19 +694,19 @@
                 <source>The next update will be deleted plugin:</source>
                 <target>При следующем обновлении будет удален плагин:</target>
             </trans-unit>
-            <trans-unit id="210">
+            <trans-unit id="214">
                 <source>Item files not found</source>
                 <target>Файлы записи не найдены</target>
             </trans-unit>
-            <trans-unit id="211">
+            <trans-unit id="215">
                 <source>Detected files for new item</source>
                 <target>Обнаруженны файлы для новой записи</target>
             </trans-unit>
-            <trans-unit id="212">
+            <trans-unit id="216">
                 <source>Updates item files</source>
                 <target>Обновлены файлы записи</target>
             </trans-unit>
-            <trans-unit id="213">
+            <trans-unit id="217">
                 <source>Added new item</source>
                 <target>Добавлена новая запись</target>
             </trans-unit>
