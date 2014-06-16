@@ -702,6 +702,10 @@
                 <source>Filter</source>
                 <target>Фильтровать</target>
             </trans-unit>
+            <trans-unit id="216">
+                <source>Show all</source>
+                <target>Показать все</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
