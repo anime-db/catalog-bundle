@@ -88,7 +88,7 @@ class ScanStorage
      *
      * @var string
      */
-    const NOTICE_TYPE_UPDATE_ITEM_FILES = 'update_item_files';
+    const NOTICE_TYPE_UPDATED_ITEM_FILES = 'updated_item_files';
 
     /**
      * Notice type: Detected and added new item
@@ -173,7 +173,7 @@ class ScanStorage
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
         $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_UPDATE_ITEM_FILES);
+        $notice->setType(self::NOTICE_TYPE_UPDATED_ITEM_FILES);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig',
             ['item' => $event->getItem()]
