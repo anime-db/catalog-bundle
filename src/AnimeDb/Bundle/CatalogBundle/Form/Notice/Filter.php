@@ -40,7 +40,7 @@ class Filter extends AbstractType
                     ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
                 ]),
                 'data' => Notice::DEFAULT_TYPE,
-                'label' => 'Type'
+                'label' => 'Filter notices by type'
             ]);
     }
 

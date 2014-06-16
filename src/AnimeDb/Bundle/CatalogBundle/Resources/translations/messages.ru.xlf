@@ -694,6 +694,14 @@
                 <source>The next update will be deleted plugin:</source>
                 <target>При следующем обновлении будет удален плагин:</target>
             </trans-unit>
+            <trans-unit id="214">
+                <source>Filter notices by type</source>
+                <target>Фильтровать уведомления по типу</target>
+            </trans-unit>
+            <trans-unit id="215">
+                <source>Filter</source>
+                <target>Фильтровать</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
