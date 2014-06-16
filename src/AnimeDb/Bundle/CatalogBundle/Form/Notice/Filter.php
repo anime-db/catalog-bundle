@@ -39,8 +39,8 @@ class Filter extends AbstractType
                     ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
                     ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
                 ]),
-                'data' => Notice::DEFAULT_TYPE,
-                'label' => 'Filter notices by type'
+                'label' => 'Filter notices by type',
+                'required' => false
             ]);
     }
 
