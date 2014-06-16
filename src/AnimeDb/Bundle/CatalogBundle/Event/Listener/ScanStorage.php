@@ -70,6 +70,34 @@ class ScanStorage
     protected $form_factory;
 
     /**
+     * Notice type: files for item is not found
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_ITEM_FILES_NOT_FOUND = 'item_files_not_found';
+
+    /**
+     * Notice type: Detected files for new item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM = 'detected_files_for_new_item';
+
+    /**
+     * Notice type: Changes are detected in files of item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_UPDATE_ITEM_FILES = 'update_item_files';
+
+    /**
+     * Notice type: Detected and added new item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_ADDED_NEW_ITEM = 'added_new_item';
+
+    /**
      * Construct
      *
      * @param \Doctrine\ORM\EntityManager $em
@@ -100,6 +128,7 @@ class ScanStorage
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
         $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/delete_item_files.html.twig',
             ['item' => $event->getItem()]
@@ -127,6 +156,7 @@ class ScanStorage
                 );
             }
 
+            $notice->setType(self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM);
             $notice->setMessage($this->templating->render(
                 'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
                 ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
@@ -143,6 +173,7 @@ class ScanStorage
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
         $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_UPDATE_ITEM_FILES);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig',
             ['item' => $event->getItem()]
@@ -227,6 +258,7 @@ class ScanStorage
     public function onAddNewItemSendNotice(AddNewItem $event)
     {
         $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_ADDED_NEW_ITEM);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
             ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
