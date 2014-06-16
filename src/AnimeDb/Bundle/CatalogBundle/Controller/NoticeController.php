@@ -15,6 +15,7 @@ use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
+use AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter as FilterNotice;
 
 /**
  * Notice
@@ -46,6 +47,15 @@ class NoticeController extends Controller
         $em = $this->getDoctrine()->getManager();
         /* @var $repository \AnimeDb\Bundle\AppBundle\Repository\Notice */
         $repository = $em->getRepository('AnimeDbAppBundle:Notice');
+
+        // filter list notice
+        $filter = $this->createForm(new FilterNotice());
+        if ($request->getMethod() == 'POST') {
+            $filter->handleRequest($request);
+            if ($filter->isValid()) {
+                // TODO filter list
+            }
+        }
 
         // get notices
         $notices = $repository->getList(self::NOTICE_PER_PAGE, ($current_page - 1) * self::NOTICE_PER_PAGE);
@@ -83,7 +93,8 @@ class NoticeController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $notices,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'filter' => $filter->createView()
         ]);
     }
 }
