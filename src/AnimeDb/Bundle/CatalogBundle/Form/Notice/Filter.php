@@ -45,7 +45,7 @@ class Filter extends AbstractType
                     ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM,
                     ScanStorage::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
                     ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
-                    ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
+                    ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
                 ]),
                 'empty_value' => 'Show all',
                 'required' => false
