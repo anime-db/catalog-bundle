@@ -74,7 +74,7 @@ if (container.size() && (from = container.data('from'))) {
 }
 
 // confirm delete
-$('.icon-delete, .b-notice-list button[type=submit]').each(function(){
+$('.icon-delete, .b-notice-table button[type=submit]').each(function(){
 	new ConfirmDeleteModel($(this));
 });
 

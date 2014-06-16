@@ -905,6 +905,13 @@ h1.logo a span {
 	width: 500px;
 	overflow: hidden;
 }
+.b-filter-notices {
+	text-align: right;
+	margin-bottom: 5px;
+}
+.b-filter-notices strong {
+	display: block;
+}
 
 /**
  * Confirmation matching item

@@ -15,6 +15,7 @@ use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
+use AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter as FilterNotice;
 
 /**
  * Notice
@@ -47,8 +48,18 @@ class NoticeController extends Controller
         /* @var $repository \AnimeDb\Bundle\AppBundle\Repository\Notice */
         $repository = $em->getRepository('AnimeDbAppBundle:Notice');
 
+        // filter list notice
+        $filter = $this->createForm(new FilterNotice(), ['type' => null]);
+        if ($request->query->count()) {
+            $filter->handleRequest($request);
+        }
+
         // get notices
-        $notices = $repository->getList(self::NOTICE_PER_PAGE, ($current_page - 1) * self::NOTICE_PER_PAGE);
+        $notices = $repository->getList(
+            self::NOTICE_PER_PAGE,
+            ($current_page - 1) * self::NOTICE_PER_PAGE,
+            $filter->getData()['type']
+        );
 
         // remove selected notices if need
         if ($request->isMethod('POST') && $notices) {
@@ -68,22 +79,25 @@ class NoticeController extends Controller
         }
 
         // get count all items
-        $count = $repository->count();
+        $count = $repository->count($filter->getData()['type']);
 
         $that = $this;
+        $query = $request->query->all();
+        unset($query['page']);
         $pagination = $this->get('anime_db.pagination')->createNavigation(
             ceil($count/self::NOTICE_PER_PAGE),
             $current_page,
             Pagination::DEFAULT_LIST_LENGTH,
-            function ($page) use ($that) {
-                return $that->generateUrl('notice_list', ['page' => $page]);
+            function ($page) use ($that, $query) {
+                return $that->generateUrl('notice_list', array_merge($query, ['page' => $page]));
             },
-            $this->generateUrl('notice_list')
+            $this->generateUrl('notice_list', $query)
         );
 
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $notices,
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false
         ]);
     }
 }
