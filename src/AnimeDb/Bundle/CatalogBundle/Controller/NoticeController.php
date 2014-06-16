@@ -52,13 +52,14 @@ class NoticeController extends Controller
         $filter = $this->createForm(new FilterNotice(), ['type' => null]);
         if ($request->getMethod() == 'POST') {
             $filter->handleRequest($request);
-            if ($filter->isValid()) {
-                // TODO filter list
-            }
         }
 
         // get notices
-        $notices = $repository->getList(self::NOTICE_PER_PAGE, ($current_page - 1) * self::NOTICE_PER_PAGE);
+        $notices = $repository->getList(
+            self::NOTICE_PER_PAGE,
+            ($current_page - 1) * self::NOTICE_PER_PAGE,
+            $filter->getData()['type']
+        );
 
         // remove selected notices if need
         if ($request->isMethod('POST') && $notices) {
@@ -78,7 +79,7 @@ class NoticeController extends Controller
         }
 
         // get count all items
-        $count = $repository->count();
+        $count = $repository->count($filter->getData()['type']);
 
         $that = $this;
         $pagination = $this->get('anime_db.pagination')->createNavigation(
