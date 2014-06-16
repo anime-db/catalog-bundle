@@ -82,14 +82,16 @@ class NoticeController extends Controller
         $count = $repository->count($filter->getData()['type']);
 
         $that = $this;
+        $query = $request->query->all();
+        unset($query['page']);
         $pagination = $this->get('anime_db.pagination')->createNavigation(
             ceil($count/self::NOTICE_PER_PAGE),
             $current_page,
             Pagination::DEFAULT_LIST_LENGTH,
-            function ($page) use ($that) {
-                return $that->generateUrl('notice_list', ['page' => $page]);
+            function ($page) use ($that, $query) {
+                return $that->generateUrl('notice_list', array_merge($query, ['page' => $page]));
             },
-            $this->generateUrl('notice_list')
+            $this->generateUrl('notice_list', $query)
         );
 
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [

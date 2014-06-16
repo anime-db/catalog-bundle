@@ -25,6 +25,13 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage;
 class Filter extends AbstractType
 {
     /**
+     * Form name
+     *
+     * @var string
+     */
+    const NAME = 'anime_db_catalog_notices_filter';
+
+    /**
      * (non-PHPdoc)
      * @see \Symfony\Component\Form\AbstractType::buildForm()
      */
@@ -67,6 +74,6 @@ class Filter extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_notices_filter';
+        return self::NAME;
     }
 }
