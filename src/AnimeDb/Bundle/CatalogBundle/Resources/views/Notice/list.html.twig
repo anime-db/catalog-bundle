@@ -61,7 +61,12 @@
 		</table>
 		<br />
 		{{ form_widget(change_form.action) }}
-		<button type="submit" data-message="{% trans %}Are you sure want to delete item(s)?{% endtrans %}">{% trans %}Apply{% endtrans %}</button>
+		<button
+			type="submit"
+			data-target="#{{ change_form.action.vars.id }}"
+			data-action="{{ action_remove }}"
+			data-message="{% trans %}Are you sure want to delete item(s)?{% endtrans %}"
+		>{% trans %}Apply{% endtrans %}</button>
 		</form>
 		{% include 'AnimeDbAppBundle::pagination.html.twig' %}
 	{% endif %}

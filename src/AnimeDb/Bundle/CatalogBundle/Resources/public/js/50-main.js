@@ -74,8 +74,22 @@ if (container.size() && (from = container.data('from'))) {
 }
 
 // confirm delete
-$('.icon-delete, .b-notice-table button[type=submit]').each(function(){
-	new ConfirmDeleteModel($(this));
+$('.icon-delete, .b-notice-table button[type=submit]').each(function() {
+	var ConfirmDeleteNotice = ConfirmDeleteModel;
+	ConfirmDeleteNotice.prototype.action = null;
+	ConfirmDeleteNotice.prototype.getAction = function() {
+		if (!this.action) {
+			this.action = $(this.link.data('target'));
+		}
+		return this.action.val();
+	};
+	ConfirmDeleteNotice.prototype.remove = function() {
+		if (this.getAction() == this.link.data('action')) {
+			return confirm(this.massage);
+		}
+		return true;
+	};
+	new ConfirmDeleteNotice($(this));
 });
 
 $('.bt-toggle-block').each(function() {

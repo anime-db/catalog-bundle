@@ -131,7 +131,8 @@ class NoticeController extends Controller
             'list' => $notices,
             'pagination' => $pagination,
             'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false,
-            'change_form' => $change_form->createView()
+            'change_form' => $change_form->createView(),
+            'action_remove' => ChangeNotice::ACTION_REMOVE
         ]);
     }
 }
