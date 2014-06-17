@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter as FilterNotice;
+use AnimeDb\Bundle\CatalogBundle\Form\Notice\Change as ChangeNotice;
 
 /**
  * Notice
@@ -76,21 +77,34 @@ class NoticeController extends Controller
             ->getQuery()
             ->getResult();
 
-        // remove selected notices if need
+        // change selected notices if need
+        $change_form = $this->createForm(new ChangeNotice($notices));
         if ($request->isMethod('POST') && $notices) {
-            if ($ids = (array)$request->request->get('id', [])) {
+            $change_form->handleRequest($request);
+            if ($change_form->isValid() && ($ids = $change_form->getData()['id'])) {
                 foreach ($ids as $id) {
-                    foreach ($notices as $key => $notice) {
+                    /* @var $notice \AnimeDb\Bundle\AppBundle\Entity\Notice */
+                    foreach ($notices as $notice) {
                         if ($notice->getId() == $id) {
-                            $em->remove($notice);
-                            unset($notices[$key]);
-                            break;
+                            switch ($change_form->getData()['action']) {
+                                case ChangeNotice::ACTION_SET_STATUS_SHOWN:
+                                    $notice->setStatus(Notice::STATUS_SHOWN);
+                                    $em->persist($notice);
+                                    break 2;
+                                case ChangeNotice::ACTION_SET_STATUS_CLOSED:
+                                    $notice->setStatus(Notice::STATUS_CLOSED);
+                                    $em->persist($notice);
+                                    break 2;
+                                case ChangeNotice::ACTION_REMOVE:
+                                    $em->remove($notice);
+                                    break 2;
+                            }
                         }
                     }
                 }
                 $em->flush();
+                return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
             }
-            return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
         }
 
         // get count all items
@@ -116,7 +130,9 @@ class NoticeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $notices,
             'pagination' => $pagination,
-            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false
+            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false,
+            'change_form' => $change_form->createView(),
+            'action_remove' => ChangeNotice::ACTION_REMOVE
         ]);
     }
 }

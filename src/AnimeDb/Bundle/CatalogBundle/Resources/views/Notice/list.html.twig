@@ -22,11 +22,18 @@
 	{% if list is empty %}
 		{% trans %}No notices{% endtrans %}
 	{% else %}
-		<form action="{{ path('notice_list') }}" method="post" class="b-notice-table">
+		<form action="{{ path('notice_list') }}" method="post" class="b-notice-table" {{ form_enctype(change_form) }}>
 		<table>
 			<thead>
 				<tr>
-					<th><input type="checkbox" name="check-all" class="f-table-check-all" data-target="f-notice-id" value="1" /></th>
+					<th><input
+						type="checkbox"
+						name="check-all"
+						class="f-table-check-all"
+						data-target="f-notice-id"
+						title="{% trans %}Select all{% endtrans %}"
+						value="1"
+					/></th>
 					<th>{% trans %}Message{% endtrans %}</th>
 					<th>{% trans %}Date created{% endtrans %}</th>
 					<th>{% trans %}Date closed{% endtrans %}</th>
@@ -35,7 +42,7 @@
 			</thead>
 			{% for notice in list %}
 				<tr>
-					<th><input type="checkbox" name="id[]" value="{{ notice.id }}" class="f-notice-id" /></th>
+					<th><input type="checkbox" name="{{ change_form.vars.name }}[id][]" value="{{ notice.id }}" class="f-notice-id" /></th>
 					<td class="t-message">
 						{% autoescape false %}{{ notice.message }}{% endautoescape %}
 					</td>
@@ -60,7 +67,13 @@
 			{% endfor %}
 		</table>
 		<br />
-		<button type="submit" data-message="{% trans %}Are you sure want to delete item(s)?{% endtrans %}">{% trans %}Remove{% endtrans %}</button>
+		{{ form_widget(change_form.action) }}
+		<button
+			type="submit"
+			data-target="#{{ change_form.action.vars.id }}"
+			data-action="{{ action_remove }}"
+			data-message="{% trans %}Are you sure want to delete item(s)?{% endtrans %}"
+		>{% trans %}Apply{% endtrans %}</button>
 		</form>
 		{% include 'AnimeDbAppBundle::pagination.html.twig' %}
 	{% endif %}
