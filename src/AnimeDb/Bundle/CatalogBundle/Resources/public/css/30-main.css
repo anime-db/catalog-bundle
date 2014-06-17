@@ -365,8 +365,8 @@ h1.logo a span {
 }
 .b-filler-search .image {
 	width: 120px;
-	height: 150px;
 	text-align: center;
+	line-height: 0;
 	float: left;
 }
 .b-filler-search .image img {
@@ -380,6 +380,10 @@ h1.logo a span {
 .b-filler-search .info a {
 	margin-bottom: 3px;
 	display: block;
+}
+.b-refill-search .info {
+	width: 320px;
+	float: right;
 }
 
 /**
