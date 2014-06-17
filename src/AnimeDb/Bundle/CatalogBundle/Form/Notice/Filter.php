@@ -39,6 +39,14 @@ class Filter extends AbstractType
     {
         $builder
             ->setMethod('GET')
+            ->add('status', 'choice', [
+                'choices' => [
+                    Notice::STATUS_CREATED => 'New',
+                    Notice::STATUS_SHOWN => 'Shown',
+                    Notice::STATUS_CLOSED => 'Closed'
+                ],
+                'required' => false
+            ])
             ->add('type', 'choice', [
                 'choices' => $this->getNormalLabels([
                     Notice::DEFAULT_TYPE,
@@ -47,7 +55,6 @@ class Filter extends AbstractType
                     ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
                     ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
                 ]),
-                'empty_value' => 'Show all',
                 'required' => false
             ]);
     }

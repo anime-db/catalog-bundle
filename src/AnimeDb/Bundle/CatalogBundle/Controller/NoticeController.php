@@ -47,19 +47,34 @@ class NoticeController extends Controller
         $em = $this->getDoctrine()->getManager();
         /* @var $repository \AnimeDb\Bundle\AppBundle\Repository\Notice */
         $repository = $em->getRepository('AnimeDbAppBundle:Notice');
+        $query = $repository->createQueryBuilder('n');
 
         // filter list notice
         $filter = $this->createForm(new FilterNotice(), ['type' => null]);
         if ($request->query->count()) {
             $filter->handleRequest($request);
+            if ($filter->isValid()) {
+                if (!is_null($filter->getData()['status'])) {
+                    $query
+                        ->where('n.status = :status')
+                        ->setParameter('status', $filter->getData()['status']);
+                }
+                if ($filter->getData()['type']) {
+                    $query
+                        ->andWhere('n.type = :type')
+                        ->setParameter('type', $filter->getData()['type']);
+                }
+            }
         }
 
         // get notices
-        $notices = $repository->getList(
-            self::NOTICE_PER_PAGE,
-            ($current_page - 1) * self::NOTICE_PER_PAGE,
-            $filter->getData()['type']
-        );
+        $notices = clone $query;
+        $notices = $notices
+            ->orderBy('n.date_created', 'DESC')
+            ->setFirstResult(($current_page - 1) * self::NOTICE_PER_PAGE)
+            ->setMaxResults(self::NOTICE_PER_PAGE)
+            ->getQuery()
+            ->getResult();
 
         // remove selected notices if need
         if ($request->isMethod('POST') && $notices) {
@@ -79,8 +94,12 @@ class NoticeController extends Controller
         }
 
         // get count all items
-        $count = $repository->count($filter->getData()['type']);
+        $count = $query
+            ->select('COUNT(n)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
+        // pagination
         $that = $this;
         $query = $request->query->all();
         unset($query['page']);
