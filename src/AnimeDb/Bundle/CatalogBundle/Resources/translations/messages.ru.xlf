@@ -734,6 +734,10 @@
                 <source>Set status Closed</source>
                 <target>Установить статус Закрыто</target>
             </trans-unit>
+            <trans-unit id="224">
+                <source>Select all</source>
+                <target>Выбрать все</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

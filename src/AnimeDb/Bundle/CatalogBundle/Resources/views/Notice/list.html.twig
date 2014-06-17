@@ -26,7 +26,14 @@
 		<table>
 			<thead>
 				<tr>
-					<th><input type="checkbox" name="check-all" class="f-table-check-all" data-target="f-notice-id" value="1" /></th>
+					<th><input
+						type="checkbox"
+						name="check-all"
+						class="f-table-check-all"
+						data-target="f-notice-id"
+						title="{% trans %}Select all{% endtrans %}"
+						value="1"
+					/></th>
 					<th>{% trans %}Message{% endtrans %}</th>
 					<th>{% trans %}Date created{% endtrans %}</th>
 					<th>{% trans %}Date closed{% endtrans %}</th>
