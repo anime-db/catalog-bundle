@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\Finder;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
@@ -81,6 +82,12 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 InputArgument::OPTIONAL,
                 'Id scanned storage'
             )
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE,
+                'Ignore the last modified storage'
+            )
             ->setHelp(<<<EOT
 Example scan all storages:
 
@@ -89,6 +96,10 @@ Example scan all storages:
 Example scan storage with id <info>1</info>:
 
 <info>php app/console animedb:scan-storage 1</info>
+
+Example force scan all storages:
+
+<info>php app/console animedb:scan-storage --force</info>
 EOT
             );
     }
@@ -148,7 +159,10 @@ EOT
             }
 
             // storage not modified
-            if ($storage->getFileModified() && filemtime($path) == $storage->getFileModified()->getTimestamp()) {
+            if (!$input->getOption('force') &&
+                $storage->getFileModified() &&
+                filemtime($path) == $storage->getFileModified()->getTimestamp()
+            ) {
                 $output->writeln('Storage is not modified');
                 continue;
             }
