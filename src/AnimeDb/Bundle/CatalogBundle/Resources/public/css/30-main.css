@@ -917,6 +917,9 @@ h1.logo a span {
 #b-filter-notices {
 	display: none;
 }
+.b-filter-notices .f-col-label {
+	width: 100px;
+}
 
 /**
  * Confirmation matching item
