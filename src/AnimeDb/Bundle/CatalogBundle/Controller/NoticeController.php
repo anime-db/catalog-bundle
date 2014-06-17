@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter as FilterNotice;
+use AnimeDb\Bundle\CatalogBundle\Form\Notice\Change as ChangeNotice;
 
 /**
  * Notice
@@ -76,21 +77,13 @@ class NoticeController extends Controller
             ->getQuery()
             ->getResult();
 
-        // remove selected notices if need
+        // change selected notices if need
+        $change_form = $this->createForm(new ChangeNotice($notices));
         if ($request->isMethod('POST') && $notices) {
-            if ($ids = (array)$request->request->get('id', [])) {
-                foreach ($ids as $id) {
-                    foreach ($notices as $key => $notice) {
-                        if ($notice->getId() == $id) {
-                            $em->remove($notice);
-                            unset($notices[$key]);
-                            break;
-                        }
-                    }
-                }
-                $em->flush();
+            $change_form->handleRequest($request);
+            if ($change_form->isValid() && ($ids = $change_form->getData()['id'])) {
+                // TODO apply change
             }
-            return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
         }
 
         // get count all items
@@ -116,7 +109,8 @@ class NoticeController extends Controller
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $notices,
             'pagination' => $pagination,
-            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false
+            'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false,
+            'change_form' => $change_form->createView()
         ]);
     }
 }

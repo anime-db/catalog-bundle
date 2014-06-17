@@ -722,6 +722,18 @@
                 <source>Added new item</source>
                 <target>Добавлена новая запись</target>
             </trans-unit>
+            <trans-unit id="221">
+                <source>Apply</source>
+                <target>Применить</target>
+            </trans-unit>
+            <trans-unit id="222">
+                <source>Set status Shown</source>
+                <target>Установить статус Показаны</target>
+            </trans-unit>
+            <trans-unit id="223">
+                <source>Set status Closed</source>
+                <target>Установить статус Закрыто</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
