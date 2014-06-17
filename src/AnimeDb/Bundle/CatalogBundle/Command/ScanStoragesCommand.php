@@ -21,6 +21,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
+use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -126,6 +127,8 @@ EOT
             $storages = $repository->getList(Storage::getTypesWritable());
         }
 
+        $progress = $this->getHelperSet()->get('progress');
+
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
             $output->writeln('');
@@ -144,15 +147,8 @@ EOT
             }
 
             // update storage id if can
-            if (!file_exists($path.Storage::ID_FILE)) {
-                file_put_contents($path.Storage::ID_FILE, $storage->getId());
-            } elseif (file_get_contents($path.Storage::ID_FILE) == $storage->getId()) {
-                // it my path. do nothing
-            } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
-                // this path is reserved storage that was removed and now this path is free
-                file_put_contents($path.Storage::ID_FILE, $storage->getId());
-            } else {
-                /* @var $duplicate \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+            $duplicate = $this->updateStorageId($path, $storage, $repository);
+            if ($duplicate instanceof Storage) {
                 $output->writeln('Path <info>'.$storage->getPath().'</info> reserved storage <info>'
                     .$duplicate->getName().'</info>');
                 continue;
@@ -167,19 +163,12 @@ EOT
                 continue;
             }
 
-            $finder = new Finder();
-            $finder
-                ->in($path)
-                ->ignoreUnreadableDirs()
-                ->depth('== 0')
-                ->notName('.*');
+            $files = $this->getFilesByPath($path);
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
-            foreach ($finder as $file) {
+            foreach ($files as $file) {
                 // ignore not supported files
-                if ($file->isFile() &&
-                    !in_array(strtolower(pathinfo($file->getFilename(), PATHINFO_EXTENSION)), $this->allow_ext)
-                ) {
+                if ($file->isFile() && !$this->isAllowFile($file)) {
                     continue;
                 }
 
@@ -204,7 +193,7 @@ EOT
             $em->refresh($storage);
 
             // check of delete file for item
-            foreach ($this->getItemsOfDeletedFiles($storage, $finder) as $item) {
+            foreach ($this->getItemsOfDeletedFiles($storage, $files) as $item) {
                 $dispatcher->dispatch(StoreEvents::DELETE_ITEM_FILES, new DeleteItemFiles($item));
                 $output->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
             }
@@ -267,5 +256,58 @@ EOT
             }
         }
         return false;
+    }
+
+    /**
+     * Get files by path
+     *
+     * @param string $path
+     *
+     * @return \Symfony\Component\Finder\Finder
+     */
+    protected function getFilesByPath($path)
+    {
+        return (new Finder())
+            ->in($path)
+            ->ignoreUnreadableDirs()
+            ->depth('== 0')
+            ->notName('.*');
+    }
+
+    /**
+     * Is allow file
+     *
+     * @param \Symfony\Component\Finder\SplFileInfo $file
+     *
+     * @return boolean
+     */
+    protected function isAllowFile(SplFileInfo $file)
+    {
+        return in_array(strtolower(pathinfo($file->getFilename(), PATHINFO_EXTENSION)), $this->allow_ext);
+    }
+
+    /**
+     * Update storage id if can
+     *
+     * @param string $path
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \AnimeDb\Bundle\CatalogBundle\Repository\Storage $repository
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage|boolean
+     */
+    protected function updateStorageId($path, Storage $storage, StorageRepository $repository)
+    {
+        if (!file_exists($path.Storage::ID_FILE)) {
+            // path is free. reserve for me
+            file_put_contents($path.Storage::ID_FILE, $storage->getId());
+        } elseif (file_get_contents($path.Storage::ID_FILE) == $storage->getId()) {
+            // it is my path. do nothing
+        } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
+            // this path is reserved storage that was removed and now this path is free
+            file_put_contents($path.Storage::ID_FILE, $storage->getId());
+        } else {
+            return $duplicate;
+        }
+        return true;
     }
 }
