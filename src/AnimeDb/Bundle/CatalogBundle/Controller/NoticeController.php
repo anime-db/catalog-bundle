@@ -82,7 +82,28 @@ class NoticeController extends Controller
         if ($request->isMethod('POST') && $notices) {
             $change_form->handleRequest($request);
             if ($change_form->isValid() && ($ids = $change_form->getData()['id'])) {
-                // TODO apply change
+                foreach ($ids as $id) {
+                    /* @var $notice \AnimeDb\Bundle\AppBundle\Entity\Notice */
+                    foreach ($notices as $notice) {
+                        if ($notice->getId() == $id) {
+                            switch ($change_form->getData()['action']) {
+                                case ChangeNotice::ACTION_SET_STATUS_SHOWN:
+                                    $notice->setStatus(Notice::STATUS_SHOWN);
+                                    $em->persist($notice);
+                                    break 2;
+                                case ChangeNotice::ACTION_SET_STATUS_CLOSED:
+                                    $notice->setStatus(Notice::STATUS_CLOSED);
+                                    $em->persist($notice);
+                                    break 2;
+                                case ChangeNotice::ACTION_REMOVE:
+                                    $em->remove($notice);
+                                    break 2;
+                            }
+                        }
+                    }
+                }
+                $em->flush();
+                return $this->redirect($this->generateUrl('notice_list', $current_page ? ['page' => $current_page] : []));
             }
         }
 
