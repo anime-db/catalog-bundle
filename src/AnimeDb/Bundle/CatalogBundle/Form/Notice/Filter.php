@@ -14,7 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
-use AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Filter notices form
@@ -32,11 +32,42 @@ class Filter extends AbstractType
     const NAME = 'anime_db_catalog_notices_filter';
 
     /**
+     * Entity manager
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $em;
+
+    /**
+     * Construct
+     *
+     * @param \Doctrine\ORM\EntityManager $em
+     */
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
      * (non-PHPdoc)
      * @see \Symfony\Component\Form\AbstractType::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $types = [Notice::DEFAULT_TYPE];
+
+        // add user-defined types
+        $result = $this->em->createQueryBuilder()
+            ->select('n.type')
+            ->from('AnimeDbAppBundle:Notice', 'n')
+            ->where('n.type IS NOT NULL')
+            ->groupBy('n.type')
+            ->getQuery()
+            ->getResult();
+        foreach ($result as $row) {
+            $types[] = $row['type'];
+        }
+
         $builder
             ->setMethod('GET')
             ->add('status', 'choice', [
@@ -48,13 +79,7 @@ class Filter extends AbstractType
                 'required' => false
             ])
             ->add('type', 'choice', [
-                'choices' => $this->getNormalLabels([
-                    Notice::DEFAULT_TYPE,
-                    ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM,
-                    ScanStorage::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
-                    ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
-                    ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
-                ]),
+                'choices' => $this->getNormalLabels($types),
                 'required' => false
             ]);
     }
