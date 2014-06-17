@@ -42,17 +42,35 @@ class Item
     protected $source = '';
 
     /**
+     * Image
+     *
+     * @var string
+     */
+    protected $image = '';
+
+    /**
+     * Description
+     *
+     * @var string
+     */
+    protected $description = '';
+
+    /**
      * Construct
      *
      * @param string $name
      * @param array $data
      * @param string $source
+     * @param string|null $image
+     * @param string|null $description
      */
-    public function __construct($name, array $data, $source)
+    public function __construct($name, array $data, $source, $image = '', $description = '')
     {
         $this->name = $name;
         $this->data = $data;
         $this->source = $source;
+        $this->image = $image;
+        $this->description = $description;
     }
 
     /**
@@ -83,5 +101,25 @@ class Item
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

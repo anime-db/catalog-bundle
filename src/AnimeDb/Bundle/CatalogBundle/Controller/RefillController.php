@@ -87,6 +87,8 @@ class RefillController extends Controller
             foreach ($result as $key => $search_item) {
                 $result[$key] = [
                     'name' => $search_item->getName(),
+                    'image' => $search_item->getImage(),
+                    'description' => $search_item->getDescription(),
                     'link' => $this->generateUrl('refiller_search_fill', [
                         'plugin' => $plugin,
                         'field' => $field,
