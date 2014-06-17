@@ -49,7 +49,7 @@ class NoticeController extends Controller
         $repository = $em->getRepository('AnimeDbAppBundle:Notice');
 
         // filter list notice
-        $filter = $this->createForm(new FilterNotice(), ['type' => null]);
+        $filter = $this->createForm('anime_db_catalog_notices_filter');
         if ($request->query->count()) {
             $filter->handleRequest($request);
         }

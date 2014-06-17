@@ -55,6 +55,11 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels
         calls:
             - [ setTranslator, [ @translator ] ]
+    anime_db.form.notice.filter:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: anime_db_catalog_notices_filter }
 
 
     anime_db.catalog.listener.scan_storage:
