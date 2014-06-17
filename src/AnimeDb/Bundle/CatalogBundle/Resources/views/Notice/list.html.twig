@@ -35,7 +35,7 @@
 			</thead>
 			{% for notice in list %}
 				<tr>
-					<th><input type="checkbox" name="id[]" value="{{ notice.id }}" class="f-notice-id" /></th>
+					<th><input type="checkbox" name="{{ change_form.vars.name }}[id][]" value="{{ notice.id }}" class="f-notice-id" /></th>
 					<td class="t-message">
 						{% autoescape false %}{{ notice.message }}{% endautoescape %}
 					</td>
