@@ -47,7 +47,6 @@ class Filter extends AbstractType
                     ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
                     ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
                 ]),
-                'empty_value' => 'Show all',
                 'required' => false
             ]);
     }

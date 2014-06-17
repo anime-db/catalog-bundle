@@ -905,12 +905,17 @@ h1.logo a span {
 	width: 500px;
 	overflow: hidden;
 }
-.b-filter-notices {
-	text-align: right;
-	margin-bottom: 5px;
+.b-notice-list .bt-toggle-block {
+	padding: 0;
+	margin-top: 0;
+	border: 0;
+	background: none;
+	font-weight: normal;
+	color: #db3400;
+	cursor: pointer;
 }
-.b-filter-notices strong {
-	display: block;
+#b-filter-notices {
+	display: none;
 }
 
 /**

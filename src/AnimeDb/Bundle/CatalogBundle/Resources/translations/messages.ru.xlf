@@ -695,8 +695,8 @@
                 <target>При следующем обновлении будет удален плагин:</target>
             </trans-unit>
             <trans-unit id="214">
-                <source>Filter notices by type</source>
-                <target>Фильтровать уведомления по типу</target>
+                <source>Filter the list notices</source>
+                <target>Фильтровать список уведомлений</target>
             </trans-unit>
             <trans-unit id="215">
                 <source>Filter</source>
