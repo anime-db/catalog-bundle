@@ -738,6 +738,10 @@
                 <source>Select all</source>
                 <target>Выбрать все</target>
             </trans-unit>
+            <trans-unit id="225">
+                <source>Read more</source>
+                <target>Подробнее</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

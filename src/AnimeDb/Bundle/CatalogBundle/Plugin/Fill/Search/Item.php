@@ -33,6 +33,15 @@ class Item
     protected $link = '';
 
     /**
+     * Source
+     *
+     * Can set the source to source item to avoid the next search for this item
+     *
+     * @var string
+     */
+    protected $source = '';
+
+    /**
      * Image
      *
      * @var string
@@ -53,13 +62,15 @@ class Item
      * @param string $link
      * @param string $image
      * @param string $description
+     * @param string|null $source
      */
-    public function __construct($name, $link, $image, $description)
+    public function __construct($name, $link, $image, $description, $source = '')
     {
         $this->name = $name;
         $this->link = $link;
         $this->image = $image;
         $this->description = $description;
+        $this->source = $source;
     }
 
     /**
@@ -80,6 +91,16 @@ class Item
     public function getLink()
     {
         return $this->link;
+    }
+
+    /**
+     * Get source
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 
     /**

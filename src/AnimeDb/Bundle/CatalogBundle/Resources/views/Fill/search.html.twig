@@ -20,8 +20,11 @@
 							<img src="{{ item.image|dummy('card') }}" alt="{{ item.name }}" />
 						</a>
 						<div class="info">
-							<a href="{{ item.link }}" title="{% trans %}Use to fill{% endtrans %}">{{ item.name }}</a>
+							<a href="{{ item.link }}" class="header" title="{% trans %}Use to fill{% endtrans %}">{{ item.name }}</a>
 							<div>{{ item.description|nl2br }}</div>
+							{% if item.source %}
+								<a href="{{ item.source }}" target="_blank" class="external">{% trans %}Read more{% endtrans %}</a>
+							{% endif %}
 						</div>
 						<br clear="both">
 					</li>
