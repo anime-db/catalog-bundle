@@ -89,6 +89,7 @@ class RefillController extends Controller
                     'name' => $search_item->getName(),
                     'image' => $search_item->getImage(),
                     'description' => $search_item->getDescription(),
+                    'source' => $search_item->getSource(),
                     'link' => $this->generateUrl('refiller_search_fill', [
                         'plugin' => $plugin,
                         'field' => $field,
