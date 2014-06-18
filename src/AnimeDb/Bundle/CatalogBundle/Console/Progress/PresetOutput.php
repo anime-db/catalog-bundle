@@ -46,7 +46,7 @@ class PresetOutput implements HelperInterface
     public function __construct(ProgressHelper $progress, OutputInterface $output)
     {
         $this->progress = $progress;
-        $this->output = $output;
+        $this->setOutput($output);
     }
 
     /**
