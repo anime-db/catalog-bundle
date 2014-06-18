@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 
 /**
  * Decorator for output
