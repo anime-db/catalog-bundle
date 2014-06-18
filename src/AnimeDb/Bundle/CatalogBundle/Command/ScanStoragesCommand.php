@@ -72,13 +72,6 @@ class ScanStoragesCommand extends ContainerAwareCommand
     ];
 
     /**
-     * Progress helper
-     *
-     * @var \Symfony\Component\Console\Helper\ProgressHelper
-     */
-    protected $progress;
-
-    /**
      * (non-PHPdoc)
      * @see Symfony\Component\Console\Command.Command::configure()
      */
@@ -138,7 +131,7 @@ EOT
             $storages = $repository->getList(Storage::getTypesWritable());
         }
 
-        $progress = $this->getProgress();
+        $progress = $this->getProgress($input);
         $lazywrite = new LazyWrite($output);
         $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
@@ -336,14 +329,15 @@ EOT
     /**
      * Get progress
      *
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     *
      * @return \Symfony\Component\Console\Helper\ProgressHelper
      */
-    protected function getProgress()
+    protected function getProgress(InputInterface $input)
     {
-        if (!$this->progress) {
-            $this->progress = $this->getHelperSet()->get('progress');
-            $this->progress->setBarCharacter('<comment>=</comment>');
-        }
-        return $this->progress;
+        /* @var $progress \Symfony\Component\Console\Helper\ProgressHelper*/
+        $progress = $this->getHelperSet()->get('progress');
+        $progress->setBarCharacter('<comment>=</comment>');
+        return $progress;
     }
 }
