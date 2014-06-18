@@ -133,6 +133,7 @@ EOT
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
+        // logging output
         if ($input->getOption('log')) {
             $output = new Export($output, $this->getContainer()->getParameter('anime_db.catalog.storage.scan_log'));
         }
@@ -169,8 +170,8 @@ EOT
                 continue;
             }
 
-            // update storage id if can
-            $duplicate = $this->updateStorageId($path, $storage, $repository);
+            // check storage id
+            $duplicate = $this->checkStorageId($path, $storage, $repository);
             if ($duplicate instanceof Storage) {
                 $output->writeln('Path <info>'.$storage->getPath().'</info> reserved storage <info>'
                     .$duplicate->getName().'</info>');
@@ -319,7 +320,7 @@ EOT
     }
 
     /**
-     * Update storage id if can
+     * Update storage id
      *
      * @param string $path
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
@@ -327,7 +328,7 @@ EOT
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage|boolean
      */
-    protected function updateStorageId($path, Storage $storage, StorageRepository $repository)
+    protected function checkStorageId($path, Storage $storage, StorageRepository $repository)
     {
         if (!file_exists($path.Storage::ID_FILE)) {
             // path is free. reserve for me
