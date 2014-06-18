@@ -70,6 +70,13 @@ class ScanStoragesCommand extends ContainerAwareCommand
     ];
 
     /**
+     * Write stack
+     *
+     * @var array
+     */
+    protected $stack = [];
+
+    /**
      * (non-PHPdoc)
      * @see Symfony\Component\Console\Command.Command::configure()
      */
@@ -127,7 +134,7 @@ EOT
             $storages = $repository->getList(Storage::getTypesWritable());
         }
 
-        $progress = $this->getHelperSet()->get('progress');
+        $progress = $this->getProgress();
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
@@ -164,11 +171,16 @@ EOT
             }
 
             $files = $this->getFilesByPath($path);
+            $total = $files->count();
+            // count files +5% for check of delete files
+            $progress->start($output, ceil($total+($total*0.01*5)));
+            $progress->advance(0);
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($files as $file) {
                 // ignore not supported files
                 if ($file->isFile() && !$this->isAllowFile($file)) {
+                    $progress->advance();
                     continue;
                 }
 
@@ -176,7 +188,7 @@ EOT
                 if ($item = $this->getItemFromFile($storage, $file)) {
                     if ($item->getDateUpdate()->getTimestamp() < $file->getPathInfo()->getMTime()) {
                         $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
-                        $output->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
+                        $this->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
                     }
                 } else {
                     // remove win:// if need
@@ -187,16 +199,20 @@ EOT
                     // it is a new item
                     $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);
                     $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
-                    $output->writeln('Detected files for new item <info>'.$name.'</info>');
+                    $this->writeln('Detected files for new item <info>'.$name.'</info>');
                 }
+                $progress->advance();
             }
             $em->refresh($storage);
 
             // check of delete file for item
             foreach ($this->getItemsOfDeletedFiles($storage, $files) as $item) {
                 $dispatcher->dispatch(StoreEvents::DELETE_ITEM_FILES, new DeleteItemFiles($item));
-                $output->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
+                $this->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
             }
+            $progress->advance();
+            $progress->finish();
+            $this->resetStack($output);
 
             // update date modified
             $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($path))));
@@ -309,5 +325,37 @@ EOT
             return $duplicate;
         }
         return true;
+    }
+
+    /**
+     * Get progress
+     *
+     * @return \Symfony\Component\Console\Helper\ProgressHelper
+     */
+    protected function getProgress()
+    {
+        $progress = $this->getHelperSet()->get('progress');
+        $progress->setBarCharacter('<comment>=</comment>');
+        return $progress;
+    }
+
+    /**
+     * Writes a message
+     *
+     * @param string $message
+     */
+    protected function writeln($message)
+    {
+        $this->stack[] = $message;
+    }
+
+    /**
+     * Reset stack and write all messages
+     *
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     */
+    protected function resetStack(OutputInterface $output)
+    {
+        $output->writeln($this->stack);
     }
 }
