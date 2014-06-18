@@ -25,6 +25,8 @@ use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Console\Helper\ProgressHelper;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
+use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
+use Symfony\Component\Console\Output\NullOutput;
 
 /**
  * Scan storages for new items
@@ -131,7 +133,7 @@ EOT
             $storages = $repository->getList(Storage::getTypesWritable());
         }
 
-        $progress = $this->getProgress($input);
+        $progress = $this->getProgress($input, $output);
         $lazywrite = new LazyWrite($output);
         $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
@@ -172,7 +174,7 @@ EOT
             $files = $this->getFilesByPath($path);
             $total = $files->count();
             // count files +5% for check of delete files
-            $progress->start($output, ceil($total+($total*0.01*5)));
+            $progress->start(ceil($total+($total*0.01*5)));
             $progress->display();
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
@@ -330,13 +332,16 @@ EOT
      * Get progress
      *
      * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @return \Symfony\Component\Console\Helper\ProgressHelper
+     * @return \AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator
      */
-    protected function getProgress(InputInterface $input)
+    protected function getProgress(InputInterface $input, OutputInterface $output)
     {
-        /* @var $progress \Symfony\Component\Console\Helper\ProgressHelper*/
-        $progress = $this->getHelperSet()->get('progress');
+        if ($input->getOption('no-progress')) {
+            $output = new NullOutput();
+        }
+        $progress = new PresetOutput($this->getHelperSet()->get('progress'), $output);
         $progress->setBarCharacter('<comment>=</comment>');
         return $progress;
     }
