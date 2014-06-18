@@ -23,6 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Console\Helper\ProgressHelper;
 
 /**
  * Scan storages for new items
@@ -174,7 +175,7 @@ EOT
             $total = $files->count();
             // count files +5% for check of delete files
             $progress->start($output, ceil($total+($total*0.01*5)));
-            $progress->advance(0);
+            $progress->display();
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
             foreach ($files as $file) {
@@ -334,6 +335,7 @@ EOT
      */
     protected function getProgress()
     {
+        /* @var $progress \Symfony\Component\Console\Helper\ProgressHelper */
         $progress = $this->getHelperSet()->get('progress');
         $progress->setBarCharacter('<comment>=</comment>');
         return $progress;
