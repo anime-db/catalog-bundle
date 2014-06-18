@@ -78,6 +78,13 @@ class ScanStoragesCommand extends ContainerAwareCommand
     protected $stack = [];
 
     /**
+     * Progress helper
+     *
+     * @var \Symfony\Component\Console\Helper\ProgressHelper
+     */
+    protected $progress;
+
+    /**
      * (non-PHPdoc)
      * @see Symfony\Component\Console\Command.Command::configure()
      */
@@ -335,10 +342,11 @@ EOT
      */
     protected function getProgress()
     {
-        /* @var $progress \Symfony\Component\Console\Helper\ProgressHelper */
-        $progress = $this->getHelperSet()->get('progress');
-        $progress->setBarCharacter('<comment>=</comment>');
-        return $progress;
+        if (!$this->progress) {
+            $this->progress = $this->getHelperSet()->get('progress');
+            $this->progress->setBarCharacter('<comment>=</comment>');
+        }
+        return $this->progress;
     }
 
     /**
