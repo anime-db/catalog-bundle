@@ -55,7 +55,7 @@ class Export extends Decorator
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
-        file_put_contents($this->filename, implode($newline ? "\n" : '', (array)$messages), $this->flags);
+        file_put_contents($this->filename, implode($newline ? PHP_EOL : '', (array)$messages), $this->flags);
         parent::write($messages, $newline, $type);
     }
 
