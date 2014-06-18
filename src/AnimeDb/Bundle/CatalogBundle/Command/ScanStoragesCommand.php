@@ -25,6 +25,7 @@ use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Console\Helper\ProgressHelper;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
+use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -98,6 +99,12 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 null,
                 InputOption::VALUE_NONE,
                 'Disable progress bar'
+            )
+            ->addOption(
+                'export',
+                null,
+                InputOption::VALUE_NONE,
+                'Export progress to file (disables progress as --no-progress)'
             )
             ->setHelp(<<<EOT
 Example scan all storages:
@@ -341,8 +348,19 @@ EOT
         if ($input->getOption('no-progress')) {
             $output = new NullOutput();
         }
+
+        if ($input->getOption('export')) {
+            $input->setOption('no-progress', true);
+            $output = new Export(
+                new NullOutput(),
+                $this->getContainer()->getParameter('anime_db.catalog.storage.scan_progress'),
+                LOCK_EX
+            );
+        }
+
         $progress = new PresetOutput($this->getHelperSet()->get('progress'), $output);
         $progress->setBarCharacter('<comment>=</comment>');
+
         return $progress;
     }
 }

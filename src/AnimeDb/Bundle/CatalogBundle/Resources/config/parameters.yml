@@ -1,3 +1,5 @@
 parameters:
     default_search: null
     search_driver: anime_db.search.driver.sql_like
+    anime_db.catalog.storage.scan_log: %kernel.logs_dir%/scan_storage.log
+    anime_db.catalog.storage.scan_progress: %kernel.logs_dir%/scan_storage_progress.log
