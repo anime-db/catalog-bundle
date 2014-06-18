@@ -48,6 +48,11 @@ class Export extends Decorator
         parent::__construct($output);
         $this->filename = $filename;
         $this->flags = $flags;
+
+        // clear file
+        if (($flags & FILE_APPEND) == FILE_APPEND) {
+            file_put_contents($filename, '', $flags - FILE_APPEND);
+        }
     }
 
     /**
