@@ -42,7 +42,7 @@ class Export extends Decorator
      * @param string $filename
      * @param integer $flags
      */
-    public function __construct(OutputInterface $output, $filename, $flags = 0)
+    public function __construct(OutputInterface $output, $filename, $flags = FILE_APPEND)
     {
         parent::__construct($output);
         $this->filename = $filename;
