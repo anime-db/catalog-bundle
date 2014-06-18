@@ -23,7 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\Console\Helper\ProgressHelper;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
@@ -106,6 +105,12 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 InputOption::VALUE_NONE,
                 'Export progress to file (disables progress as --no-progress)'
             )
+            ->addOption(
+                'log',
+                null,
+                InputOption::VALUE_NONE,
+                'Logging the output data to file'
+            )
             ->setHelp(<<<EOT
 Example scan all storages:
 
@@ -128,6 +133,10 @@ EOT
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
+        if ($input->getOption('log')) {
+            $output = new Export($output, $this->getContainer()->getParameter('anime_db.catalog.storage.scan_log'));
+        }
+
         $start = time();
 
         if ($input->getArgument('storage')) {
@@ -146,7 +155,6 @@ EOT
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
-            $output->writeln('');
             $output->writeln('Scan storage <info>'.$storage->getName().'</info>:');
 
             $path = $storage->getPath();
@@ -225,10 +233,10 @@ EOT
             // update date modified
             $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($path))));
             $em->persist($storage);
+            $output->writeln('');
         }
         $em->flush();
 
-        $output->writeln('');
         $output->writeln('Time: <info>'.(time()-$start).'</info> s.');
     }
 
