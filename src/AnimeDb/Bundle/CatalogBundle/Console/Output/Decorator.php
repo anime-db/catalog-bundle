@@ -19,7 +19,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
  * @package AnimeDb\Bundle\CatalogBundle\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Decorator implements OutputInterface
+abstract class Decorator implements OutputInterface
 {
     /**
      * Output
