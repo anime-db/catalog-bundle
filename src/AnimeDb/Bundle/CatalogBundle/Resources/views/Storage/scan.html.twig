@@ -1,0 +1,12 @@
+{% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
+
+{% block title %}{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}{% endblock %}
+
+{% block content %}
+<div class="b-storage-scan">
+	<h2>{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}</h2>
+	<form action="{{ path('storage_scan', {'id': storage.id}) }}" method="post">
+		<button type="submit">{% trans %}Cancel{% endtrans %}</button>
+	</form>
+</div>
+{% endblock %}

@@ -782,17 +782,22 @@ h1.logo a span {
 .storages-list h3:first-child {
 	margin-top: 0;
 }
+.storages-list .list .control a {
+	margin-left: 3px;
+	float: left;
+}
+.storages-list .list .control a:first-child {
+	margin: 0;
+}
 .storages-list .list .control {
 	width: 16px;
 }
-.storages-list .list .control.deletable {
+.storages-list .list .control.deletable,
+.storages-list .list .control.scannable {
 	width: 35px;
 }
-.storages-list .list .control.deletable a {
-	float: right;
-}
-.storages-list .list .control.deletable a:first-child {
-	float: left;
+.storages-list .list .control.deletable.scannable {
+	width: 54px;
 }
 .storages-list .name {
 	white-space: nowrap;

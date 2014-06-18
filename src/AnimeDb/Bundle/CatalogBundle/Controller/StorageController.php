@@ -92,10 +92,6 @@ class StorageController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
-
-                // scan storage
-                $this->get('anime_db.command')
-                    ->exec('php app/console animedb:scan-storage '.$storage->getId().' >/dev/null 2>&1');
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }
@@ -137,10 +133,6 @@ class StorageController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
-
-                // scan storage
-                $this->get('anime_db.command')
-                    ->exec('php app/console animedb:scan-storage '.$storage->getId().' >/dev/null 2>&1');
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }
@@ -182,5 +174,41 @@ class StorageController extends Controller
             'required' => $storage->isPathRequired(),
             'path' => $storage->getPath()
         ]);
+    }
+
+    /**
+     * Scan storage
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function scanAction(Storage $storage)
+    {
+        $response = new Response();
+
+        // scan storage
+//         $this->get('anime_db.command')
+//             ->exec('php app/console animedb:scan-storage '.$storage->getId().' --export --log >/dev/null 2>&1');
+
+        // caching
+        if ($last_update = $this->container->getParameter('last_update')) {
+            $response->setLastModified(new \DateTime($last_update));
+        }
+        // use storage update date
+        if ($response->getLastModified() < $storage->getDateUpdate()) {
+            $response->setLastModified($storage->getDateUpdate());
+        }
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Storage:scan.html.twig', [
+            'storage' => $storage,
+            'log' => $this->container->getParameter('anime_db.catalog.storage.scan_log'),
+            'progress' => $this->container->getParameter('anime_db.catalog.storage.scan_progress')
+        ], $response);
     }
 }

@@ -742,6 +742,14 @@
                 <source>Read more</source>
                 <target>Подробнее</target>
             </trans-unit>
+            <trans-unit id="226">
+                <source>Scanning a storage: %name%</source>
+                <target>Сканирование хранилища: %name%</target>
+            </trans-unit>
+            <trans-unit id="227">
+                <source>Scan storage</source>
+                <target>Сканировать хранилище</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

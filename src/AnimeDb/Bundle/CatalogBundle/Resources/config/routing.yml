@@ -78,6 +78,12 @@ storage_path:
     pattern:  /settings/storage/path.json
     defaults: { _controller: AnimeDbCatalogBundle:Storage:getPath }
 
+storage_scan:
+    pattern:  /settings/storage/{id}/scan.html
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:scan }
+    requirements:
+        id:  \d+
+
 
 notice_list:
     pattern:  /notice.html

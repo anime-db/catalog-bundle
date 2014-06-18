@@ -34,12 +34,19 @@
 					<td>{{ storage.description }}</td>
 					<td>{{ storage.typetitle|trans }}</td>
 					<td>{{ storage.path }}</td>
-					<td class="control{% if storage.items.count == 0 %} deletable{% endif %}">
+					<td class="control{% if storage.items.count == 0 %} deletable{% endif %}{% if storage.isWritable %} scannable{% endif %}">
 						<a
 							href="{{ path('storage_change', {'id': storage.id}) }}"
 							class="icon icon-edit"
 							title="{% trans %}Change storage{% endtrans %}"
 						>{% trans %}Change storage{% endtrans %}</a>
+						{% if storage.isWritable %}
+							<a
+								href="{{ path('storage_scan', {'id': storage.id}) }}"
+								class="icon icon-magnifier"
+								title="{% trans %}Scan storage{% endtrans %}"
+							>{% trans %}Scan storage{% endtrans %}</a>
+						{% endif %}
 						{% if storage.items.count == 0 %}
 							<a
 								href="{{ path('storage_delete', {'id': storage.id}) }}"
