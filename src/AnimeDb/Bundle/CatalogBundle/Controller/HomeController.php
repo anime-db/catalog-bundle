@@ -451,7 +451,7 @@ class HomeController extends Controller
         $entity = new GeneralEntity();
         $entity->setSerialNumber($this->container->getParameter('serial_number'));
         $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
-        $entity->setDefaultSearch($this->container->getParameter('default_search'));
+        $entity->setDefaultSearch($this->container->getParameter('anime_db.catalog.default_search'));
         $entity->setLocale($request->getLocale());
 
         /* @var $form \Symfony\Component\Form\Form */
@@ -465,7 +465,7 @@ class HomeController extends Controller
                 $parameters = Yaml::parse($file);
                 $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
                 $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
-                $parameters['parameters']['default_search'] = $entity->getDefaultSearch();
+                $parameters['parameters']['anime_db.catalog.default_search'] = $entity->getDefaultSearch();
                 $parameters['parameters']['last_update'] = gmdate('r');
                 file_put_contents($file, Yaml::dump($parameters)); 
                 // change locale
