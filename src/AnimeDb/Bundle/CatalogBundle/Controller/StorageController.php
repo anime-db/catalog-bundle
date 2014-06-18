@@ -184,11 +184,12 @@ class StorageController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function scanAction(Storage $storage)
+    public function scanAction(Storage $storage, Request $request)
     {
         $response = new Response();
 
         // scan storage
+        // TODO uncomment after debug
 //         $this->get('anime_db.command')
 //             ->exec('php app/console animedb:scan-storage '.$storage->getId().' --export --log >/dev/null 2>&1');
 
@@ -207,8 +208,9 @@ class StorageController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Storage:scan.html.twig', [
             'storage' => $storage,
-            'log' => $this->container->getParameter('anime_db.catalog.storage.scan_log'),
-            'progress' => $this->container->getParameter('anime_db.catalog.storage.scan_progress')
+            // TODO move to other action
+//             'log' => $this->container->getParameter('anime_db.catalog.storage.scan_log'),
+//             'progress' => $this->container->getParameter('anime_db.catalog.storage.scan_progress')
         ], $response);
     }
 }

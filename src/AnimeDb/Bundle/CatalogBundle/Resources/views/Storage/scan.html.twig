@@ -5,8 +5,22 @@
 {% block content %}
 <div class="b-storage-scan">
 	<h2>{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}</h2>
-	<form action="{{ path('storage_scan', {'id': storage.id}) }}" method="post">
-		<button type="submit">{% trans %}Cancel{% endtrans %}</button>
-	</form>
+	<div class="b-progress">
+		<div
+			class="b-progress-bar"
+			data-from="scan_progress.json"
+			data-message="{% trans %}Scanning is complete{% endtrans %}"
+		>
+			<div class="b-progress-label">{% trans %}Loading...{% endtrans %}</div>
+		</div>
+		<div class="b-message">
+			{% trans %}Performed scanning a storage.{% endtrans %}<br />
+			<a href="#" class="bt-toggle-block" data-target=".b-progress-log">{% trans %}Show execution log.{% endtrans %}</a>
+		</div>
+		<pre class="b-progress-log"><code
+			data-from="scan_log.json"
+			data-redirect="{{ path('notice_list') }}"
+		></code></pre>
+	</div>
 </div>
 {% endblock %}

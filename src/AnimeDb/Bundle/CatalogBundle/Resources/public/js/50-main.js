@@ -96,7 +96,7 @@ $('.bt-toggle-block').each(function() {
 	new ToggleBlock($(this));
 });
 
-$('.b-update-log code').each(function() {
+$('.b-update-container code').each(function() {
 	new UpdateLogBlock($(this));
 });
 
@@ -166,6 +166,29 @@ $('.bt-toggle-block').each(function() {
 
 $('.list-items .item-container').each(function() {
 	new KeepHover($(this));
+});
+
+$('.b-progress .b-progress-bar').each(function() {
+	var bar = $(this);
+	var label = bar.find('.b-progress-label');
+	// TODO change demo code
+	bar.progressbar({
+		value: false,
+		change: function() {
+			label.text(bar.progressbar('value')+'%');
+		},
+		complete: function() {
+			label.text(bar.data('message'));
+		}
+	});
+	function progress() {
+		var val = bar.progressbar('value') || 0;
+		bar.progressbar('value', val + 1);
+		if (val < 99) {
+			setTimeout(progress, 100);
+		}
+	}
+	setTimeout(progress, 3000);
 });
 
 });
