@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\StreamOutput;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 
 /**
@@ -55,7 +56,7 @@ class Export extends Decorator
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
-        file_put_contents($this->filename, implode($newline ? PHP_EOL : '', (array)$messages), $this->flags);
+        $this->writeToFile($messages, $newline);
         parent::write($messages, $newline, $type);
     }
 
@@ -65,7 +66,22 @@ class Export extends Decorator
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
-        file_put_contents($this->filename, implode('', (array)$messages), $this->flags);
+        $this->writeToFile($messages, true);
         parent::writeln($messages, $type);
+    }
+
+    /**
+     * Write messages to file
+     *
+     * @param string|array $messages
+     * @param boolean $newline
+     */
+    protected function writeToFile($messages, $newline)
+    {
+        $messages = (array)$messages;
+        foreach ($messages as $key => $message) {
+            $messages[$key] = strip_tags($message).($newline ? PHP_EOL : '');
+        }
+        file_put_contents($this->filename, implode('', $messages), $this->flags);
     }
 }
