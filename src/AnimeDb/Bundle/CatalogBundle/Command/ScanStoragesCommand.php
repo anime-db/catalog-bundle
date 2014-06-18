@@ -24,6 +24,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Console\Helper\ProgressHelper;
+use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
 
 /**
  * Scan storages for new items
@@ -71,13 +72,6 @@ class ScanStoragesCommand extends ContainerAwareCommand
     ];
 
     /**
-     * Write stack
-     *
-     * @var array
-     */
-    protected $stack = [];
-
-    /**
      * Progress helper
      *
      * @var \Symfony\Component\Console\Helper\ProgressHelper
@@ -104,6 +98,12 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 InputOption::VALUE_NONE,
                 'Ignore the last modified storage'
             )
+            ->addOption(
+                'no-progress',
+                null,
+                InputOption::VALUE_NONE,
+                'Disable progress bar'
+            )
             ->setHelp(<<<EOT
 Example scan all storages:
 
@@ -112,10 +112,6 @@ Example scan all storages:
 Example scan storage with id <info>1</info>:
 
 <info>php app/console animedb:scan-storage 1</info>
-
-Example force scan all storages:
-
-<info>php app/console animedb:scan-storage --force</info>
 EOT
             );
     }
@@ -143,6 +139,8 @@ EOT
         }
 
         $progress = $this->getProgress();
+        $lazywrite = new LazyWrite($output);
+        $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
@@ -196,7 +194,7 @@ EOT
                 if ($item = $this->getItemFromFile($storage, $file)) {
                     if ($item->getDateUpdate()->getTimestamp() < $file->getPathInfo()->getMTime()) {
                         $dispatcher->dispatch(StoreEvents::UPDATE_ITEM_FILES, new UpdateItemFiles($item));
-                        $this->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
+                        $lazywrite->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
                     }
                 } else {
                     // remove win:// if need
@@ -207,7 +205,7 @@ EOT
                     // it is a new item
                     $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);
                     $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
-                    $this->writeln('Detected files for new item <info>'.$name.'</info>');
+                    $lazywrite->writeln('Detected files for new item <info>'.$name.'</info>');
                 }
                 $progress->advance();
             }
@@ -216,11 +214,11 @@ EOT
             // check of delete file for item
             foreach ($this->getItemsOfDeletedFiles($storage, $files) as $item) {
                 $dispatcher->dispatch(StoreEvents::DELETE_ITEM_FILES, new DeleteItemFiles($item));
-                $this->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
+                $lazywrite->writeln('<error>Files for item "'.$item->getName().'" is not found</error>');
             }
             $progress->advance();
             $progress->finish();
-            $this->resetStack($output);
+            $lazywrite->writeAll();
 
             // update date modified
             $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($path))));
@@ -347,25 +345,5 @@ EOT
             $this->progress->setBarCharacter('<comment>=</comment>');
         }
         return $this->progress;
-    }
-
-    /**
-     * Writes a message
-     *
-     * @param string $message
-     */
-    protected function writeln($message)
-    {
-        $this->stack[] = $message;
-    }
-
-    /**
-     * Reset stack and write all messages
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    protected function resetStack(OutputInterface $output)
-    {
-        $output->writeln($this->stack);
     }
 }
