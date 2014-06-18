@@ -2,11 +2,6 @@
 
 {% block title %}{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}{% endblock %}
 
-{% block javascripts %}
-	{{ parent() }}
-	<script type="text/javascript" src="{{ asset('/bundles/animedbcatalog/js/jquery.form.min.js') }}"></script>
-{% endblock %}
-
 {% block content %}
 <div class="b-source-filler b-source-filler-{{ plugin }}{% if form.count > 1%} b-large-form{% endif %}">
 	<h2>{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}</h2>
