@@ -135,14 +135,14 @@ EOT
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
-        $progress = $this->getProgress($input, $output);
-        $lazywrite = new LazyWrite($output);
-        $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
-
         // logging output
         if ($input->getOption('log')) {
             $output = new Export($output, $this->getContainer()->getParameter('anime_db.catalog.storage.scan_log'));
         }
+
+        $progress = $this->getProgress($input, $output);
+        $lazywrite = new LazyWrite($output);
+        $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         // get list storages
         if ($input->getArgument('storage')) {
