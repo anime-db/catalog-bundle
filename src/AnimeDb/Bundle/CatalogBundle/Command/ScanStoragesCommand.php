@@ -102,13 +102,13 @@ class ScanStoragesCommand extends ContainerAwareCommand
             ->addOption(
                 'export',
                 null,
-                InputOption::VALUE_NONE,
+                InputOption::VALUE_REQUIRED,
                 'Export progress to file (disables progress as --no-progress)'
             )
             ->addOption(
                 'log',
                 null,
-                InputOption::VALUE_NONE,
+                InputOption::VALUE_REQUIRED,
                 'Logging the output data to file'
             )
             ->setHelp(<<<EOT
@@ -136,8 +136,8 @@ EOT
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
         // logging output
-        if ($input->getOption('log')) {
-            $output = new Export($output, $this->getContainer()->getParameter('anime_db.catalog.storage.scan_log'));
+        if ($log_file = $input->getOption('log')) {
+            $output = new Export($output, $log_file);
         }
 
         $progress = $this->getProgress($input, $output);
@@ -359,13 +359,9 @@ EOT
             $output = new NullOutput();
         }
 
-        if ($input->getOption('export')) {
+        if ($export_file = $input->getOption('export')) {
             $input->setOption('no-progress', true);
-            $output = new Export(
-                new NullOutput(),
-                $this->getContainer()->getParameter('anime_db.catalog.storage.scan_progress'),
-                false
-            );
+            $output = new Export(new NullOutput(), $export_file, false);
             $output->write('0%');
         }
 
