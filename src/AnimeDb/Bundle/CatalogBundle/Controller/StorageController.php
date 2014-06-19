@@ -227,7 +227,7 @@ class StorageController extends Controller
         $log = file_get_contents($filename);
         $is_end = preg_match('/\nTime: \d+ s./', $log);
         if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
-            $log = substr($log, $offset);
+            $log = (string)mb_substr($log, $offset, mb_strlen($log, 'UTF-8')-$offset, 'UTF-8');
         }
         return new JsonResponse(['content' => $log, 'end' => $is_end]);
     }
