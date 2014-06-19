@@ -23,35 +23,36 @@ use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 class Export extends Decorator
 {
     /**
-     * Filename
+     * File handle
      *
-     * @var string
+     * @var resource
      */
-    protected $filename;
+    protected $handle;
 
     /**
-     * Flags
+     * Append to end file
      *
-     * @var integer
+     * @var boolean
      */
-    protected $flags;
+    protected $append;
 
     /**
      * Construct
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string $filename
-     * @param integer $flags
+     * @param boolean $append
      */
-    public function __construct(OutputInterface $output, $filename, $flags = FILE_APPEND)
+    public function __construct(OutputInterface $output, $filename, $append = true)
     {
         parent::__construct($output);
-        $this->filename = $filename;
-        $this->flags = $flags;
+        $this->append = $append;
 
-        // clear file
-        if (($flags & FILE_APPEND) == FILE_APPEND) {
-            file_put_contents($filename, '', $flags - FILE_APPEND);
+        if (!($this->handle = @fopen($filename, 'w'))) {
+            throw new \RuntimeException('Failed to open the export file: '.$filename);
+        }
+        if (!flock($this->handle, LOCK_EX)) {
+            throw new \RuntimeException('Failed to lock the export file: '.$filename);
         }
     }
 
@@ -87,6 +88,22 @@ class Export extends Decorator
         foreach ($messages as $key => $message) {
             $messages[$key] = strip_tags($message).($newline ? PHP_EOL : '');
         }
-        file_put_contents($this->filename, implode('', $messages), $this->flags);
+
+        // reset file
+        if (!$this->append) {
+            rewind($this->handle);
+            ftruncate($this->handle, 0);
+        }
+
+        fwrite($this->handle, implode('', $messages));
+    }
+
+    /**
+     * Destruct
+     */
+    public function __destruct()
+    {
+        flock($this->handle, LOCK_UN);
+        fclose($this->handle);
     }
 }
