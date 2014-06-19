@@ -244,8 +244,7 @@ class StorageController extends Controller
             throw $this->createNotFoundException('The progress status cannot be read');
         }
 
-        $log = file_get_contents($filename);
-        $log = intval(trim($log, " \r\n%") ?: 100);
-        return new JsonResponse(['status' => $log]);
+        $log = trim(file_get_contents($filename), " \r\n%");
+        return new JsonResponse(['status' => ($log != '' ? intval($log) : 100)]);
     }
 }
