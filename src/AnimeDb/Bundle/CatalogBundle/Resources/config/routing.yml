@@ -75,11 +75,11 @@ storage_scan:
     defaults: { _controller: AnimeDbCatalogBundle:Storage:scan }
     requirements:
         id:  \d+
-storage_scan_log:
-    pattern:  /settings/storage/scan/log.json
-    defaults: { _controller: AnimeDbCatalogBundle:Storage:scanLog, _format: json }
+storage_scan_output:
+    pattern:  /settings/storage/{id}/scan/output.json
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:scanOutput, _format: json }
 storage_scan_progress:
-    pattern:  /settings/storage/scan/progress.json
+    pattern:  /settings/storage/{id}/scan/progress.json
     defaults: { _controller: AnimeDbCatalogBundle:Storage:scanProgress, _format: json }
 
 #

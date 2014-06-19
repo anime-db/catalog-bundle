@@ -188,9 +188,13 @@ class StorageController extends Controller
     {
         $response = new Response();
 
-        // scan storage
-        $this->get('anime_db.command')
-            ->exec('php app/console animedb:scan-storage '.$storage->getId().' --export --log >/dev/null 2>&1');
+        // scan storage in background
+        $this->get('anime_db.command')->exec(sprintf(
+            'php app/console animedb:scan-storage %s --export=%s --log=%s >/dev/null 2>&1',
+            $storage->getId(),
+            sprintf($this->container->getParameter('anime_db.catalog.storage.scan_progress'), $storage->getId()),
+            sprintf($this->container->getParameter('anime_db.catalog.storage.scan_output'), $storage->getId())
+        ));
 
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
@@ -211,35 +215,42 @@ class StorageController extends Controller
     }
 
     /**
-     * Get storage scan log
+     * Get storage scan output
      *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function scanLogAction(Request $request)
+    public function scanOutputAction(Storage $storage, Request $request)
     {
-        $filename = $this->container->getParameter('anime_db.catalog.storage.scan_log');
+        $filename = $this->container->getParameter('anime_db.catalog.storage.scan_output');
+        $filename = sprintf($filename, $storage->getId());
         if (!file_exists($filename)) {
             throw $this->createNotFoundException('Log file is not found');
         }
 
         $log = file_get_contents($filename);
         $is_end = preg_match('/\nTime: \d+ s./', $log);
+
         if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
             $log = (string)mb_substr($log, $offset, mb_strlen($log, 'UTF-8')-$offset, 'UTF-8');
         }
+
         return new JsonResponse(['content' => $log, 'end' => $is_end]);
     }
 
     /**
      * Get storage scan progress
      *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function scanProgressAction()
+    public function scanProgressAction(Storage $storage)
     {
         $filename = $this->container->getParameter('anime_db.catalog.storage.scan_progress');
+        $filename = sprintf($filename, $storage->getId());
         if (!file_exists($filename)) {
             throw $this->createNotFoundException('The progress status cannot be read');
         }
