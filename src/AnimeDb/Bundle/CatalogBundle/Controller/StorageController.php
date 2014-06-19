@@ -189,9 +189,8 @@ class StorageController extends Controller
         $response = new Response();
 
         // scan storage
-        // TODO uncomment after debug
-//         $this->get('anime_db.command')
-//             ->exec('php app/console animedb:scan-storage '.$storage->getId().' --export --log >/dev/null 2>&1');
+        $this->get('anime_db.command')
+            ->exec('php app/console animedb:scan-storage '.$storage->getId().' --export --log >/dev/null 2>&1');
 
         // caching
         if ($last_update = $this->container->getParameter('last_update')) {
