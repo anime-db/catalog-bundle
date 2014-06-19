@@ -128,18 +128,23 @@ EOT
      * @see Symfony\Component\Console\Command.Command::execute()
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
+        $start = time();
+
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $dispatcher = $this->getContainer()->get('event_dispatcher');
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
+
+        $progress = $this->getProgress($input, $output);
+        $lazywrite = new LazyWrite($output);
+        $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         // logging output
         if ($input->getOption('log')) {
             $output = new Export($output, $this->getContainer()->getParameter('anime_db.catalog.storage.scan_log'));
         }
 
-        $start = time();
-
+        // get list storages
         if ($input->getArgument('storage')) {
             $storage = $repository->find($input->getArgument('storage'));
             if (!($storage instanceof Storage)) {
@@ -149,10 +154,6 @@ EOT
         } else {
             $storages = $repository->getList(Storage::getTypesWritable());
         }
-
-        $progress = $this->getProgress($input, $output);
-        $lazywrite = new LazyWrite($output);
-        $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         foreach ($storages as $storage) {
@@ -171,10 +172,10 @@ EOT
             }
 
             // check storage id
-            $duplicate = $this->checkStorageId($path, $storage, $repository);
-            if ($duplicate instanceof Storage) {
+            $owner = $this->checkStorageId($path, $storage, $repository);
+            if ($owner instanceof Storage) {
                 $output->writeln('Path <info>'.$storage->getPath().'</info> reserved storage <info>'
-                    .$duplicate->getName().'</info>');
+                    .$owner->getName().'</info>');
                 continue;
             }
 
@@ -189,8 +190,8 @@ EOT
 
             $files = $this->getFilesByPath($path);
             $total = $files->count();
-            // count files +5% for check of delete files
-            $progress->start(ceil($total+($total*0.01*5)));
+            // total files +5% for check of delete files
+            $progress->start(ceil($total+($total*0.05)));
             $progress->display();
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
@@ -232,7 +233,7 @@ EOT
             $lazywrite->writeAll();
 
             // update date modified
-            $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($path))));
+            $storage->setFileModified(new \DateTime('@'.filemtime($path)));
             $em->persist($storage);
             $output->writeln('');
         }
@@ -363,7 +364,7 @@ EOT
             $output = new Export(
                 new NullOutput(),
                 $this->getContainer()->getParameter('anime_db.catalog.storage.scan_progress'),
-                LOCK_EX
+                false
             );
         }
 
