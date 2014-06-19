@@ -366,6 +366,7 @@ EOT
                 $this->getContainer()->getParameter('anime_db.catalog.storage.scan_progress'),
                 false
             );
+            $output->write('0%');
         }
 
         $progress = new PresetOutput($this->getHelperSet()->get('progress'), $output);
