@@ -190,8 +190,8 @@ EOT
 
             $files = $this->getFilesByPath($path);
             $total = $files->count();
-            // total files +5% for check of delete files
-            $progress->start(ceil($total+($total*0.05)));
+            // total files +1% for check of delete files
+            $progress->start(ceil($total+($total*0.01)));
             $progress->display();
 
             /* @var $file \Symfony\Component\Finder\SplFileInfo */
