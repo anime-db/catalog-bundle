@@ -69,12 +69,18 @@ storage_delete:
         id:  \d+
 storage_path:
     pattern:  /settings/storage/path.json
-    defaults: { _controller: AnimeDbCatalogBundle:Storage:getPath }
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:getPath, _format: json }
 storage_scan:
     pattern:  /settings/storage/{id}/scan.html
     defaults: { _controller: AnimeDbCatalogBundle:Storage:scan }
     requirements:
         id:  \d+
+storage_scan_log:
+    pattern:  /settings/storage/scan/log.json
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:scanLog, _format: json }
+storage_scan_progress:
+    pattern:  /settings/storage/scan/progress.json
+    defaults: { _controller: AnimeDbCatalogBundle:Storage:scanProgress, _format: json }
 
 #
 # Notice

@@ -8,8 +8,9 @@
 	<div class="b-progress">
 		<div
 			class="b-progress-bar"
-			data-from="scan_progress.json"
+			data-from="{{ path('storage_scan_progress') }}"
 			data-message="{% trans %}Scanning is complete{% endtrans %}"
+			data-redirect="{{ path('notice_list') }}"
 		>
 			<div class="b-progress-label">{% trans %}Loading...{% endtrans %}</div>
 		</div>
@@ -18,8 +19,7 @@
 			<a href="#" class="bt-toggle-block" data-target=".b-progress-log">{% trans %}Show execution log.{% endtrans %}</a>
 		</div>
 		<pre class="b-progress-log"><code
-			data-from="scan_log.json"
-			data-redirect="{{ path('notice_list') }}"
+			data-from="{{ path('storage_scan_log') }}"
 		></code></pre>
 	</div>
 </div>

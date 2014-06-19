@@ -207,10 +207,46 @@ class StorageController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Storage:scan.html.twig', [
-            'storage' => $storage,
-            // TODO move to other action
-//             'log' => $this->container->getParameter('anime_db.catalog.storage.scan_log'),
-//             'progress' => $this->container->getParameter('anime_db.catalog.storage.scan_progress')
+            'storage' => $storage
         ], $response);
+    }
+
+    /**
+     * Get storage scan log
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function scanLogAction(Request $request)
+    {
+        $filename = $this->container->getParameter('anime_db.catalog.storage.scan_log');
+        if (!file_exists($filename)) {
+            throw $this->createNotFoundException('Log file is not found');
+        }
+
+        $log = file_get_contents($filename);
+        $is_end = preg_match('/\nTime: \d+ s./', $log);
+        if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
+            $log = substr($log, $offset);
+        }
+        return new JsonResponse(['content' => $log, 'end' => $is_end]);
+    }
+
+    /**
+     * Get storage scan progress
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function scanProgressAction()
+    {
+        $filename = $this->container->getParameter('anime_db.catalog.storage.scan_progress');
+        if (!file_exists($filename)) {
+            throw $this->createNotFoundException('The progress status cannot be read');
+        }
+
+        $log = file_get_contents($filename);
+        $log = intval(trim($log, " \r\n%") ?: 100);
+        return new JsonResponse(['status' => $log]);
     }
 }
