@@ -48,6 +48,10 @@ class Export extends Decorator
         parent::__construct($output);
         $this->append = $append;
 
+        $dir = pathinfo($filename, PATHINFO_DIRNAME);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
         if (!($this->handle = @fopen($filename, 'w'))) {
             throw new \RuntimeException('Failed to open the export file: '.$filename);
         }
