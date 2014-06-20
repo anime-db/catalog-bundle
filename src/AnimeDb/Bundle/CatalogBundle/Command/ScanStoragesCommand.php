@@ -105,12 +105,6 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'Export progress to file (disables progress as --no-progress)'
             )
-            ->addOption(
-                'log',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'Logging the output data to file'
-            )
             ->setHelp(<<<EOT
 Example scan all storages:
 
@@ -134,11 +128,6 @@ EOT
         $dispatcher = $this->getContainer()->get('event_dispatcher');
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
         $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
-
-        // logging output
-        if ($log_file = $input->getOption('log')) {
-            $output = new Export($output, $log_file);
-        }
 
         $progress = $this->getProgress($input, $output);
         $lazywrite = new LazyWrite($output);
