@@ -233,7 +233,7 @@ EOT
             $lazywrite->writeAll();
 
             // update date modified
-            $storage->setFileModified(new \DateTime('@'.filemtime($path)));
+            $storage->setFileModified(new \DateTime(date('Y-m-d H:i:s', filemtime($path))));
             $em->persist($storage);
             $output->writeln('');
         }
