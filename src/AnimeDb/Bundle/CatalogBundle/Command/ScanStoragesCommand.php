@@ -134,7 +134,7 @@ EOT
         $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         // get list storages
-        if ($input->getArgument('storage')) {
+        if ($input->hasArgument('storage')) {
             $storage = $repository->find($input->getArgument('storage'));
             if (!($storage instanceof Storage)) {
                 throw new \InvalidArgumentException('Not found the storage with id: '.$input->getArgument('storage'));
@@ -344,13 +344,21 @@ EOT
      */
     protected function getProgress(InputInterface $input, OutputInterface $output)
     {
-        if ($input->getOption('no-progress')) {
+        if ($input->hasOption('no-progress')) {
             $output = new NullOutput();
         }
 
+        // export progress only for one storage
+        if (!$input->hasArgument('storage')) {
+            $input->setOption('export', null);
+        }
+
         if ($export_file = $input->getOption('export')) {
+            // progress is redirected to the export file
             $input->setOption('no-progress', true);
+
             $output = new Export(new NullOutput(), $export_file, false);
+            // reset old value
             $output->write('0%');
         }
 
