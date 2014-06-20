@@ -35,7 +35,6 @@ abstract class Decorator implements OutputInterface
      */
     public function __construct(OutputInterface $output)
     {
-        $output->setDecorated(true);
         $this->output = $output;
     }
 
