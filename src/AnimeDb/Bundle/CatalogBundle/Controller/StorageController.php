@@ -190,9 +190,9 @@ class StorageController extends Controller
 
         // scan storage in background
         $this->get('anime_db.command')->exec(sprintf(
-            'php app/console animedb:scan-storage %s --export=%s --log=%s >/dev/null 2>&1',
-            $storage->getId(),
+            'php app/console animedb:scan-storage --no-ansi --export=%s %s >%s 2>&1',
             sprintf($this->container->getParameter('anime_db.catalog.storage.scan_progress'), $storage->getId()),
+            $storage->getId(),
             sprintf($this->container->getParameter('anime_db.catalog.storage.scan_output'), $storage->getId())
         ));
 
