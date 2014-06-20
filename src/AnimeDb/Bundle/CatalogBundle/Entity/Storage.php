@@ -367,7 +367,27 @@ class Storage
      */
     public function isPathRequired()
     {
+        return $this->isWritable();
+    }
+
+    /**
+     * Storage is writable
+     *
+     * @return boolean
+     */
+    public function isWritable()
+    {
         return in_array($this->getType(), self::getTypesWritable());
+    }
+
+    /**
+     * Storage is readable
+     *
+     * @return boolean
+     */
+    public function isReadable()
+    {
+        return in_array($this->getType(), self::getTypesReadable());
     }
 
     /**

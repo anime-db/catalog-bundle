@@ -13,6 +13,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\TwigBundle\TwigEngine;
@@ -68,6 +70,34 @@ class ScanStorage
     protected $form_factory;
 
     /**
+     * Notice type: files for item is not found
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_ITEM_FILES_NOT_FOUND = 'item_files_not_found';
+
+    /**
+     * Notice type: Detected files for new item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM = 'detected_files_for_new_item';
+
+    /**
+     * Notice type: Changes are detected in files of item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_UPDATED_ITEM_FILES = 'updated_item_files';
+
+    /**
+     * Notice type: Detected and added new item
+     *
+     * @var string
+     */
+    const NOTICE_TYPE_ADDED_NEW_ITEM = 'added_new_item';
+
+    /**
      * Construct
      *
      * @param \Doctrine\ORM\EntityManager $em
@@ -98,6 +128,7 @@ class ScanStorage
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
         $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/delete_item_files.html.twig',
             ['item' => $event->getItem()]
@@ -106,19 +137,14 @@ class ScanStorage
     }
 
     /**
-     * On detected new files
+     * On detected new files send notice
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
      */
-    public function onDetectedNewFiles(DetectedNewFiles $event)
+    public function onDetectedNewFilesSendNotice(DetectedNewFiles $event)
     {
-        $notice = new Notice();
-        if ($event->getItem() instanceof Item) {
-            $notice->setMessage($this->templating->render(
-                'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
-                ['storage' => $event->getStorage(), 'item' => $event->getItem()]
-            ));
-        } else {
+        if (!$event->isPropagationStopped()) {
+            $notice = new Notice();
             // get link for search item
             $link = null;
             if ($plugin = $this->search->getDafeultPlugin()) {
@@ -130,13 +156,13 @@ class ScanStorage
                 );
             }
 
+            $notice->setType(self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM);
             $notice->setMessage($this->templating->render(
                 'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
                 ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
             ));
+            $this->em->persist($notice);
         }
-
-        $this->em->persist($notice);
     }
 
     /**
@@ -147,6 +173,7 @@ class ScanStorage
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
         $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_UPDATED_ITEM_FILES);
         $notice->setMessage($this->templating->render(
             'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig',
             ['item' => $event->getItem()]
@@ -209,15 +236,44 @@ class ScanStorage
             if ($item instanceof Item) {
                 // save new item
                 $item->setStorage($event->getStorage());
-                $item->setPath($event->getFile()->getPathname());
-                $this->em->persist($item);
-                $this->em->flush();
+                $item->setPath(
+                    $event->getFile()->getPathname().
+                    ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
+                );
 
-                // store the item in event
-                $event->setItem($item);
+                // stop current event and dispatch new event of added item
+                $event->stopPropagation();
+                $event->getDispatcher()->dispatch(StoreEvents::ADD_NEW_ITEM, new AddNewItem($item, $filler));
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * On added new item send notice
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem $event
+     */
+    public function onAddNewItemSendNotice(AddNewItem $event)
+    {
+        $notice = new Notice();
+        $notice->setType(self::NOTICE_TYPE_ADDED_NEW_ITEM);
+        $notice->setMessage($this->templating->render(
+            'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
+            ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
+        ));
+        $this->em->persist($notice);
+    }
+
+    /**
+     * On added new item persist it
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem $event
+     */
+    public function onAddNewItemPersistIt(AddNewItem $event)
+    {
+        $this->em->persist($event->getItem());
+        $this->em->flush();
     }
 }

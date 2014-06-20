@@ -674,6 +674,90 @@
                 <source>Items on %plugin%</source>
                 <target>Записи на %plugin%</target>
             </trans-unit>
+            <trans-unit id="209">
+                <source>New</source>
+                <target>Новое</target>
+            </trans-unit>
+            <trans-unit id="210">
+                <source><![CDATA[Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.]]></source>
+                <target><![CDATA[Установка плагинов происходит вместе с обновлением приложения. Вы можете вернуться обратно в <a href="%link%">магазин плагинов</a> и выбрать еще плагины что бы устанавить сразу несколько плагинов.]]></target>
+            </trans-unit>
+            <trans-unit id="211">
+                <source><![CDATA[Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would delete several plugins.]]></source>
+                <target><![CDATA[Удаление плагинов происходит вместе с обновлением приложения. Вы можете вернуться обратно в <a href="%link%">магазин плагинов</a> и выбрать еще плагины что бы удалить сразу несколько плагинов.]]></target>
+            </trans-unit>
+            <trans-unit id="212">
+                <source>The next update will be installed plugin:</source>
+                <target>При следующем обновлении будет установлен плагин:</target>
+            </trans-unit>
+            <trans-unit id="213">
+                <source>The next update will be deleted plugin:</source>
+                <target>При следующем обновлении будет удален плагин:</target>
+            </trans-unit>
+            <trans-unit id="214">
+                <source>Filter the list notices</source>
+                <target>Фильтровать список уведомлений</target>
+            </trans-unit>
+            <trans-unit id="215">
+                <source>Filter</source>
+                <target>Фильтровать</target>
+            </trans-unit>
+            <trans-unit id="216">
+                <source>Show all</source>
+                <target>Показать все</target>
+            </trans-unit>
+            <trans-unit id="217">
+                <source>Item files not found</source>
+                <target>Файлы записи не найдены</target>
+            </trans-unit>
+            <trans-unit id="218">
+                <source>Detected files for new item</source>
+                <target>Обнаруженны файлы для новой записи</target>
+            </trans-unit>
+            <trans-unit id="219">
+                <source>Updated item files</source>
+                <target>Обновлены файлы записи</target>
+            </trans-unit>
+            <trans-unit id="220">
+                <source>Added new item</source>
+                <target>Добавлена новая запись</target>
+            </trans-unit>
+            <trans-unit id="221">
+                <source>Apply</source>
+                <target>Применить</target>
+            </trans-unit>
+            <trans-unit id="222">
+                <source>Set status Shown</source>
+                <target>Установить статус Показаны</target>
+            </trans-unit>
+            <trans-unit id="223">
+                <source>Set status Closed</source>
+                <target>Установить статус Закрыто</target>
+            </trans-unit>
+            <trans-unit id="224">
+                <source>Select all</source>
+                <target>Выбрать все</target>
+            </trans-unit>
+            <trans-unit id="225">
+                <source>Read more</source>
+                <target>Подробнее</target>
+            </trans-unit>
+            <trans-unit id="226">
+                <source>Scanning a storage: %name%</source>
+                <target>Сканирование хранилища: %name%</target>
+            </trans-unit>
+            <trans-unit id="227">
+                <source>Scan storage</source>
+                <target>Сканировать хранилище</target>
+            </trans-unit>
+            <trans-unit id="228">
+                <source>Scanning is complete</source>
+                <target>Сканирование завершено</target>
+            </trans-unit>
+            <trans-unit id="229">
+                <source>Performed scanning a storage.</source>
+                <target>Выполняется сканирование хранилища.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

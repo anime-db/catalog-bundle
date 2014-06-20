@@ -4,7 +4,7 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain
     anime_db.plugin.search_fill:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain
-        arguments: [ %default_search% ]
+        arguments: [ %anime_db.catalog.default_search% ]
     anime_db.plugin.refiller:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain
     anime_db.plugin.import:
@@ -55,6 +55,11 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels
         calls:
             - [ setTranslator, [ @translator ] ]
+    anime_db.form.notice.filter:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: anime_db_catalog_notices_filter }
 
 
     anime_db.catalog.listener.scan_storage:
@@ -64,7 +69,9 @@ services:
             - { name: kernel.event_listener, event: anime_db.storage.update_item_files, method: onUpdateItemFiles }
             - { name: kernel.event_listener, event: anime_db.storage.delete_item_files, method: onDeleteItemFiles }
             - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesTryAdd }
-            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFiles, priority: -255 }
+            - { name: kernel.event_listener, event: anime_db.storage.detected_new_files, method: onDetectedNewFilesSendNotice, priority: -255 }
+            - { name: kernel.event_listener, event: anime_db.storage.add_new_item, method: onAddNewItemPersistIt, priority: -200 }
+            - { name: kernel.event_listener, event: anime_db.storage.add_new_item, method: onAddNewItemSendNotice, priority: -255 }
 
     anime_db.catalog.listener.package:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Package
@@ -81,3 +88,7 @@ services:
     anime_db.search:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
         arguments: [ @anime_db.search.driver ]
+
+    anime_db.api_client:
+        class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
+        arguments: [ %locale% ]

@@ -44,11 +44,13 @@ class Version20140423163105_AddReadGuideNotice extends AbstractMigration impleme
      */
     public function up(Schema $schema)
     {
-        $notice = new Notice();
-        $notice->setLifetime(259200); // 3 day
-        $notice->setMessage($this->getMessage());
-        $this->em->persist($notice);
-        $this->em->flush();
+        $this->addSql('INSERT INTO "notice" VALUES(NULL, ?, NULL, ?, ?, ?, ?)', [
+            $this->getMessage(),
+            date('Y-m-d H:i:s'),
+            date('Y-m-d H:i:s'),
+            259200, // 3 day
+            Notice::STATUS_CREATED
+        ]);
     }
 
     /**
