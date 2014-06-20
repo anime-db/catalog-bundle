@@ -782,17 +782,22 @@ h1.logo a span {
 .storages-list h3:first-child {
 	margin-top: 0;
 }
+.storages-list .list .control a {
+	margin-left: 3px;
+	float: left;
+}
+.storages-list .list .control a:first-child {
+	margin: 0;
+}
 .storages-list .list .control {
 	width: 16px;
 }
-.storages-list .list .control.deletable {
+.storages-list .list .control.deletable,
+.storages-list .list .control.scannable {
 	width: 35px;
 }
-.storages-list .list .control.deletable a {
-	float: right;
-}
-.storages-list .list .control.deletable a:first-child {
-	float: left;
+.storages-list .list .control.deletable.scannable {
+	width: 54px;
 }
 .storages-list .name {
 	white-space: nowrap;
@@ -938,7 +943,9 @@ h1.logo a span {
 }
 
 .b-update-ask,
-.b-update-container {
+.b-update-container,
+.b-update-container.b-progress,
+.b-storage-scan .b-progress {
 	margin-top: 70px;
 	text-align: center;
 }
@@ -948,16 +955,6 @@ h1.logo a span {
 .b-update-container .b-message {
 	padding-top: 34px;
 	background: url(/bundles/animedbcatalog/images/loader.gif) no-repeat center 0;
-}
-.b-update-container .b-update-log {
-	display: none;
-	margin: 5px auto 0 auto;
-	width: 500px;
-	height: 200px;
-}
-.b-update .b-message {
-	width: 570px;
-	margin: 0 auto;
 }
 .b-update h3 {
 	font-weight: bold;

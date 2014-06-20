@@ -4,7 +4,7 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain
     anime_db.plugin.search_fill:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain
-        arguments: [ %default_search% ]
+        arguments: [ %anime_db.catalog.default_search% ]
     anime_db.plugin.refiller:
         class: AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain
     anime_db.plugin.import:
