@@ -24,7 +24,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use Symfony\Component\Finder\SplFileInfo;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
-use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
+use AnimeDb\Bundle\CatalogBundle\Console\Progress\Export;
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -134,10 +134,10 @@ EOT
         $lazywrite->setLazyWrite(!$input->getOption('no-progress'));
 
         // get list storages
-        if ($input->hasArgument('storage')) {
-            $storage = $repository->find($input->getArgument('storage'));
+        if ($id = $input->getArgument('storage')) {
+            $storage = $repository->find($id);
             if (!($storage instanceof Storage)) {
-                throw new \InvalidArgumentException('Not found the storage with id: '.$input->getArgument('storage'));
+                throw new \InvalidArgumentException('Not found the storage with id: '.$id);
             }
             $storages = [$storage];
         } else {
@@ -344,25 +344,23 @@ EOT
      */
     protected function getProgress(InputInterface $input, OutputInterface $output)
     {
-        if ($input->hasOption('no-progress')) {
+        if ($input->getOption('no-progress')) {
             $output = new NullOutput();
         }
 
         // export progress only for one storage
-        if (!$input->hasArgument('storage')) {
+        if (!$input->getArgument('storage')) {
             $input->setOption('export', null);
         }
 
         if ($export_file = $input->getOption('export')) {
             // progress is redirected to the export file
             $input->setOption('no-progress', true);
-
-            $output = new Export(new NullOutput(), $export_file, false);
-            // reset old value
-            $output->write('0%');
+            $progress = new Export($this->getHelperSet()->get('progress'), new NullOutput(), $export_file);
+        } else {
+            $progress = new PresetOutput($this->getHelperSet()->get('progress'), $output);
         }
 
-        $progress = new PresetOutput($this->getHelperSet()->get('progress'), $output);
         $progress->setBarCharacter('<comment>=</comment>');
 
         return $progress;
