@@ -28,14 +28,14 @@ class PresetOutput implements HelperInterface
      *
      * @var \Symfony\Component\Console\Helper\ProgressHelper
      */
-    private $progress;
+    protected $progress;
 
     /**
      * Output
      *
      * @var \Symfony\Component\Console\Output\OutputInterface
      */
-    private $output;
+    protected $output;
 
     /**
      * Construct
@@ -46,26 +46,6 @@ class PresetOutput implements HelperInterface
     public function __construct(ProgressHelper $progress, OutputInterface $output)
     {
         $this->progress = $progress;
-        $this->setOutput($output);
-    }
-
-    /**
-     * Get progress
-     *
-     * @return \Symfony\Component\Console\Helper\ProgressHelper
-     */
-    protected function getProgress()
-    {
-        return $this->progress;
-    }
-
-    /**
-     * Set output
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
-    public function setOutput(OutputInterface $output)
-    {
         $this->output = $output;
     }
 
