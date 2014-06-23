@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Storage as StorageForm;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Storages
@@ -188,12 +189,20 @@ class StorageController extends Controller
     {
         $response = new Response();
 
+        $scan_output = $this->container->getParameter('anime_db.catalog.storage.scan_output');
+        $scan_output = sprintf($scan_output, $storage->getId());
+        if (!is_dir($dir = pathinfo($scan_output, PATHINFO_DIRNAME))) {
+            if (true !== @mkdir($dir, 0755, true)) {
+                throw new IOException('Unable to create directory for logging output');
+            }
+        }
+
         // scan storage in background
         $this->get('anime_db.command')->exec(sprintf(
             'php app/console animedb:scan-storage --no-ansi --export=%s %s >%s 2>&1',
             sprintf($this->container->getParameter('anime_db.catalog.storage.scan_progress'), $storage->getId()),
             $storage->getId(),
-            sprintf($this->container->getParameter('anime_db.catalog.storage.scan_output'), $storage->getId())
+            $scan_output
         ));
 
         // caching
