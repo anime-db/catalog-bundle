@@ -139,6 +139,9 @@ EOT
             if (!($storage instanceof Storage)) {
                 throw new \InvalidArgumentException('Not found the storage with id: '.$id);
             }
+            if (!$storage->isWritable()) {
+                throw new \InvalidArgumentException('Storage "'.$storage->getName().'" can not be scanned');
+            }
             $storages = [$storage];
         } else {
             $storages = $repository->getList(Storage::getTypesWritable());
