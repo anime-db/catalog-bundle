@@ -97,8 +97,12 @@ class UpdateController extends Controller
                 file_put_contents($root.'composer.json', $composer);
 
                 // get info about plugin
-                $api_response = $this->container->get('anime_db.api_client')
-                    ->get('plugin/'.$plugin['install']['package'].'/');
+                if ($action == 'install') {
+                    $api_request = 'plugin/'.$plugin['install']['package'].'/';
+                } else {
+                    $api_request = 'plugin/'.$plugin['delete'].'/';
+                }
+                $api_response = $this->container->get('anime_db.api_client')->get($api_request);
                 $plugin = false;
                 if ($api_response->isSuccessful()) {
                     $plugin = json_decode($api_response->getBody(true), true);
