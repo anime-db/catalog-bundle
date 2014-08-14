@@ -77,14 +77,14 @@ class UpdateController extends Controller
         // delete or install package
         $action = false;
         if ($plugin = $request->request->get('plugin')) {
-            $root = $this->container->getParameter('kernel.root_dir').'/../';
-            $composer = json_decode(file_get_contents($root.'composer.json'), true);
+            /* @var $manipulator \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Composer */
+            $manipulator = $this->get('anime_db.manipulator.composer');
 
             if (!empty($plugin['delete'])) {
-                unset($composer['require'][$plugin['delete']]);
+                $manipulator->removePackage($plugin['delete']);
                 $action = 'delete';
             } elseif (!empty($plugin['install'])) {
-                $composer['require'][$plugin['install']['package']] = $plugin['install']['version'];
+                $manipulator->addPackage($plugin['install']['package'], $plugin['install']['version']);
                 $action = 'install';
             }
 
@@ -93,8 +93,6 @@ class UpdateController extends Controller
                 if (file_exists($root.'composer.lock')) {
                     unlink($root.'composer.lock');
                 }
-                $composer = json_encode($composer, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-                file_put_contents($root.'composer.json', $composer);
 
                 // get info about plugin
                 if ($action == 'install') {
