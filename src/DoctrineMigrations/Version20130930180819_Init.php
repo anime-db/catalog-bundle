@@ -54,7 +54,7 @@ class Version20130930180819_Init extends AbstractMigration
 
         // copy images for example items
         $fs = new Filesystem();
-        $fs->mirror(__DIR__.'/../Resources/private/images/example/', __DIR__.'/../../../../../../../../web/media/example/');
+        $fs->mirror(__DIR__.'/../Resources/private/images/example/', __DIR__.'/../../../../../web/media/example/');
     }
 
     public function down(Schema $schema)
@@ -77,7 +77,7 @@ class Version20130930180819_Init extends AbstractMigration
 
         // remove images for example items
         $fs = new Filesystem();
-        $fs->remove(__DIR__.'/../../../../../../../../web/media/example/');
+        $fs->remove(__DIR__.'/../../../../../web/media/example/');
     }
 
     protected function createTableImage(Schema $schema)
