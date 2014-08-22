@@ -27,6 +27,7 @@ use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\Export;
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
 use Symfony\Component\Console\Output\NullOutput;
+use Patchwork\Utf8;
 
 /**
  * Scan storages for new items
@@ -152,11 +153,7 @@ EOT
             $output->writeln('Scan storage <info>'.$storage->getName().'</info>:');
 
             $path = $storage->getPath();
-            // wrap fs
-            if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                stream_wrapper_register('win', 'Patchwork\Utf8\WinFsStreamWrapper');
-                $path = 'win://'.$path;
-            }
+            $path = Utf8::wrapPath($path); // wrap path for current fs
 
             if (!file_exists($path)) {
                 $output->writeln('Storage is not available');
@@ -201,10 +198,9 @@ EOT
                         $lazywrite->writeln('Changes are detected in files of item <info>'.$item->getName().'</info>');
                     }
                 } else {
-                    // remove win:// if need
-                    if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-                        $file = new SplFileInfo(substr($file->getPathname(), 6), '', '');
-                    }
+                    // remove wrap prefix
+                    list(, $file) = explode('://', $file->getPathname(), 2);
+                    $file = new SplFileInfo($file, '', '');
 
                     // it is a new item
                     $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);

@@ -31,7 +31,7 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
          * New Format(date added item):
          *    media/{Y}/{m}/{d}/{His}/
          */
-        $media = __DIR__.'/../../../../../../../../web/media/';
+        $media = __DIR__.'/../../../../../web/media/';
 
         // move covers
         $items = $this->connection->fetchAll('
