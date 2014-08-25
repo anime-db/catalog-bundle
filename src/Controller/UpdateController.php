@@ -89,11 +89,6 @@ class UpdateController extends Controller
             }
 
             if ($action) {
-                // lock file is longer not relevant
-                if (file_exists($root.'composer.lock')) {
-                    unlink($root.'composer.lock');
-                }
-
                 // get info about plugin
                 if ($action == 'install') {
                     $api_request = 'plugin/'.$plugin['install']['package'].'/';
