@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 
 /**
  * Refill item field country
@@ -67,7 +68,7 @@ class Country extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['country']->vars['choices'], function ($a, $b) use ($collator) {
+        usort($view->children['country']->vars['choices'], function (ChoiceView $a, ChoiceView $b) use ($collator) {
             return $collator->compare($a->label, $b->label);
         });
     }
