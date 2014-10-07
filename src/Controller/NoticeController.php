@@ -12,10 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
-use AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter as FilterNotice;
 use AnimeDb\Bundle\CatalogBundle\Form\Notice\Change as ChangeNotice;
 
 /**

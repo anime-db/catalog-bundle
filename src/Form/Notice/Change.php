@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Notice;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Change the list notices form

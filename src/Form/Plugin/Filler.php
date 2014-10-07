@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Get item from filler

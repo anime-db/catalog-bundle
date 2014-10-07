@@ -13,13 +13,10 @@ namespace AnimeDb\Bundle\CatalogBundle\Service\Search\Driver;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Driver as DriverSearch;
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
-use AnimeDb\Bundle\CatalogBundle\Entity\Genre as GenreEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio as StudioEntity;
-use AnimeDb\Bundle\CatalogBundle\Entity\Label as LabelEntity;
 
 /**
  * Search driver use a SQL LIKE for select name
