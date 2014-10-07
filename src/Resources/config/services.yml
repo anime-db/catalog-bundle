@@ -60,6 +60,9 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: form.type, alias: anime_db_catalog_notices_filter }
+    anime_db.form.view_sorter:
+        class: AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
+        arguments: [ %locale% ]
 
 
     anime_db.catalog.listener.scan_storage:
