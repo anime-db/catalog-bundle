@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Service\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Driver as DriverSearch;
+use AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
@@ -27,7 +27,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Label as LabelEntity;
  * @package AnimeDb\Bundle\CatalogBundle\Service\Search\Driver
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class SqlLike implements DriverSearch
+class SqlLike implements DriverInterface
 {
     /**
      * Item repository

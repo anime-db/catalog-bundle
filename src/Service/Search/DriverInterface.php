@@ -13,12 +13,12 @@ namespace AnimeDb\Bundle\CatalogBundle\Service\Search;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Item search driver
+ * Item search driver interface
  *
  * @package AnimeDb\Bundle\CatalogBundle\Service\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-interface Driver
+interface DriverInterface
 {
     /**
      * Search items

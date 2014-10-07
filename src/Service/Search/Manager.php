@@ -10,7 +10,7 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Service\Search;
 
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Driver;
+use AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
@@ -38,7 +38,7 @@ class Manager
     /**
      * Search driver
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\Driver
+     * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface
      */
     protected $driver;
 
@@ -68,9 +68,9 @@ class Manager
     /**
      * Construct
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\Driver $driver
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface $driver
      */
-    public function __construct(Driver $driver)
+    public function __construct(DriverInterface $driver)
     {
         $this->driver = $driver;
     }
