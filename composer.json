@@ -33,8 +33,7 @@
         "php": ">=5.4.0",
         "ext-mbstring": "*",
         "knplabs/knp-menu-bundle": "1.1.*",
-        "anime-db/app-bundle": ">=0.3.13",
-        "patchwork/utf8": "1.2.*"
+        "anime-db/app-bundle": ">=0.3.13"
     },
     "suggest": {
         "anime-db/world-art-filler-bundle": "Allows import data from a site World-Art.ru",
