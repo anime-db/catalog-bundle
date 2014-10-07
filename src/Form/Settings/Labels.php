@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Settings;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Label;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;

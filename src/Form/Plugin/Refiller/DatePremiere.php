@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Refill item field date premiere

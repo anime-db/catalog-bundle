@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
