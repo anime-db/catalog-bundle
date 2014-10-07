@@ -15,7 +15,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Entity\Label;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
@@ -80,7 +79,7 @@ class Labels extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        $sorter = function (ChoiceView $a, ChoiceView $b) use ($collator) {
+        $sorter = function (FormView $a, FormView $b) use ($collator) {
             return $collator->compare($a->vars['value']->getName(), $b->vars['value']->getName());
         };
         usort($view->children['labels']->children, $sorter);

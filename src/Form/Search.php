@@ -169,7 +169,7 @@ class Search extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        $sorter = function (ChoiceView $a, ChoiceView $b) use ($collator) {
+        $sorter = function (FormView $a, FormView $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
         };
         usort($view->children['genres']->children, $sorter);

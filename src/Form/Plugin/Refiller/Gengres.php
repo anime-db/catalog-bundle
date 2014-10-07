@@ -15,7 +15,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 
 /**
  * Refill item field gengres
@@ -70,7 +69,7 @@ class Gengres extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['genres']->children, function (ChoiceView $a, ChoiceView $b) use ($collator) {
+        usort($view->children['genres']->children, function (FormView $a, FormView $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
         });
     }
