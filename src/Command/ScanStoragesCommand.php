@@ -289,7 +289,7 @@ EOT
      */
     protected function getFilesByPath($path)
     {
-        return (new Finder())
+        return Finder::create()
             ->in($path)
             ->ignoreUnreadableDirs()
             ->depth('== 0')
