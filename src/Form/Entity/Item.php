@@ -27,6 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
@@ -308,13 +309,13 @@ class Item extends AbstractType
     {
         // order
         $collator = new \Collator($this->translator->getLocale());
-        $sorter = function ($a, $b) use ($collator) {
+        $sorter = function (FormView $a, FormView $b) use ($collator) {
             return $collator->compare($a->vars['label'], $b->vars['label']);
         };
         usort($view->children['genres']->children, $sorter);
         usort($view->children['labels']->children, $sorter);
 
-        $sorter = function ($a, $b) use ($collator) {
+        $sorter = function (ChoiceView $a, ChoiceView $b) use ($collator) {
             return $collator->compare($a->label, $b->label);
         };
         usort($view->children['studio']->vars['choices'], $sorter);
