@@ -23,6 +23,8 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
 /**
  * Item
@@ -37,7 +39,7 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Item
+class Item extends BaseEntity implements ImageInterface
 {
     /**
      * Id
@@ -271,13 +273,6 @@ class Item
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio
      */
     protected $studio;
-
-    /**
-     * Old covers list
-     *
-     * @var array
-     */
-    protected $old_covers = [];
 
     /**
      * Not cleared path
@@ -768,22 +763,37 @@ class Item
      */
     public function setCover($cover)
     {
-        // copy current cover to old for remove old cover file after update
-        if ($this->cover) {
-            $this->old_covers[] = $this->cover;
-        }
-        $this->cover = $cover;
+        $this->setFilename($cover);
         return $this;
     }
 
     /**
      * Get cover
      *
-     * @return string 
+     * @return string
      */
     public function getCover()
     {
-        return $this->cover;
+        return $this->getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::getFilename()
+     */
+    public function getFilename()
+    {
+        return $this->cover ?: parent::getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::setFilename()
+     */
+    public function setFilename($filename)
+    {
+        $this->cover = $filename;
+        parent::setFilename($filename);
     }
 
     /**
@@ -862,73 +872,6 @@ class Item
     public function getImages()
     {
         return $this->images;
-    }
-
-    /**
-     * Remove cover file
-     *
-     * @ORM\PostRemove
-     */
-    public function doRemoveCover()
-    {
-        if ($this->cover && file_exists($this->getAbsolutePath())) {
-            unlink($this->getAbsolutePath());
-        }
-    }
-
-    /**
-     * Remove old cover files
-     *
-     * @ORM\PostRemove
-     * @ORM\PostUpdate
-     */
-    public function doRemoveOldCovers()
-    {
-        while ($cover = array_shift($this->old_covers)) {
-            if (file_exists($this->getUploadRootDir().'/'.$cover)) {
-                unlink($this->getUploadRootDir().'/'.$cover);
-            }
-        }
-    }
-
-    /**
-     * Get absolute path
-     *
-     * @return string
-     */
-    public function getAbsolutePath()
-    {
-        return $this->cover !== null ? $this->getUploadRootDir().'/'.$this->cover : null;
-    }
-
-    /**
-     * Get upload root dir
-     *
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Get upload dir
-     *
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'media';
-    }
-
-    /**
-     * Get web path
-     *
-     * @return string
-     */
-    public function getCoverWebPath()
-    {
-        return $this->cover ? '/'.$this->getUploadDir().'/'.$this->cover : null;
     }
 
     /**
@@ -1123,10 +1066,11 @@ class Item
      */
     public function doRenameCoverFile()
     {
+        // TODO move it to listeners
         if ($this->cover && strpos($this->cover, 'tmp') !== false) {
             $filename = pathinfo($this->cover, PATHINFO_BASENAME);
             $file = new File($this->getAbsolutePath());
-            $this->cover = date('Y/m/d/His/', $this->date_add->getTimestamp()).$filename;
+            $this->cover = $this->date_add->format('Y/m/d/His/').$filename;
             $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
         }
     }
