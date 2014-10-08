@@ -29,7 +29,6 @@ use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\View\ChoiceView;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 /**
  * Item form

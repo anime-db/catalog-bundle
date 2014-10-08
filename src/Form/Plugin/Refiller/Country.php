@@ -12,10 +12,10 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Extension\Core\View\ChoiceView;
+use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
  * Refill item field country
@@ -26,20 +26,20 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 class Country extends AbstractType
 {
     /**
-     * Translator
+     * View sorter
      *
-     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     * @var \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
      */
-    protected $translator;
+    protected $sorter;
 
     /**
-     * Set translator
+     * Set view sorter
      *
-     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     * @param \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter $sorter
      */
-    public function setTranslator(Translator $translator)
+    public function setViewSorter(ViewSorter $sorter)
     {
-        $this->translator = $translator;
+        $this->sorter = $sorter;
     }
 
     /**
@@ -66,11 +66,7 @@ class Country extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        // order
-        $collator = new \Collator($this->translator->getLocale());
-        usort($view->children['country']->vars['choices'], function (ChoiceView $a, ChoiceView $b) use ($collator) {
-            return $collator->compare($a->label, $b->label);
-        });
+        $this->sorter->choice($view->children['country']);
     }
 
     /**

@@ -42,7 +42,7 @@ services:
     anime_db.form.type.refill.country:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country
         calls:
-            - [ setTranslator, [ @translator ] ]
+            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.refill.studio:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio
         calls:
