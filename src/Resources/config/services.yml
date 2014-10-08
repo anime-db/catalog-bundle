@@ -46,11 +46,11 @@ services:
     anime_db.form.type.refill.studio:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio
         calls:
-            - [ setTranslator, [ @translator ] ]
+            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.refill.gengres:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres
         calls:
-            - [ setTranslator, [ @translator ] ]
+            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.labels:
         class: AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels
         calls:
