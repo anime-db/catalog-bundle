@@ -8,14 +8,14 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Entity;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Image;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Source;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Image;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Name;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Source;
 use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\AppBundle\Form\Field\Rating as RatingField;
@@ -33,7 +33,7 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 /**
  * Item form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Entity
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item extends AbstractType

@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Notice;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Notice;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * Change the list notices form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Notice
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Notice
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Change extends AbstractType

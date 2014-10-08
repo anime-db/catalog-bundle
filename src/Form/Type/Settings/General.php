@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Settings;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Settings;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
 /**
  * General settings form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Settings
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Settings
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class General extends AbstractType

@@ -8,18 +8,19 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Refill item field episodes number
+ * Label form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class EpisodesNumber extends AbstractType
+class Label extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -27,15 +28,18 @@ class EpisodesNumber extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('episodes_number', 'integer', [
-                'required' => false,
-                'label'    => false
-            ])
-            ->add('source', 'hidden', [
-                'required' => false,
-                'label'    => false
-            ]);
+        $builder->add('name');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Label'
+        ]);
     }
 
     /**
@@ -44,6 +48,6 @@ class EpisodesNumber extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_item';
+        return 'anime_db_catalog_entity_label';
     }
 }

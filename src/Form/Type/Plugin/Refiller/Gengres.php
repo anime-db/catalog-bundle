@@ -8,22 +8,21 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Settings;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Label;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Labels form
+ * Refill item field gengres
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Settings
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Labels extends AbstractType
+class Gengres extends AbstractType
 {
     /**
      * View sorter
@@ -49,26 +48,17 @@ class Labels extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('labels', 'collection', [
-                'type'         => new Label(),
-                'allow_add'    => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'required'     => false,
-                'label'        => false,
-                'options'      => [
-                    'required' => false
-                ]
+            ->add('genres', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Genre',
+                'property' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'label'    => false
+            ])
+            ->add('source', 'hidden', [
+                'required' => false,
+                'label'    => false
             ]);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.FormTypeInterface::getName()
-     */
-    public function getName()
-    {
-        return 'anime_db_catalog_labels';
     }
 
     /**
@@ -77,6 +67,15 @@ class Labels extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $this->sorter->choice($view->children['labels']);
+        $this->sorter->choice($view->children['genres']);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Symfony\Component\Form.FormTypeInterface::getName()
+     */
+    public function getName()
+    {
+        return 'anime_db_catalog_entity_item';
     }
 }

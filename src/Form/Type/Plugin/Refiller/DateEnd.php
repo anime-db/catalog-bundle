@@ -8,19 +8,18 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Entity;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Source form
+ * Refill item field date end
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Entity
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Source extends AbstractType
+class DateEnd extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -28,18 +27,17 @@ class Source extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('url', null, ['label' => 'URL adress']);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Source'
-        ]);
+        $builder
+            ->add('date_end', 'date', [
+                'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
+                'required' => false,
+                'label'    => false
+            ])
+            ->add('source', 'hidden', [
+                'required' => false,
+                'label'    => false
+            ]);
     }
 
     /**
@@ -48,6 +46,6 @@ class Source extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_source';
+        return 'anime_db_catalog_entity_item';
     }
 }

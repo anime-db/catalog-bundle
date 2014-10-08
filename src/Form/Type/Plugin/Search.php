@@ -8,25 +8,25 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Get item from filler
+ * Search item for filler
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Filler extends AbstractType
+class Search extends AbstractType
 {
     /**
      * Form name
      *
      * @var string
      */
-    const FORM_NAME = 'anime_db_catalog_plugin_filler';
+    const FORM_NAME = 'anime_db_catalog_plugin_search';
 
     /**
      * (non-PHPdoc)
@@ -36,10 +36,10 @@ class Filler extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('url', 'text', [
-                'label' => 'URL address',
+            ->add('name', 'text', [
+                'label' => 'Name',
                 'attr' => [
-                    'placeholder' => 'http://',
+                    'placeholder' => 'One Piece',
                 ],
             ]);
     }
