@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
