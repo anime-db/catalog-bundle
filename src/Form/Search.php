@@ -13,12 +13,11 @@ namespace AnimeDb\Bundle\CatalogBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 use Doctrine\ORM\EntityRepository;
+use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
  * Search items form
@@ -36,20 +35,20 @@ class Search extends AbstractType
     protected $source;
 
     /**
-     * Translator
+     * View sorter
      *
-     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     * @var \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
      */
-    protected $translator;
+    protected $sorter;
 
     /**
-     * Set translator
+     * Set view sorter
      *
-     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     * @param \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter $sorter
      */
-    public function setTranslator(Translator $translator)
+    public function setViewSorter(ViewSorter $sorter)
     {
-        $this->translator = $translator;
+        $this->sorter = $sorter;
     }
 
     /**
@@ -167,20 +166,12 @@ class Search extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        // order
-        $collator = new \Collator($this->translator->getLocale());
-        $sorter = function (FormView $a, FormView $b) use ($collator) {
-            return $collator->compare($a->vars['label'], $b->vars['label']);
-        };
-        usort($view->children['genres']->children, $sorter);
-        usort($view->children['labels']->children, $sorter);
-
-        $sorter = function (ChoiceView $a, ChoiceView $b) use ($collator) {
-            return $collator->compare($a->label, $b->label);
-        };
-        usort($view->children['studio']->vars['choices'], $sorter);
-        usort($view->children['country']->vars['choices'], $sorter);
-        usort($view->children['storage']->vars['choices'], $sorter);
+        // sort choices
+        $this->sorter->choice($view->children['genres']);
+        $this->sorter->choice($view->children['labels']);
+        $this->sorter->choice($view->children['studio']);
+        $this->sorter->choice($view->children['country']);
+        $this->sorter->choice($view->children['storage']);
     }
 
     /**

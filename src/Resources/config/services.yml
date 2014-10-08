@@ -37,7 +37,7 @@ services:
         tags:
             - { name: form.type, alias: anime_db_catalog_search_items }
         calls:
-            - [ setTranslator, [ @translator ] ]
+            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
             - [ setRouter, [ @router ] ]
     anime_db.form.type.refill.country:
         class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country
