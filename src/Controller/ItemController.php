@@ -240,7 +240,7 @@ class ItemController extends Controller
             $request->getSession()->remove(self::NAME_ITEM_ADDED);
             switch ($request->request->get('do')) {
                 case 'add':
-                    $item->freez($this->getDoctrine()->getManager());
+                    $item->freez($this->getDoctrine());
                     return $this->addItem($item);
                     break;
                 case 'cancel':
@@ -253,7 +253,7 @@ class ItemController extends Controller
         $duplicate = $repository->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
-            $item->freez($this->getDoctrine()->getManager());
+            $item->freez($this->getDoctrine());
             return $this->addItem($item);
         }
 

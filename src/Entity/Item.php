@@ -19,10 +19,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
  * Item
@@ -1095,12 +1095,13 @@ class Item
     /**
      * Freeze item
      *
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function freez(EntityManager $em)
+    public function freez(Registry $doctrine)
     {
+        $em = $doctrine->getManager();
         // create reference to existing entity
         if ($this->country) {
             $this->country = $em->getReference(get_class($this->country), $this->country->getId());
