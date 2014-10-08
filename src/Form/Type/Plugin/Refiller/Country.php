@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,12 +17,12 @@ use Symfony\Component\Form\FormView;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Refill item field gengres
+ * Refill item field country
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Gengres extends AbstractType
+class Country extends AbstractType
 {
     /**
      * View sorter
@@ -48,11 +48,9 @@ class Gengres extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genres', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Genre',
+            ->add('country', 'entity', [
+                'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
-                'multiple' => true,
-                'expanded' => true,
                 'label'    => false
             ])
             ->add('source', 'hidden', [
@@ -67,7 +65,7 @@ class Gengres extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $this->sorter->choice($view->children['genres']);
+        $this->sorter->choice($view->children['country']);
     }
 
     /**

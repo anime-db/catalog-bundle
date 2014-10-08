@@ -24,7 +24,7 @@ services:
 
     # Form
     anime_db.form.type.item:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Entity\Item
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Item
         tags:
             - { name: form.type, alias: anime_db_catalog_entity_item }
         calls:
@@ -33,30 +33,30 @@ services:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
             - [ setRouter, [ @router ] ]
     anime_db.form.type.search:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Search
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Search
         tags:
             - { name: form.type, alias: anime_db_catalog_search_items }
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
             - [ setRouter, [ @router ] ]
     anime_db.form.type.refill.country:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Country
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Country
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.refill.studio:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Studio
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Studio
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.refill.gengres:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Gengres
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Gengres
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.labels:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\Labels
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.notice.filter:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Notice\Filter
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Filter
         arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: form.type, alias: anime_db_catalog_notices_filter }

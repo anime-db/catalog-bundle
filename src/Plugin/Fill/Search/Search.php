@@ -12,8 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search as SearchForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Filler as FillerForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
@@ -83,7 +83,7 @@ abstract class Search extends Plugin
     /**
      * Get form
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search
+     * @return \AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search
      */
     public function getForm()
     {

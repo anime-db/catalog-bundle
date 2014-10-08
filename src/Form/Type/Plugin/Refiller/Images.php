@@ -8,16 +8,16 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Image;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Image;
 
 /**
  * Refill item field images
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Images extends AbstractType

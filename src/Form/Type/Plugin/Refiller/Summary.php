@@ -8,18 +8,18 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Refill item field translate
+ * Refill item field summary
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Translate extends AbstractType
+class Summary extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -28,7 +28,7 @@ class Translate extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translate', 'text', [
+            ->add('summary', 'textarea', [
                 'required' => false,
                 'label'    => false
             ])

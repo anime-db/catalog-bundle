@@ -8,19 +8,19 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Entity\Name;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Source;
 
 /**
- * Refill item field names
+ * Refill item field sources
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Names extends AbstractType
+class Sources extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -29,8 +29,8 @@ class Names extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('names', 'collection', [
-                'type'         => new Name(),
+            ->add('sources', 'collection', [
+                'type'         => new Source(),
                 'allow_add'    => true,
                 'by_reference' => false,
                 'allow_delete' => true,

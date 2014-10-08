@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
-use AnimeDb\Bundle\CatalogBundle\Form\Notice\Change as ChangeNotice;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Change as ChangeNotice;
 
 /**
  * Notice

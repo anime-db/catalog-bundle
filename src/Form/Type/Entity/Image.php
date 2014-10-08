@@ -8,19 +8,20 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Form\Entity;
+namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use AnimeDb\Bundle\AppBundle\Form\Field\Image as ImageField;
 
 /**
- * Label form
+ * Image form
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Entity
+ * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Label extends AbstractType
+class Image extends AbstractType
 {
     /**
      * (non-PHPdoc)
@@ -28,7 +29,9 @@ class Label extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add('source', new ImageField(), [
+            'required' => false
+        ]);
     }
 
     /**
@@ -38,7 +41,7 @@ class Label extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Label'
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Image'
         ]);
     }
 
@@ -48,6 +51,6 @@ class Label extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_label';
+        return 'anime_db_catalog_entity_image';
     }
 }
