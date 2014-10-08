@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use Symfony\Component\HttpFoundation\File\File;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
@@ -139,21 +138,5 @@ class Image extends BaseEntity implements ImageInterface
     public function getItem()
     {
         return $this->item;
-    }
-
-    /**
-     * Rename image if in temp folder
-     *
-     * @ORM\PrePersist
-     */
-    public function doRenameImageFile()
-    {
-        // TODO move it to listeners
-        if ($this->source && strpos($this->source, 'tmp') !== false) {
-            $filename = pathinfo($this->source, PATHINFO_BASENAME);
-            $file = new File($this->getAbsolutePath());
-            $this->source = $this->item->getDateAdd()->format('Y/m/d/His/').$filename;
-            $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
-        }
     }
 }

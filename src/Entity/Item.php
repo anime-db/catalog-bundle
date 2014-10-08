@@ -20,7 +20,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use Symfony\Component\Validator\ExecutionContextInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
@@ -1057,22 +1056,6 @@ class Item extends BaseEntity implements ImageInterface
             $this->genres[$key] = $em->getReference(get_class($genre), $genre->getId());
         }
         return $this;
-    }
-
-    /**
-     * Rename cover if in temp folder
-     *
-     * @ORM\PrePersist
-     */
-    public function doRenameCoverFile()
-    {
-        // TODO move it to listeners
-        if ($this->cover && strpos($this->cover, 'tmp') !== false) {
-            $filename = pathinfo($this->cover, PATHINFO_BASENAME);
-            $file = new File($this->getAbsolutePath());
-            $this->cover = $this->date_add->format('Y/m/d/His/').$filename;
-            $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
-        }
     }
 
     /**
