@@ -28,7 +28,6 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 
 /**
  * Item form
