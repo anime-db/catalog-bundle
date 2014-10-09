@@ -83,6 +83,13 @@ services:
             - { name: kernel.event_listener, event: anime_db.package.installed, method: onInstall }
             - { name: kernel.event_listener, event: anime_db.package.updated, method: onUpdate }
 
+    anime_db.catalog.listener.entity:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity
+        arguments: [ @filesystem, %anime_db.downloader.root% ]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
+
     anime_db.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Search\Driver\SqlLike
         arguments: [ @doctrine ]
