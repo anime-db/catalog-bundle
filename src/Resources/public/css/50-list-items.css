@@ -168,7 +168,7 @@
 .list-items .controls a {
 	text-decoration: none;
 }
-.list-items .controls:hover a {
+.list-items .controls a:hover {
 	text-decoration: underline;
 }
 /* 3D rotate covers */
