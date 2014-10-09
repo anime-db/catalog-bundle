@@ -4,24 +4,24 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3e956c91128067d9235bc2d877b9b3a1",
+    "hash": "da58ed9857920a741b15be23c5d73afe",
     "packages": [
         {
             "name": "anime-db/anime-db",
-            "version": "dev-master",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/anime-db.git",
-                "reference": "17501b89086ca27ed7613681a814b13593f1a32c"
+                "reference": "caf7fc02e9284671f90055de993669f39a9be3e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/17501b89086ca27ed7613681a814b13593f1a32c",
-                "reference": "17501b89086ca27ed7613681a814b13593f1a32c",
+                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/caf7fc02e9284671f90055de993669f39a9be3e4",
+                "reference": "caf7fc02e9284671f90055de993669f39a9be3e4",
                 "shasum": ""
             },
             "require": {
-                "anime-db/catalog-bundle": "0.4.*",
+                "anime-db/catalog-bundle": "dev-develop",
                 "avalanche123/imagine-bundle": "2.*",
                 "composer/composer": "1.0.*",
                 "doctrine/doctrine-bundle": "1.2.*",
@@ -44,6 +44,16 @@
                 "symfony/swiftmailer-bundle": "2.3.*",
                 "symfony/symfony": "2.5.*",
                 "twig/extensions": "1.0.*"
+            },
+            "require-dev": {
+                "anime-db/ani-db-filler-bundle": "dev-develop",
+                "anime-db/catalog-bundle": "dev-develop",
+                "anime-db/item-folder-filler-bundle": "dev-develop",
+                "anime-db/shikimori-filler-bundle": "dev-develop",
+                "anime-db/shikimori-new-items-widget-bundle": "dev-develop",
+                "anime-db/shikimori-related-items-widget-bundle": "dev-develop",
+                "anime-db/shikimori-similar-items-widget-bundle": "dev-develop",
+                "anime-db/world-art-filler-bundle": "dev-develop"
             },
             "suggest": {
                 "ext-apc": "Allows use APC for autoloading to improve performance",
@@ -84,7 +94,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2014-08-25 13:52:03"
+            "time": "2014-10-09 11:27:48"
         },
         {
             "name": "anime-db/api-client-bundle",
@@ -139,16 +149,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/app-bundle.git",
-                "reference": "c7d1849af289218768a48a41c0fcd1ed6e3d9747"
+                "reference": "965adc887452de1c4754bca0d7d376906436ef97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/c7d1849af289218768a48a41c0fcd1ed6e3d9747",
-                "reference": "c7d1849af289218768a48a41c0fcd1ed6e3d9747",
+                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/965adc887452de1c4754bca0d7d376906436ef97",
+                "reference": "965adc887452de1c4754bca0d7d376906436ef97",
                 "shasum": ""
             },
             "require": {
-                "anime-db/anime-db": ">=0.3.8",
+                "anime-db/anime-db": "dev-develop",
                 "anime-db/api-client-bundle": "0.1.*",
                 "anime-db/cache-time-keeper-bundle": "1.0.*",
                 "patchwork/utf8": "1.2.*",
@@ -183,7 +193,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2014-09-22 13:21:13"
+            "time": "2014-10-09 09:28:14"
         },
         {
             "name": "anime-db/cache-time-keeper-bundle",
