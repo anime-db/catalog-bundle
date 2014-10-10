@@ -86,22 +86,22 @@ class ListItems
     protected $repository;
 
     /**
-     * Search manager
+     * Item searcher
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
      */
-    protected $search;
+    protected $searcher;
 
     /**
      * Construct
      *
      * @param \Doctrine\Common\Persistence\ManagerRegistry $doctrine
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager $search
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager $searcher
      */
-    public function __construct(ManagerRegistry $doctrine, Manager $search)
+    public function __construct(ManagerRegistry $doctrine, Manager $searcher)
     {
         $this->repository = $doctrine->getRepository('AnimeDbCatalogBundle:Item');
-        $this->search = $search;
+        $this->searcher = $searcher;
     }
 
     /**
@@ -175,7 +175,7 @@ class ListItems
      */
     public function getSortField(array $query = [])
     {
-        return $this->search->getValidSortColumn(isset($query['sort_by']) ? $query['sort_by'] : null);
+        return $this->searcher->getValidSortColumn(isset($query['sort_by']) ? $query['sort_by'] : null);
     }
 
     /**
@@ -214,7 +214,7 @@ class ListItems
     public function getSortDirection(array $query = [])
     {
         $sort_direction = isset($query['sort_direction']) ? $query['sort_direction'] : null;
-        return $this->search->getValidSortDirection($sort_direction);
+        return $this->searcher->getValidSortDirection($sort_direction);
     }
 
     /**
