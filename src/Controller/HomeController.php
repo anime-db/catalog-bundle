@@ -74,7 +74,8 @@ class HomeController extends Controller
         if ($response->getLastModified() < $last_update) {
             $response->setLastModified($last_update);
         }
-        $response->setEtag(md5($repository->count()));
+        $total = $repository->count();
+        $response->setEtag(md5($total));
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -93,7 +94,7 @@ class HomeController extends Controller
         if ($limit = ItemController::getLimit($request)) {
             $that = $this;
             $pagination = $this->get('anime_db.pagination')->createNavigation(
-                ceil($repository->count()/$limit),
+                ceil($total/$limit),
                 $current_page,
                 Pagination::DEFAULT_LIST_LENGTH,
                 function ($page) use ($that) {
