@@ -33,34 +33,6 @@ use AnimeDb\Bundle\CatalogBundle\Controller\ItemController;
 class HomeController extends Controller
 {
     /**
-     * Items per page on home page
-     *
-     * @var integer
-     */
-    const HOME_ITEMS_PER_PAGE = ItemController::ITEMS_PER_PAGE;
-
-    /**
-     * Items per page on search page
-     *
-     * @var integer
-     */
-    const SEARCH_ITEMS_PER_PAGE = ItemController::ITEMS_PER_PAGE;
-
-    /**
-     * Limit for show all items
-     *
-     * @var integer
-     */
-    const SHOW_LIMIT_ALL = ItemController::LIMIT_ALL;
-
-    /**
-     * Limit name for show all items
-     *
-     * @var integer
-     */
-    const SHOW_LIMIT_ALL_NAME = ItemController::LIMIT_ALL_NAME;
-
-    /**
      * Widget place top
      *
      * @var string
@@ -80,58 +52,6 @@ class HomeController extends Controller
      * @var integer
      */
     const AUTOCOMPLETE_LIMIT = 10;
-
-    /**
-     * Limits on the number of items per page for home page
-     *
-     * @var array
-     */
-    public static $home_show_limit = [8, 16, 32, self::SHOW_LIMIT_ALL];
-
-    /**
-     * Limits on the number of items per page for search page
-     *
-     * @var array
-     */
-    public static $search_show_limit = [8, 16, 32, self::SHOW_LIMIT_ALL];
-
-    /**
-     * Sort items by field
-     *
-     * @var array
-     */
-    public static $sort_by_field = [
-        'name'        => [
-            'title' => 'Item name',
-            'name'  => 'Name'
-        ],
-        'date_update' => [
-            'title' => 'Last updated item',
-            'name'  => 'Update'
-        ],
-        'rating' => [
-            'title' => 'Item rating',
-            'name'  => 'Rating'
-        ],
-        'date_premiere'  => [
-            'title' => 'Date premiere',
-            'name'  => 'Date premiere'
-        ],
-        'date_end'    => [
-            'title' => 'End date of issue',
-            'name'  => 'Date end'
-        ]
-    ];
-
-    /**
-     * Sort direction
-     *
-     * @var array
-     */
-    public static $sort_direction = [
-        'DESC' => 'Descending',
-        'ASC'  => 'Ascending'
-    ];
 
     /**
      * Home
@@ -154,8 +74,7 @@ class HomeController extends Controller
         if ($response->getLastModified() < $last_update) {
             $response->setLastModified($last_update);
         }
-        $total = $repository->count();
-        $response->setEtag(md5($total));
+        $response->setEtag(md5($repository->count()));
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -166,17 +85,12 @@ class HomeController extends Controller
         $page = $request->get('page', 1);
         $current_page = $page > 1 ? $page : 1;
 
-        // get items limit
-        $limit = (int)$request->get('limit', self::HOME_ITEMS_PER_PAGE);
-        $limit = in_array($limit, self::$home_show_limit) ? $limit : self::HOME_ITEMS_PER_PAGE;
-
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
         $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
 
         $pagination = null;
         // show not all items
-        if ($limit != self::SHOW_LIMIT_ALL) {
-
+        if ($limit = ItemController::getLimit($request)) {
             $that = $this;
             $pagination = $this->get('anime_db.pagination')->createNavigation(
                 ceil($repository->count()/$limit),
@@ -190,26 +104,10 @@ class HomeController extends Controller
         }
 
         // get items
-        $items = $repository->getList(
-            ($limit != self::SHOW_LIMIT_ALL ? $limit : 0),
-            ($limit != self::SHOW_LIMIT_ALL ? ($current_page - 1) * $limit : 0)
-        );
-
-        // assembly parameters limit output
-        $show_limit = [];
-        foreach (self::$home_show_limit as $value) {
-            $show_limit[] = [
-                'link' => $this->generateUrl('home', ['limit' => $value]),
-                'name' => $value != -1 ? $value : self::SHOW_LIMIT_ALL_NAME,
-                'count' => $value,
-                'current' => $limit == $value
-            ];
-        }
+        $items = $repository->getList($limit, ($current_page - 1) * $limit);
 
         return $this->render('AnimeDbCatalogBundle:Home:index.html.twig', [
             'items' => $items,
-            'total' => $total,
-            'show_limit' => $show_limit,
             'pagination' => $pagination,
             'widget_top' => self::WIDGET_PALCE_TOP,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM
@@ -324,10 +222,6 @@ class HomeController extends Controller
         $form = $this->createForm('anime_db_catalog_search_items', $data);
         $items = [];
         $pagination = null;
-        // list items controls
-        $show_limit = null;
-        $sort_by = null;
-        $sort_direction = null;
         $total = 0;
 
         if ($request->query->count()) {
@@ -341,8 +235,7 @@ class HomeController extends Controller
                 $current_page = $current_page > 1 ? $current_page : 1;
 
                 // get items limit
-                $limit = (int)$request->get('limit', self::SEARCH_ITEMS_PER_PAGE);
-                $limit = in_array($limit, self::$search_show_limit) ? $limit : self::SEARCH_ITEMS_PER_PAGE;
+                $limit = ItemController::getLimit($request);
 
                 // get order
                 $current_sort_by = $service->getValidSortColumn($request->get('sort_by'));
@@ -351,34 +244,15 @@ class HomeController extends Controller
                 // do search
                 $result = $service->search(
                     $data,
-                    ($limit != self::SHOW_LIMIT_ALL ? $limit : 0),
-                    ($limit != self::SHOW_LIMIT_ALL ? ($current_page - 1) * $limit : 0),
+                    $limit,
+                    ($current_page - 1) * $limit,
                     $current_sort_by,
                     $current_sort_direction
                 );
                 $items = $result['list'];
                 $total = $result['total'];
 
-                // build sort params for tamplate
-                $sort_by = [];
-                foreach (self::$sort_by_field as $field => $info) {
-                    $sort_by[] = [
-                        'name' => $info['name'],
-                        'title' => $info['title'],
-                        'current' => $current_sort_by == $field,
-                        'link' => $this->generateUrl(
-                            'home_search',
-                            array_merge($request->query->all(), ['sort_by' => $field])
-                        )
-                    ];
-                }
-                $sort_direction['type'] = ($current_sort_direction == 'ASC' ? 'DESC' : 'ASC');
-                $sort_direction['link'] = $this->generateUrl(
-                    'home_search',
-                    array_merge($request->query->all(), ['sort_direction' => $sort_direction['type']])
-                );
-
-                if ($limit != self::SHOW_LIMIT_ALL) {
+                if ($limit) {
                     // build pagination
                     $query = $request->query->all();
                     if (isset($query['page'])) {
@@ -398,19 +272,6 @@ class HomeController extends Controller
                         $this->generateUrl('home_search', $query)
                     );
                 }
-
-                // assembly parameters limit output
-                foreach (self::$search_show_limit as $value) {
-                    $show_limit[] = [
-                        'link' => $this->generateUrl(
-                            'home_search',
-                            array_merge($request->query->all(), ['limit' => $value])
-                        ),
-                        'name' => $value != -1 ? $value : self::SHOW_LIMIT_ALL_NAME,
-                        'count' => $value,
-                        'current' => !empty($limit) && $limit == $value
-                    ];
-                }
             }
         }
 
@@ -418,10 +279,7 @@ class HomeController extends Controller
             'form'  => $form->createView(),
             'items' => $items,
             'total' => $total,
-            'show_limit' => $show_limit,
             'pagination' => $pagination,
-            'sort_by' => $sort_by,
-            'sort_direction' => $sort_direction,
             'searched' => !!$request->query->count()
         ], $response);
     }

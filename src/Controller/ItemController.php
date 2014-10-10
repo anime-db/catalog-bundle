@@ -71,7 +71,7 @@ class ItemController extends Controller
      *
      * @var integer
      */
-    const LIMIT_ALL = -1;
+    const LIMIT_ALL = 0;
 
     /**
      * Limit name for show all items
@@ -354,8 +354,7 @@ class ItemController extends Controller
     public function limitControlAction(Request $request, $total = '')
     {
         $limits = [];
-        $current_limit = $request->get('limit');
-        $current_limit = in_array($current_limit, self::$limits) ? $current_limit : self::DEFAULT_LIMIT;
+        $current_limit = self::getLimit($request);
 
         foreach (self::$limits as $limit) {
             $limits[] = [
@@ -414,5 +413,18 @@ class ItemController extends Controller
             'sort_by' => $sort_by,
             'sort_direction' => $sort_direction
         ]);
+    }
+
+    /**
+     * Get limit list items
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return integer
+     */
+    public static function getLimit(Request $request)
+    {
+        $limit = (int)$request->get('limit', self::ITEMS_PER_PAGE);
+        return in_array($limit, self::$limits) ? $limit : self::ITEMS_PER_PAGE;
     }
 }
