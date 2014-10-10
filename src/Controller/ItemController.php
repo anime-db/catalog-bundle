@@ -60,6 +60,13 @@ class ItemController extends Controller
     const ITEMS_PER_PAGE = 8;
 
     /**
+     * Default limit
+     *
+     * @var integer
+     */
+    const DEFAULT_LIMIT = 8;
+
+    /**
      * Limit for show all items
      *
      * @var integer
@@ -106,16 +113,6 @@ class ItemController extends Controller
             'title' => 'End date of issue',
             'name'  => 'Date end'
         ]
-    ];
-
-    /**
-     * Sort direction
-     *
-     * @var array
-     */
-    public static $sort_direction = [
-        'DESC' => 'Descending',
-        'ASC'  => 'Ascending'
     ];
 
     /**
@@ -350,12 +347,16 @@ class ItemController extends Controller
      * List items limit control
      *
      * @param \Symfony\Component\HttpFoundation\Request $parent_request
+     * @param integer $total
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function limitControlAction(Request $parent_request, $total = -1)
     {
         $limits = [];
+        $current_limit = $parent_request->get('limit');
+        $current_limit = in_array($current_limit, self::$limits) ? $current_limit : self::DEFAULT_LIMIT;
+
         foreach (self::$limits as $limit) {
             $limits[] = [
                 'link' => '?'.http_build_query(
@@ -363,13 +364,55 @@ class ItemController extends Controller
                 ),
                 'name' => $limit == self::LIMIT_ALL ? self::LIMIT_ALL_NAME : $limit,
                 'count' => $limit,
-                'current' => $parent_request->query->get('limit', 0) == $limit
+                'current' => $current_limit == $limit
             ];
+        }
+
+        if ($total == -1) {
+            $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
             'limits' => $limits,
-            'total' => $total != -1 ? $total : $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count()
+            'total' => $total
+        ]);
+    }
+
+    /**
+     * List items sort control
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $parent_request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function sortControlAction(Request $parent_request)
+    {
+        /* @var $search \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
+        $search = $this->get('anime_db.search');
+        $current_sort_by = $search->getValidSortColumn($parent_request->get('sort_by'));
+        $current_sort_direction = $search->getValidSortDirection($parent_request->get('sort_direction'));
+
+        // sort by
+        $sort_by = [];
+        foreach (self::$sort_by_field as $field => $info) {
+            $sort_by[] = [
+                'name' => $info['name'],
+                'title' => $info['title'],
+                'current' => $current_sort_by == $field,
+                'link' => '?'.http_build_query(
+                    array_merge($parent_request->query->all(), ['sort_by' => $field])
+                )
+            ];
+        }
+
+        $sort_direction['type'] = ($current_sort_direction == 'ASC' ? 'DESC' : 'ASC');
+        $sort_direction['link'] = '?'.http_build_query(
+            array_merge($parent_request->query->all(), ['sort_direction' => $sort_direction['type']])
+        );
+
+        return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
+            'sort_by' => $sort_by,
+            'sort_direction' => $sort_direction
         ]);
     }
 }
