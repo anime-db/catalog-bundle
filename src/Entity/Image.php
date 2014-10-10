@@ -12,21 +12,22 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use Symfony\Component\HttpFoundation\File\File;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
 /**
  * Item images
  *
  * @ORM\Entity
  * @ORM\Table(name="image")
- * @ORM\HasLifecycleCallbacks
  * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Image
+class Image extends BaseEntity implements ImageInterface
 {
     /**
      * Id
@@ -60,13 +61,6 @@ class Image
     protected $item;
 
     /**
-     * Old source list
-     *
-     * @var array
-     */
-    protected $old_sources = [];
-
-    /**
      * Get id
      *
      * @return integer 
@@ -85,10 +79,7 @@ class Image
      */
     public function setSource($source)
     {
-        if ($this->source) {
-            $this->old_sources[] = $this->source;
-        }
-        $this->source = $source;
+        $this->setFilename($source);
         return $this;
     }
 
@@ -99,7 +90,26 @@ class Image
      */
     public function getSource()
     {
-        return $this->source;
+        return $this->getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::getFilename()
+     */
+    public function getFilename()
+    {
+        return $this->source ?: parent::getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::setFilename()
+     */
+    public function setFilename($filename)
+    {
+        $this->source = $filename;
+        parent::setFilename($filename);
     }
 
     /**
@@ -128,87 +138,5 @@ class Image
     public function getItem()
     {
         return $this->item;
-    }
-
-    /**
-     * Remove source file
-     *
-     * @ORM\PostRemove
-     */
-    public function doRemoveSource()
-    {
-        if ($this->source && file_exists($this->getAbsolutePath())) {
-            unlink($this->getAbsolutePath());
-        }
-    }
-
-    /**
-     * Remove old source files
-     *
-     * @ORM\PostRemove
-     * @ORM\PostUpdate
-     */
-    public function doRemoveOldSources()
-    {
-        while ($cover = array_shift($this->old_sources)) {
-            if (file_exists($this->getUploadRootDir().'/'.$cover)) {
-                unlink($this->getUploadRootDir().'/'.$cover);
-            }
-        }
-    }
-
-    /**
-     * Get absolute path
-     *
-     * @return string
-     */
-    public function getAbsolutePath()
-    {
-        return $this->source !== null ? $this->getUploadRootDir().'/'.$this->source : null;
-    }
-
-    /**
-     * Get upload root dir
-     *
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Get upload dir
-     *
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'media';
-    }
-
-    /**
-     * Get source web path
-     *
-     * @return string
-     */
-    public function getSourceWebPath()
-    {
-        return $this->source ? '/'.$this->getUploadDir().'/'.$this->source : null;
-    }
-
-    /**
-     * Rename image if in temp folder
-     *
-     * @ORM\PrePersist
-     */
-    public function doRenameImageFile()
-    {
-        if ($this->source && strpos($this->source, 'tmp') !== false) {
-            $filename = pathinfo($this->source, PATHINFO_BASENAME);
-            $file = new File($this->getAbsolutePath());
-            $this->source = date('Y/m/d/His/', $this->item->getDateAdd()->getTimestamp()).$filename;
-            $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
-        }
     }
 }

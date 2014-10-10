@@ -12,7 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Filler as FillerForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
 
@@ -58,7 +58,7 @@ abstract class Filler extends Plugin
     /**
      * Get form
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Form\Plugin\Filler
+     * @return \AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler
      */
     public function getForm()
     {

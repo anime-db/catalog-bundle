@@ -280,9 +280,24 @@ class Search
     }
 
     /**
+     * Set country
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country|null $country
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
+     */
+    public function setCountry(Country $country = null)
+    {
+        if ($this->country !== $country) {
+            $this->country = $country;
+        }
+        return $this;
+    }
+
+    /**
      * Set storage
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage|null $storage
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */

@@ -12,9 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use AnimeDb\Bundle\CatalogBundle\Entity\Name;
-use AnimeDb\Bundle\CatalogBundle\Entity\Image;
-use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -243,7 +240,7 @@ class ItemController extends Controller
             $request->getSession()->remove(self::NAME_ITEM_ADDED);
             switch ($request->request->get('do')) {
                 case 'add':
-                    $item->freez($this->getDoctrine()->getManager());
+                    $item->freez($this->getDoctrine());
                     return $this->addItem($item);
                     break;
                 case 'cancel':
@@ -256,7 +253,7 @@ class ItemController extends Controller
         $duplicate = $repository->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
-            $item->freez($this->getDoctrine()->getManager());
+            $item->freez($this->getDoctrine());
             return $this->addItem($item);
         }
 

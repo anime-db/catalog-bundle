@@ -14,16 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use AnimeDb\Bundle\CatalogBundle\Form\SearchSimple;
-use AnimeDb\Bundle\CatalogBundle\Form\Search as SearchForm;
-use Doctrine\ORM\Query\Expr;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\SearchSimple;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Search as SearchForm;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
-use AnimeDb\Bundle\CatalogBundle\Form\Settings\General as GeneralForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
-use AnimeDb\Bundle\CatalogBundle\Service\Listener\Request as RequestListener;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
-use AnimeDb\Bundle\CatalogBundle\Form\Settings\Labels;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**

@@ -19,7 +19,7 @@ use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as SearchChain;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search as SearchPluginForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
