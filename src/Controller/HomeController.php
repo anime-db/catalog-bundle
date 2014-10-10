@@ -22,6 +22,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use AnimeDb\Bundle\CatalogBundle\Controller\ItemController;
 
 /**
  * Main page of the catalog
@@ -36,28 +37,28 @@ class HomeController extends Controller
      *
      * @var integer
      */
-    const HOME_ITEMS_PER_PAGE = 8;
+    const HOME_ITEMS_PER_PAGE = ItemController::ITEMS_PER_PAGE;
 
     /**
      * Items per page on search page
      *
      * @var integer
      */
-    const SEARCH_ITEMS_PER_PAGE = 8;
+    const SEARCH_ITEMS_PER_PAGE = ItemController::ITEMS_PER_PAGE;
 
     /**
      * Limit for show all items
      *
      * @var integer
      */
-    const SHOW_LIMIT_ALL = -1;
+    const SHOW_LIMIT_ALL = ItemController::LIMIT_ALL;
 
     /**
      * Limit name for show all items
      *
      * @var integer
      */
-    const SHOW_LIMIT_ALL_NAME = 'All (%total%)';
+    const SHOW_LIMIT_ALL_NAME = ItemController::LIMIT_ALL_NAME;
 
     /**
      * Widget place top

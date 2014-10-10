@@ -53,6 +53,72 @@ class ItemController extends Controller
     const WIDGET_PALCE_BOTTOM = 'item.bottom';
 
     /**
+     * Items per page
+     *
+     * @var integer
+     */
+    const ITEMS_PER_PAGE = 8;
+
+    /**
+     * Limit for show all items
+     *
+     * @var integer
+     */
+    const LIMIT_ALL = -1;
+
+    /**
+     * Limit name for show all items
+     *
+     * @var integer
+     */
+    const LIMIT_ALL_NAME = 'All (%total%)';
+
+    /**
+     * Limits on the number of items per page
+     *
+     * @var array
+     */
+    public static $limits = [8, 16, 32, self::LIMIT_ALL];
+
+    /**
+     * Sort items by field
+     *
+     * @var array
+     */
+    public static $sort_by_field = [
+        'name'        => [
+            'title' => 'Item name',
+            'name'  => 'Name'
+        ],
+        'date_update' => [
+            'title' => 'Last updated item',
+            'name'  => 'Update'
+        ],
+        'rating' => [
+            'title' => 'Item rating',
+            'name'  => 'Rating'
+        ],
+        'date_premiere'  => [
+            'title' => 'Date premiere',
+            'name'  => 'Date premiere'
+        ],
+        'date_end'    => [
+            'title' => 'End date of issue',
+            'name'  => 'Date end'
+        ]
+    ];
+
+    /**
+     * Sort direction
+     *
+     * @var array
+     */
+    public static $sort_direction = [
+        'DESC' => 'Descending',
+        'ASC'  => 'Ascending'
+    ];
+
+    /**
      * Show item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
@@ -278,5 +344,32 @@ class ItemController extends Controller
             'item_show',
             ['id' => $item->getId(), 'name' => $item->getName()]
         ));
+    }
+
+    /**
+     * List items limit control
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $parent_request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function limitControlAction(Request $parent_request, $total = -1)
+    {
+        $limits = [];
+        foreach (self::$limits as $limit) {
+            $limits[] = [
+                'link' => '?'.http_build_query(
+                    array_merge($parent_request->query->all(), ['limit' => $limit])
+                ),
+                'name' => $limit == self::LIMIT_ALL ? self::LIMIT_ALL_NAME : $limit,
+                'count' => $limit,
+                'current' => $parent_request->query->get('limit', 0) == $limit
+            ];
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
+            'limits' => $limits,
+            'total' => $total != -1 ? $total : $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count()
+        ]);
     }
 }
