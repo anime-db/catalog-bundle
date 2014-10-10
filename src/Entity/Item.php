@@ -1086,4 +1086,14 @@ class Item extends BaseEntity implements ImageInterface
     {
         return trim(preg_replace('/\s+/', '_', $this->name), '_');
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

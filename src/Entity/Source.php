@@ -121,4 +121,14 @@ class Source
     {
         return $this->item;
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
 }

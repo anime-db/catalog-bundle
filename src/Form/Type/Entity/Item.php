@@ -312,5 +312,6 @@ class Item extends AbstractType
         $this->sorter->choice($view->children['studio']);
         $this->sorter->choice($view->children['country']);
         $this->sorter->choice($view->children['storage']);
+        $this->sorter->choice($view->children['sources']);
     }
 }

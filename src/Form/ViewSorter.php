@@ -46,13 +46,13 @@ class ViewSorter
     public function choice(FormView $choice)
     {
         $collator = $this->collator;
-        if ($choice->vars['expanded']) {
+        if ($choice->vars['compound']) {
             usort($choice->children, function (FormView $a, FormView $b) use ($collator) {
-                return $collator->compare($a->vars['label'], $b->vars['label']);
+                return $collator->compare($a->vars['label']?:$a->vars['value'], $b->vars['label']?:$b->vars['value']);
             });
         } else {
             usort($choice->vars['choices'], function (ChoiceView $a, ChoiceView $b) use ($collator) {
-                return $collator->compare($a->label, $b->label);
+                return $collator->compare($a->label?:$a->value, $b->label?:$b->value);
             });
         }
     }
