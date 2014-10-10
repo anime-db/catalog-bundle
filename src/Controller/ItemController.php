@@ -346,21 +346,21 @@ class ItemController extends Controller
     /**
      * List items limit control
      *
-     * @param \Symfony\Component\HttpFoundation\Request $parent_request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param integer $total
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function limitControlAction(Request $parent_request, $total = -1)
+    public function limitControlAction(Request $request, $total = -1)
     {
         $limits = [];
-        $current_limit = $parent_request->get('limit');
+        $current_limit = $request->get('limit');
         $current_limit = in_array($current_limit, self::$limits) ? $current_limit : self::DEFAULT_LIMIT;
 
         foreach (self::$limits as $limit) {
             $limits[] = [
                 'link' => '?'.http_build_query(
-                    array_merge($parent_request->query->all(), ['limit' => $limit])
+                    array_merge($request->query->all(), ['limit' => $limit])
                 ),
                 'name' => $limit == self::LIMIT_ALL ? self::LIMIT_ALL_NAME : $limit,
                 'count' => $limit,
@@ -381,16 +381,16 @@ class ItemController extends Controller
     /**
      * List items sort control
      *
-     * @param \Symfony\Component\HttpFoundation\Request $parent_request
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function sortControlAction(Request $parent_request)
+    public function sortControlAction(Request $request)
     {
         /* @var $search \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
         $search = $this->get('anime_db.search');
-        $current_sort_by = $search->getValidSortColumn($parent_request->get('sort_by'));
-        $current_sort_direction = $search->getValidSortDirection($parent_request->get('sort_direction'));
+        $current_sort_by = $search->getValidSortColumn($request->get('sort_by'));
+        $current_sort_direction = $search->getValidSortDirection($request->get('sort_direction'));
 
         // sort by
         $sort_by = [];
@@ -400,14 +400,14 @@ class ItemController extends Controller
                 'title' => $info['title'],
                 'current' => $current_sort_by == $field,
                 'link' => '?'.http_build_query(
-                    array_merge($parent_request->query->all(), ['sort_by' => $field])
+                    array_merge($request->query->all(), ['sort_by' => $field])
                 )
             ];
         }
 
         $sort_direction['type'] = ($current_sort_direction == 'ASC' ? 'DESC' : 'ASC');
         $sort_direction['link'] = '?'.http_build_query(
-            array_merge($parent_request->query->all(), ['sort_direction' => $sort_direction['type']])
+            array_merge($request->query->all(), ['sort_direction' => $sort_direction['type']])
         );
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
