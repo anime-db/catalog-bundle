@@ -11,7 +11,7 @@
 </div>
 <div class="home-center">
 {{ widgets(widget_top) }}
-{% include 'AnimeDbCatalogBundle:Item:list.html.twig' %}
+{% include 'AnimeDbCatalogBundle:Item:list.html.twig' with {'hide_sort': true} %}
 {{ widgets(widget_bottom) }}
 </div>
 {% endblock %}
