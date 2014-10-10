@@ -131,4 +131,14 @@ class Studio
     {
         return $this->items;
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

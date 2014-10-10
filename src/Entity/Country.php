@@ -210,4 +210,14 @@ class Country implements Translatable
         }
         return $this;
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

@@ -503,4 +503,14 @@ class Storage
 
         $this->doSaveStorageId();
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

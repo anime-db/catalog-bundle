@@ -139,4 +139,14 @@ class Image extends BaseEntity implements ImageInterface
     {
         return $this->item;
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getSource();
+    }
 }

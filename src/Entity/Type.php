@@ -168,4 +168,14 @@ class Type implements Translatable
         $this->locale = $locale;
         return $this;
     }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
