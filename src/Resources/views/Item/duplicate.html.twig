@@ -7,7 +7,7 @@
 	<h2>{% trans %}Confirmation matching item{% endtrans %}</h2>
 	<section class="b-duplicates">
 		<header>{% trans %}List of matches found{% endtrans %}</header>
-		<article>{% include 'AnimeDbCatalogBundle:Home:list-items.html.twig' %}</article>
+		<article>{% include 'AnimeDbCatalogBundle:Item:list.html.twig' with {'hide_sort': true, 'hide_limit': true} %}</article>
 	</section>
 	<div class="b-form">
 		<form action="{{ path('item_duplicate') }}" method="post">

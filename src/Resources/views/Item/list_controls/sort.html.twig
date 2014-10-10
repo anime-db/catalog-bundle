@@ -1,0 +1,16 @@
+<ul class="sort-by">
+	<li><strong>{% trans %}Sorting{% endtrans %}:</strong></li>
+	{% for button in sort_by %}
+		{% set title = button.title|trans %}
+		{% if button.current %}
+			<li><span title="{{ 'Search by \'%field%\''|trans({'%field%': title}) }}">{{ button.name|trans }}</span></li>
+		{% else %}
+			<li><a href="{{ button.link }}" title="{{ 'Search by \'%field%\''|trans({'%field%': title}) }}">{{ button.name|trans }}</a></li>
+		{% endif %}
+	{% endfor %}
+	{% if sort_direction.type == 'DESC' %}
+		<li><a href="{{ sort_direction.link }}" title="{{ 'Sort descending'|trans }}">↓</a></li>
+	{% else %}
+		<li><a href="{{ sort_direction.link }}" title="{{ 'Sort ascending'|trans }}">↑</a></li>
+	{% endif %}
+</ul>

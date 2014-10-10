@@ -12,7 +12,7 @@
 	{% if items is not empty %}
 		<div class="b-import-items">
 		<h2>{% trans %}List of results{% endtrans %}</h2>
-		{% include 'AnimeDbCatalogBundle:Home:list-items.html.twig' %}
+		{% include 'AnimeDbCatalogBundle:Item:list.html.twig' with {'hide_sort': true, 'hide_limit': true} %}
 		</div>
 	{% endif%}
 </div>
