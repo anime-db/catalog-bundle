@@ -16,3 +16,7 @@ services:
     anime_db.api_client:
         class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
         arguments: [ %locale% ]
+
+    anime_db.list_items:
+        class: AnimeDb\Bundle\CatalogBundle\Service\ListItems
+        arguments: [ @doctrine, @anime_db.search ]
