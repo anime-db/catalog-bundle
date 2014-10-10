@@ -8,19 +8,18 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service;
+namespace AnimeDb\Bundle\CatalogBundle\Service\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Repository\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager;
-use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * List items service
+ * Item list controls service
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service
+ * @package AnimeDb\Bundle\CatalogBundle\Service\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class ListItems
+class ListControls
 {
     /**
      * Default limit
@@ -79,13 +78,6 @@ class ListItems
     ];
 
     /**
-     * Repository
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Repository\Item
-     */
-    protected $repository;
-
-    /**
      * Item searcher
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
@@ -95,12 +87,10 @@ class ListItems
     /**
      * Construct
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $doctrine
      * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager $searcher
      */
-    public function __construct(ManagerRegistry $doctrine, Manager $searcher)
+    public function __construct(Manager $searcher)
     {
-        $this->repository = $doctrine->getRepository('AnimeDbCatalogBundle:Item');
         $this->searcher = $searcher;
     }
 
@@ -141,29 +131,6 @@ class ListItems
         }
 
         return $limits;
-    }
-
-    /**
-     * Get total items
-     *
-     * @return integer
-     */
-    public function getTotal()
-    {
-        return $this->repository->count();
-    }
-
-    /**
-     * Get items list
-     *
-     * @param integer|null $limit
-     * @param integer|null $offset
-     *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Entity\Item]
-     */
-    public function getList($limit = 0, $offset = 0)
-    {
-        return $this->repository->getList($limit, $offset);
     }
 
     /**
