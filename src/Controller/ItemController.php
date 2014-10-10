@@ -347,11 +347,11 @@ class ItemController extends Controller
      * List items limit control
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param integer $total
+     * @param string|integer $total
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function limitControlAction(Request $request, $total = -1)
+    public function limitControlAction(Request $request, $total = '')
     {
         $limits = [];
         $current_limit = $request->get('limit');
@@ -368,7 +368,7 @@ class ItemController extends Controller
             ];
         }
 
-        if ($total == -1) {
+        if (!is_numeric($total) || $total < 0) {
             $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
         }
 
