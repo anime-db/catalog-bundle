@@ -28,10 +28,10 @@
 		<section class="b-result">
 			<header>{% trans %}Search results{% endtrans %}</header>
 			<article>
-				{% if searched == true and items is empty %}
+				{% if items is empty %}
 					{% trans %}Nothing found{% endtrans %}
 				{% else %}
-					{% include 'AnimeDbCatalogBundle:Home:list-items.html.twig' %}
+					{% include 'AnimeDbCatalogBundle:Item:list.html.twig' %}
 				{% endif %}
 			</article>
 		</section>

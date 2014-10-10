@@ -19,9 +19,9 @@
 		<div class="b-update-ask">
 			{% if action %}
 				{% if action == 'install' %}
-					<div class="b-message">{% trans with {'%link%': referer} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
+					<div class="b-message">{% trans with {'%link%': app.request.headers.get('referer')} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
 				{% else %}
-					<div class="b-message">{% trans with {'%link%': referer} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
+					<div class="b-message">{% trans with {'%link%': app.request.headers.get('referer')} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
 				{% endif %}
 				<br />
 				{% if plugin %}
@@ -59,8 +59,8 @@
 				<a href="#" class="bt-toggle-block" data-target=".b-update-log">{% trans %}Show execution log.{% endtrans %}</a>
 			</div>
 			<pre class="b-progress-log"><code
-				data-from="{{ log_file }}"
-				data-end-message="{{ end_message }}"
+				data-from="/update.log"
+				data-end-message="Updating the application has been completed"
 				data-message="{% trans %}Update successful. Restart the application to complete the update.{% endtrans %}"
 				data-redirect="{{ path('home') }}"
 			></code></pre>

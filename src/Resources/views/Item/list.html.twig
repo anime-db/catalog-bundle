@@ -1,6 +1,6 @@
-{% if items is defined and items %}
+{% if items|default is not empty %}
 <div class="list-items">
-	{% if (sort_by|default is not empty and sort_direction|default is not empty) or (show_limit|default is not empty) %}
+	{% if hide_controls|default is empty %}
 		<div class="controls">
 			{% if sort_by|default is not empty and sort_direction|default is not empty %}
 				<ul class="sort-by">
@@ -34,9 +34,7 @@
 			{% endif %}
 		</div>
 	{% endif %}
-	{% if items|length > 16 %}
-		{% include 'AnimeDbAppBundle::pagination.html.twig' %}
-	{% endif %}
+	{% include 'AnimeDbAppBundle::pagination.html.twig' %}
 	{% for item in items %}
 		<div class="item-container">
 			<div class="item">
