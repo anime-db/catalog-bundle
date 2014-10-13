@@ -193,8 +193,9 @@ class ListControls
      */
     public function getSortDirectionLink(array $query = [])
     {
+        $direction = $this->getSortDirection($query) == 'ASC' ? 'DESC' : 'ASC';
         return '?'.http_build_query(
-            array_merge($query, ['sort_direction' => $this->getSortDirection($query)])
+            array_merge($query, ['sort_direction' => $direction])
         );
     }
 }
