@@ -15,13 +15,13 @@
 		</p>
 		<pre><code>php app/console animedb:update</code></pre>
 		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
-	{% elseif confirmed == false %}
+	{% else %}
 		<div class="b-update-ask">
 			{% if action %}
 				{% if action == 'install' %}
-					<div class="b-message">{% trans with {'%link%': app.request.headers.get('referer')} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
+					<div class="b-message">{% trans with {'%link%': referer} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
 				{% else %}
-					<div class="b-message">{% trans with {'%link%': app.request.headers.get('referer')} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
+					<div class="b-message">{% trans with {'%link%': referer} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
 				{% endif %}
 				<br />
 				{% if plugin %}
@@ -47,23 +47,10 @@
 				{% endif %}
 			{% endif %}
 			<div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
-			<form action="" method="post">
+			<form action="{{ path('update_execute') }}" method="post">
 				<a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>
-				<button type="submit" name="confirm" value="1">{% trans %}Yes{% endtrans %}</button>
+				<button type="submit">{% trans %}Yes{% endtrans %}</button>
 			</form>
-		</div>
-	{% else %}
-		<div class="b-progress b-update-container">
-			<div class="b-message">
-				{% trans %}Performed update system. Do not turn off the system until the update is complete.{% endtrans %}<br />
-				<a href="#" class="bt-toggle-block" data-target=".b-update-log">{% trans %}Show execution log.{% endtrans %}</a>
-			</div>
-			<pre class="b-progress-log"><code
-				data-from="/update.log"
-				data-end-message="Updating the application has been completed"
-				data-message="{% trans %}Update successful. Restart the application to complete the update.{% endtrans %}"
-				data-redirect="{{ path('home') }}"
-			></code></pre>
 		</div>
 	{% endif %}
 </div>

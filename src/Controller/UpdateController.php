@@ -96,13 +96,6 @@ class UpdateController extends Controller
             }
         }
 
-        // execute update
-        if ($request->request->get('confirm') && $can_update) {
-            file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
-            $this->get('anime_db.command')
-                ->exec('php app/console animedb:update --env=prod >web/update.log');
-        }
-
         // add link to documentation
         $link = '';
         if (!$can_update) {
@@ -112,14 +105,33 @@ class UpdateController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
-            'confirmed' => $request->request->get('confirm'),
-            'log_file' => '/update.log',
-            'end_message' => self::END_MESSAGE,
             'can_update' => $can_update,
             'doc' => $link,
             'referer' => $request->headers->get('referer'),
             'plugin' => $plugin,
             'action' => $action
         ], $response);
+    }
+
+    /**
+     * Execute update application
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function executeAction()
+    {
+        // update for Windows XP does not work
+        if (strpos(php_uname('v'), 'Windows XP') !== false) {
+            $this->redirect($this->generateUrl('update'));
+        }
+
+        // execute update
+        file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
+        $this->get('anime_db.command')->exec('php app/console animedb:update --env=prod >web/update.log');
+
+        return $this->render('AnimeDbCatalogBundle:Update:execute.html.twig', [
+            'log_file' => '/update.log',
+            'end_message' => self::END_MESSAGE
+        ]);
     }
 }
