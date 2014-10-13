@@ -8,10 +8,10 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service\Search\Driver;
+namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type as TypeEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country as CountryEntity;
@@ -21,7 +21,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio as StudioEntity;
 /**
  * Search driver use a SQL LIKE for select name
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Search\Driver
+ * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SqlLike implements DriverInterface

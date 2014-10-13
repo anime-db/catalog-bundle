@@ -74,7 +74,8 @@ class HomeController extends Controller
         if ($response->getLastModified() < $last_update) {
             $response->setLastModified($last_update);
         }
-        $response->setEtag(md5($repository->count()));
+        $total = $repository->count();
+        $response->setEtag(md5($total));
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -87,13 +88,15 @@ class HomeController extends Controller
 
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
         $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item_list_controls');
 
         $pagination = null;
         // show not all items
-        if ($limit = ItemController::getLimit($request)) {
+        if ($limit = $controls->getLimit($request->query->all())) {
             $that = $this;
             $pagination = $this->get('anime_db.pagination')->createNavigation(
-                ceil($repository->count()/$limit),
+                ceil($total/$limit),
                 $current_page,
                 Pagination::DEFAULT_LIST_LENGTH,
                 function ($page) use ($that) {
@@ -157,7 +160,7 @@ class HomeController extends Controller
         }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
-        /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
+        /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
         $service = $this->get('anime_db.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
 
@@ -227,19 +230,21 @@ class HomeController extends Controller
         if ($request->query->count()) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
+                /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
                 $service = $this->get('anime_db.search');
+                /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+                $controls = $this->get('anime_db.item_list_controls');
 
                 // current page for paging
                 $current_page = $request->get('page', 1);
                 $current_page = $current_page > 1 ? $current_page : 1;
 
                 // get items limit
-                $limit = ItemController::getLimit($request);
+                $limit = $controls->getLimit($request->query->all());
 
                 // get order
-                $current_sort_by = $service->getValidSortColumn($request->get('sort_by'));
-                $current_sort_direction = $service->getValidSortDirection($request->get('sort_direction'));
+                $current_sort_by = $controls->getSortColumn($request->query->all());
+                $current_sort_direction = $controls->getSortDirection($request->query->all());
 
                 // do search
                 $result = $service->search(
