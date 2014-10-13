@@ -12,13 +12,36 @@ namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20131015113854_ChangeImagePaths extends AbstractMigration
+class Version20131015113854_ChangeImagePaths extends AbstractMigration implements ContainerAwareInterface
 {
+    /**
+     * Media dir
+     *
+     * @var string
+     */
+    protected $media_dir;
+
+    /**
+     * Set container
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->media_dir = $container->getParameter('kernel.root_dir').'/../web/media/';
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     */
     public function up(Schema $schema)
     {
         /**
@@ -31,7 +54,6 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
          * New Format(date added item):
          *    media/{Y}/{m}/{d}/{His}/
          */
-        $media = __DIR__.'/../../../../../web/media/';
 
         // move covers
         $items = $this->connection->fetchAll('
@@ -48,8 +70,8 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
         );
         foreach ($items as $item) {
             $path = date('Y/m/d/His/', strtotime($item['date_add']));
-            $file = new File($media.$item['cover']);
-            $file->move($media.$path);
+            $file = new File($this->media_dir.$item['cover']);
+            $file->move($this->media_dir.$path);
             $this->addSql('
                 UPDATE
                     `item`
@@ -79,8 +101,8 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
         );
         foreach ($images as $image) {
             $path = date('Y/m/d/His/', strtotime($image['date_add']));
-            $file = new File($media.$image['source']);
-            $file->move($media.$path);
+            $file = new File($this->media_dir.$image['source']);
+            $file->move($this->media_dir.$path);
             $this->addSql('
                 UPDATE
                     `image`
@@ -99,6 +121,10 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration
         $this->skipIf(!($items && $images), 'No data to migrate');
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     */
     public function down(Schema $schema)
     {
         // the down migration is not need
