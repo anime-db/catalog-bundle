@@ -13,7 +13,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormError;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search;
 
