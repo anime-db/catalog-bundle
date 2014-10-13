@@ -5,17 +5,17 @@ services:
         tags:
             - { name: twig.extension }
 
-    anime_db.search.driver.sql_like:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Search\Driver\SqlLike
-        arguments: [ @doctrine ]
-        public: false
-    anime_db.search:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
-        arguments: [ @anime_db.search.driver ]
-
     anime_db.api_client:
         class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
         arguments: [ %locale% ]
+
+    anime_db.search.driver.sql_like:
+        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
+        arguments: [ @doctrine ]
+        public: false
+    anime_db.search:
+        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
+        arguments: [ @anime_db.search.driver ]
 
     anime_db.item_list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
