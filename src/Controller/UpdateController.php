@@ -59,19 +59,14 @@ class UpdateController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         // update for Windows XP does not work
         $can_update = strpos(php_uname('v'), 'Windows XP') === false;
-
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
-        }
 
         // delete or install package
         $action = false;

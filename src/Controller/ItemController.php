@@ -125,22 +125,12 @@ class ItemController extends Controller
      */
     public function showAction(Item $item, Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // use item update date
-        if ($response->getLastModified() < $item->getDateUpdate()) {
-            $response->setLastModified($item->getDateUpdate());
-        }
+        $date = [$item->getDateUpdate()];
         // use storage update date
-        if (
-            $item->getStorage() instanceof Storage &&
-            $response->getLastModified() < $item->getStorage()->getDateUpdate()
-        ) {
-            $response->setLastModified($item->getStorage()->getDateUpdate());
+        if ($item->getStorage() instanceof Storage) {
+            $date[] = $item->getStorage()->getDateUpdate();
         }
+        $response = $this->get('cache_time_keeper')->getResponse($date);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -163,6 +153,12 @@ class ItemController extends Controller
      */
     public function addManuallyAction(Request $request)
     {
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $item = new Item();
 
         /* @var $form \Symfony\Component\Form\Form */
@@ -187,7 +183,7 @@ class ItemController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Item:add-manually.html.twig', [
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**

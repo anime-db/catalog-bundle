@@ -35,19 +35,7 @@ class StorageController extends Controller
      */
     public function listAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // last storage update
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
-        $last_update = $repository->getLastUpdate();
-        if ($response->getLastModified() < $last_update) {
-            $response->setLastModified($last_update);
-        }
-        $response->setEtag(md5($repository->count()));
-
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Storage');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -70,15 +58,7 @@ class StorageController extends Controller
      */
     public function changeAction(Storage $storage, Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // use storage update date
-        if ($response->getLastModified() < $storage->getDateUpdate()) {
-            $response->setLastModified($storage->getDateUpdate());
-        }
+        $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -112,15 +92,10 @@ class StorageController extends Controller
      */
     public function addAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         $storage = new Storage();
@@ -167,11 +142,19 @@ class StorageController extends Controller
      */
     public function getPathAction(Request $request)
     {
+        /* @var $response \Symfony\Component\HttpFoundation\JsonResponse */
+        $response = $this->get('cache_time_keeper')
+            ->getResponse('AnimeDbCatalogBundle:Storage', -1, new JsonResponse());
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
         $storage = $this->getDoctrine()->getManager()
             ->find('AnimeDbCatalogBundle:Storage', $request->get('id'));
 
-        return new JsonResponse([
+        return $response->setData([
             'required' => $storage->isPathRequired(),
             'path' => $storage->getPath()
         ]);
@@ -187,7 +170,7 @@ class StorageController extends Controller
      */
     public function scanAction(Storage $storage, Request $request)
     {
-        $response = new Response();
+        $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
 
         $scan_output = $this->container->getParameter('anime_db.catalog.storage.scan_output');
         $scan_output = sprintf($scan_output, $storage->getId());
@@ -205,14 +188,6 @@ class StorageController extends Controller
             $scan_output
         ));
 
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // use storage update date
-        if ($response->getLastModified() < $storage->getDateUpdate()) {
-            $response->setLastModified($storage->getDateUpdate());
-        }
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;

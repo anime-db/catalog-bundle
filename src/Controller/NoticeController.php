@@ -40,6 +40,12 @@ class NoticeController extends Controller
      */
     public function listAction(Request $request)
     {
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbAppBundle:Notice');
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $current_page = $request->get('page', 1);
         $current_page = $current_page > 1 ? $current_page : 1;
 
@@ -131,6 +137,6 @@ class NoticeController extends Controller
             'filter' => $filter->getData()['type'] || $count ? $filter->createView() : false,
             'change_form' => $change_form->createView(),
             'action_remove' => ChangeNotice::ACTION_REMOVE
-        ]);
+        ], $response);
     }
 }
