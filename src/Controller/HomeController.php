@@ -61,20 +61,11 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Item');
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
-        // check items last update
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-        $last_update = $repository->getLastUpdate();
-        if ($response->getLastModified() < $last_update) {
-            $response->setLastModified($last_update);
-        }
-        $total = $repository->count();
-        $response->setEtag(md5($total));
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -95,7 +86,7 @@ class HomeController extends Controller
         if ($limit = $controls->getLimit($request->query->all())) {
             $that = $this;
             $pagination = $this->get('anime_db.pagination')->createNavigation(
-                ceil($total/$limit),
+                ceil($repository->count()/$limit),
                 $current_page,
                 Pagination::DEFAULT_LIST_LENGTH,
                 function ($page) use ($that) {
@@ -138,21 +129,8 @@ class HomeController extends Controller
      */
     public function autocompleteNameAction(Request $request)
     {
-        $response = new JsonResponse();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // check items last update
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-        $last_update = $repository->getLastUpdate();
-        if ($response->getLastModified() < $last_update) {
-            $response->setLastModified($last_update);
-        }
-        $total = $repository->count();
-        $response->setEtag(md5($total));
-
+        $response = $this->get('cache_time_keeper')
+            ->getResponse('AnimeDbCatalogBundle:Item', -1, new JsonResponse());
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -191,29 +169,8 @@ class HomeController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // check items last update
-        if ($request->query->count()) {
-            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-            // last item update
-            $last_update = $repository->getLastUpdate();
-            if ($response->getLastModified() < $last_update) {
-                $response->setLastModified($last_update);
-            }
-            $response->setEtag(md5($repository->count()));
-
-            // last storage update
-            $last_update = $this->getDoctrine()
-                ->getRepository('AnimeDbCatalogBundle:Storage')
-                ->getLastUpdate();
-            if ($response->getLastModified() < $last_update) {
-                $response->setLastModified($last_update);
-            }
-        }
+        $response = $this->get('cache_time_keeper')
+            ->getResponse(['AnimeDbCatalogBundle:Item', 'AnimeDbCatalogBundle:Storage']);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -297,15 +254,10 @@ class HomeController extends Controller
      */
     public function settingsAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         $entity = new GeneralEntity();
@@ -351,7 +303,12 @@ class HomeController extends Controller
      */
     public function autocompleteLabelAction(Request $request)
     {
-        $response = new JsonResponse();
+        $response = $this->get('cache_time_keeper')
+            ->getResponse('AnimeDbCatalogBundle:Label', -1, new JsonResponse());
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
 
@@ -390,6 +347,12 @@ class HomeController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function labelsAction(Request $request) {
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Label');
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $em = $this->getDoctrine()->getManager();
         $labels = new ArrayCollection($em->getRepository('AnimeDbCatalogBundle:Label')->findAll());
 
@@ -424,6 +387,6 @@ class HomeController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Home:labels.html.twig', [
             'form'  => $form->createView()
-        ]);
+        ], $response);
     }
 }
