@@ -23,6 +23,13 @@ use Symfony\Component\HttpFoundation\Response;
 class PluginController extends Controller
 {
     /**
+     * Cache lifetime 1 day
+     *
+     * @var integer
+     */
+    const CACHE_LIFETIME = 86400;
+
+    /**
      * Installed plugins
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -31,15 +38,10 @@ class PluginController extends Controller
      */
     public function installedAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbAppBundle:Plugin');
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         /* @var $repository \Doctrine\ORM\EntityRepository */
@@ -52,15 +54,23 @@ class PluginController extends Controller
     /**
      * Store of plugins
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function storeAction()
+    public function storeAction(Request $request)
     {
-        $response = $this->container->get('anime_db.api_client')->get('plugin/');
+        $response = $this->get('cache_time_keeper')->getResponse([], self::CACHE_LIFETIME);
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        $api_response = $this->container->get('anime_db.api_client')->get('plugin/');
 
         $plugins = [];
-        if ($response->isSuccessful()) {
-            $data = json_decode($response->getBody(true), true);
+        if ($api_response->isSuccessful()) {
+            $data = json_decode($api_response->getBody(true), true);
             foreach ($data['plugins'] as $plugin) {
                 $plugins[$plugin['name']] = $plugin;
                 $plugins[$plugin['name']]['installed'] = false;
@@ -76,6 +86,6 @@ class PluginController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Plugin:store.html.twig', [
             'plugins' => $plugins
-        ]);
+        ], $response);
     }
 }
