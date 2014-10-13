@@ -160,7 +160,7 @@ class HomeController extends Controller
         }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
-        /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
+        /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
         $service = $this->get('anime_db.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
 
@@ -230,7 +230,7 @@ class HomeController extends Controller
         if ($request->query->count()) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
+                /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
                 $service = $this->get('anime_db.search');
                 /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
                 $controls = $this->get('anime_db.item_list_controls');

@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Repository\Item;
-use AnimeDb\Bundle\CatalogBundle\Service\Search\Manager;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 
 /**
  * Item list controls service
@@ -80,14 +80,14 @@ class ListControls
     /**
      * Item searcher
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager
+     * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
      */
     protected $searcher;
 
     /**
      * Construct
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager $searcher
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager $searcher
      */
     public function __construct(Manager $searcher)
     {

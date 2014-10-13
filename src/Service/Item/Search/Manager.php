@@ -8,15 +8,15 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service\Search;
+namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search;
 
-use AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Item search
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Search
+ * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Manager
@@ -38,7 +38,7 @@ class Manager
     /**
      * Search driver
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface
+     * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface
      */
     protected $driver;
 
@@ -68,7 +68,7 @@ class Manager
     /**
      * Construct
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Search\DriverInterface $driver
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface $driver
      */
     public function __construct(DriverInterface $driver)
     {
