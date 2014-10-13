@@ -127,7 +127,7 @@ class UpdateController extends Controller
 
         // execute update
         file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
-        $this->get('anime_db.command')->exec('php app/console animedb:update --env=prod >web/update.log');
+        $this->get('anime_db.command')->send('php app/console animedb:update --env=prod >web/update.log 2>&1');
 
         return $this->render('AnimeDbCatalogBundle:Update:execute.html.twig', [
             'log_file' => '/update.log',
