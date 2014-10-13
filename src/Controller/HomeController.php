@@ -22,7 +22,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-use AnimeDb\Bundle\CatalogBundle\Controller\ItemController;
 
 /**
  * Main page of the catalog

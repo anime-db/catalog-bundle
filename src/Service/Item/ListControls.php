@@ -10,7 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item;
 
-use AnimeDb\Bundle\CatalogBundle\Repository\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 
 /**
