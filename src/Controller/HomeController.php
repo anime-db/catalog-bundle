@@ -88,10 +88,12 @@ class HomeController extends Controller
 
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
         $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item_list_controls');
 
         $pagination = null;
         // show not all items
-        if ($limit = ItemController::getLimit($request)) {
+        if ($limit = $controls->getLimit($request->query->all())) {
             $that = $this;
             $pagination = $this->get('anime_db.pagination')->createNavigation(
                 ceil($total/$limit),
@@ -230,17 +232,19 @@ class HomeController extends Controller
             if ($form->isValid()) {
                 /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
                 $service = $this->get('anime_db.search');
+                /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+                $controls = $this->get('anime_db.item_list_controls');
 
                 // current page for paging
                 $current_page = $request->get('page', 1);
                 $current_page = $current_page > 1 ? $current_page : 1;
 
                 // get items limit
-                $limit = ItemController::getLimit($request);
+                $limit = $controls->getLimit($request->query->all());
 
                 // get order
-                $current_sort_by = $service->getValidSortColumn($request->get('sort_by'));
-                $current_sort_direction = $service->getValidSortDirection($request->get('sort_direction'));
+                $current_sort_by = $controls->getSortColumn($request->query->all());
+                $current_sort_direction = $controls->getSortDirection($request->query->all());
 
                 // do search
                 $result = $service->search(

@@ -353,26 +353,15 @@ class ItemController extends Controller
      */
     public function limitControlAction(Request $request, $total = '')
     {
-        $limits = [];
-        $current_limit = self::getLimit($request);
-
-        foreach (self::$limits as $limit) {
-            $limits[] = [
-                'link' => '?'.http_build_query(
-                    array_merge($request->query->all(), ['limit' => $limit])
-                ),
-                'name' => $limit == self::LIMIT_ALL ? self::LIMIT_ALL_NAME : $limit,
-                'count' => $limit,
-                'current' => $current_limit == $limit
-            ];
-        }
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item_list_controls');
 
         if (!is_numeric($total) || $total < 0) {
             $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
-            'limits' => $limits,
+            'limits' => $controls->getLimits($request->query->all()),
             'total' => $total
         ]);
     }
@@ -386,45 +375,16 @@ class ItemController extends Controller
      */
     public function sortControlAction(Request $request)
     {
-        /* @var $search \AnimeDb\Bundle\CatalogBundle\Service\Search\Manager */
-        $search = $this->get('anime_db.search');
-        $current_sort_by = $search->getValidSortColumn($request->get('sort_by'));
-        $current_sort_direction = $search->getValidSortDirection($request->get('sort_direction'));
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item_list_controls');
 
-        // sort by
-        $sort_by = [];
-        foreach (self::$sort_by_field as $field => $info) {
-            $sort_by[] = [
-                'name' => $info['name'],
-                'title' => $info['title'],
-                'current' => $current_sort_by == $field,
-                'link' => '?'.http_build_query(
-                    array_merge($request->query->all(), ['sort_by' => $field])
-                )
-            ];
-        }
-
-        $sort_direction['type'] = ($current_sort_direction == 'ASC' ? 'DESC' : 'ASC');
-        $sort_direction['link'] = '?'.http_build_query(
-            array_merge($request->query->all(), ['sort_direction' => $sort_direction['type']])
-        );
+        $direction = $controls->getSortDirection($request->query->all());
+        $sort_direction['type'] = $direction == 'ASC' ? 'DESC' : 'ASC';
+        $sort_direction['link'] = $controls->getSortDirectionLink($request->query->all());
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
-            'sort_by' => $sort_by,
+            'sort_by' => $controls->getSortColumns($request->query->all()),
             'sort_direction' => $sort_direction
         ]);
-    }
-
-    /**
-     * Get limit list items
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return integer
-     */
-    public static function getLimit(Request $request)
-    {
-        $limit = (int)$request->get('limit', self::ITEMS_PER_PAGE);
-        return in_array($limit, self::$limits) ? $limit : self::ITEMS_PER_PAGE;
     }
 }
