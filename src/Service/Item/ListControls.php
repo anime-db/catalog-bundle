@@ -50,11 +50,11 @@ class ListControls
     public static $limits = [8, 16, 32, self::LIMIT_ALL];
 
     /**
-     * Sort items by field
+     * Sort items by column
      *
      * @var array
      */
-    public static $sort_by_field = [
+    public static $sort_by_column = [
         'name'        => [
             'title' => 'Item name',
             'name'  => 'Name'
@@ -134,37 +134,37 @@ class ListControls
     }
 
     /**
-     * Get sort field
+     * Get sort column
      *
      * @param array $query
      *
      * @return string
      */
-    public function getSortField(array $query = [])
+    public function getSortColumn(array $query = [])
     {
         return $this->searcher->getValidSortColumn(isset($query['sort_by']) ? $query['sort_by'] : null);
     }
 
     /**
-     * Get list sorts
+     * Get list sort columns
      *
      * @param array $query
      *
      * @return array
      */
-    public function getSortFields(array $query = [])
+    public function getSortColumns(array $query = [])
     {
-        $current_sort_by = $this->getSortField($query);
+        $current_sort_by = $this->getSortColumn($query);
 
         // sort by
         $sort_by = [];
-        foreach (self::$sort_by_field as $field => $info) {
+        foreach (self::$sort_by_column as $column => $info) {
             $sort_by[] = [
                 'name' => $info['name'],
                 'title' => $info['title'],
-                'current' => $current_sort_by == $field,
+                'current' => $current_sort_by == $column,
                 'link' => '?'.http_build_query(
-                    array_merge($request->query->all(), ['sort_by' => $field])
+                    array_merge($request->query->all(), ['sort_by' => $column])
                 )
             ];
         }
