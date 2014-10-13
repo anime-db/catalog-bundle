@@ -354,7 +354,7 @@ class ItemController extends Controller
     public function limitControlAction(Request $request, $total = '')
     {
         /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
-        $controls = $this->get('anime_db.item_list_controls');
+        $controls = $this->get('anime_db.item.list_controls');
 
         if (!is_numeric($total) || $total < 0) {
             $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
@@ -376,7 +376,7 @@ class ItemController extends Controller
     public function sortControlAction(Request $request)
     {
         /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
-        $controls = $this->get('anime_db.item_list_controls');
+        $controls = $this->get('anime_db.item.list_controls');
 
         $direction = $controls->getSortDirection($request->query->all());
         $sort_direction['type'] = $direction == 'ASC' ? 'DESC' : 'ASC';

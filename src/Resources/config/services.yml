@@ -9,14 +9,14 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
         arguments: [ %locale% ]
 
-    anime_db.search.driver.sql_like:
+    anime_db.item.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
         arguments: [ @doctrine ]
         public: false
-    anime_db.search:
+    anime_db.item.search:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
-        arguments: [ @anime_db.search.driver ]
+        arguments: [ @anime_db.item.search.driver ]
 
-    anime_db.item_list_controls:
+    anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
-        arguments: [ @anime_db.search ]
+        arguments: [ @anime_db.item.search ]
