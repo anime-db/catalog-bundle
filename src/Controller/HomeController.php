@@ -79,7 +79,7 @@ class HomeController extends Controller
         /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
         $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
         /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
-        $controls = $this->get('anime_db.item_list_controls');
+        $controls = $this->get('anime_db.item.list_controls');
 
         $pagination = null;
         // show not all items
@@ -138,7 +138,7 @@ class HomeController extends Controller
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
         /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
-        $service = $this->get('anime_db.search');
+        $service = $this->get('anime_db.item.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
 
         $list = [];
@@ -187,9 +187,9 @@ class HomeController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
-                $service = $this->get('anime_db.search');
+                $service = $this->get('anime_db.item.search');
                 /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
-                $controls = $this->get('anime_db.item_list_controls');
+                $controls = $this->get('anime_db.item.list_controls');
 
                 // current page for paging
                 $current_page = $request->get('page', 1);
