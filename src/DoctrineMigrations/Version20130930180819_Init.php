@@ -12,14 +12,37 @@ namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem as FilesystemUtil;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20130930180819_Init extends AbstractMigration
+class Version20130930180819_Init extends AbstractMigration implements ContainerAwareInterface
 {
+    /**
+     * Example dir
+     *
+     * @var string
+     */
+    protected $example_dir;
+
+    /**
+     * Set container
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->example_dir = $container->getParameter('kernel.root_dir').'/../web/media/example/';
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     */
     public function up(Schema $schema)
     {
         // create tables
@@ -54,9 +77,13 @@ class Version20130930180819_Init extends AbstractMigration
 
         // copy images for example items
         $fs = new Filesystem();
-        $fs->mirror(__DIR__.'/../Resources/private/images/example/', __DIR__.'/../../../../../web/media/example/');
+        $fs->mirror(__DIR__.'/../Resources/private/images/example/', $this->example_dir);
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     */
     public function down(Schema $schema)
     {
         // drop tables
@@ -77,7 +104,7 @@ class Version20130930180819_Init extends AbstractMigration
 
         // remove images for example items
         $fs = new Filesystem();
-        $fs->remove(__DIR__.'/../../../../../web/media/example/');
+        $fs->remove($this->example_dir);
     }
 
     protected function createTableImage(Schema $schema)
