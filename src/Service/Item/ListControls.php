@@ -97,16 +97,16 @@ class ListControls
     /**
      * Get limit list items
      *
-     * @param integer|null $limit
+     * @param array $query
      *
      * @return integer
      */
-    public function getLimit($limit = null)
+    public function getLimit(array $query = [])
     {
-        if (!is_numeric($limit)) {
-            return self::DEFAULT_LIMIT;
+        if (isset($query['limit']) && is_numeric($query['limit']) && in_array($query['limit'], self::$limits)) {
+            return (int)$query['limit'];
         }
-        return in_array($limit, self::$limits) ? (int)$limit : self::DEFAULT_LIMIT;
+        return self::DEFAULT_LIMIT;
     }
 
     /**
@@ -119,7 +119,7 @@ class ListControls
     public function getLimits(array $query = [])
     {
         $limits = [];
-        $current_limit = $this->getLimit(isset($query['limit']) ? $query['limit'] : null);
+        $current_limit = $this->getLimit($query);
 
         foreach (self::$limits as $limit) {
             $limits[] = [
