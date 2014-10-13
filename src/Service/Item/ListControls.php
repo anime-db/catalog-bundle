@@ -164,7 +164,7 @@ class ListControls
                 'title' => $info['title'],
                 'current' => $current_sort_by == $column,
                 'link' => '?'.http_build_query(
-                    array_merge($request->query->all(), ['sort_by' => $column])
+                    array_merge($query, ['sort_by' => $column])
                 )
             ];
         }
