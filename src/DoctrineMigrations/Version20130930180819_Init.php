@@ -30,6 +30,13 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
     protected $example_dir;
 
     /**
+     * Kernel
+     *
+     * @var \Symfony\Component\HttpKernel\Kernel
+     */
+    protected $kernel;
+
+    /**
      * Set container
      *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
@@ -37,6 +44,7 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
     public function setContainer(ContainerInterface $container = null)
     {
         $this->example_dir = $container->getParameter('kernel.root_dir').'/../web/media/example/';
+        $this->kernel = $container->get('kernel');
     }
 
     /**
@@ -76,8 +84,8 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
         $this->addDataItem();
 
         // copy images for example items
-        $fs = new Filesystem();
-        $fs->mirror(__DIR__.'/../Resources/private/images/example/', $this->example_dir);
+        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resource/private/images/example/');
+        (new Filesystem())->mirror($source, $this->example_dir);
     }
 
     /**
@@ -103,8 +111,7 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
 
         // remove images for example items
-        $fs = new Filesystem();
-        $fs->remove($this->example_dir);
+        (new Filesystem())->remove($this->example_dir);
     }
 
     protected function createTableImage(Schema $schema)
