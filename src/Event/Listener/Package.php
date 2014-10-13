@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated;
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Package listener
@@ -29,11 +30,20 @@ class Package
     protected $root_dir;
 
     /**
+     * Kernel
+     *
+     * @var \Symfony\Component\HttpKernel\Kernel
+     */
+    protected $kernel;
+
+    /**
      * Construct
      *
+     * @param \Symfony\Component\HttpKernel\Kernel $kernel
      * @param string $root_dir
      */
-    public function __construct($root_dir) {
+    public function __construct(Kernel $kernel, $root_dir) {
+        $this->kernel = $kernel;
         $this->root_dir = $root_dir;
     }
 
@@ -66,7 +76,7 @@ class Package
      */
     protected function copyTemplates()
     {
-        $from = __DIR__.'/../../Resources/views/';
+        $from = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/views/');
         $to = $this->root_dir.'/Resources/';
         // overwrite knp menu tpl
         copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig');
