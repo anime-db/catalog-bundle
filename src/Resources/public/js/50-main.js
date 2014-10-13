@@ -173,7 +173,7 @@ $('.b-progress .b-progress-bar[data-from]').each(function() {
 	new ProgressBar(bar, bar.find('.b-progress-label'));
 });
 
-$('.b-progress .b-progress-log code[data-from]').each(function() {
+$('.b-progress:not(.b-update-container) .b-progress-log code[data-from]').each(function() {
 	var code = $(this);
 	new ProgressLog(code, code.closest('pre'));
 });
