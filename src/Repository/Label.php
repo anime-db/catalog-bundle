@@ -21,5 +21,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class Label extends EntityRepository
 {
-    
+    /**
+     * Search by name
+     *
+     * @param string $name
+     *
+     * @return array
+     */
+    public function searchByName($name)
+    {
+        // register custom lower()
+        $conn = $this->_em->getConnection()->getWrappedConnection();
+        if (method_exists($conn, 'sqliteCreateFunction')) {
+            $conn->sqliteCreateFunction('lower', function ($str) {
+                return mb_strtolower($str, 'UTF8');
+            }, 1);
+        }
+
+        return $this->_em->createQuery('
+            SELECT
+                l
+            FROM
+                AnimeDbCatalogBundle:Label l
+            WHERE
+                LOWER(l.name) LIKE :name
+        ')
+            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF8')).'%')
+            ->getResult();
+    }
 }
