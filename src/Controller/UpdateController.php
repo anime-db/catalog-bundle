@@ -75,24 +75,14 @@ class UpdateController extends Controller
 
             if (!empty($plugin['delete'])) {
                 $manipulator->removePackage($plugin['delete']);
+                $plugin = $this->getPlugin('plugin/'.$plugin['delete'].'/');
                 $action = 'delete';
             } elseif (!empty($plugin['install'])) {
                 $manipulator->addPackage($plugin['install']['package'], $plugin['install']['version']);
+                $plugin = $this->getPlugin('plugin/'.$plugin['install']['package'].'/');
                 $action = 'install';
-            }
-
-            if ($action) {
-                // get info about plugin
-                if ($action == 'install') {
-                    $api_request = 'plugin/'.$plugin['install']['package'].'/';
-                } else {
-                    $api_request = 'plugin/'.$plugin['delete'].'/';
-                }
-                $api_response = $this->container->get('anime_db.api_client')->get($api_request);
+            } else {
                 $plugin = false;
-                if ($api_response->isSuccessful()) {
-                    $plugin = json_decode($api_response->getBody(true), true);
-                }
             }
         }
 
@@ -117,6 +107,22 @@ class UpdateController extends Controller
         $locale = substr($locale, 0, 2);
         $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
         return str_replace('%locale%', $locale, self::DOC_LINK);
+    }
+
+    /**
+     * Get plugin
+     *
+     * @param string $plugin
+     *
+     * @return array|null
+     */
+    protected function getPlugin($plugin)
+    {
+        $response = $this->container->get('anime_db.api_client')->get('plugin/'.$plugin.'/');
+        if ($response->isSuccessful()) {
+            return json_decode($response->getBody(true), true);
+        }
+        return null;
     }
 
     /**
