@@ -10,25 +10,23 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage;
 
-use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
 
 /**
- * Test AddNewItem event
+ * Test event DeleteItemFiles
  *
  * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class AddNewItemTest extends \PHPUnit_Framework_TestCase
+class DeleteItemFilesTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test event
+     * Test get item
      */
-    public function testEvent()
+    public function testGetItem()
     {
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $filler = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
-        $event = new AddNewItem($item, $filler);
+        $event = new DeleteItemFiles($item);
         $this->assertEquals($item, $event->getItem());
-        $this->assertEquals($filler, $event->getFiller());
     }
 }
