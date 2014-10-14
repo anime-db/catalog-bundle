@@ -95,6 +95,9 @@ notice_list:
 update:
     pattern:  /update.html
     defaults: { _controller: AnimeDbCatalogBundle:Update:index }
+update_execute:
+    pattern:  /execute_update.html
+    defaults: { _controller: AnimeDbCatalogBundle:Update:execute }
 
 #
 # Fill
