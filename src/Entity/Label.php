@@ -20,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Entity
  * @ORM\Table(name="label")
+ * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Label")
  * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity

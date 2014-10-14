@@ -309,26 +309,8 @@ class HomeController extends Controller
             return $response;
         }
 
-        $term = mb_strtolower($request->get('term'), 'UTF8');
-
-        // register custom lower()
-        $conn = $this->getDoctrine()->getConnection()->getWrappedConnection();
-        if (method_exists($conn, 'sqliteCreateFunction')) {
-            $conn->sqliteCreateFunction('lower', function ($str) {
-                return mb_strtolower($str, 'UTF8');
-            }, 1);
-        }
-
-        $list = $this->getDoctrine()->getManager()->createQuery('
-            SELECT
-                l
-            FROM
-                AnimeDbCatalogBundle:Label l
-            WHERE
-                LOWER(l.name) LIKE :name
-        ')
-            ->setParameter('name', preg_replace('/%+/', '%%', $term).'%')
-            ->getResult();
+        $list = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Label')
+            ->searchByName($request->get('term'));
 
         /* @var $label \AnimeDb\Bundle\CatalogBundle\Entity\Label */
         foreach ($list as $key => $label) {
