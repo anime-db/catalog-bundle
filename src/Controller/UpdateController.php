@@ -96,21 +96,27 @@ class UpdateController extends Controller
             }
         }
 
-        // add link to documentation
-        $link = '';
-        if (!$can_update) {
-            $locale = substr($request->getLocale(), 0, 2);
-            $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-            $link = str_replace('%locale%', $locale, self::DOC_LINK);
-        }
-
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
             'can_update' => $can_update,
-            'doc' => $link,
+            'doc' => !$can_update ? $this->getDocLink($request->getLocale()) : '',
             'referer' => $request->headers->get('referer'),
             'plugin' => $plugin,
             'action' => $action
         ], $response);
+    }
+
+    /**
+     * Return documentation link
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function getDocLink($locale)
+    {
+        $locale = substr($locale, 0, 2);
+        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
+        return str_replace('%locale%', $locale, self::DOC_LINK);
     }
 
     /**
