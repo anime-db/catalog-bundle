@@ -12,16 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/anime-db.git",
-                "reference": "caf7fc02e9284671f90055de993669f39a9be3e4"
+                "reference": "01dd095dde8f3d7ddd6a754816d7a403e50e05bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/caf7fc02e9284671f90055de993669f39a9be3e4",
-                "reference": "caf7fc02e9284671f90055de993669f39a9be3e4",
+                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/01dd095dde8f3d7ddd6a754816d7a403e50e05bc",
+                "reference": "01dd095dde8f3d7ddd6a754816d7a403e50e05bc",
                 "shasum": ""
             },
             "require": {
                 "anime-db/catalog-bundle": "dev-develop",
+                "anime-db/shmop": "1.0.*",
                 "avalanche123/imagine-bundle": "2.*",
                 "composer/composer": "1.0.*",
                 "doctrine/doctrine-bundle": "1.2.*",
@@ -94,7 +95,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2014-10-09 11:27:48"
+            "time": "2014-10-09 15:03:46"
         },
         {
             "name": "anime-db/api-client-bundle",
@@ -149,12 +150,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/app-bundle.git",
-                "reference": "965adc887452de1c4754bca0d7d376906436ef97"
+                "reference": "bec43e22031e4321c604b13889652dea45a9767c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/965adc887452de1c4754bca0d7d376906436ef97",
-                "reference": "965adc887452de1c4754bca0d7d376906436ef97",
+                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/bec43e22031e4321c604b13889652dea45a9767c",
+                "reference": "bec43e22031e4321c604b13889652dea45a9767c",
                 "shasum": ""
             },
             "require": {
@@ -193,20 +194,20 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2014-10-09 09:28:14"
+            "time": "2014-10-09 13:30:19"
         },
         {
             "name": "anime-db/cache-time-keeper-bundle",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/cache-time-keeper-bundle.git",
-                "reference": "ec40eeb1af93886f269971b6cb8dd9c07393b14c"
+                "reference": "5496845b7f0e6398bfe166f88e1596b4f4df947f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/cache-time-keeper-bundle/zipball/ec40eeb1af93886f269971b6cb8dd9c07393b14c",
-                "reference": "ec40eeb1af93886f269971b6cb8dd9c07393b14c",
+                "url": "https://api.github.com/repos/anime-db/cache-time-keeper-bundle/zipball/5496845b7f0e6398bfe166f88e1596b4f4df947f",
+                "reference": "5496845b7f0e6398bfe166f88e1596b4f4df947f",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +241,57 @@
                 "php",
                 "shmop"
             ],
-            "time": "2014-09-01 14:46:36"
+            "time": "2014-10-13 09:46:00"
+        },
+        {
+            "name": "anime-db/shmop",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anime-db/shmop.git",
+                "reference": "44a41b80605b6b66c72086a8bd8c40d638a6cfa5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anime-db/shmop/zipball/44a41b80605b6b66c72086a8bd8c40d638a6cfa5",
+                "reference": "44a41b80605b6b66c72086a8bd8c40d638a6cfa5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-shmop": "*",
+                "php": ">=5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "AnimeDb\\Shmop\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anime DB",
+                    "homepage": "http://anime-db.org"
+                },
+                {
+                    "name": "Peter Gribanov",
+                    "email": "info@peter-gribanov.ru"
+                },
+                {
+                    "name": "Anime DB Community",
+                    "homepage": "https://github.com/anime-db/shmop/graphs/contributors"
+                }
+            ],
+            "description": "Shmop is a simple and small abstraction layer for shared memory manipulation using PHP",
+            "homepage": "http://github.com/anime-db/shmop",
+            "keywords": [
+                "php",
+                "shmop"
+            ],
+            "time": "2014-08-11 11:44:00"
         },
         {
             "name": "avalanche123/imagine-bundle",
@@ -2293,12 +2344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "d2c6c340676181a6701cad52788eee9c4cabc72a"
+                "reference": "a27de3d0486e9eb47d38fb6311b0e479e210e4a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/d2c6c340676181a6701cad52788eee9c4cabc72a",
-                "reference": "d2c6c340676181a6701cad52788eee9c4cabc72a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/a27de3d0486e9eb47d38fb6311b0e479e210e4a0",
+                "reference": "a27de3d0486e9eb47d38fb6311b0e479e210e4a0",
                 "shasum": ""
             },
             "require": {
@@ -2398,7 +2449,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-10-07 12:35:25"
+            "time": "2014-10-13 12:23:40"
         },
         {
             "name": "twig/extensions",
@@ -2455,12 +2506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "9fb15e343e881c9a89b97ee2262d7b8fbf512c6e"
+                "reference": "98f1a4b28092bee659c695e40afe8a94640cddbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/9fb15e343e881c9a89b97ee2262d7b8fbf512c6e",
-                "reference": "9fb15e343e881c9a89b97ee2262d7b8fbf512c6e",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/98f1a4b28092bee659c695e40afe8a94640cddbf",
+                "reference": "98f1a4b28092bee659c695e40afe8a94640cddbf",
                 "shasum": ""
             },
             "require": {
@@ -2504,7 +2555,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-10-01 17:51:59"
+            "time": "2014-10-14 07:04:21"
         }
     ],
     "packages-dev": [],
