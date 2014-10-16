@@ -127,13 +127,11 @@ class ScanStorage
      */
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/delete_item_files.html.twig',
-            ['item' => $event->getItem()]
-        ));
         $this->em->persist($notice);
+        $this->sendNotice(
+            self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
+            ['item' => $event->getItem()]
+        );
     }
 
     /**
@@ -144,7 +142,6 @@ class ScanStorage
     public function onDetectedNewFilesSendNotice(DetectedNewFiles $event)
     {
         if (!$event->isPropagationStopped()) {
-            $notice = new Notice();
             // get link for search item
             $link = null;
             if ($plugin = $this->search->getDafeultPlugin()) {
@@ -156,12 +153,10 @@ class ScanStorage
                 );
             }
 
-            $notice->setType(self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM);
-            $notice->setMessage($this->templating->render(
-                'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
+            $this->sendNotice(
+                self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
                 ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
-            ));
-            $this->em->persist($notice);
+            );
         }
     }
 
@@ -172,13 +167,10 @@ class ScanStorage
      */
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_UPDATED_ITEM_FILES);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig',
+        $this->sendNotice(
+            self::NOTICE_TYPE_UPDATED_ITEM_FILES,
             ['item' => $event->getItem()]
-        ));
-        $this->em->persist($notice);
+        );
     }
 
     /**
@@ -257,13 +249,10 @@ class ScanStorage
      */
     public function onAddNewItemSendNotice(AddNewItem $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_ADDED_NEW_ITEM);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
+        $this->sendNotice(
+            self::NOTICE_TYPE_ADDED_NEW_ITEM,
             ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
-        ));
-        $this->em->persist($notice);
+        );
     }
 
     /**
@@ -275,5 +264,22 @@ class ScanStorage
     {
         $this->em->persist($event->getItem());
         $this->em->flush();
+    }
+
+    /**
+     * Send notice
+     *
+     * @param string $type
+     * @param array $params
+     */
+    protected function sendNotice($type, array $params)
+    {
+        $notice = new Notice();
+        $notice->setType($type);
+        $notice->setMessage($this->templating->render(
+            'AnimeDbCatalogBundle:Notice:messages/'.$type.'.html.twig',
+            $params
+        ));
+        $this->em->persist($notice);
     }
 }
