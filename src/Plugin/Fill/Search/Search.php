@@ -146,4 +146,27 @@ abstract class Search extends Plugin
             $this->getForm()->getName().'[name]' => $name
         ]);
     }
+
+    /**
+     * Try search item by name and fill it if can
+     *
+     * @param string $name
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     */
+    public function getCatalogItem($name)
+    {
+        if (!($this->getFiller() instanceof Filler)) {
+            return null;
+        }
+
+        try {
+            $list = $this->search(['name' => $name]);
+            if (count($list) == 1) {
+                return $this->getFiller()->fillFromSearchResult(array_pop($list));
+            }
+        } catch (\Exception $e) {} // is not a critical error
+
+        return null;
+    }
 }

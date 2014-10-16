@@ -175,19 +175,13 @@ class ScanStorage
     {
         // search from dafeult plugin
         $dafeult_plugin = null;
-        if (($dafeult_plugin = $this->search->getDafeultPlugin()) &&
-            $dafeult_plugin->getFiller() instanceof Filler &&
-            $this->tryAddItem($dafeult_plugin, $dafeult_plugin->getFiller(), $event)
-        ) {
+        if (($dafeult_plugin = $this->search->getDafeultPlugin()) && $this->tryAddItem($dafeult_plugin, $event)) {
             return true;
         }
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
-            if ((!($dafeult_plugin instanceof Search) || $dafeult_plugin !== $plugin) &&
-                $plugin->getFiller() instanceof Filler &&
-                $this->tryAddItem($plugin, $plugin->getFiller(), $event)
-            ) {
+            if ($dafeult_plugin !== $plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
@@ -197,41 +191,32 @@ class ScanStorage
      * Try to add item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search $search
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
      *
      * @return boolean
      */
-    protected function tryAddItem(Search $search, Filler $filler, DetectedNewFiles $event)
+    protected function tryAddItem(Search $search, DetectedNewFiles $event)
     {
-        $list = [];
-        // try search a new item
-        try {
-            $list = $search->search(['name' => $event->getName()]);
-        } catch (\Exception $e) {}
 
-        // fill from search result
-        if (count($list) == 1) {
-            $item = null;
-            try {
-                /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                $item = $filler->fillFromSearchResult(array_pop($list));
-            } catch (\Exception $e) {}
+        $item = $search->getCatalogItem($event->getName());
 
-            if ($item instanceof Item) {
-                // save new item
-                $item->setStorage($event->getStorage());
-                $item->setPath(
-                    $event->getFile()->getPathname().
-                    ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
-                );
+        if ($item instanceof Item) {
+            // save new item
+            $item->setStorage($event->getStorage());
+            $item->setPath(
+                $event->getFile()->getPathname().
+                ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
+            );
 
-                // stop current event and dispatch new event of added item
-                $event->stopPropagation();
-                $event->getDispatcher()->dispatch(StoreEvents::ADD_NEW_ITEM, new AddNewItem($item, $filler));
-                return true;
-            }
+            // stop current event and dispatch new event of added item
+            $event->stopPropagation();
+            $event->getDispatcher()->dispatch(
+                StoreEvents::ADD_NEW_ITEM,
+                new AddNewItem($item, $search->getFiller())
+            );
+            return true;
         }
+
         return false;
     }
 
