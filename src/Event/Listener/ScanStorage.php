@@ -127,11 +127,7 @@ class ScanStorage
      */
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
-        $this->em->persist($notice);
-        $this->sendNotice(
-            self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
-            ['item' => $event->getItem()]
-        );
+        $this->sendNotice(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND, ['item' => $event->getItem()]);
     }
 
     /**
@@ -167,10 +163,7 @@ class ScanStorage
      */
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
-        $this->sendNotice(
-            self::NOTICE_TYPE_UPDATED_ITEM_FILES,
-            ['item' => $event->getItem()]
-        );
+        $this->sendNotice(self::NOTICE_TYPE_UPDATED_ITEM_FILES, ['item' => $event->getItem()]);
     }
 
     /**
