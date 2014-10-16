@@ -293,36 +293,97 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get dirs
+     * Get plugins
      *
      * @return array
      */
-    public function getDirs()
+    public function getPlugins()
     {
         return [
-            [true],
-            [false]
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                true,
+                true,
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                true,
+                false,
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false,
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                true,
+                true
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false,
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                true,
+                false
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false,
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
+                false,
+                false
+            ]
         ];
     }
 
     /**
-     * Test on detected new files try add from dafeult plugin
+     * Test on detected new files try add
      *
-     * @dataProvider getDirs
+     * @dataProvider getPlugins
      *
      * @param boolean $is_dir
      */
-    public function testOnDetectedNewFilesTryAddFromDafeultPlugin($is_dir)
-    {
-        $plugin = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search');
+    public function testOnDetectedNewFilesTryAdd(
+        $default,
+        $default_is_added,
+        $default_is_dir,
+        $second,
+        $second_is_added,
+        $second_is_dir
+    ) {
         $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
             ->disableOriginalConstructor()
             ->getMock();
         $this->search
             ->expects($this->once())
             ->method('getDafeultPlugin')
-            ->willReturn($plugin);
-        $this->tryAddItem($plugin, $event, true, $is_dir);
+            ->willReturn($default);
+        $this->tryAddItem($default, $event, $default_is_added, $default_is_dir);
+
+        if ($default_is_added) {
+            $this->search
+                ->expects($this->never())
+                ->method('getPlugins');
+        } else {
+            $this->search
+                ->expects($this->once())
+                ->method('getPlugins')
+                ->willReturn([$default, $second]);
+            $this->tryAddItem($second, $event, $second_is_added, $second_is_dir);
+        }
+
+        if (!$default_is_added && !$second_is_added) {
+            $event
+                ->expects($this->never())
+                ->method('stopPropagation');
+        }
 
         $this->listener->onDetectedNewFilesTryAdd($event);
     }
@@ -342,7 +403,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
         $is_dir
     ) {
         $event
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getName')
             ->willReturn('foo');
         $item = null;
@@ -352,16 +413,16 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
             $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
             $item
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('setStorage')
                 ->with($storage);
             $item
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('setPath')
                 ->with('/tmp/bar'.($is_dir ? DIRECTORY_SEPARATOR : ''));
             $dispatcher = $this->getMock('\Symfony\Component\EventDispatcher\EventDispatcherInterface');
             $dispatcher
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('dispatch')
                 ->willReturnCallback(function ($event_name, $event) use ($that, $item, $filler) {
                     $that->assertEquals(StoreEvents::ADD_NEW_ITEM, $event_name);
@@ -374,15 +435,15 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
             $file
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('getPathname')
                 ->willReturn('/tmp/bar');
             $file
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('isDir')
                 ->willReturn($is_dir);
             $event
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('getStorage')
                 ->willReturn($storage);
             $event
@@ -390,19 +451,19 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 ->method('getFile')
                 ->willReturn($file);
             $event
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('stopPropagation');
             $event
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('getDispatcher')
                 ->willReturn($dispatcher);
             $plugin
-                ->expects($this->once())
+                ->expects($this->atLeastOnce())
                 ->method('getFiller')
                 ->willReturn($filler);
         }
         $plugin
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getCatalogItem')
             ->willReturn($item)
             ->with('foo');

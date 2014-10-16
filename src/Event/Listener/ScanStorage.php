@@ -181,7 +181,7 @@ class ScanStorage
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
-            if ($dafeult_plugin !== $plugin && $this->tryAddItem($plugin, $event)) {
+            if ($plugin !== $dafeult_plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
