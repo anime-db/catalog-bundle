@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
 
 /**
- * Test chain event
+ * Test plugin chain
  *
  * @package AnimeDb\Bundle\CatalogBundle\Tests\Plugin
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -33,7 +33,7 @@ class ChainTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->chain = $this->getMockForAbstractClass('AnimeDb\Bundle\CatalogBundle\Plugin\Chain');
+        $this->chain = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Chain');
     }
 
     /**
