@@ -158,11 +158,11 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test persist notice
+     * Test persist notices
      *
      * @dataProvider getNotices
      */
-    public function testPersistNotice(
+    public function testPersistNotices(
         \PHPUnit_Framework_MockObject_MockObject $event,
         array $params,
         $method,
@@ -189,5 +189,29 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             });
 
         call_user_func([$this->listener, $method], $event);
+    }
+
+    /**
+     * Test on add new item persist it
+     */
+    public function testOnAddNewItemPersistIt()
+    {
+        $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
+        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event
+            ->expects($this->once())
+            ->method('getItem')
+            ->willReturn($item);
+        $this->em
+            ->expects($this->once())
+            ->method('persist')
+            ->with($item);
+        $this->em
+            ->expects($this->once())
+            ->method('flush');
+
+        $this->listener->onAddNewItemPersistIt($event);
     }
 }
