@@ -5,10 +5,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    anime_db.api_client:
-        class: AnimeDb\Bundle\CatalogBundle\Service\ApiClient
-        arguments: [ %locale% ]
-
     anime_db.item.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
         arguments: [ @doctrine ]

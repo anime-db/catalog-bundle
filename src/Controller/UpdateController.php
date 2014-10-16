@@ -118,11 +118,11 @@ class UpdateController extends Controller
      */
     protected function getPlugin($plugin)
     {
-        $response = $this->container->get('anime_db.api_client')->get('plugin/'.$plugin.'/');
-        if ($response->isSuccessful()) {
-            return json_decode($response->getBody(true), true);
+        try {
+            return $this->container->get('anime_db.api.client')->getPlugin($plugin);
+        } catch (\RuntimeException $e) {
+            return null;
         }
-        return null;
     }
 
     /**

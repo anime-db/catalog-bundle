@@ -65,22 +65,18 @@ class PluginController extends Controller
             return $response;
         }
 
-        $api_response = $this->container->get('anime_db.api_client')->get('plugin/');
-
         $plugins = [];
-        if ($api_response->isSuccessful()) {
-            $data = json_decode($api_response->getBody(true), true);
-            foreach ($data['plugins'] as $plugin) {
-                $plugins[$plugin['name']] = $plugin;
-                $plugins[$plugin['name']]['installed'] = false;
-            }
+        $data = $this->container->get('anime_db.api.client')->getPlugins();
+        foreach ($data['plugins'] as $plugin) {
+            $plugins[$plugin['name']] = $plugin;
+            $plugins[$plugin['name']]['installed'] = false;
+        }
 
-            /* @var $repository \Doctrine\ORM\EntityRepository */
-            $repository = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
-            /* @var $plugin \AnimeDb\Bundle\AppBundle\Entity\Plugin */
-            foreach ($repository->findAll() as $plugin) {
-                $plugins[$plugin->getName()]['installed'] = true;
-            }
+        /* @var $repository \Doctrine\ORM\EntityRepository */
+        $repository = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
+        /* @var $plugin \AnimeDb\Bundle\AppBundle\Entity\Plugin */
+        foreach ($repository->findAll() as $plugin) {
+            $plugins[$plugin->getName()]['installed'] = true;
         }
 
         return $this->render('AnimeDbCatalogBundle:Plugin:store.html.twig', [
