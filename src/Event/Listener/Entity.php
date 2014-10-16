@@ -66,12 +66,12 @@ class Entity
     }
 
     /**
-     * Rename file if it in the temp folder
+     * Rename file, if it in the temp folder
      *
      * @param \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\EntityInterface $entity
      * @param string $target
      */
-    public function renameFile(EntityInterface $entity, $target)
+    protected function renameFile(EntityInterface $entity, $target)
     {
         if ($entity->getFilename() && strpos($entity->getFilename(), 'tmp') !== false) {
             $filename = $entity->getFilename();

@@ -912,7 +912,7 @@ class Item extends BaseEntity implements ImageInterface
     /**
      * Get date add item
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateAdd()
     {
