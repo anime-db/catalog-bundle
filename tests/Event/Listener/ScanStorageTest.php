@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 
 /**
  * Test ScanStorage listener
@@ -137,44 +138,45 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 $dif,
                 ['item' => $dif_item],
                 'onDeleteItemFiles',
-                ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
-                'AnimeDbCatalogBundle:Notice:messages/delete_item_files.html.twig'
+                ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND
             ],
             [
                 $uif,
                 ['item' => $uif_item],
                 'onUpdateItemFiles',
-                ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES,
-                'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig'
+                ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
             ],
             [
                 $ani,
                 ['storage' => $ani_storage, 'item' => $ani_item],
                 'onAddNewItemSendNotice',
-                ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM,
-                'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig'
+                ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM
             ]
         ];
     }
 
     /**
-     * Test persist notices
+     * Test send notices
      *
      * @dataProvider getNotices
+     *
+     * @param \PHPUnit_Framework_MockObject_MockObject $event
+     * @param array $params
+     * @param string $method
+     * @param string $type
      */
-    public function testPersistNotices(
+    public function testSendNotices(
         \PHPUnit_Framework_MockObject_MockObject $event,
         array $params,
         $method,
-        $type,
-        $tpl
+        $type
     ) {
         $that = $this;
         $this->templating
             ->expects($this->once())
             ->method('render')
-            ->willReturnCallback(function ($received_tpl, $received_params) use ($that, $tpl, $params) {
-                $that->assertEquals($tpl, $received_tpl);
+            ->willReturnCallback(function ($received_tpl, $received_params) use ($that, $type, $params) {
+                $that->assertEquals('AnimeDbCatalogBundle:Notice:messages/'.$type.'.html.twig', $received_tpl);
                 $that->assertEquals($params, $received_params);
                 return 'foo';
             });
@@ -189,6 +191,104 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             });
 
         call_user_func([$this->listener, $method], $event);
+    }
+
+    /**
+     * Test on detected new files send notice propagation stopped
+     */
+    public function testOnDetectedNewFilesSendNoticePropagationStopped()
+    {
+        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event
+            ->expects($this->once())
+            ->method('isPropagationStopped')
+            ->willReturn(true);
+        $this->em
+            ->expects($this->never())
+            ->method('persist');
+
+        $this->listener->onDetectedNewFilesSendNotice($event);
+    }
+
+    /**
+     * Get search plugins
+     *
+     * @return array
+     */
+    public function getSearchPlugins()
+    {
+        return [
+            [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'), false],
+            [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'), true],
+            [null, false],
+            [null, true]
+        ];
+    }
+
+    /**
+     * Test on detected new files send notice
+     *
+     * @dataProvider getSearchPlugins
+     *
+     * @param \PHPUnit_Framework_MockObject_MockObject $dafeult_plugin
+     * @param boolean $has_plugins
+     */
+    public function testOnDetectedNewFilesSendNotice(
+        \PHPUnit_Framework_MockObject_MockObject $dafeult_plugin = null,
+        $has_plugins
+    ) {
+        $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
+        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event
+            ->expects($this->once())
+            ->method('isPropagationStopped')
+            ->willReturn(false);
+        $event
+            ->expects($this->atLeastOnce())
+            ->method('getName')
+            ->willReturn('bar');
+        $event
+            ->expects($this->once())
+            ->method('getStorage')
+            ->willReturn($storage);
+        $this->search
+            ->expects($this->once())
+            ->method('getDafeultPlugin')
+            ->willReturn($dafeult_plugin);
+        $link = null;
+        if ($dafeult_plugin) {
+            $dafeult_plugin
+                ->expects($this->once())
+                ->method('getLinkForSearch')
+                ->willReturn($link = 'foo')
+                ->with('bar');
+        } else {
+            $this->search
+                ->expects($this->once())
+                ->method('hasPlugins')
+                ->willReturn($has_plugins);
+            if ($has_plugins) {
+                $this->router
+                    ->expects($this->once())
+                    ->method('generate')
+                    ->willReturn($link = 'baz')
+                    ->with(
+                        'fill_search_in_all',
+                        [SearchPluginForm::FORM_NAME => ['name' => 'bar']]
+                    );
+            }
+        }
+
+        $this->testSendNotices(
+            $event,
+            ['storage' => $storage, 'name' => 'bar', 'link' => $link],
+            'onDetectedNewFilesSendNotice',
+            ScanStorage::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM
+        );
     }
 
     /**
