@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated;
 use AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Package listener
@@ -23,13 +24,6 @@ use Symfony\Component\HttpKernel\Kernel;
 class Package
 {
     /**
-     * Root dir
-     *
-     * @var string
-     */
-    protected $root_dir;
-
-    /**
      * Kernel
      *
      * @var \Symfony\Component\HttpKernel\Kernel
@@ -37,14 +31,30 @@ class Package
     protected $kernel;
 
     /**
+     * Filesystem
+     *
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    protected $fs;
+
+    /**
+     * Root dir
+     *
+     * @var string
+     */
+    protected $root_dir;
+
+    /**
      * Construct
      *
      * @param \Symfony\Component\HttpKernel\Kernel $kernel
+     * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param string $root_dir
      */
-    public function __construct(Kernel $kernel, $root_dir) {
+    public function __construct(Kernel $kernel, Filesystem $fs, $root_dir) {
         $this->kernel = $kernel;
         $this->root_dir = $root_dir;
+        $this->fs = $fs;
     }
 
     /**
@@ -79,12 +89,9 @@ class Package
         $from = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/views/');
         $to = $this->root_dir.'/Resources/';
         // overwrite knp menu tpl
-        copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig');
+        $this->fs->copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig', true);
         // overwrite twig error tpls
-        if (!file_exists($to.'TwigBundle/views/Exception/')) {
-            mkdir($to.'TwigBundle/views/Exception/', 0755, true);
-        }
-        copy($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig');
-        copy($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig');
+        $this->fs->copy($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig', true);
+        $this->fs->copy($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig', true);
     }
 }
