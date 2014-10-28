@@ -91,8 +91,10 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             // Country
             ['country', 'getId', 'setId', 0, 123],
             ['country', 'getName', 'setName'],
+            ['country', 'getTranslatableLocale', 'setTranslatableLocale'],
             // Genre
             ['genre', 'getName', 'setName'],
+            ['genre', 'getTranslatableLocale', 'setTranslatableLocale'],
             // Image
             ['image', 'getSource', 'setSource'],
             ['image', 'getFilename', 'setFilename'],
@@ -125,6 +127,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             // Type
             ['type', 'getId', 'setId'],
             ['type', 'getName', 'setName'],
+            ['type', 'getTranslatableLocale', 'setTranslatableLocale'],
         ];
     }
 

@@ -186,6 +186,16 @@ class Country implements Translatable
     }
 
     /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
      * Get translations
      *
      * @return \Doctrine\Common\Collections\ArrayCollection

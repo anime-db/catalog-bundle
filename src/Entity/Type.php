@@ -170,6 +170,16 @@ class Type implements Translatable
     }
 
     /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
      * To string
      *
      * @return string
