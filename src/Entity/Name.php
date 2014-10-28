@@ -36,7 +36,7 @@ class Name
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Item name
@@ -46,7 +46,7 @@ class Name
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list

@@ -38,7 +38,7 @@ class Genre implements Translatable
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Gender name
@@ -49,7 +49,7 @@ class Genre implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -67,7 +67,7 @@ class Genre implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * Construct

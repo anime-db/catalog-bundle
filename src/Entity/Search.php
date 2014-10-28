@@ -80,7 +80,7 @@ class Search
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Storage

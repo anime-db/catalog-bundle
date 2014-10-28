@@ -32,7 +32,7 @@ class General
      *
      * @var string
      */
-    protected $serial_number;
+    protected $serial_number = '';
 
     /**
      * Task scheduler
@@ -50,14 +50,14 @@ class General
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * Plugin default search to fill
      *
      * @var string
      */
-    protected $default_search;
+    protected $default_search = '';
 
     /**
      * Get serial number

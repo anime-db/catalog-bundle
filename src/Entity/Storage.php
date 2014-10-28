@@ -75,7 +75,7 @@ class Storage
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Storage name
@@ -85,7 +85,7 @@ class Storage
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Storage description
@@ -94,7 +94,7 @@ class Storage
      *
      * @var string
      */
-    protected $description;
+    protected $description = '';
 
     /**
      * Type
@@ -104,7 +104,7 @@ class Storage
      *
      * @var string
      */
-    protected $type;
+    protected $type = '';
 
     /**
      * Path on computer
@@ -113,7 +113,7 @@ class Storage
      *
      * @var string
      */
-    protected $path;
+    protected $path = '';
 
     /**
      * Date last update storage

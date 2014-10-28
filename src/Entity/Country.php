@@ -41,7 +41,7 @@ class Country implements Translatable
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Country name
@@ -52,7 +52,7 @@ class Country implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -70,7 +70,7 @@ class Country implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * @ORM\OneToMany(

@@ -38,7 +38,7 @@ class Source
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * URL
@@ -49,7 +49,7 @@ class Source
      *
      * @var string
      */
-    protected $url;
+    protected $url = '';
 
     /**
      * Items list

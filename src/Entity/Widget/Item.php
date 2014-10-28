@@ -26,28 +26,28 @@ class Item
      *
      * @var string
      */
-    protected $cover;
+    protected $cover = '';
 
     /**
      * Name
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Link to a item in an external catalog
      *
      * @var string
      */
-    protected $link;
+    protected $link = '';
 
     /**
      * Link for fill item
      *
-     * @var string|null
+     * @var string
      */
-    protected $link_for_fill;
+    protected $link_for_fill = '';
 
     /**
      * Item in local catalog if have

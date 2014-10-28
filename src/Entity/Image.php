@@ -38,7 +38,7 @@ class Image extends BaseEntity implements ImageInterface
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Source
@@ -48,7 +48,7 @@ class Image extends BaseEntity implements ImageInterface
      *
      * @var string
      */
-    protected $source;
+    protected $source = '';
 
     /**
      * Items list
@@ -110,6 +110,7 @@ class Image extends BaseEntity implements ImageInterface
     {
         $this->source = $filename;
         parent::setFilename($filename);
+        return $this;
     }
 
     /**

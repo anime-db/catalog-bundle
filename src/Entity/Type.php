@@ -35,9 +35,9 @@ class Type implements Translatable
      * @ORM\Id
      * @ORM\Column(type="string", length=16)
      *
-     * @var integer
+     * @var string
      */
-    protected $id;
+    protected $id = '';
 
     /**
      * Type name
@@ -48,7 +48,7 @@ class Type implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -66,7 +66,7 @@ class Type implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * Construct

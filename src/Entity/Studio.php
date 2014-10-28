@@ -36,7 +36,7 @@ class Studio
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Studio name
@@ -46,7 +46,7 @@ class Studio
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list

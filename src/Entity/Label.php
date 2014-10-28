@@ -37,7 +37,7 @@ class Label
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Label name
@@ -47,7 +47,7 @@ class Label
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list

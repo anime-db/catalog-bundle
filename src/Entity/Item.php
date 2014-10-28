@@ -49,7 +49,7 @@ class Item extends BaseEntity implements ImageInterface
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Main name
@@ -793,6 +793,7 @@ class Item extends BaseEntity implements ImageInterface
     {
         $this->cover = $filename;
         parent::setFilename($filename);
+        return $this;
     }
 
     /**
