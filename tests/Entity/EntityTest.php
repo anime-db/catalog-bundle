@@ -65,6 +65,35 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Get entity
+     *
+     * @param string $entity
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function get($entity)
+    {
+        return $this->entities[$entity];
+    }
+
+    /**
+     * Call entity method
+     *
+     * @param string $entity
+     * @param string $method
+     * @param mixed $param
+     *
+     * @return mixed
+     */
+    protected function call($entity, $method, $param = null)
+    {
+        $params = func_get_args();
+        $entity = array_shift($params);
+        $method = array_shift($params);
+        return call_user_func_array([$this->get($entity), $method], $params);
+    }
+
+    /**
      * Get methods
      *
      * @return array
@@ -85,6 +114,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ['item_widget', 'getName', 'setName'],
             ['item_widget', 'getLink', 'setLink'],
             ['item_widget', 'getLinkForFill', 'setLinkForFill'],
+            ['item_widget', 'getItem', 'setItem', null, $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item')],
+            ['item_widget', 'getItem', 'setItem', null, null],
             // Widget Type
             ['type_widget', 'getName', 'setName'],
             ['type_widget', 'getLink', 'setLink'],
@@ -145,7 +176,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     public function testGetSet($entity, $getter, $setter, $default = '', $new = 'foo')
     {
         $this->assertEquals($default, $this->call($entity, $getter));
-        $this->assertEquals($this->entities[$entity], $this->call($entity, $setter, $new));
+        $this->assertEquals($this->get($entity), $this->call($entity, $setter, $new));
         $this->assertEquals($new, $this->call($entity, $getter));
     }
 
@@ -191,25 +222,8 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         } else {
             $this->assertNull($this->call($entity, $getter));
         }
-        $this->assertEquals($this->entities[$entity], $this->call($entity, $setter, $new));
+        $this->assertEquals($this->get($entity), $this->call($entity, $setter, $new));
         $this->assertEquals($new, $this->call($entity, $getter));
-    }
-
-    /**
-     * Call entity method
-     *
-     * @param string $entity
-     * @param string $method
-     * @param mixed $param
-     *
-     * @return mixed
-     */
-    protected function call($entity, $method, $param = null)
-    {
-        $params = func_get_args();
-        $entity = array_shift($params);
-        $method = array_shift($params);
-        return call_user_func_array([$this->entities[$entity], $method], $params);
     }
 
     /**
