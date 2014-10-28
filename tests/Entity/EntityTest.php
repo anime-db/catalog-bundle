@@ -208,4 +208,39 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $method = array_shift($params);
         return call_user_func_array([$this->entities[$entity], $method], $params);
     }
+
+    /**
+     * Get methods to string
+     *
+     * @return array
+     */
+    public function getMethodsToString()
+    {
+        return [
+            ['country', 'setName'],
+            ['genre', 'setName'],
+            ['image', 'setSource'],
+            ['item', 'setName'],
+            ['label', 'setName'],
+            ['name', 'setName'],
+            ['source', 'setUrl'],
+            ['storage', 'setName'],
+            ['studio', 'setName'],
+            ['type', 'setName'],
+        ];
+    }
+
+    /**
+     * Test to string
+     *
+     * @dataProvider getMethodsToString
+     *
+     * @param string $entity
+     * @param string $setter
+     */
+    public function testToString($entity, $setter)
+    {
+        $this->call($entity, $setter, 'foo');
+        $this->assertEquals('foo', $this->call($entity, '__toString'));
+    }
 }
