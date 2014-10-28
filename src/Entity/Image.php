@@ -123,7 +123,13 @@ class Image extends BaseEntity implements ImageInterface
     public function setItem(Item $item = null)
     {
         if ($this->item !== $item) {
+            // romove link on this item for old item
+            if ($this->item instanceof Item) {
+                $this->item->setType(null);
+                $this->item = null;
+            }
             $this->item = $item;
+            // add link on this item
             if ($item instanceof Item) {
                 $this->item->addImage($this);
             }
