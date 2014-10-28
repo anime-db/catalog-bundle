@@ -291,4 +291,126 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEmpty($this->call($entity, 'getId'));
     }
+
+    /**
+     * Get methods one to many
+     *
+     * @return array
+     */
+    public function getMethodsOneToMany()
+    {
+        return [
+            [
+                'country',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'setCountry'
+            ],
+            [
+                'country',
+                $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation')
+                    ->disableOriginalConstructor()
+                    ->getMock(),
+                'getTranslations',
+                'addTranslation',
+                'removeTranslation',
+                'setObject'
+            ],
+            [
+                'item',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Name'),
+                'getNames',
+                'addName',
+                'removeName',
+                'setItem'
+            ],
+            [
+                'item',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Source'),
+                'getSources',
+                'addSource',
+                'removeSource',
+                'setItem'
+            ],
+            [
+                'item',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Image'),
+                'getImages',
+                'addImage',
+                'removeImage',
+                'setItem'
+            ],
+            [
+                'storage',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'setStorage'
+            ],
+            [
+                'studio',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'setStudio'
+            ],
+            [
+                'type',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'setType'
+            ]
+        ];
+    }
+
+    /**
+     * Test one to many
+     *
+     * @dataProvider getMethodsOneToMany
+     *
+     * @param string $entity
+     * @param \PHPUnit_Framework_MockObject_MockObject $related
+     * @param string $get
+     * @param string $add
+     * @param string $remove
+     * @param string $set
+     */
+    public function testOneToMany(
+        $entity,
+        \PHPUnit_Framework_MockObject_MockObject $related,
+        $get,
+        $add,
+        $remove,
+        $set
+    ) {
+        $related
+            ->expects($this->at(0))
+            ->method($set)
+            ->willReturnSelf()
+            ->with($this->get($entity));
+        $related
+            ->expects($this->at(1))
+            ->method($set)
+            ->willReturnSelf()
+            ->with(null);
+        $this->assertEmpty($this->call($entity, $get));
+
+        // add
+        $this->assertEquals($this->get($entity), $this->call($entity, $add, $related));
+        $this->assertEquals($this->get($entity), $this->call($entity, $add, $related));
+        /* @var $coll \Doctrine\Common\Collections\ArrayCollection */
+        $coll = $this->call($entity, $get);
+        $this->assertEquals(1, $coll->count());
+        $this->assertEquals($related, $coll->first());
+
+        // remove
+        $this->assertEquals($this->get($entity), $this->call($entity, $remove, $related));
+        $this->assertEmpty($this->call($entity, $get));
+    }
 }

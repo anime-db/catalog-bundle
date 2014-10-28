@@ -123,15 +123,18 @@ class Type implements Translatable
     }
 
     /**
-     * Add items
+     * Add item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $items
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
      */
-    public function addItem(Item $items)
+    public function addItem(Item $item)
     {
-        $this->items[] = $items->setType($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setType($this);
+        }
         return $this;
     }
 
@@ -139,11 +142,16 @@ class Type implements Translatable
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setType(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setType(null);
+        }
+        return $this;
     }
 
     /**

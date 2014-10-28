@@ -146,7 +146,8 @@ class Country implements Translatable
     public function addItem(Item $item)
     {
         if (!$this->items->contains($item)) {
-            $this->items[] = $item->setCountry($this);
+            $this->items->add($item);
+            $item->setCountry($this);
         }
         return $this;
     }
@@ -155,11 +156,16 @@ class Country implements Translatable
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setCountry(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setCountry(null);
+        }
+        return $this;
     }
 
     /**
@@ -208,15 +214,31 @@ class Country implements Translatable
     /**
      * Add translation
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $t
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function addTranslation(CountryTranslation $t)
+    public function addTranslation(CountryTranslation $trans)
     {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (!$this->translations->contains($trans)) {
+            $this->translations->add($trans);
+            $trans->setObject($this);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     */
+    public function removeTranslation(CountryTranslation $trans)
+    {
+        if ($this->translations->contains($trans)) {
+            $this->translations->removeElement($trans);
+            $trans->setObject(null);
         }
         return $this;
     }

@@ -107,7 +107,10 @@ class Studio
      */
     public function addItem(Item $item)
     {
-        $this->items[] = $item->setStudio($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setStudio($this);
+        }
         return $this;
     }
 
@@ -115,11 +118,16 @@ class Studio
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setStudio(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setStudio(null);
+        }
+        return $this;
     }
 
     /**

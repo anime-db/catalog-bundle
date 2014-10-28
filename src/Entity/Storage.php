@@ -273,7 +273,10 @@ class Storage
      */
     public function addItem(Item $item)
     {
-        $this->items[] = $item->setStorage($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setStorage($this);
+        }
         return $this;
     }
 
@@ -281,11 +284,16 @@ class Storage
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setStorage(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setStorage(null);
+        }
+        return $this;
     }
 
     /**

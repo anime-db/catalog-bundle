@@ -544,6 +544,8 @@ class Item extends BaseEntity implements ImageInterface
      * Remove name
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Name $name
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeName(Name $name)
     {
@@ -551,6 +553,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->names->removeElement($name);
             $name->setItem(null);
         }
+        return $this;
     }
 
     /**
@@ -816,6 +819,8 @@ class Item extends BaseEntity implements ImageInterface
      * Remove source
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Source $source
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeSource(Source $source)
     {
@@ -823,6 +828,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->sources->removeElement($source);
             $source->setItem(null);
         }
+        return $this;
     }
 
     /**
@@ -855,6 +861,8 @@ class Item extends BaseEntity implements ImageInterface
      * Remove image
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Image $image
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeImage(Image $image)
     {
@@ -862,6 +870,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->images->removeElement($image);
             $image->setItem(null);
         }
+        return $this;
     }
 
     /**
