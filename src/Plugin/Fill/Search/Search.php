@@ -143,7 +143,7 @@ abstract class Search extends Plugin
     {
         return $this->router->generate('fill_search', [
             'plugin' => $this->getName(),
-            $this->getForm()->getName().'[name]' => $name
+            $this->getForm()->getName() => ['name' => $name]
         ]);
     }
 
