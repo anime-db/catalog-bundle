@@ -413,4 +413,98 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->get($entity), $this->call($entity, $remove, $related));
         $this->assertEmpty($this->call($entity, $get));
     }
+
+    /**
+     * Get methods many to many
+     *
+     * @return array
+     */
+    public function getMethodsManyToMany()
+    {
+        return [
+            [
+                'genre',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'addGenre',
+                'removeGenre'
+            ],
+            [
+                'item',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Genre'),
+                'getGenres',
+                'addGenre',
+                'removeGenre',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'item',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Label'),
+                'getLabels',
+                'addLabel',
+                'removeLabel',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'label',
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
+                'getItems',
+                'addItem',
+                'removeItem',
+                'addLabel',
+                'removeLabel'
+            ],
+        ];
+    }
+
+    /**
+     * Test many to many
+     *
+     * @dataProvider getMethodsManyToMany
+     *
+     * @param string $entity
+     * @param \PHPUnit_Framework_MockObject_MockObject $related
+     * @param string $get
+     * @param string $add
+     * @param string $remove
+     * @param string $related_add
+     * @param string $related_remove
+     */
+    public function testManyToMany(
+        $entity,
+        \PHPUnit_Framework_MockObject_MockObject $related,
+        $get,
+        $add,
+        $remove,
+        $related_add,
+        $related_remove
+    ) {
+        $related
+            ->expects($this->once())
+            ->method($related_add)
+            ->willReturnSelf()
+            ->with($this->get($entity));
+        $related
+            ->expects($this->once())
+            ->method($related_remove)
+            ->willReturnSelf()
+            ->with($this->get($entity));
+        $this->assertEmpty($this->call($entity, $get));
+
+        // add
+        $this->assertEquals($this->get($entity), $this->call($entity, $add, $related));
+        $this->assertEquals($this->get($entity), $this->call($entity, $add, $related));
+        /* @var $coll \Doctrine\Common\Collections\ArrayCollection */
+        $coll = $this->call($entity, $get);
+        $this->assertEquals(1, $coll->count());
+        $this->assertEquals($related, $coll->first());
+
+        // remove
+        $this->assertEquals($this->get($entity), $this->call($entity, $remove, $related));
+        $this->assertEmpty($this->call($entity, $get));
+    }
 }
