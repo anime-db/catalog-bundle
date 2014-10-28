@@ -200,6 +200,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ['search', 'getDatePremiere', 'setDatePremiere'],
             // Storage
             ['storage', 'getDateUpdate', 'setDateUpdate', $now],
+            ['storage', 'getFileModified', 'setFileModified'],
         ];
     }
 
@@ -506,5 +507,118 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         // remove
         $this->assertEquals($this->get($entity), $this->call($entity, $remove, $related));
         $this->assertEmpty($this->call($entity, $get));
+    }
+
+    /**
+     * Get methods many to one
+     *
+     * @return array
+     */
+    public function getMethodsManyToOne()
+    {
+        return [
+            [
+                'image',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Item',
+                'getItem',
+                'setItem',
+                'addImage',
+                'removeImage'
+            ],
+            [
+                'item',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Type',
+                'getType',
+                'setType',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'item',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Country',
+                'getCountry',
+                'setCountry',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'item',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Storage',
+                'getStorage',
+                'setStorage',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'item',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Studio',
+                'getStudio',
+                'setStudio',
+                'addItem',
+                'removeItem'
+            ],
+            [
+                'name',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Item',
+                'getItem',
+                'setItem',
+                'addName',
+                'removeName'
+            ],
+            [
+                'source',
+                '\AnimeDb\Bundle\CatalogBundle\Entity\Item',
+                'getItem',
+                'setItem',
+                'addSource',
+                'removeSource'
+            ],
+        ];
+    }
+
+    /**
+     * Test many to one
+     *
+     * @dataProvider getMethodsManyToOne
+     *
+     * @param string $entity
+     * @param string $related
+     * @param string $get
+     * @param string $set
+     * @param string $add
+     * @param string $remove
+     */
+    public function testManyToOne($entity, $related, $get, $set, $add, $remove)
+    {
+        $related1 = $this->getMock($related);
+        $related2 = $this->getMock($related);
+        $related1
+            ->expects($this->once())
+            ->method($add)
+            ->with($this->get($entity))
+            ->willReturnSelf();
+        $related1
+            ->expects($this->once())
+            ->method($remove)
+            ->with($this->get($entity))
+            ->willReturnSelf();
+        $related2
+            ->expects($this->once())
+            ->method($add)
+            ->with($this->get($entity))
+            ->willReturnSelf();
+        $related2
+            ->expects($this->never())
+            ->method($remove);
+        $this->assertNull($this->call($entity, $get));
+
+        // add
+        $this->assertEquals($this->get($entity), $this->call($entity, $set, $related1));
+        $this->assertEquals($this->get($entity), $this->call($entity, $set, $related1));
+        $this->assertEquals($related1, $this->call($entity, $get));
+
+        // overwrite related
+        $this->assertEquals($this->get($entity), $this->call($entity, $set, $related2));
+        $this->assertEquals($related2, $this->call($entity, $get));
     }
 }
