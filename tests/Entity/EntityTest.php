@@ -246,4 +246,35 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->call($entity, $setter, 'foo');
         $this->assertEquals('foo', $this->call($entity, '__toString'));
     }
+
+    /**
+     * Get methods generated id
+     *
+     * @return array
+     */
+    public function getMethodsGeneratedId()
+    {
+        return [
+            ['genre'],
+            ['image'],
+            ['item'],
+            ['label'],
+            ['name'],
+            ['source'],
+            ['storage'],
+            ['studio'],
+        ];
+    }
+
+    /**
+     * Test generated id
+     *
+     * @dataProvider getMethodsGeneratedId
+     *
+     * @param string $entity
+     */
+    public function testGeneratedId($entity)
+    {
+        $this->assertEmpty($this->call($entity, 'getId'));
+    }
 }
