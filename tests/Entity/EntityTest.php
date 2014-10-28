@@ -155,14 +155,17 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         $now = new \DateTime();
         return [
-            // Notice
-            ['notice', 'getDateClosed', 'setDateClosed'],
-            ['notice', 'getDateStart', 'setDateStart', $now],
-            // Plugin
-            ['plugin', 'getDateInstall', 'setDateInstall', $now],
-            // Task
-            ['task', 'getLastRun', 'setLastRun'],
-            ['task', 'getNextRun', 'setNextRun', $now]
+            // Item
+            ['item', 'getDateAdd', 'setDateAdd', $now],
+            ['item', 'getDateEnd', 'setDateEnd'],
+            ['item', 'getDatePremiere', 'setDatePremiere'],
+            ['item', 'getDateUpdate', 'setDateUpdate', $now],
+            // Search
+            ['search', 'getDateAdd', 'setDateAdd'],
+            ['search', 'getDateEnd', 'setDateEnd'],
+            ['search', 'getDatePremiere', 'setDatePremiere'],
+            // Storage
+            ['storage', 'getDateUpdate', 'setDateUpdate', $now],
         ];
     }
 
@@ -177,17 +180,17 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      * @param mixed $default
      * @param mixed $new
      */
-//     public function testGetSetTime($entity, $getter, $setter, $default = null)
-//     {
-//         $new = (new \DateTime())->modify('+100 seconds');
-//         if ($default) {
-//             $this->assertInstanceOf('\DateTime', $this->call($entity, $getter));
-//         } else {
-//             $this->assertNull($this->call($entity, $getter));
-//         }
-//         $this->assertEquals($this->entities[$entity], $this->call($entity, $setter, $new));
-//         $this->assertEquals($new, $this->call($entity, $getter));
-//     }
+    public function testGetSetTime($entity, $getter, $setter, $default = null)
+    {
+        $new = (new \DateTime())->modify('+100 seconds');
+        if ($default) {
+            $this->assertInstanceOf('\DateTime', $this->call($entity, $getter));
+        } else {
+            $this->assertNull($this->call($entity, $getter));
+        }
+        $this->assertEquals($this->entities[$entity], $this->call($entity, $setter, $new));
+        $this->assertEquals($new, $this->call($entity, $getter));
+    }
 
     /**
      * Call entity method
@@ -198,7 +201,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      *
      * @return mixed
      */
-    protected function call($entity, $method, $params = null)
+    protected function call($entity, $method, $param = null)
     {
         $params = func_get_args();
         $entity = array_shift($params);
