@@ -93,6 +93,45 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Get cleared paths
+     *
+     * @return array
+     */
+    public function getClearedPaths()
+    {
+        return [
+            ['', '', ''],
+            ['foo', '', ''],
+            ['foo/bar', 'baz', ''],
+            ['foo/bar', 'foo', '/bar'],
+        ];
+    }
+
+    /**
+     * Test do clear path
+     *
+     * @dataProvider getClearedPaths
+     *
+     * @param string $path
+     * @param string $storage_path
+     * @param string $cleared_path
+     */
+    public function testDoClearPath($path, $storage_path, $cleared_path)
+    {
+        if ($storage_path) {
+            $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
+            $storage
+                ->expects($this->atLeastOnce())
+                ->method('getPath')
+                ->willReturn($storage_path);
+            $this->item->setStorage($storage);
+        }
+        $this->item->setPath($path);
+        $this->assertEquals($cleared_path, $this->item->getRealPath());
+        $this->assertEquals($path, $this->item->getPath());
+    }
+
+    /**
      * Get url names
      *
      * @return array

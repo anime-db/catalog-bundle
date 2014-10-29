@@ -431,7 +431,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->not_cleared_path = $path;
             $this->doClearPath();
         } else {
-            $this->path = $path;
+            $this->path = '';
         }
         return $this;
     }
@@ -443,7 +443,6 @@ class Item extends BaseEntity implements ImageInterface
      */
     public function getPath()
     {
-        $this->doClearPath();
         // path not cleared
         if ($this->not_cleared_path) {
             return $this->not_cleared_path;
@@ -452,6 +451,18 @@ class Item extends BaseEntity implements ImageInterface
         if ($this->getStorage() instanceof Storage && $this->getStorage()->getPath()) {
             return $this->getStorage()->getPath().$this->path;
         }
+        return $this->path;
+    }
+
+    /**
+     * Get real path
+     *
+     * Need for tests
+     *
+     * @return string
+     */
+    public function getRealPath()
+    {
         return $this->path;
     }
 
