@@ -84,4 +84,73 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             Storage::TYPE_EXTERNAL_R
         ], Storage::getTypesReadable());
     }
+
+    /**
+     * Get types
+     *
+     * @return array
+     */
+    public function getTypes()
+    {
+        return [
+            [''],
+            [Storage::TYPE_FOLDER],
+            [Storage::TYPE_EXTERNAL],
+            [Storage::TYPE_EXTERNAL_R],
+            [Storage::TYPE_VIDEO]
+        ];
+    }
+
+    /**
+     * Test get type title
+     *
+     * @dataProvider getTypes
+     *
+     * @param string $type
+     */
+    public function testTypeTitle($type)
+    {
+        $this->storage->setType($type);
+        if ($type) {
+            $titles = Storage::getTypeTitles();
+            $this->assertEquals($titles[$type], $this->storage->getTypeTitle());
+        } else {
+            $this->assertEmpty($this->storage->getTypeTitle());
+        }
+    }
+
+    /**
+     * Get access
+     *
+     * @return array
+     */
+    public function getAccess()
+    {
+        $params = [];
+        foreach ($this->getTypes() as $type) {
+            $params[] = ['isWritable', Storage::getTypesWritable(), $type];
+        }
+        foreach ($this->getTypes() as $type) {
+            $params[] = ['isPathRequired', Storage::getTypesWritable(), $type];
+        }
+        foreach ($this->getTypes() as $type) {
+            $params[] = ['isReadable', Storage::getTypesReadable(), $type];
+        }
+        return $params;
+    }
+
+    /**
+     * Test access
+     *
+     * @dataProvider getAccess
+     *
+     * @param string $method
+     * @param array $expected
+     * @param string $type
+     */
+    public function testAccess($method, array $expected, $type)
+    {
+        $this->storage->setType($type);
+        $this->assertEquals(in_array($type, $expected), call_user_func([$this->storage, $method]));
+    }
 }

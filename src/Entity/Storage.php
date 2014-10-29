@@ -356,7 +356,7 @@ class Storage
      */
     public function getTypeTitle()
     {
-        return self::$type_titles[$this->type];
+        return isset(self::$type_titles[$this->type]) ? self::$type_titles[$this->type] : '';
     }
 
     /**
