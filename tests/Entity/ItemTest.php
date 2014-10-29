@@ -93,6 +93,71 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test freez
+     */
+    public function testFreez()
+    {
+        $em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $em
+            ->expects($this->atLeastOnce())
+            ->method('getReference')
+            ->willReturnCallback(function ($class_name, $id) {
+                $ref = new \stdClass();
+                $ref->class = $class_name;
+                $ref->id = $id;
+                return $ref;
+            });
+        $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $doctrine
+            ->expects($this->once())
+            ->method('getManager')
+            ->willReturn($em);
+
+        // set related entities
+        $country = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Country', 'setCountry');
+        $storage = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Storage', 'setStorage');
+        $type = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Type', 'setType');
+        $genre1 = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Genre', 'addGenre');
+        $genre2 = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Genre', 'addGenre');
+
+        $this->item->freez($doctrine);
+
+        // test freez result
+        $this->assertEquals($country, $this->item->getCountry());
+        $this->assertEquals($storage, $this->item->getStorage());
+        $this->assertEquals($type, $this->item->getType());
+        $this->assertEquals($genre1, $this->item->getGenres()[0]);
+        $this->assertEquals($genre2, $this->item->getGenres()[1]);
+    }
+
+    /**
+     * Get reference
+     *
+     * @param string $entity
+     * @param string $set
+     *
+     * @return \stdClass
+     */
+    protected function getRef($entity, $set)
+    {
+        $mock = $this->getMock($entity);
+        $mock
+            ->expects($this->once())
+            ->method('getId')
+            ->willReturn($id = rand());
+        call_user_func([$this->item, $set], $mock);
+
+        $ref = new \stdClass();
+        $ref->class = get_class($mock);
+        $ref->id = $id;
+        return $ref;
+    }
+
+    /**
      * Get cleared paths
      *
      * @return array
