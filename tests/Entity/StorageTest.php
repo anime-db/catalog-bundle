@@ -128,13 +128,13 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $params = [];
         foreach ($this->getTypes() as $type) {
-            $params[] = ['isWritable', Storage::getTypesWritable(), $type];
+            $params[] = ['isWritable', Storage::getTypesWritable(), $type[0]];
         }
         foreach ($this->getTypes() as $type) {
-            $params[] = ['isPathRequired', Storage::getTypesWritable(), $type];
+            $params[] = ['isPathRequired', Storage::getTypesWritable(), $type[0]];
         }
         foreach ($this->getTypes() as $type) {
-            $params[] = ['isReadable', Storage::getTypesReadable(), $type];
+            $params[] = ['isReadable', Storage::getTypesReadable(), $type[0]];
         }
         return $params;
     }
@@ -152,5 +152,43 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $this->storage->setType($type);
         $this->assertEquals(in_array($type, $expected), call_user_func([$this->storage, $method]));
+    }
+
+    /**
+     * Get required paths
+     *
+     * @return array
+     */
+    public function getRequiredPaths()
+    {
+        $params = [];
+        foreach ($this->getTypes() as $type) {
+            $params[] = [$type[0], ''];
+        }
+        foreach ($this->getTypes() as $type) {
+            $params[] = [$type[0], 'foo'];
+        }
+        return $params;
+    }
+
+    /**
+     * Test is path valid
+     *
+     * @dataProvider getRequiredPaths
+     *
+     * @param string $type
+     * @param boolean $required
+     * @param string $path
+     */
+    public function testIsPathValid($type, $path)
+    {
+        $this->storage->setType($type);
+        $this->storage->setPath($path);
+        $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
+        $context
+            ->expects($this->storage->isPathRequired() && !$path ? $this->once() : $this->never())
+            ->method('addViolationAt')
+            ->with('path', 'Path is required to fill for current type of storage');
+        $this->storage->isPathValid($context);
     }
 }
