@@ -1021,18 +1021,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set date item add
-     *
-     * @ORM\PrePersist
-     */
-    public function doSetDateItemAdd()
-    {
-        if (!$this->date_add) {
-            $this->date_add = new \DateTime();
-        }
-    }
-
-    /**
      * Is valid path for current type
      *
      * @param \Symfony\Component\Validator\ExecutionContextInterface $context

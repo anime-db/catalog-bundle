@@ -201,6 +201,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->setDateUpdate($date);
 
         $this->storage->doChangeDateUpdate();
+        $this->assertInstanceOf('\DateTime', $this->storage->getDateUpdate());
         $this->assertNotEquals($date, $this->storage->getDateUpdate());
     }
 

@@ -37,6 +37,62 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test do change date update
+     */
+    public function testDoChangeDateUpdate()
+    {
+        $date = (new \DateTime())->modify('+100 seconds');
+        $this->item->setDateUpdate($date);
+
+        $this->item->doChangeDateUpdate();
+        $this->assertInstanceOf('\DateTime', $this->item->getDateUpdate());
+        $this->assertNotEquals($date, $this->item->getDateUpdate());
+    }
+
+    /**
+     * Get required paths
+     *
+     * @return array
+     */
+    public function getRequiredPaths()
+    {
+        return [
+            [false, false, ''],
+            [true, false, ''],
+            [true, true, ''],
+            [true, true, 'foo']
+        ];
+    }
+
+    /**
+     * Test is path valid
+     *
+     * @dataProvider getRequiredPaths
+     *
+     * @param boolean $storage
+     * @param boolean $required
+     * @param string $path
+     */
+    public function testIsPathValid($storage, $required, $path)
+    {
+        if ($storage) {
+            $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
+            $storage
+                ->expects($this->once())
+                ->method('isPathRequired')
+                ->willReturn($required);
+            $this->item->setStorage($storage);
+        }
+        $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
+        $context
+            ->expects($storage && $required && !$path ? $this->once() : $this->never())
+            ->method('addViolationAt')
+            ->with('path', 'Path is required to fill for current type of storage');
+        $this->item->setPath($path);
+        $this->item->isPathValid($context);
+    }
+
+    /**
      * Get url names
      *
      * @return array
