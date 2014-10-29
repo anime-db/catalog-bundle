@@ -212,7 +212,9 @@ class Search
      */
     public function addGenre(Genre $genre)
     {
-        $this->genres->add($genre);
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+        }
         return $this;
     }
 
@@ -220,16 +222,19 @@ class Search
      * Remove genres
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
     public function removeGenre(Genre $genre)
     {
         $this->genres->removeElement($genre);
+        return $this;
     }
 
     /**
      * Get genres
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getGenres()
     {
@@ -245,7 +250,9 @@ class Search
      */
     public function addLabel(Label $label)
     {
-        $this->labels->add($label);
+        if (!$this->labels->contains($label)) {
+            $this->labels->add($label);
+        }
         return $this;
     }
 
@@ -253,16 +260,19 @@ class Search
      * Remove label
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
     public function removeLabel(Label $label)
     {
         $this->labels->removeElement($label);
+        return $this;
     }
 
     /**
      * Get labels
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getLabels()
     {
