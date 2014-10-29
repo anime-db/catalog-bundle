@@ -85,4 +85,58 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->search, call_user_func([$this->search, $remove], $entity));
         $this->assertEmpty(call_user_func([$this->search, $get]));
     }
+
+    /**
+     * Get set methods
+     *
+     * @return array
+     */
+    public function getSetMethods()
+    {
+        return [
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Country'),
+                'getCountry',
+                'setCountry'
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage'),
+                'getStorage',
+                'setStorage'
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Type'),
+                'getType',
+                'setType'
+            ],
+            [
+                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Studio'),
+                'getStudio',
+                'setStudio'
+            ],
+        ];
+    }
+
+    /**
+     * Test set entity
+     *
+     * @dataProvider getSetMethods
+     *
+     * @param \PHPUnit_Framework_MockObject_MockObject $entity
+     * @param string $get
+     * @param string $set
+     */
+    public function testSet(\PHPUnit_Framework_MockObject_MockObject $entity, $get, $set)
+    {
+        $this->assertNull(call_user_func([$this->search, $get]));
+
+        // set
+        $this->assertEquals($this->search, call_user_func([$this->search, $set], $entity));
+        $this->assertEquals($this->search, call_user_func([$this->search, $set], $entity));
+        $this->assertEquals($entity, call_user_func([$this->search, $get]));
+
+        // remove
+        $this->assertEquals($this->search, call_user_func([$this->search, $set], null));
+        $this->assertNull(call_user_func([$this->search, $get]));
+    }
 }
