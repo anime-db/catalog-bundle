@@ -191,4 +191,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             ->with('path', 'Path is required to fill for current type of storage');
         $this->storage->isPathValid($context);
     }
+
+    /**
+     * Test do change date update
+     */
+    public function testDoChangeDateUpdate()
+    {
+        $date = (new \DateTime())->modify('+100 seconds');
+        $this->storage->setDateUpdate($date);
+
+        $this->storage->doChangeDateUpdate();
+        $this->assertNotEquals($date, $this->storage->getDateUpdate());
+    }
 }
