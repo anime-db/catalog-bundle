@@ -265,6 +265,16 @@ class Storage
     }
 
     /**
+     * Get old paths
+     *
+     * @return array
+     */
+    public function getOldPaths()
+    {
+        return $this->old_paths;
+    }
+
+    /**
      * Add item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item

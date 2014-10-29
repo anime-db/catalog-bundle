@@ -203,4 +203,21 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->doChangeDateUpdate();
         $this->assertNotEquals($date, $this->storage->getDateUpdate());
     }
+
+    /**
+     * Test get old paths
+     */
+    public function testGetOldPaths()
+    {
+        $this->assertEmpty($this->storage->getOldPaths());
+
+        $this->storage->setPath('foo');
+        $this->assertEmpty($this->storage->getOldPaths());
+
+        $this->storage->setPath('bar');
+        $this->assertEquals(['foo'], $this->storage->getOldPaths());
+
+        $this->storage->setPath('baz');
+        $this->assertEquals(['foo', 'bar'], $this->storage->getOldPaths());
+    }
 }
