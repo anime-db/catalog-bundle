@@ -60,13 +60,6 @@ class Storage
     const TYPE_VIDEO = 'video';
 
     /**
-     * File name for store the storage id
-     *
-     * @var string
-     */
-    const ID_FILE = '.storage';
-
-    /**
      * Id
      *
      * @ORM\Id
@@ -485,51 +478,6 @@ class Storage
     public function doChangeDateUpdate()
     {
         $this->date_update = new \DateTime();
-    }
-
-    /**
-     * Save storage id
-     *
-     * @ORM\PostPersist
-     */
-    public function doSaveStorageId()
-    {
-        if (file_exists($this->getPath()) && !file_exists($this->getPath().self::ID_FILE)) {
-            file_put_contents($this->getPath().self::ID_FILE, $this->getId());
-        }
-    }
-
-    /**
-     * Remove storage id
-     *
-     * @ORM\PostRemove
-     */
-    public function doRemoveStorageId()
-    {
-        if (file_exists($this->getPath().self::ID_FILE) &&
-            (file_get_contents($this->getPath().self::ID_FILE) == $this->getId())
-        ) {
-            unlink($this->getPath().self::ID_FILE);
-        }
-    }
-
-    /**
-     * Update storage id
-     *
-     * @ORM\PostUpdate
-     */
-    public function doUpdateStorageId()
-    {
-        // remove old ids
-        foreach ($this->old_paths as $path) {
-            if (file_exists($path.self::ID_FILE) &&
-                (file_get_contents($path.self::ID_FILE) == $this->getId())
-            ) {
-                unlink($path.self::ID_FILE);
-            }
-        }
-
-        $this->doSaveStorageId();
     }
 
     /**

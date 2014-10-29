@@ -22,3 +22,11 @@ services:
         arguments: [ @filesystem, %anime_db.downloader.root% ]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    anime_db.catalog.listener.entity.storage:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage
+        arguments: [ @filesystem ]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postRemove }
+            - { name: doctrine.event_listener, event: postUpdate }
