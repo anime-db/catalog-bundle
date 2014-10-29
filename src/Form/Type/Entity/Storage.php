@@ -43,7 +43,7 @@ class Storage extends AbstractType
                 ]
             ])
             ->add('type', 'choice', [
-                'choices' => StorageEntity::$type_titles,
+                'choices' => StorageEntity::getTypeTitles(),
                 'label' => 'Type'
             ])
             ->add('description', null, [

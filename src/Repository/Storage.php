@@ -45,7 +45,7 @@ class Storage extends EntityRepository
      */
     public function getList(array $types = array())
     {
-        if (!$types || $types == StorageEntity::$type_names) {
+        if (!$types || $types == StorageEntity::getTypes()) {
             return $this->getEntityManager()->createQuery('
                 SELECT
                     s

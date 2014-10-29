@@ -154,7 +154,7 @@ class Storage
      *
      * @var array
      */
-    public static $type_names = [
+    protected static $type_names = [
         self::TYPE_FOLDER,
         self::TYPE_EXTERNAL,
         self::TYPE_EXTERNAL_R,
@@ -166,7 +166,7 @@ class Storage
      *
      * @var array
      */
-    public static $type_titles = [
+    protected static $type_titles = [
         self::TYPE_FOLDER => 'Folder on computer (local/network)',
         self::TYPE_EXTERNAL => 'External storage (HDD/Flash/SD)',
         self::TYPE_EXTERNAL_R => 'External storage read-only (CD/DVD)',
@@ -337,6 +337,16 @@ class Storage
     public static function getTypes()
     {
         return self::$type_names;
+    }
+
+    /**
+     * Get type titles
+     *
+     * @return array
+     */
+    public static function getTypeTitles()
+    {
+        return self::$type_titles;
     }
 
     /**
