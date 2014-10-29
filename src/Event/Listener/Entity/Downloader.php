@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -17,12 +17,12 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Image;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\EntityInterface;
 
 /**
- * Entity listener
+ * Entity downloader listener
  *
  * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Entity
+class Downloader
 {
     /**
      * Filesystem

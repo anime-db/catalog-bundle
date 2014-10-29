@@ -8,19 +8,19 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
+namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 
-use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Image;
 
 /**
- * Test entity listener
+ * Test entity downloader listener
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener
+ * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class EntityTest extends \PHPUnit_Framework_TestCase
+class DownloaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * LifecycleEventArgs
@@ -60,7 +60,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->args = $this->getMockBuilder('\Doctrine\ORM\Event\LifecycleEventArgs')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->listener = new Entity($this->fs, $this->root);
+        $this->listener = new Downloader($this->fs, $this->root);
     }
 
     /**
