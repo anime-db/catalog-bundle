@@ -12,7 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 
 /**
  * Entity storage listener
@@ -54,7 +54,7 @@ class Storage
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Storage &&
+        if ($entity instanceof StorageEntity &&
             $this->fs->exists($entity->getPath()) &&
             !$this->fs->exists($entity->getPath().self::ID_FILE)
         ) {
@@ -70,7 +70,7 @@ class Storage
     public function postRemove(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Storage &&
+        if ($entity instanceof StorageEntity &&
             $this->fs->exists($entity->getPath().self::ID_FILE) &&
             (file_get_contents($entity->getPath().self::ID_FILE) == $entity->getId())
         ) {
@@ -86,7 +86,7 @@ class Storage
     public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Storage) {
+        if ($entity instanceof StorageEntity) {
             // remove old ids
             foreach ($entity->getOldPaths() as $path) {
                 if ($this->fs->exists($path.self::ID_FILE) &&
