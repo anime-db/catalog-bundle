@@ -24,16 +24,16 @@ class SearchSimple extends AbstractType
     /**
      * Autocomplete source
      *
-     * @var string|null
+     * @var string
      */
     private $source;
 
     /**
      * Construct
      *
-     * @param string|null $source
+     * @param string $source
      */
-    public function __construct($source = null)
+    public function __construct($source = '')
     {
         $this->source = $source;
     }
