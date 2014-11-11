@@ -18,7 +18,6 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Search as SearchForm;
 use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
-use Symfony\Component\Yaml\Yaml;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
