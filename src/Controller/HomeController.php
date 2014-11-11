@@ -272,13 +272,12 @@ class HomeController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 // update params
-                $file = $this->container->getParameter('kernel.root_dir').'/config/parameters.yml';
-                $parameters = Yaml::parse($file);
-                $parameters['parameters']['serial_number'] = $entity->getSerialNumber();
-                $parameters['parameters']['task_scheduler.enabled'] = $entity->getTaskScheduler();
-                $parameters['parameters']['anime_db.catalog.default_search'] = $entity->getDefaultSearch();
-                $parameters['parameters']['last_update'] = gmdate('r');
-                file_put_contents($file, Yaml::dump($parameters)); 
+                /* @var $parameters \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters */
+                $parameters = $this->get('anime_db.manipulator.parameters');
+                $parameters->set('serial_number', $entity->getSerialNumber());
+                $parameters->set('task_scheduler.enabled', $entity->getTaskScheduler());
+                $parameters->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
+                $parameters->set('last_update', gmdate('r')); // TODO @deprecated
                 // change locale
                 $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
                 // clear cache
