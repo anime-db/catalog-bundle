@@ -269,31 +269,4 @@ class HomeController extends Controller
             'form'  => $form->createView()
         ], $response);
     }
-
-    /**
-     * Autocomplete label
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function autocompleteLabelAction(Request $request)
-    {
-        $response = $this->get('cache_time_keeper')
-            ->getResponse('AnimeDbCatalogBundle:Label', -1, new JsonResponse());
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        $list = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Label')
-            ->searchByName($request->get('term'));
-
-        /* @var $label \AnimeDb\Bundle\CatalogBundle\Entity\Label */
-        foreach ($list as $key => $label) {
-            $list[$key] = $label->getName();
-        }
-
-        return $response->setData($list);
-    }
 }

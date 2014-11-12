@@ -10,9 +10,6 @@ home_search:
 home_autocomplete_name:
     pattern:  /autocomplete/name.json
     defaults: { _controller: AnimeDbCatalogBundle:Home:autocompleteName, _format: json }
-home_autocomplete_label:
-    pattern:  /autocomplete/label.json
-    defaults: { _controller: AnimeDbCatalogBundle:Home:autocompleteLabel, _format: json }
 home_settings:
     pattern:  /settings.html
     defaults: { _controller: AnimeDbCatalogBundle:Home:settings }
