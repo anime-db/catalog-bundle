@@ -240,7 +240,6 @@ class HomeController extends Controller
         }
 
         $entity = (new GeneralEntity())
-            ->setSerialNumber($this->container->getParameter('serial_number'))
             ->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'))
             ->setDefaultSearch($this->container->getParameter('anime_db.catalog.default_search'))
             ->setLocale($request->getLocale());
@@ -253,7 +252,6 @@ class HomeController extends Controller
             // update params
             /* @var $parameters \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters */
             $parameters = $this->get('anime_db.manipulator.parameters');
-            $parameters->set('serial_number', $entity->getSerialNumber());
             $parameters->set('task_scheduler.enabled', $entity->getTaskScheduler());
             $parameters->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
             $parameters->set('last_update', gmdate('r')); // TODO @deprecated

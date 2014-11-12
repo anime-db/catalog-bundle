@@ -52,10 +52,6 @@ class General extends AbstractType
         }
 
         $builder
-            // TODO temporarily disabled #69
-            /* ->add('serial_number', 'text', [
-                'label' => 'Serial number'
-            ]) */
             ->add('locale', 'locale', [
                 'label' => 'Language'
             ])
