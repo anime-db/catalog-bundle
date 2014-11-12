@@ -21,20 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class General
 {
     /**
-     * Serial number
-     *
-     * TODO temporarily disabled #69
-     * @ Assert\NotBlank()
-     * @Assert\Regex(
-     *     pattern="/^([A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4}\-[A-Z0-9]{4})$/",
-     *     message="Serial number must consist of numbers and letters, and have the form of XXXX-XXXX-XXXX-XXXX"
-     * )
-     *
-     * @var string
-     */
-    protected $serial_number = '';
-
-    /**
      * Task scheduler
      *
      * @Assert\Type(type="bool", message="The value {{ value }} is not a valid {{ type }}.")
@@ -58,29 +44,6 @@ class General
      * @var string
      */
     protected $default_search = '';
-
-    /**
-     * Get serial number
-     * 
-     * @return string
-     */
-    public function getSerialNumber()
-    {
-        return $this->serial_number;
-    }
-
-    /**
-     * Set serial number
-     *
-     * @param string $serial_number
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Settings\General
-     */
-    public function setSerialNumber($serial_number)
-    {
-        $this->serial_number = $serial_number;
-        return $this;
-    }
 
     /**
      * Get task scheduler
