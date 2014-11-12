@@ -239,63 +239,34 @@ class HomeController extends Controller
             return $response;
         }
 
-        $entity = new GeneralEntity();
-        $entity->setSerialNumber($this->container->getParameter('serial_number'));
-        $entity->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'));
-        $entity->setDefaultSearch($this->container->getParameter('anime_db.catalog.default_search'));
-        $entity->setLocale($request->getLocale());
+        $entity = (new GeneralEntity())
+            ->setSerialNumber($this->container->getParameter('serial_number'))
+            ->setTaskScheduler($this->container->getParameter('task_scheduler.enabled'))
+            ->setDefaultSearch($this->container->getParameter('anime_db.catalog.default_search'))
+            ->setLocale($request->getLocale());
 
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new GeneralForm($this->get('anime_db.plugin.search_fill')), $entity);
+        $form = $this->createForm(new GeneralForm($this->get('anime_db.plugin.search_fill')), $entity)
+            ->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                // update params
-                /* @var $parameters \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters */
-                $parameters = $this->get('anime_db.manipulator.parameters');
-                $parameters->set('serial_number', $entity->getSerialNumber());
-                $parameters->set('task_scheduler.enabled', $entity->getTaskScheduler());
-                $parameters->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
-                $parameters->set('last_update', gmdate('r')); // TODO @deprecated
-                // change locale
-                $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
-                // clear cache
-                $this->get('anime_db.cache_clearer')->clear();
+        if ($form->isValid()) {
+            // update params
+            /* @var $parameters \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters */
+            $parameters = $this->get('anime_db.manipulator.parameters');
+            $parameters->set('serial_number', $entity->getSerialNumber());
+            $parameters->set('task_scheduler.enabled', $entity->getTaskScheduler());
+            $parameters->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
+            $parameters->set('last_update', gmdate('r')); // TODO @deprecated
+            // change locale
+            $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
+            // clear cache
+            $this->get('anime_db.cache_clearer')->clear();
 
-                return $this->redirect($this->generateUrl('home_settings'));
-            }
+            return $this->redirect($this->generateUrl('home_settings'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
             'form'  => $form->createView()
         ], $response);
-    }
-
-    /**
-     * Autocomplete label
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function autocompleteLabelAction(Request $request)
-    {
-        $response = $this->get('cache_time_keeper')
-            ->getResponse('AnimeDbCatalogBundle:Label', -1, new JsonResponse());
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        $list = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Label')
-            ->searchByName($request->get('term'));
-
-        /* @var $label \AnimeDb\Bundle\CatalogBundle\Entity\Label */
-        foreach ($list as $key => $label) {
-            $list[$key] = $label->getName();
-        }
-
-        return $response->setData($list);
     }
 }
