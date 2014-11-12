@@ -29,6 +29,8 @@ services:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.type.labels:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\Labels
+        tags:
+            - { name: form.type, alias: anime_db_catalog_labels }
         calls:
             - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
     anime_db.form.notice.filter:
