@@ -16,9 +16,6 @@ home_autocomplete_label:
 home_settings:
     pattern:  /settings.html
     defaults: { _controller: AnimeDbCatalogBundle:Home:settings }
-home_labels:
-    pattern:  /labels.html
-    defaults: { _controller: AnimeDbCatalogBundle:Home:labels }
 
 #
 # Item
@@ -134,3 +131,9 @@ plugin_installed:
 plugin_store:
     pattern:  /plugin/store.html
     defaults: { _controller: AnimeDbCatalogBundle:Plugin:store }
+#
+# Label
+#
+label:
+    pattern:  /labels.html
+    defaults: { _controller: AnimeDbCatalogBundle:Label:index }

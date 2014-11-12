@@ -19,7 +19,6 @@ use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Main page of the catalog
@@ -298,34 +297,5 @@ class HomeController extends Controller
         }
 
         return $response->setData($list);
-    }
-
-    /**
-     * Edit labels
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function labelsAction(Request $request) {
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Label');
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Label */
-        $repository = $this->getDoctrine()->getManager()->getRepository('AnimeDbCatalogBundle:Label');
-
-        $form = $this->createForm('anime_db_catalog_labels', ['labels' => $repository->findAll()])
-            ->handleRequest($request);
-        if ($form->isValid()) {
-            $repository->updateListLabels(new ArrayCollection($form->getData()['labels']));
-            return $this->redirect($this->generateUrl('home_labels'));
-        }
-
-        return $this->render('AnimeDbCatalogBundle:Home:labels.html.twig', [
-            'form'  => $form->createView()
-        ], $response);
     }
 }

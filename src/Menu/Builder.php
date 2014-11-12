@@ -111,7 +111,7 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-white-storage');
         $settings->addChild('List of notice', ['route' => 'notice_list'])
             ->setLinkAttribute('class', 'icon-label icon-white-alert');
-        $settings->addChild('Labels', ['route' => 'home_labels'])
+        $settings->addChild('Labels', ['route' => 'label'])
             ->setLinkAttribute('class', 'icon-label icon-white-label');
         $plugins = $settings->addChild('Plugins')
             ->setLabelAttribute('class', 'icon-label icon-white-plugin');
