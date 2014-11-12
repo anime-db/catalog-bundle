@@ -248,23 +248,20 @@ class ItemController extends Controller
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
 
-        $form = $this->createForm($import->getForm());
+        $form = $this->createForm($import->getForm())->handleRequest($request);
 
         $list = [];
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                // import items
-                $list = (array)$import->import($form->getData());
+        if ($form->isValid()) {
+            // import items
+            $list = (array)$import->import($form->getData());
 
-                // persist entity
-                $em = $this->getDoctrine()->getManager();
-                foreach ($list as $key => $item) {
-                    if ($item instanceof Item) {
-                        $em->persist($item);
-                    } else {
-                        unset($list[$key]);
-                    }
+            // persist entity
+            $em = $this->getDoctrine()->getManager();
+            foreach ($list as $key => $item) {
+                if ($item instanceof Item) {
+                    $em->persist($item);
+                } else {
+                    unset($list[$key]);
                 }
             }
         }
