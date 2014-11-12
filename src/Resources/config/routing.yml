@@ -87,7 +87,7 @@ storage_scan_progress:
 #
 notice_list:
     pattern:  /notice.html
-    defaults: { _controller: AnimeDbCatalogBundle:Notice:list }
+    defaults: { _controller: AnimeDbCatalogBundle:Notice:index }
 
 #
 # Update
