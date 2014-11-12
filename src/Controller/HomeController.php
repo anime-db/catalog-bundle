@@ -314,36 +314,14 @@ class HomeController extends Controller
             return $response;
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $labels = new ArrayCollection($em->getRepository('AnimeDbCatalogBundle:Label')->findAll());
+        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Label */
+        $repository = $this->getDoctrine()->getManager()->getRepository('AnimeDbCatalogBundle:Label');
 
-        $form = $this->createForm($this->get('anime_db.form.type.labels'), ['labels' => $labels]);
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $new_labels = $form->getData()['labels'];
-
-                // remove labals
-                foreach ($labels as $label) {
-                    if (!$new_labels->contains($label)) {
-                        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                        foreach ($label->getItems() as $item) {
-                            $item->removeLabel($label);
-                        }
-                        $em->remove($label);
-                    }
-                }
-
-                // add new labals
-                foreach ($new_labels as $label) {
-                    if (!$labels->contains($label)) {
-                        $em->persist($label);
-                    }
-                }
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('home_labels'));
-            }
+        $form = $this->createForm('anime_db_catalog_labels', ['labels' => $repository->findAll()])
+            ->handleRequest($request);
+        if ($form->isValid()) {
+            $repository->updateListLabels(new ArrayCollection($form->getData()['labels']));
+            return $this->redirect($this->generateUrl('home_labels'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Home:labels.html.twig', [
