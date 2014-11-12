@@ -47,8 +47,7 @@ class NoticeController extends Controller
         }
 
         $repository = $this->getRepository();
-        $change_form = $this->createForm(new ChangeNotice());
-        $change_form->handleRequest($request);
+        $change_form = $this->createForm(new ChangeNotice())->handleRequest($request);
         if ($change_form->isValid() && ($notices = $change_form->getData()['notices'])) {
             switch ($change_form->getData()['action']) {
                 case ChangeNotice::ACTION_SET_STATUS_SHOWN:
@@ -59,7 +58,6 @@ class NoticeController extends Controller
                     break;
                 case ChangeNotice::ACTION_REMOVE:
                     $repository->remove($notices->toArray());
-                    break;
             }
             return $this->redirect($this->generateUrl('notice_list'));
         }
@@ -83,8 +81,7 @@ class NoticeController extends Controller
         $repository = $this->getRepository();
 
         // filter list notice
-        $filter = $this->createForm('anime_db_catalog_notices_filter');
-        $filter->handleRequest($request);
+        $filter = $this->createForm('anime_db_catalog_notices_filter')->handleRequest($request);
         if ($filter->isValid()) {
             $query = $repository->getFilteredQuery($filter->getData()['status'], $filter->getData()['type']);
         } else {
