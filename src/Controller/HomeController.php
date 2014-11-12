@@ -174,70 +174,52 @@ class HomeController extends Controller
             return $response;
         }
 
-        $data = new SearchEntity();
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm('anime_db_catalog_search_items', $data);
-        $items = [];
+        $form = $this->createForm('anime_db_catalog_search_items', new SearchEntity())->handleRequest($request);
         $pagination = null;
-        $total = 0;
+        $result = ['list' => [], 'total' => 0];
 
-        if ($request->query->count()) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
-                $service = $this->get('anime_db.item.search');
-                /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
-                $controls = $this->get('anime_db.item.list_controls');
+        if ($form->isValid()) {
+            /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+            $controls = $this->get('anime_db.item.list_controls');
 
-                // current page for paging
-                $current_page = $request->get('page', 1);
-                $current_page = $current_page > 1 ? $current_page : 1;
+            // current page for paging
+            $current_page = $request->get('page', 1);
+            $current_page = $current_page > 1 ? $current_page : 1;
 
-                // get items limit
-                $limit = $controls->getLimit($request->query->all());
+            // get items limit
+            $limit = $controls->getLimit($request->query->all());
 
-                // get order
-                $current_sort_by = $controls->getSortColumn($request->query->all());
-                $current_sort_direction = $controls->getSortDirection($request->query->all());
+            // do search
+            $result = $this->get('anime_db.item.search')->search(
+                $form->getData(),
+                $limit,
+                ($current_page - 1) * $limit,
+                $controls->getSortColumn($request->query->all()),
+                $controls->getSortDirection($request->query->all())
+            );
 
-                // do search
-                $result = $service->search(
-                    $data,
-                    $limit,
-                    ($current_page - 1) * $limit,
-                    $current_sort_by,
-                    $current_sort_direction
+            if ($limit) {
+                // build pagination
+                $that = $this;
+                $query = $request->query->all();
+                unset($query['page']);
+                $pagination = $this->get('anime_db.pagination')->createNavigation(
+                    ceil($result['total']/$limit),
+                    $current_page,
+                    Pagination::DEFAULT_LIST_LENGTH,
+                    function ($page) use ($that, $query) {
+                        return $that->generateUrl('home_search', array_merge($query, ['page' => $page]));
+                    },
+                    $this->generateUrl('home_search', $query)
                 );
-                $items = $result['list'];
-                $total = $result['total'];
-
-                if ($limit) {
-                    // build pagination
-                    $query = $request->query->all();
-                    if (isset($query['page'])) {
-                        unset($query['page']);
-                    }
-                    $that = $this;
-                    $pagination = $this->get('anime_db.pagination')->createNavigation(
-                        ceil($total/$limit),
-                        $current_page,
-                        Pagination::DEFAULT_LIST_LENGTH,
-                        function ($page) use ($that, $query) {
-                            return $that->generateUrl(
-                                'home_search',
-                                array_merge($query, ['page' => $page])
-                            );
-                        },
-                        $this->generateUrl('home_search', $query)
-                    );
-                }
             }
         }
 
         return $this->render('AnimeDbCatalogBundle:Home:search.html.twig', [
             'form'  => $form->createView(),
-            'items' => $items,
-            'total' => $total,
+            'items' => $result['list'],
+            'total' => $result['total'],
             'pagination' => $pagination,
             'searched' => !!$request->query->count()
         ], $response);
