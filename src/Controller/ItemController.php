@@ -298,10 +298,7 @@ class ItemController extends Controller
             $request->getSession()->remove(self::NAME_ITEM_ADDED);
             switch ($request->request->get('do')) {
                 case 'add':
-                    $item->freez($this->getDoctrine());
-                    return $this->addItem($item);
-                    break;
-                case 'cancel':
+                    return $this->addItem($item->freez($this->getDoctrine()));
                 default:
                     return $this->redirect($this->generateUrl('home'));
             }
@@ -311,8 +308,7 @@ class ItemController extends Controller
         $duplicate = $repository->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
-            $item->freez($this->getDoctrine());
-            return $this->addItem($item);
+            return $this->addItem($item->freez($this->getDoctrine()));
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:duplicate.html.twig', [
