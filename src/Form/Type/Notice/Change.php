@@ -50,37 +50,18 @@ class Change extends AbstractType
     const ACTION_REMOVE = 'remove';
 
     /**
-     * List ids
-     *
-     * @var array
-     */
-    protected $ids = [];
-
-    /**
-     * Construct
-     *
-     * @param array $notices
-     */
-    public function __construct(array $notices)
-    {
-        /* @var $notice \AnimeDb\Bundle\AppBundle\Entity\Notice */
-        foreach ($notices as $notice) {
-            $this->ids[] = $notice->getId();
-        }
-    }
-
-    /**
      * (non-PHPdoc)
      * @see \Symfony\Component\Form\AbstractType::buildForm()
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'choice', [
-                'choices' => $this->ids,
-                'required' => false,
+            ->add('notices', 'entity', [
+                'class'    => 'AnimeDbAppBundle:Notice',
+                'property' => 'id',
+                'multiple' => true,
                 'expanded' => true,
-                'multiple' => true
+                'required' => false,
             ])
             ->add('action', 'choice', [
                 'choices' => [

@@ -1,0 +1,14 @@
+{% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
+
+{% block title %}{% trans %}List of notice{% endtrans %}{% endblock %}
+
+{% block content %}
+<section class="b-notice-list">
+    <h2>{% trans %}List of notice{% endtrans %}</h2>
+    {% if has_notices %}
+       {% render controller('AnimeDbCatalogBundle:Notice:list', {'request': app.request}) %}
+    {% else %}
+        {% trans %}No notices{% endtrans %}
+    {% endif %}
+</section>
+{% endblock %}
