@@ -102,7 +102,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // General
-            ['general', 'getSerialNumber', 'setSerialNumber'],
             ['general', 'getTaskScheduler', 'setTaskScheduler', true, false],
             ['general', 'getLocale', 'setLocale'],
             ['general', 'getDefaultSearch', 'setDefaultSearch'],
