@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 
 use Symfony\Component\EventDispatcher\Event;
+use Doctrine\Common\Collections\ArrayCollection;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 
@@ -24,11 +25,11 @@ class AddNewItem extends Event
 {
 
     /**
-     * Filler
+     * Fillers
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $filler;
+    protected $fillers;
 
     /**
      * Item
@@ -46,7 +47,7 @@ class AddNewItem extends Event
     public function __construct(Item $item, Filler $filler)
     {
         $this->item = $item;
-        $this->filler = $filler;
+        $this->fillers = new ArrayCollection([$filler]);
     }
 
     /**
@@ -60,12 +61,27 @@ class AddNewItem extends Event
     }
 
     /**
-     * Get filler
+     * Get fillers
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
-    public function getFiller()
+    public function getFillers()
     {
-        return $this->filler;
+        return $this->fillers;
+    }
+
+    /**
+     * Add filler
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem
+     */
+    public function addFiller(Filler $filler)
+    {
+        if (!$this->fillers->contains($filler)) {
+            $this->fillers->add($filler);
+        }
+        return $this;
     }
 }
