@@ -429,7 +429,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                     /* @var $event \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem */
                     $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem', $event);
                     $that->assertEquals($item, $event->getItem());
-                    $that->assertEquals($filler, $event->getFiller());
+                    $that->assertEquals([$filler], $event->getFillers()->toArray());
                 });
             $file = $this->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
                 ->disableOriginalConstructor()
