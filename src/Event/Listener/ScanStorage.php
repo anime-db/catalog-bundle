@@ -136,23 +136,21 @@ class ScanStorage
      */
     public function onDetectedNewFilesSendNotice(DetectedNewFiles $event)
     {
-        if (!$event->isPropagationStopped()) {
-            // get link for search item
-            $link = null;
-            if ($plugin = $this->search->getDafeultPlugin()) {
-                $link = $plugin->getLinkForSearch($event->getName());
-            } elseif ($this->search->hasPlugins()) {
-                $link = $this->router->generate(
-                    'fill_search_in_all',
-                    [SearchPluginForm::FORM_NAME => ['name' => $event->getName()]]
-                );
-            }
-
-            $this->sendNotice(
-                self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
-                ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
+        // get link for search item
+        $link = null;
+        if ($plugin = $this->search->getDafeultPlugin()) {
+            $link = $plugin->getLinkForSearch($event->getName());
+        } elseif ($this->search->hasPlugins()) {
+            $link = $this->router->generate(
+                'fill_search_in_all',
+                [SearchPluginForm::FORM_NAME => ['name' => $event->getName()]]
             );
         }
+
+        $this->sendNotice(
+            self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
+            ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
+        );
     }
 
     /**
