@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/anime-db.git",
-                "reference": "c0f353fbe1cab43e472bbd9b393ce72ed41d3925"
+                "reference": "d7c0888c572660090fb8c74582658d2d0d15968a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/c0f353fbe1cab43e472bbd9b393ce72ed41d3925",
-                "reference": "c0f353fbe1cab43e472bbd9b393ce72ed41d3925",
+                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/d7c0888c572660090fb8c74582658d2d0d15968a",
+                "reference": "d7c0888c572660090fb8c74582658d2d0d15968a",
                 "shasum": ""
             },
             "require": {
@@ -95,7 +95,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2014-11-11 09:45:20"
+            "time": "2014-11-14 14:57:08"
         },
         {
             "name": "anime-db/api-client-bundle",
@@ -2344,12 +2344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "af4f95936d11bb4e643fd93172eff79534f13303"
+                "reference": "60f38de3a49b403e085166747250fb913216ec31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/af4f95936d11bb4e643fd93172eff79534f13303",
-                "reference": "af4f95936d11bb4e643fd93172eff79534f13303",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/60f38de3a49b403e085166747250fb913216ec31",
+                "reference": "60f38de3a49b403e085166747250fb913216ec31",
                 "shasum": ""
             },
             "require": {
@@ -2449,7 +2449,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-11-12 08:14:41"
+            "time": "2014-11-16 17:47:56"
         },
         {
             "name": "twig/extensions",
