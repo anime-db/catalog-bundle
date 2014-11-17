@@ -544,7 +544,8 @@ class Item extends BaseEntity implements ImageInterface
      */
     public function addName(Name $name)
     {
-        if (!$this->names->contains($name)) {
+        $names = array_map('strval', $this->names->toArray());
+        if (!in_array($name->getName(), $names)) {
             $this->names->add($name);
             $name->setItem($this);
         }
@@ -819,7 +820,8 @@ class Item extends BaseEntity implements ImageInterface
      */
     public function addSource(Source $source)
     {
-        if (!$this->sources->contains($source)) {
+        $sources = array_map('strval', $this->sources->toArray());
+        if (!in_array($source->getUrl(), $sources)) {
             $this->sources->add($source);
             $source->setItem($this);
         }
@@ -861,7 +863,8 @@ class Item extends BaseEntity implements ImageInterface
      */
     public function addImage(Image $image)
     {
-        if (!$this->images->contains($image)) {
+        $images = array_map('strval', $this->images->toArray());
+        if (!in_array($image->getSource(), $images)) {
             $this->images->add($image);
             $image->setItem($this);
         }
