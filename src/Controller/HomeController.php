@@ -255,10 +255,13 @@ class HomeController extends Controller
                 'anime_db.catalog.default_search' => $entity->getDefaultSearch(),
                 'last_update' => gmdate('r') // TODO @deprecated
             ]);
+
             // change locale
-            $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
-            // clear cache
-            $this->get('anime_db.cache_clearer')->clear();
+            if ($request->getLocale() != $entity->getLocale()) {
+                $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
+            } else {
+                $this->get('anime_db.cache_clearer')->clear(); // clear cache
+            }
 
             return $this->redirect($this->generateUrl('home_settings'));
         }
