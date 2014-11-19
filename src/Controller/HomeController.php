@@ -253,7 +253,6 @@ class HomeController extends Controller
             $this->get('anime_db.manipulator.parameters')->setList([
                 'task_scheduler.enabled' => $entity->getTaskScheduler(),
                 'anime_db.catalog.default_search' => $entity->getDefaultSearch(),
-                'last_update' => gmdate('r') // TODO @deprecated
             ]);
 
             // change locale
