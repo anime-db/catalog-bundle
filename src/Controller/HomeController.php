@@ -250,11 +250,11 @@ class HomeController extends Controller
 
         if ($form->isValid()) {
             // update params
-            /* @var $parameters \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters */
-            $parameters = $this->get('anime_db.manipulator.parameters');
-            $parameters->set('task_scheduler.enabled', $entity->getTaskScheduler());
-            $parameters->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
-            $parameters->set('last_update', gmdate('r')); // TODO @deprecated
+            $this->get('anime_db.manipulator.parameters')->setList([
+                'task_scheduler.enabled' => $entity->getTaskScheduler(),
+                'anime_db.catalog.default_search' => $entity->getDefaultSearch(),
+                'last_update' => gmdate('r') // TODO @deprecated
+            ]);
             // change locale
             $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
             // clear cache
