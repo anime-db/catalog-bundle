@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\SearchSimple;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Search as SearchForm;
-use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
@@ -82,15 +81,13 @@ class HomeController extends Controller
         // show not all items
         if ($limit = $controls->getLimit($request->query->all())) {
             $that = $this;
-            $pagination = $this->get('anime_db.pagination')->createNavigation(
-                ceil($repository->count()/$limit),
-                $current_page,
-                Pagination::DEFAULT_LIST_LENGTH,
-                function ($page) use ($that) {
+            $pagination = $this->get('anime_db.pagination')
+                ->create(ceil($repository->count()/$limit), $current_page)
+                ->setPageLink(function ($page) use ($that) {
                     return $that->generateUrl('home', ['page' => $page]);
-                },
-                $this->generateUrl('home')
-            );
+                })
+                ->setFerstPageLink($this->generateUrl('home'))
+                ->getView();
         }
 
         // get items
@@ -203,15 +200,13 @@ class HomeController extends Controller
                 $that = $this;
                 $query = $request->query->all();
                 unset($query['page']);
-                $pagination = $this->get('anime_db.pagination')->createNavigation(
-                    ceil($result['total']/$limit),
-                    $current_page,
-                    Pagination::DEFAULT_LIST_LENGTH,
-                    function ($page) use ($that, $query) {
+                $pagination = $this->get('anime_db.pagination')
+                    ->create(ceil($result['total']/$limit), $current_page)
+                    ->setPageLink(function ($page) use ($that, $query) {
                         return $that->generateUrl('home_search', array_merge($query, ['page' => $page]));
-                    },
-                    $this->generateUrl('home_search', $query)
-                );
+                    })
+                    ->setFerstPageLink($this->generateUrl('home_search', $query))
+                    ->getView();
             }
         }
 
