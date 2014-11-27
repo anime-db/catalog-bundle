@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Service;
 use AnimeDb\Bundle\CatalogBundle\Service\TwigExtension;
 
 /**
- * Test bundle
+ * Test twig extension
  *
  * @package AnimeDb\Bundle\CatalogBundle\Tests\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
