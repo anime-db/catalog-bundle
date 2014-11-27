@@ -7,6 +7,10 @@ services:
 
     anime_db.item.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
+        arguments: [ @doctrine, anime_db.item.search.selector ]
+        public: false
+    anime_db.item.search.selector:
+        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
         arguments: [ @doctrine ]
         public: false
     anime_db.item.search:
