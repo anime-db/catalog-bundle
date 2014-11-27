@@ -13,7 +13,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Symfony\Component\HttpFoundation\Request;
-use AnimeDb\Bundle\AppBundle\Util\Pagination;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Change as ChangeNotice;
 
 /**
@@ -103,15 +102,13 @@ class NoticeController extends Controller
         $that = $this;
         $request_query = $request->query->all();
         unset($request_query['page']);
-        $pagination = $this->get('anime_db.pagination')->createNavigation(
-            ceil($count/self::NOTICE_PER_PAGE),
-            $current_page,
-            Pagination::DEFAULT_LIST_LENGTH,
-            function ($page) use ($that, $request_query) {
+        $pagination = $this->get('anime_db.pagination')
+            ->create(ceil($count/self::NOTICE_PER_PAGE), $current_page)
+            ->setPageLink(function ($page) use ($that, $request_query) {
                 return $that->generateUrl('notice_list', array_merge($request_query, ['page' => $page]));
-            },
-            $this->generateUrl('notice_list', $request_query)
-        );
+            })
+            ->setFerstPageLink($this->generateUrl('notice_list', $request_query))
+            ->getView();
 
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
             'list' => $list,
