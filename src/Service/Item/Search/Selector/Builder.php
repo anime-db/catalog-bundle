@@ -47,10 +47,12 @@ class Builder
      */
     public function __construct(Registry $doctrine)
     {
-        $this->select = $doctrine->getRepository('AnimeDbCatalogBundle:Item')->createQueryBuilder('i');
-        $this->total = clone $this->select;
-        $this->total->select('COUNT(DISTINCT i)');
-        $this->select->groupBy('i');
+        $this->select = $doctrine->getRepository('AnimeDbCatalogBundle:Item')
+            ->createQueryBuilder('i')
+            ->groupBy('i');
+        $this->total = $doctrine->getRepository('AnimeDbCatalogBundle:Item')
+            ->createQueryBuilder('i')
+            ->select('COUNT(DISTINCT i)');
     }
 
     /**
