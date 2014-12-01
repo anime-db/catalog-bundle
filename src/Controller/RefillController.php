@@ -80,7 +80,7 @@ class RefillController extends Controller
             ->handleRequest($request)
             ->getData();
 
-        $result = array();
+        $result = [];
         if ($refiller->isCanSearch($item, $field)) {
             $result = $refiller->search($item, $field);
             /* @var $search_item \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Item */
