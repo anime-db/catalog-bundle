@@ -200,7 +200,7 @@ class Builder
      */
     public function addType(Search $entity)
     {
-        if ($entity->getType() instanceof Storage) {
+        if ($entity->getType() instanceof Type) {
             $this->add(function (QueryBuilder $query) use ($entity) {
                 $query
                     ->andWhere('i.type = :type')
@@ -267,7 +267,7 @@ class Builder
      */
     public function addStudio(Search $entity)
     {
-        if ($entity->getStudio()->count()) {
+        if ($entity->getStudio() instanceof Studio) {
             $this->add(function (QueryBuilder $query) use ($entity) {
                 $query
                     ->andWhere('i.studio = :studio')
