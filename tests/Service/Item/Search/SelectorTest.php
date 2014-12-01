@@ -32,7 +32,7 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $repository
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('createQueryBuilder')
             ->with('i')
             ->willReturn($query_builder);
@@ -40,7 +40,7 @@ class SelectorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine
-            ->expects($this->once())
+            ->expects($this->atLeastOnce())
             ->method('getRepository')
             ->with('AnimeDbCatalogBundle:Item')
             ->willReturn($repository);
