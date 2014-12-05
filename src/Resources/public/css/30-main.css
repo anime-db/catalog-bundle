@@ -1184,6 +1184,7 @@ label .starlet,
 .b-hinclude-loader {
 	background: url(/bundles/animedbcatalog/images/loader-hinclude.gif) no-repeat 0 center;
 	padding-left: 22px;
+	clear: both;
 }
 
 .widget-section {
