@@ -60,7 +60,6 @@ class NoticeController extends Controller
             }
             return $this->redirect($this->generateUrl('notice_list'));
         }
-
         return $this->render('AnimeDbCatalogBundle:Notice:index.html.twig', [
             'has_notices' => $repository->count()
         ], $response);
@@ -114,6 +113,7 @@ class NoticeController extends Controller
             'list' => $list,
             'pagination' => $pagination,
             'change_form' => $this->createForm(new ChangeNotice())->createView(),
+            'filter' => $filter->createView(),
             'action_remove' => ChangeNotice::ACTION_REMOVE
         ]);
     }
