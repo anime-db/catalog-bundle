@@ -43,7 +43,7 @@ class Storage extends EntityRepository
      *
      * @return array [\AnimeDb\Bundle\CatalogBundle\Entity\Storage]
      */
-    public function getList(array $types = array())
+    public function getList(array $types = [])
     {
         if (!$types || $types == StorageEntity::getTypes()) {
             return $this->getEntityManager()->createQuery('

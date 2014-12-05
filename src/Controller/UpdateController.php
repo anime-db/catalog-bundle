@@ -67,32 +67,48 @@ class UpdateController extends Controller
         // update for Windows XP does not work
         $can_update = strpos(php_uname('v'), 'Windows XP') === false;
 
-        // delete or install package
-        $action = false;
-        if ($plugin = $request->request->get('plugin')) {
-            /* @var $manipulator \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Composer */
-            $manipulator = $this->get('anime_db.manipulator.composer');
+        $plugin = $request->request->get('plugin');
+        $action = $this->getAction($plugin);
 
-            if (!empty($plugin['delete'])) {
-                $manipulator->removePackage($plugin['delete']);
+        // delete or install package
+        switch ($action) {
+            case 'delete':
+                $this->get('anime_db.manipulator.composer')->removePackage($plugin['delete']);
                 $plugin = $this->getPlugin('plugin/'.$plugin['delete'].'/');
-                $action = 'delete';
-            } elseif (!empty($plugin['install'])) {
-                $manipulator->addPackage($plugin['install']['package'], $plugin['install']['version']);
+                break;
+            case 'install':
+                $this->get('anime_db.manipulator.composer')
+                    ->addPackage($plugin['install']['package'], $plugin['install']['version']);
                 $plugin = $this->getPlugin('plugin/'.$plugin['install']['package'].'/');
-                $action = 'install';
-            } else {
-                $plugin = false;
-            }
+                break;
         }
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
             'can_update' => $can_update,
             'doc' => !$can_update ? $this->getDocLink($request->getLocale()) : '',
             'referer' => $request->headers->get('referer'),
-            'plugin' => $plugin,
+            'plugin' => $action ? $plugin : [],
             'action' => $action
         ], $response);
+    }
+
+    /**
+     * Get action
+     *
+     * @param array $plugin
+     *
+     * @return string
+     */
+    protected function getAction($plugin)
+    {
+        if (!$plugin) {
+            return '';
+        } elseif (!empty($plugin['delete'])) {
+            return 'delete';
+        } elseif (!empty($plugin['install'])) {
+            return 'install';
+        }
+        return '';
     }
 
     /**

@@ -195,25 +195,6 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test on detected new files send notice propagation stopped
-     */
-    public function testOnDetectedNewFilesSendNoticePropagationStopped()
-    {
-        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $event
-            ->expects($this->once())
-            ->method('isPropagationStopped')
-            ->willReturn(true);
-        $this->em
-            ->expects($this->never())
-            ->method('persist');
-
-        $this->listener->onDetectedNewFilesSendNotice($event);
-    }
-
-    /**
      * Get search plugins
      *
      * @return array
@@ -244,10 +225,6 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
         $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
             ->disableOriginalConstructor()
             ->getMock();
-        $event
-            ->expects($this->once())
-            ->method('isPropagationStopped')
-            ->willReturn(false);
         $event
             ->expects($this->atLeastOnce())
             ->method('getName')
@@ -429,7 +406,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                     /* @var $event \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem */
                     $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem', $event);
                     $that->assertEquals($item, $event->getItem());
-                    $that->assertEquals($filler, $event->getFiller());
+                    $that->assertEquals([$filler], $event->getFillers()->toArray());
                 });
             $file = $this->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
                 ->disableOriginalConstructor()

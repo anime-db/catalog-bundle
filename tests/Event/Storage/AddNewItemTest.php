@@ -26,9 +26,15 @@ class AddNewItemTest extends \PHPUnit_Framework_TestCase
     public function testEvent()
     {
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $filler = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
-        $event = new AddNewItem($item, $filler);
+        $filler1 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
+        $filler2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
+
+        $event = new AddNewItem($item, $filler1);
         $this->assertEquals($item, $event->getItem());
-        $this->assertEquals($filler, $event->getFiller());
+        $this->assertInstanceOf('\Doctrine\Common\Collections\ArrayCollection', $event->getFillers());
+        $this->assertEquals([$filler1], $event->getFillers()->toArray());
+
+        $event->addFiller($filler2);
+        $this->assertEquals([$filler1, $filler2], $event->getFillers()->toArray());
     }
 }

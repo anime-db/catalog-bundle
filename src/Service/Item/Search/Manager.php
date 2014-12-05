@@ -107,6 +107,8 @@ class Manager
      * 
      * @param string $name
      * @param integer $limit
+     *
+     * @return array
      */
     public function searchByName($name, $limit = 0)
     {

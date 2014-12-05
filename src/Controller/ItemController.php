@@ -248,23 +248,20 @@ class ItemController extends Controller
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
 
-        $form = $this->createForm($import->getForm());
+        $form = $this->createForm($import->getForm())->handleRequest($request);
 
         $list = [];
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                // import items
-                $list = (array)$import->import($form->getData());
+        if ($form->isValid()) {
+            // import items
+            $list = (array)$import->import($form->getData());
 
-                // persist entity
-                $em = $this->getDoctrine()->getManager();
-                foreach ($list as $key => $item) {
-                    if ($item instanceof Item) {
-                        $em->persist($item);
-                    } else {
-                        unset($list[$key]);
-                    }
+            // persist entity
+            $em = $this->getDoctrine()->getManager();
+            foreach ($list as $key => $item) {
+                if ($item instanceof Item) {
+                    $em->persist($item);
+                } else {
+                    unset($list[$key]);
                 }
             }
         }
@@ -298,10 +295,7 @@ class ItemController extends Controller
             $request->getSession()->remove(self::NAME_ITEM_ADDED);
             switch ($request->request->get('do')) {
                 case 'add':
-                    $item->freez($this->getDoctrine());
-                    return $this->addItem($item);
-                    break;
-                case 'cancel':
+                    return $this->addItem($item->freez($this->getDoctrine()));
                 default:
                     return $this->redirect($this->generateUrl('home'));
             }
@@ -311,8 +305,7 @@ class ItemController extends Controller
         $duplicate = $repository->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
-            $item->freez($this->getDoctrine());
-            return $this->addItem($item);
+            return $this->addItem($item->freez($this->getDoctrine()));
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:duplicate.html.twig', [

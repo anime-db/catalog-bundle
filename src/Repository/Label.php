@@ -12,6 +12,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Label repository
@@ -22,31 +23,30 @@ use Doctrine\ORM\EntityRepository;
 class Label extends EntityRepository
 {
     /**
-     * Search by name
+     * Update list labels
      *
-     * @param string $name
-     *
-     * @return array
+     * @param \Doctrine\Common\Collections\ArrayCollection $new_labels
      */
-    public function searchByName($name)
+    public function updateListLabels(ArrayCollection $new_labels)
     {
-        // register custom lower()
-        $conn = $this->_em->getConnection()->getWrappedConnection();
-        if (method_exists($conn, 'sqliteCreateFunction')) {
-            $conn->sqliteCreateFunction('lower', function ($str) {
-                return mb_strtolower($str, 'UTF8');
-            }, 1);
+        $old_label = new ArrayCollection($this->findAll());
+        // remove labals
+        foreach ($old_label as $label) {
+            if (!$new_labels->contains($label)) {
+                /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                foreach ($label->getItems() as $item) {
+                    $item->removeLabel($label);
+                }
+                $this->getEntityManager()->remove($label);
+            }
         }
 
-        return $this->_em->createQuery('
-            SELECT
-                l
-            FROM
-                AnimeDbCatalogBundle:Label l
-            WHERE
-                LOWER(l.name) LIKE :name
-        ')
-            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF8')).'%')
-            ->getResult();
+        // add new labals
+        foreach ($new_labels as $label) {
+            if (!$old_label->contains($label)) {
+                $this->getEntityManager()->persist($label);
+            }
+        }
+        $this->getEntityManager()->flush();
     }
 }

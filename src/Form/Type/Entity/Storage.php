@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AnimeDb\Bundle\AppBundle\Form\Field\LocalPath as LocalPathField;
+use AnimeDb\Bundle\AppBundle\Form\Type\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 

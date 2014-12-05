@@ -102,7 +102,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         return [
             // General
-            ['general', 'getSerialNumber', 'setSerialNumber'],
             ['general', 'getTaskScheduler', 'setTaskScheduler', true, false],
             ['general', 'getLocale', 'setLocale'],
             ['general', 'getDefaultSearch', 'setDefaultSearch'],
@@ -396,7 +395,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ->willReturnSelf()
             ->with($this->get($entity));
         $related
-            ->expects($this->at(1))
+            ->expects($this->at(2))
             ->method($set)
             ->willReturnSelf()
             ->with(null);
