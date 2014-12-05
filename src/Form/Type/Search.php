@@ -156,7 +156,8 @@ class Search extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Search'
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Search',
+            'csrf_protection' => false
         ]);
     }
 

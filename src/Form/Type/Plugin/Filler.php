@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Get item from filler
@@ -42,6 +43,17 @@ class Filler extends AbstractType
                     'placeholder' => 'http://',
                 ],
             ]);
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false
+        ]);
     }
 
     /**
