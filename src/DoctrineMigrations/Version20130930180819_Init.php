@@ -84,7 +84,7 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
         $this->addDataItem();
 
         // copy images for example items
-        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resource/private/images/example/');
+        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/example/');
         (new Filesystem())->mirror($source, $this->example_dir);
     }
 
