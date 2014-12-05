@@ -292,24 +292,30 @@ class Builder
      * Set limit
      *
      * @param integer $limit
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
      */
     public function limit($limit)
     {
         if ($limit > 0) {
             $this->select->setMaxResults($limit);
         }
+        return $this;
     }
 
     /**
      * Set offset
      *
      * @param integer $offset
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
      */
     public function offset($offset)
     {
         if ($offset > 0) {
             $this->select->setFirstResult($offset);
         }
+        return $this;
     }
 
     /**
@@ -317,9 +323,12 @@ class Builder
      *
      * @param string $column
      * @param string $direction
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
      */
     public function sort($column, $direction)
     {
         $this->select->orderBy('i.'.$column, $direction);
+        return $this;
     }
 }
