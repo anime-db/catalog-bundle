@@ -204,9 +204,8 @@ EOT
                     $file = new SplFileInfo($file, '', '');
 
                     // it is a new item
-                    $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);
                     $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
-                    $lazywrite->writeln('Detected files for new item <info>'.$name.'</info>');
+                    $lazywrite->writeln('Detected files for new item <info>'.$file->getFilename().'</info>');
                 }
                 $progress->advance();
             }
@@ -245,7 +244,7 @@ EOT
         // check of delete file for item
         foreach ($storage->getItems() as $item) {
             foreach ($finder as $file) {
-                if ($item->getPath() == $file->getPathname()) {
+                if (pathinfo($item->getPath(), PATHINFO_BASENAME) == $file->getFilename()) {
                     continue 2;
                 }
             }
