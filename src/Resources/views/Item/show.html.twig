@@ -39,8 +39,7 @@
 		<header>{% trans %}Record{% endtrans %}</header>
 		<article>
 			<nav>
-				{% set itemMenu = knp_menu_get('AnimeDbCatalogBundle:Builder:itemMenu', [], {'item': item}) %}
-				{{ knp_menu_render(itemMenu) }}
+				{{ knp_menu_render(knp_menu_get('AnimeDbCatalogBundle:Builder:itemMenu', [], {'item': item})) }}
 			</nav>
 		</article>
 	</section>
