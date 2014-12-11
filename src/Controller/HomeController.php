@@ -63,11 +63,6 @@ class HomeController extends Controller
             return $response;
         }
 
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         // current page for paging
         $page = $request->get('page', 1);
         $current_page = $page > 1 ? $page : 1;
