@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\Finder;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage as StorageListener;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
@@ -319,14 +320,14 @@ EOT
      */
     protected function checkStorageId($path, Storage $storage, StorageRepository $repository)
     {
-        if (!file_exists($path.Storage::ID_FILE)) {
+        if (!file_exists($path.StorageListener::ID_FILE)) {
             // path is free. reserve for me
-            file_put_contents($path.Storage::ID_FILE, $storage->getId());
-        } elseif (file_get_contents($path.Storage::ID_FILE) == $storage->getId()) {
+            file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
+        } elseif (file_get_contents($path.StorageListener::ID_FILE) == $storage->getId()) {
             // it is my path. do nothing
-        } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
+        } elseif (!($duplicate = $repository->find(file_get_contents($path.StorageListener::ID_FILE)))) {
             // this path is reserved storage that was removed and now this path is free
-            file_put_contents($path.Storage::ID_FILE, $storage->getId());
+            file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
         } else {
             return $duplicate;
         }
