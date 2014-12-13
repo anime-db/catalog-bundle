@@ -63,12 +63,13 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     {
         foreach ($this->genres as $en => $ru) {
             $genre = new Genre();
+
             $genre->setName($en)->setTranslatableLocale('en');
             $this->em->persist($genre);
             $this->em->flush($genre);
+
             $genre->setName($ru)->setTranslatableLocale('ru');
-            $this->em->persist($genre);
-            $this->em->flush($genre);
+            $this->em->refresh($genre);
         }
     }
 
