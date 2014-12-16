@@ -12,12 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use AnimeDb\Bundle\CatalogBundle\Entity\Name;
-use AnimeDb\Bundle\CatalogBundle\Entity\Image;
-use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Item
@@ -56,6 +52,69 @@ class ItemController extends Controller
     const WIDGET_PALCE_BOTTOM = 'item.bottom';
 
     /**
+     * Items per page
+     *
+     * @var integer
+     */
+    const ITEMS_PER_PAGE = 8;
+
+    /**
+     * Default limit
+     *
+     * @var integer
+     */
+    const DEFAULT_LIMIT = 8;
+
+    /**
+     * Limit for show all items
+     *
+     * @var integer
+     */
+    const LIMIT_ALL = 0;
+
+    /**
+     * Limit name for show all items
+     *
+     * @var integer
+     */
+    const LIMIT_ALL_NAME = 'All (%total%)';
+
+    /**
+     * Limits on the number of items per page
+     *
+     * @var array
+     */
+    public static $limits = [8, 16, 32, self::LIMIT_ALL];
+
+    /**
+     * Sort items by field
+     *
+     * @var array
+     */
+    public static $sort_by_field = [
+        'name'        => [
+            'title' => 'Item name',
+            'name'  => 'Name'
+        ],
+        'date_update' => [
+            'title' => 'Last updated item',
+            'name'  => 'Update'
+        ],
+        'rating' => [
+            'title' => 'Item rating',
+            'name'  => 'Rating'
+        ],
+        'date_premiere'  => [
+            'title' => 'Date premiere',
+            'name'  => 'Date premiere'
+        ],
+        'date_end'    => [
+            'title' => 'End date of issue',
+            'name'  => 'Date end'
+        ]
+    ];
+
+    /**
      * Show item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
@@ -65,22 +124,12 @@ class ItemController extends Controller
      */
     public function showAction(Item $item, Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
-        }
-        // use item update date
-        if ($response->getLastModified() < $item->getDateUpdate()) {
-            $response->setLastModified($item->getDateUpdate());
-        }
+        $date = [$item->getDateUpdate()];
         // use storage update date
-        if (
-            $item->getStorage() instanceof Storage &&
-            $response->getLastModified() < $item->getStorage()->getDateUpdate()
-        ) {
-            $response->setLastModified($item->getStorage()->getDateUpdate());
+        if ($item->getStorage() instanceof Storage) {
+            $date[] = $item->getStorage()->getDateUpdate();
         }
+        $response = $this->get('cache_time_keeper')->getResponse($date);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -103,6 +152,12 @@ class ItemController extends Controller
      */
     public function addManuallyAction(Request $request)
     {
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $item = new Item();
 
         /* @var $form \Symfony\Component\Form\Form */
@@ -127,7 +182,7 @@ class ItemController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Item:add-manually.html.twig', [
             'form' => $form->createView()
-        ]);
+        ], $response);
     }
 
     /**
@@ -193,23 +248,20 @@ class ItemController extends Controller
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
 
-        $form = $this->createForm($import->getForm());
+        $form = $this->createForm($import->getForm())->handleRequest($request);
 
         $list = [];
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                // import items
-                $list = (array)$import->import($form->getData());
+        if ($form->isValid()) {
+            // import items
+            $list = (array)$import->import($form->getData());
 
-                // persist entity
-                $em = $this->getDoctrine()->getManager();
-                foreach ($list as $key => $item) {
-                    if ($item instanceof Item) {
-                        $em->persist($item);
-                    } else {
-                        unset($list[$key]);
-                    }
+            // persist entity
+            $em = $this->getDoctrine()->getManager();
+            foreach ($list as $key => $item) {
+                if ($item instanceof Item) {
+                    $em->persist($item);
+                } else {
+                    unset($list[$key]);
                 }
             }
         }
@@ -243,10 +295,7 @@ class ItemController extends Controller
             $request->getSession()->remove(self::NAME_ITEM_ADDED);
             switch ($request->request->get('do')) {
                 case 'add':
-                    $item->freez($this->getDoctrine()->getManager());
-                    return $this->addItem($item);
-                    break;
-                case 'cancel':
+                    return $this->addItem($item->freez($this->getDoctrine()));
                 default:
                     return $this->redirect($this->generateUrl('home'));
             }
@@ -256,8 +305,7 @@ class ItemController extends Controller
         $duplicate = $repository->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
-            $item->freez($this->getDoctrine()->getManager());
-            return $this->addItem($item);
+            return $this->addItem($item->freez($this->getDoctrine()));
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:duplicate.html.twig', [
@@ -281,5 +329,50 @@ class ItemController extends Controller
             'item_show',
             ['id' => $item->getId(), 'name' => $item->getName()]
         ));
+    }
+
+    /**
+     * List items limit control
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string|integer $total
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function limitControlAction(Request $request, $total = '')
+    {
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item.list_controls');
+
+        if (!is_numeric($total) || $total < 0) {
+            $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
+            'limits' => $controls->getLimits($request->query->all()),
+            'total' => $total
+        ]);
+    }
+
+    /**
+     * List items sort control
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function sortControlAction(Request $request)
+    {
+        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        $controls = $this->get('anime_db.item.list_controls');
+
+        $direction = $controls->getSortDirection($request->query->all());
+        $sort_direction['type'] = $direction == 'ASC' ? 'DESC' : 'ASC';
+        $sort_direction['link'] = $controls->getSortDirectionLink($request->query->all());
+
+        return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
+            'sort_by' => $controls->getSortColumns($request->query->all()),
+            'sort_direction' => $sort_direction
+        ]);
     }
 }

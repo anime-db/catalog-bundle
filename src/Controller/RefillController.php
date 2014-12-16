@@ -13,17 +13,17 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\DateEnd as DateEndForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\DatePremiere as DatePremiereForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Duration as DurationForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Episodes as EpisodesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\EpisodesNumber as EpisodesNumberForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\FileInfo as FileInfoForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Images as ImagesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Names as NamesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Sources as SourcesForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Summary as SummaryForm;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Refiller\Translate as TranslateForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\DateEnd as DateEndForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\DatePremiere as DatePremiereForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Duration as DurationForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Episodes as EpisodesForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\EpisodesNumber as EpisodesNumberForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\FileInfo as FileInfoForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Images as ImagesForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Names as NamesForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Sources as SourcesForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Summary as SummaryForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Translate as TranslateForm;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -80,7 +80,7 @@ class RefillController extends Controller
             ->handleRequest($request)
             ->getData();
 
-        $result = array();
+        $result = [];
         if ($refiller->isCanSearch($item, $field)) {
             $result = $refiller->search($item, $field);
             /* @var $search_item \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Item */

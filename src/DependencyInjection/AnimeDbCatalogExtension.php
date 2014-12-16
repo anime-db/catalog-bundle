@@ -26,18 +26,19 @@ use Symfony\Component\DependencyInjection\Loader;
 class AnimeDbCatalogExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * (non-PHPdoc)
+     * @see \Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('parameters.yml');
         $loader->load('services.yml');
+        $loader->load('plugins.yml');
+        $loader->load('forms.yml');
+        $loader->load('listeners.yml');
 
-        $search_driver = $container->getParameter('anime_db.catalog.search_driver');
-        $container->setAlias('anime_db.search.driver', $search_driver);
+        $search_driver = $container->getParameter('anime_db.catalog.item.search_driver');
+        $container->setAlias('anime_db.item.search.driver', $search_driver);
     }
 }

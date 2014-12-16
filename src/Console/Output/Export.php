@@ -11,7 +11,6 @@
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\StreamOutput;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 use Symfony\Component\Filesystem\Exception\IOException;
 
@@ -35,7 +34,7 @@ class Export extends Decorator
      *
      * @var boolean
      */
-    protected $append;
+    protected $append = true;
 
     /**
      * Construct
@@ -50,15 +49,13 @@ class Export extends Decorator
         $this->append = $append;
 
         $dir = pathinfo($filename, PATHINFO_DIRNAME);
-        if (!is_dir($dir)) {
-            if (true !== @mkdir($dir, 0755, true)) {
-                throw new IOException('Failed to create the export directory: '.$dir);
-            }
+        if (!is_dir($dir) && true !== @mkdir($dir, 0755, true)) {
+            throw new IOException('Failed to create the export directory: '.$dir);
         }
         if (!($this->handle = @fopen($filename, 'w'))) {
             throw new IOException('Failed to open the export file: '.$filename);
         }
-        if (!flock($this->handle, LOCK_EX)) {
+        if (!flock($this->handle, LOCK_EX|LOCK_NB)) {
             throw new IOException('Failed to lock the export file: '.$filename);
         }
     }

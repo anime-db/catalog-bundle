@@ -1,0 +1,13 @@
+{% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
+
+{% block title %}{% trans %}Labels{% endtrans %}{% endblock %}
+
+{% block content %}
+<div class="b-settings-general">
+	<h2>{% trans %}Labels{% endtrans %}</h2>
+	<form action="" method="post" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+		<button type="submit">{% trans %}Save{% endtrans %}</button>
+	</form>
+</div>
+{% endblock %}

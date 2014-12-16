@@ -25,7 +25,7 @@ class PluginPass implements CompilerPassInterface
     /**
      * Process container builder
      *
-     * @param Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
@@ -41,7 +41,7 @@ class PluginPass implements CompilerPassInterface
     /**
      * Compiler chain
      *
-     * @param Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param string $chain_name
      * @param string $tag
      */
@@ -49,10 +49,8 @@ class PluginPass implements CompilerPassInterface
     {
         if ($definition = $container->getDefinition($chain_name)) {
             $taggedServices = $container->findTaggedServiceIds($tag);
-            foreach ($taggedServices as $id => $tagAttributes) {
-                foreach ($tagAttributes as $attributes) {
-                    $definition->addMethodCall('addPlugin', [new Reference($id)]);
-                }
+            foreach ($taggedServices as $id => $attributes) {
+                $definition->addMethodCall('addPlugin', [new Reference($id)]);
             }
         }
     }

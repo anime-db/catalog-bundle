@@ -5,7 +5,7 @@
 {% block content %}
 <section class="item-show-left">
 	<h2>{{ item.name }}</h2>
-	<img src="{{ item.coverWebPath|dummy('card') }}" alt="{{ item.name }}" class="cover" />
+	<img src="{{ item.webPath|dummy('card') }}" alt="{{ item.name }}" class="cover" />
 	<section class="item-summary">{{ item.summary }}</section>
 	{{ widgets(widget_in_content, {item: item.id}) }}
 	{% if item.episodes %}
@@ -20,12 +20,12 @@
 			<article>
 				{% for image in item.images %}
 					<a
-						href="{{ image.sourceWebPath }}"
+						href="{{ image.webPath }}"
 						data-control="gallery"
 						rel="frame"
 						title="{{ item.name }}"
 					><img
-						src="{{ image.sourceWebPath|dummy('frame')|apply_filter('frame') }}"
+						src="{{ image.webPath|dummy('frame')|apply_filter('frame') }}"
 						alt="{{ item.name }}"
 					/></a>
 				{% endfor %}
@@ -39,8 +39,7 @@
 		<header>{% trans %}Record{% endtrans %}</header>
 		<article>
 			<nav>
-				{% set itemMenu = knp_menu_get('AnimeDbCatalogBundle:Builder:itemMenu', [], {'item': item}) %}
-				{{ knp_menu_render(itemMenu) }}
+				{{ knp_menu_render(knp_menu_get('AnimeDbCatalogBundle:Builder:itemMenu', [], {'item': item})) }}
 			</nav>
 		</article>
 	</section>

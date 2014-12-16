@@ -1,0 +1,50 @@
+{% if items|default is not empty %}
+<div class="list-items">
+	{% if hide_sort|default is empty or hide_limit|default is empty %}
+		<div class="controls">
+			{% if hide_sort|default is empty %}
+				{% render controller('AnimeDbCatalogBundle:Item:sortControl', {'request': app.request}) %}
+			{% endif %}
+			{% if hide_limit|default is empty %}
+				{% render controller('AnimeDbCatalogBundle:Item:limitControl', {'request': app.request, 'total': total|default}) %}
+			{% endif %}
+		</div>
+	{% endif %}
+	{% for item in items %}
+		<div class="item-container">
+			<div class="item">
+				<figure class="back">
+					<a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}" class="name"><strong>{{ item.name }}</strong></a>
+					<div class="links-item type">
+						<a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
+					</div>
+					{% if item.genres is not empty %}
+						<ul class="links genres">
+							{% for genre in item.genres|slice(0, 10) %}
+								<li class="links-item">
+									<a href="{{ path('home_search', {'anime_db_catalog_search_items[genres][]': genre.id}) }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+					{% if item.labels is not empty %}
+						<ul class="links labels">
+							{% for label in item.labels|slice(0, 10) %}
+								<li class="links-item">
+									<a href="{{ path('home_search', {'anime_db_catalog_search_items[labels][]': label.id}) }}" title="{% trans %}Label{% endtrans %}">{{ label.name }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</figure>
+				<figure class="front">
+					<a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}">
+						<img src="{{ item.webPath|dummy('catalog')|apply_filter('catalog') }}" alt="{{ item.name }}" />
+					</a>
+				</figure>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+{% endif %}
+{% include 'AnimeDbAppBundle::pagination.html.twig' %}

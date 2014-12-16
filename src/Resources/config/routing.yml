@@ -10,15 +10,9 @@ home_search:
 home_autocomplete_name:
     pattern:  /autocomplete/name.json
     defaults: { _controller: AnimeDbCatalogBundle:Home:autocompleteName, _format: json }
-home_autocomplete_label:
-    pattern:  /autocomplete/label.json
-    defaults: { _controller: AnimeDbCatalogBundle:Home:autocompleteLabel, _format: json }
 home_settings:
     pattern:  /settings.html
     defaults: { _controller: AnimeDbCatalogBundle:Home:settings }
-home_labels:
-    pattern:  /labels.html
-    defaults: { _controller: AnimeDbCatalogBundle:Home:labels }
 
 #
 # Item
@@ -87,7 +81,7 @@ storage_scan_progress:
 #
 notice_list:
     pattern:  /notice.html
-    defaults: { _controller: AnimeDbCatalogBundle:Notice:list }
+    defaults: { _controller: AnimeDbCatalogBundle:Notice:index }
 
 #
 # Update
@@ -95,6 +89,9 @@ notice_list:
 update:
     pattern:  /update.html
     defaults: { _controller: AnimeDbCatalogBundle:Update:index }
+update_execute:
+    pattern:  /execute_update.html
+    defaults: { _controller: AnimeDbCatalogBundle:Update:execute }
 
 #
 # Fill
@@ -131,3 +128,9 @@ plugin_installed:
 plugin_store:
     pattern:  /plugin/store.html
     defaults: { _controller: AnimeDbCatalogBundle:Plugin:store }
+#
+# Label
+#
+label:
+    pattern:  /labels.html
+    defaults: { _controller: AnimeDbCatalogBundle:Label:index }

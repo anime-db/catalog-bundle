@@ -10,8 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Plugin;
 
-use Knp\Menu\ItemInterface;
-
 /**
  * Plugin
  * 

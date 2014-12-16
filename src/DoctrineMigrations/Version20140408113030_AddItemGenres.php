@@ -61,13 +61,15 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
      */
     public function up(Schema $schema)
     {
+        $repository = $this->em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($this->genres as $en => $ru) {
             $genre = new Genre();
+
             $genre->setName($en)->setTranslatableLocale('en');
             $this->em->persist($genre);
-            $this->em->flush();
-            $genre->setName($ru)->setTranslatableLocale('ru');
-            $this->em->persist($genre);
+            $this->em->flush($genre);
+
+            $repository->translate($genre, 'name', 'ru', $ru);
             $this->em->flush();
         }
     }
@@ -79,7 +81,7 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     public function down(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Genre');
-        foreach ($this->genres as $en => $ru) {
+        foreach (array_keys($this->genres) as $en) {
             $this->em->remove($rep->findOneByName($en));
         }
     }

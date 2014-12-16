@@ -13,9 +13,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\FormError;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search;
 
 /**
  * Fill
@@ -35,15 +34,10 @@ class FillController extends Controller
      */
     public function fillerAction($plugin, Request $request)
     {
-        $response = new Response();
-        // caching
-        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         /* @var $chain \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain */
@@ -84,15 +78,10 @@ class FillController extends Controller
      */
     public function searchAction($plugin, Request $request)
     {
-        $response = new Response();
-        // caching
-        if (($last_update = $this->container->getParameter('last_update')) && !$request->query->count()) {
-            $response->setLastModified(new \DateTime($last_update));
-
-            // response was not modified for this request
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
 
         /* @var $search \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
@@ -133,11 +122,12 @@ class FillController extends Controller
      */
     public function searchInAllAction(Request $request)
     {
-        $response = new Response();
-        // caching
-        if ($last_update = $this->container->getParameter('last_update')) {
-            $response->setLastModified(new \DateTime($last_update));
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
         }
+
         $names = [];
         $plugins = $this->get('anime_db.plugin.search_fill')->getPlugins();
         /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */

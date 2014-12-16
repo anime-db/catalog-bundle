@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -40,7 +41,7 @@ class Country implements Translatable
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Country name
@@ -51,7 +52,7 @@ class Country implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -69,7 +70,7 @@ class Country implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * @ORM\OneToMany(
@@ -145,7 +146,8 @@ class Country implements Translatable
     public function addItem(Item $item)
     {
         if (!$this->items->contains($item)) {
-            $this->items[] = $item->setCountry($this);
+            $this->items->add($item);
+            $item->setCountry($this);
         }
         return $this;
     }
@@ -154,11 +156,16 @@ class Country implements Translatable
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setCountry(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setCountry(null);
+        }
+        return $this;
     }
 
     /**
@@ -185,6 +192,16 @@ class Country implements Translatable
     }
 
     /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
      * Get translations
      *
      * @return \Doctrine\Common\Collections\ArrayCollection
@@ -197,16 +214,42 @@ class Country implements Translatable
     /**
      * Add translation
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $t
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
      */
-    public function addTranslation(CountryTranslation $t)
+    public function addTranslation(CountryTranslation $trans)
     {
-        if (!$this->translations->contains($t)) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (!$this->translations->contains($trans)) {
+            $this->translations->add($trans);
+            $trans->setObject($this);
         }
         return $this;
+    }
+
+    /**
+     * Remove translation
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     */
+    public function removeTranslation(CountryTranslation $trans)
+    {
+        if ($this->translations->contains($trans)) {
+            $this->translations->removeElement($trans);
+            $trans->setObject(null);
+        }
+        return $this;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

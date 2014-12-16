@@ -19,11 +19,10 @@ use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as SearchChain;
-use AnimeDb\Bundle\CatalogBundle\Form\Plugin\Search as SearchPluginForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
@@ -88,7 +87,7 @@ class ScanStorage
      *
      * @var string
      */
-    const NOTICE_TYPE_UPDATED_ITEM_FILES = 'updated_item_files';
+    const NOTICE_TYPE_UPDATE_ITEM_FILES = 'update_item_files';
 
     /**
      * Notice type: Detected and added new item
@@ -127,13 +126,7 @@ class ScanStorage
      */
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/delete_item_files.html.twig',
-            ['item' => $event->getItem()]
-        ));
-        $this->em->persist($notice);
+        $this->sendNotice(self::NOTICE_TYPE_ITEM_FILES_NOT_FOUND, ['item' => $event->getItem()]);
     }
 
     /**
@@ -143,26 +136,21 @@ class ScanStorage
      */
     public function onDetectedNewFilesSendNotice(DetectedNewFiles $event)
     {
-        if (!$event->isPropagationStopped()) {
-            $notice = new Notice();
-            // get link for search item
-            $link = null;
-            if ($plugin = $this->search->getDafeultPlugin()) {
-                $link = $plugin->getLinkForSearch($event->getName());
-            } elseif ($this->search->getPlugins()) {
-                $link = $this->router->generate(
-                    'fill_search_in_all',
-                    [SearchPluginForm::FORM_NAME => ['name' => $event->getName()]]
-                );
-            }
-
-            $notice->setType(self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM);
-            $notice->setMessage($this->templating->render(
-                'AnimeDbCatalogBundle:Notice:messages/detected_new_files.html.twig',
-                ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
-            ));
-            $this->em->persist($notice);
+        // get link for search item
+        $link = null;
+        if ($plugin = $this->search->getDafeultPlugin()) {
+            $link = $plugin->getLinkForSearch($event->getName());
+        } elseif ($this->search->hasPlugins()) {
+            $link = $this->router->generate(
+                'fill_search_in_all',
+                [SearchPluginForm::FORM_NAME => ['name' => $event->getName()]]
+            );
         }
+
+        $this->sendNotice(
+            self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
+            ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
+        );
     }
 
     /**
@@ -172,13 +160,7 @@ class ScanStorage
      */
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_UPDATED_ITEM_FILES);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/update_item_files.html.twig',
-            ['item' => $event->getItem()]
-        ));
-        $this->em->persist($notice);
+        $this->sendNotice(self::NOTICE_TYPE_UPDATE_ITEM_FILES, ['item' => $event->getItem()]);
     }
 
     /**
@@ -190,19 +172,13 @@ class ScanStorage
     {
         // search from dafeult plugin
         $dafeult_plugin = null;
-        if (($dafeult_plugin = $this->search->getDafeultPlugin()) &&
-            $dafeult_plugin->getFiller() instanceof Filler &&
-            $this->tryAddItem($dafeult_plugin, $dafeult_plugin->getFiller(), $event)
-        ) {
+        if (($dafeult_plugin = $this->search->getDafeultPlugin()) && $this->tryAddItem($dafeult_plugin, $event)) {
             return true;
         }
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
-            if ((!($dafeult_plugin instanceof Search) || $dafeult_plugin !== $plugin) &&
-                $plugin->getFiller() instanceof Filler &&
-                $this->tryAddItem($plugin, $plugin->getFiller(), $event)
-            ) {
+            if ($plugin !== $dafeult_plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
@@ -212,41 +188,32 @@ class ScanStorage
      * Try to add item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search $search
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
      *
      * @return boolean
      */
-    protected function tryAddItem(Search $search, Filler $filler, DetectedNewFiles $event)
+    protected function tryAddItem(Search $search, DetectedNewFiles $event)
     {
-        $list = [];
-        // try search a new item
-        try {
-            $list = $search->search(['name' => $event->getName()]);
-        } catch (\Exception $e) {}
 
-        // fill from search result
-        if (count($list) == 1) {
-            $item = null;
-            try {
-                /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
-                $item = $filler->fillFromSearchResult(array_pop($list));
-            } catch (\Exception $e) {}
+        $item = $search->getCatalogItem($event->getName());
 
-            if ($item instanceof Item) {
-                // save new item
-                $item->setStorage($event->getStorage());
-                $item->setPath(
-                    $event->getFile()->getPathname().
-                    ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
-                );
+        if ($item instanceof Item) {
+            // save new item
+            $item->setStorage($event->getStorage());
+            $item->setPath(
+                $event->getFile()->getPathname().
+                ($event->getFile()->isDir() ? DIRECTORY_SEPARATOR : '')
+            );
 
-                // stop current event and dispatch new event of added item
-                $event->stopPropagation();
-                $event->getDispatcher()->dispatch(StoreEvents::ADD_NEW_ITEM, new AddNewItem($item, $filler));
-                return true;
-            }
+            // stop current event and dispatch new event of added item
+            $event->stopPropagation();
+            $event->getDispatcher()->dispatch(
+                StoreEvents::ADD_NEW_ITEM,
+                new AddNewItem($item, $search->getFiller())
+            );
+            return true;
         }
+
         return false;
     }
 
@@ -257,13 +224,10 @@ class ScanStorage
      */
     public function onAddNewItemSendNotice(AddNewItem $event)
     {
-        $notice = new Notice();
-        $notice->setType(self::NOTICE_TYPE_ADDED_NEW_ITEM);
-        $notice->setMessage($this->templating->render(
-            'AnimeDbCatalogBundle:Notice:messages/added_new_item.html.twig',
+        $this->sendNotice(
+            self::NOTICE_TYPE_ADDED_NEW_ITEM,
             ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
-        ));
-        $this->em->persist($notice);
+        );
     }
 
     /**
@@ -275,5 +239,22 @@ class ScanStorage
     {
         $this->em->persist($event->getItem());
         $this->em->flush();
+    }
+
+    /**
+     * Send notice
+     *
+     * @param string $type
+     * @param array $params
+     */
+    protected function sendNotice($type, array $params)
+    {
+        $notice = new Notice();
+        $notice->setType($type);
+        $notice->setMessage($this->templating->render(
+            'AnimeDbCatalogBundle:Notice:messages/'.$type.'.html.twig',
+            $params
+        ));
+        $this->em->persist($notice);
     }
 }

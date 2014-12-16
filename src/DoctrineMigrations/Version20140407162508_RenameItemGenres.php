@@ -94,7 +94,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
-                $this->em->flush();
+                $this->em->flush($genre);
                 $to = $to[0];
             }
             $genre->setName($to)->setTranslatableLocale('en');
@@ -130,7 +130,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
-                $this->em->flush();
+                $this->em->flush($genre);
                 $to = $to[0];
             }
             $genre->setName($to)->setTranslatableLocale('en');

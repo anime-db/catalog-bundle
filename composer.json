@@ -1,44 +1,44 @@
 {
-    "name": "anime-db/catalog-bundle",
-    "license": "GPL-3.0",
-    "type": "library",
-    "description": "The application for making home collection anime",
-    "homepage": "http://anime-db.org",
-    "version": "0.4.16",
-    "authors": [
-        {
-            "name": "Anime DB",
-            "homepage": "http://anime-db.org"
-        },
-        {
-            "name": "Peter Gribanov",
-            "email": "info@peter-gribanov.ru"
-        },
-        {
-            "name": "Anime DB Community",
-            "homepage": "https://github.com/anime-db/catalog-bundle/graphs/contributors"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "AnimeDb\\Bundle\\CatalogBundle\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "AnimeDb\\Bundle\\CatalogBundle\\Tests\\": "tests/"
-        }
-    },
-    "require": {
-        "php": ">=5.4.0",
-        "ext-mbstring": "*",
-        "knplabs/knp-menu-bundle": "1.1.*",
-        "anime-db/app-bundle": ">=0.3.13",
-        "patchwork/utf8": "1.2.*"
-    },
-    "suggest": {
-        "anime-db/world-art-filler-bundle": "Allows import data from a site World-Art.ru",
-        "anime-db/shikimori-filler-bundle": "Allows import data from a site Shikimori.org"
-    },
-    "minimum-stability": "dev"
+	"name" : "anime-db/catalog-bundle",
+	"license" : "GPL-3.0",
+	"type" : "library",
+	"description" : "The application for making home collection anime",
+	"homepage" : "http://anime-db.org",
+	"version" : "0.4.17",
+	"authors" : [
+		{
+			"name" : "Anime DB",
+			"homepage" : "http://anime-db.org"
+		},
+		{
+			"name" : "Peter Gribanov",
+			"email" : "info@peter-gribanov.ru"
+		},
+		{
+			"name" : "Anime DB Community",
+			"homepage" : "https://github.com/anime-db/catalog-bundle/graphs/contributors"
+		}
+	],
+	"autoload" : {
+		"psr-4" : {
+			"AnimeDb\\Bundle\\CatalogBundle\\" : "src/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"AnimeDb\\Bundle\\CatalogBundle\\Tests\\" : "tests/"
+		}
+	},
+	"require" : {
+		"php" : ">=5.4.0",
+		"ext-mbstring" : "*",
+		"knplabs/knp-menu-bundle" : "1.1.*",
+		"anime-db/app-bundle" : ">=0.4.0"
+	},
+	"suggest" : {
+		"anime-db/world-art-filler-bundle" : "Allows import data from a site World-Art.ru",
+		"anime-db/shikimori-filler-bundle" : "Allows import data from a site Shikimori.org",
+		"anime-db/ani-db-filler-bundle" : "Allows import data from a site AniDB.net"
+	},
+	"minimum-stability" : "dev"
 }

@@ -41,8 +41,6 @@ abstract class Import extends Plugin
      * Build menu for plugin
      *
      * @param \Knp\Menu\ItemInterface $item
-     *
-     * @return \Knp\Menu\ItemInterface
      */
     public function buildMenu(ItemInterface $item)
     {

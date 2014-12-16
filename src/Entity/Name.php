@@ -12,7 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
@@ -36,7 +36,7 @@ class Name
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Item name
@@ -46,7 +46,7 @@ class Name
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -101,7 +101,14 @@ class Name
     public function setItem(Item $item = null)
     {
         if ($this->item !== $item) {
+            // romove link on this item for old item
+            if ($this->item instanceof Item) {
+                $tmp = $this->item;
+                $this->item = null;
+                $tmp->removeName($this);
+            }
             $this->item = $item;
+            // add link on this item
             if ($item instanceof Item) {
                 $this->item->addName($this);
             }
@@ -117,5 +124,15 @@ class Name
     public function getItem()
     {
         return $this->item;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -37,7 +38,7 @@ class Genre implements Translatable
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Gender name
@@ -48,7 +49,7 @@ class Genre implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -66,7 +67,7 @@ class Genre implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * Construct
@@ -162,5 +163,25 @@ class Genre implements Translatable
     {
         $this->locale = $locale;
         return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

@@ -9,7 +9,7 @@
 		{% for plugin in plugins %}
 			<article>
 				<img
-					src="{{ plugin.logoWebPath|dummy('plugin')|apply_filter('plugin') }}"
+					src="{{ plugin.webPath|dummy('plugin')|apply_filter('plugin') }}"
 					alt="{{ plugin.title }}"
 					class="logo"
 				/>

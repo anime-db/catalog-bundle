@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -19,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Entity
  * @ORM\Table(name="label")
+ * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Label")
  * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
@@ -35,7 +37,7 @@ class Label
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Label name
@@ -45,7 +47,7 @@ class Label
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -137,5 +139,15 @@ class Label
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

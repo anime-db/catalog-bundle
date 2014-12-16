@@ -15,7 +15,7 @@
 		</p>
 		<pre><code>php app/console animedb:update</code></pre>
 		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
-	{% elseif confirmed == false %}
+	{% else %}
 		<div class="b-update-ask">
 			{% if action %}
 				{% if action == 'install' %}
@@ -47,23 +47,10 @@
 				{% endif %}
 			{% endif %}
 			<div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
-			<form action="" method="post">
+			<form action="{{ path('update_execute') }}" method="post">
 				<a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>
-				<button type="submit" name="confirm" value="1">{% trans %}Yes{% endtrans %}</button>
+				<button type="submit">{% trans %}Yes{% endtrans %}</button>
 			</form>
-		</div>
-	{% else %}
-		<div class="b-progress b-update-container">
-			<div class="b-message">
-				{% trans %}Performed update system. Do not turn off the system until the update is complete.{% endtrans %}<br />
-				<a href="#" class="bt-toggle-block" data-target=".b-update-log">{% trans %}Show execution log.{% endtrans %}</a>
-			</div>
-			<pre class="b-progress-log"><code
-				data-from="{{ log_file }}"
-				data-end-message="{{ end_message }}"
-				data-message="{% trans %}Update successful. Restart the application to complete the update.{% endtrans %}"
-				data-redirect="{{ path('home') }}"
-			></code></pre>
 		</div>
 	{% endif %}
 </div>

@@ -32,7 +32,7 @@ class Chain extends ChainPlugin
      *
      * @param string $default_search
      */
-    public function __construct($default_search)
+    public function __construct($default_search = '')
     {
         $this->default_search = $default_search;
     }

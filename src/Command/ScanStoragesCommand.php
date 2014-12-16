@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\Finder;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage as StorageListener;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
@@ -203,9 +204,8 @@ EOT
                     $file = new SplFileInfo($file, '', '');
 
                     // it is a new item
-                    $name = $file->isDir() ? $file->getFilename() : pathinfo($file->getFilename(), PATHINFO_BASENAME);
                     $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
-                    $lazywrite->writeln('Detected files for new item <info>'.$name.'</info>');
+                    $lazywrite->writeln('Detected files for new item <info>'.$file->getFilename().'</info>');
                 }
                 $progress->advance();
             }
@@ -244,7 +244,7 @@ EOT
         // check of delete file for item
         foreach ($storage->getItems() as $item) {
             foreach ($finder as $file) {
-                if ($item->getPath() == $file->getPathname()) {
+                if (pathinfo($item->getPath(), PATHINFO_BASENAME) == $file->getFilename()) {
                     continue 2;
                 }
             }
@@ -263,17 +263,9 @@ EOT
      */
     protected function getItemFromFile(Storage $storage, SplFileInfo $file)
     {
-        // remove win:// if need
-        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
-            $path = substr($file->getPathname(), 6);
-        } else {
-            $path = $file->getPathname();
-        }
-        $path .= $file->isDir() ? DIRECTORY_SEPARATOR : '';
-
         /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
         foreach ($storage->getItems() as $item) {
-            if ($item->getPath() == $path) {
+            if (pathinfo($item->getPath(), PATHINFO_BASENAME) == $file->getFilename()) {
                 return $item;
             }
         }
@@ -289,7 +281,7 @@ EOT
      */
     protected function getFilesByPath($path)
     {
-        return (new Finder())
+        return Finder::create()
             ->in($path)
             ->ignoreUnreadableDirs()
             ->depth('== 0')
@@ -319,14 +311,14 @@ EOT
      */
     protected function checkStorageId($path, Storage $storage, StorageRepository $repository)
     {
-        if (!file_exists($path.Storage::ID_FILE)) {
+        if (!file_exists($path.StorageListener::ID_FILE)) {
             // path is free. reserve for me
-            file_put_contents($path.Storage::ID_FILE, $storage->getId());
-        } elseif (file_get_contents($path.Storage::ID_FILE) == $storage->getId()) {
+            file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
+        } elseif (file_get_contents($path.StorageListener::ID_FILE) == $storage->getId()) {
             // it is my path. do nothing
-        } elseif (!($duplicate = $repository->find(file_get_contents($path.Storage::ID_FILE)))) {
+        } elseif (!($duplicate = $repository->find(file_get_contents($path.StorageListener::ID_FILE)))) {
             // this path is reserved storage that was removed and now this path is free
-            file_put_contents($path.Storage::ID_FILE, $storage->getId());
+            file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
         } else {
             return $duplicate;
         }

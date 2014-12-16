@@ -12,14 +12,45 @@ namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem as FilesystemUtil;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20130930180819_Init extends AbstractMigration
+class Version20130930180819_Init extends AbstractMigration implements ContainerAwareInterface
 {
+    /**
+     * Example dir
+     *
+     * @var string
+     */
+    protected $example_dir;
+
+    /**
+     * Kernel
+     *
+     * @var \Symfony\Component\HttpKernel\Kernel
+     */
+    protected $kernel;
+
+    /**
+     * Set container
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->example_dir = $container->getParameter('kernel.root_dir').'/../web/media/example/';
+        $this->kernel = $container->get('kernel');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     */
     public function up(Schema $schema)
     {
         // create tables
@@ -53,10 +84,14 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addDataItem();
 
         // copy images for example items
-        $fs = new Filesystem();
-        $fs->mirror(__DIR__.'/../Resources/private/images/example/', __DIR__.'/../../../../../web/media/example/');
+        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/example/');
+        (new Filesystem())->mirror($source, $this->example_dir);
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     */
     public function down(Schema $schema)
     {
         // drop tables
@@ -76,8 +111,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
 
         // remove images for example items
-        $fs = new Filesystem();
-        $fs->remove(__DIR__.'/../../../../../web/media/example/');
+        (new Filesystem())->remove($this->example_dir);
     }
 
     protected function createTableImage(Schema $schema)

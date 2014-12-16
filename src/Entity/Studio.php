@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -35,7 +36,7 @@ class Studio
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Studio name
@@ -45,7 +46,7 @@ class Studio
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -106,7 +107,10 @@ class Studio
      */
     public function addItem(Item $item)
     {
-        $this->items[] = $item->setStudio($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setStudio($this);
+        }
         return $this;
     }
 
@@ -114,11 +118,16 @@ class Studio
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setStudio(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setStudio(null);
+        }
+        return $this;
     }
 
     /**
@@ -129,5 +138,15 @@ class Studio
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

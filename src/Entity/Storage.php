@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
@@ -59,13 +60,6 @@ class Storage
     const TYPE_VIDEO = 'video';
 
     /**
-     * File name for store the storage id
-     *
-     * @var string
-     */
-    const ID_FILE = '.storage';
-
-    /**
      * Id
      *
      * @ORM\Id
@@ -74,7 +68,7 @@ class Storage
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Storage name
@@ -84,7 +78,7 @@ class Storage
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Storage description
@@ -93,7 +87,7 @@ class Storage
      *
      * @var string
      */
-    protected $description;
+    protected $description = '';
 
     /**
      * Type
@@ -103,7 +97,7 @@ class Storage
      *
      * @var string
      */
-    protected $type;
+    protected $type = '';
 
     /**
      * Path on computer
@@ -112,7 +106,7 @@ class Storage
      *
      * @var string
      */
-    protected $path;
+    protected $path = '';
 
     /**
      * Date last update storage
@@ -153,7 +147,7 @@ class Storage
      *
      * @var array
      */
-    public static $type_names = [
+    protected static $type_names = [
         self::TYPE_FOLDER,
         self::TYPE_EXTERNAL,
         self::TYPE_EXTERNAL_R,
@@ -165,7 +159,7 @@ class Storage
      *
      * @var array
      */
-    public static $type_titles = [
+    protected static $type_titles = [
         self::TYPE_FOLDER => 'Folder on computer (local/network)',
         self::TYPE_EXTERNAL => 'External storage (HDD/Flash/SD)',
         self::TYPE_EXTERNAL_R => 'External storage read-only (CD/DVD)',
@@ -264,6 +258,16 @@ class Storage
     }
 
     /**
+     * Get old paths
+     *
+     * @return array
+     */
+    public function getOldPaths()
+    {
+        return $this->old_paths;
+    }
+
+    /**
      * Add item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
@@ -272,7 +276,10 @@ class Storage
      */
     public function addItem(Item $item)
     {
-        $this->items[] = $item->setStorage($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setStorage($this);
+        }
         return $this;
     }
 
@@ -280,11 +287,16 @@ class Storage
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setStorage(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setStorage(null);
+        }
+        return $this;
     }
 
     /**
@@ -331,13 +343,23 @@ class Storage
     }
 
     /**
+     * Get type titles
+     *
+     * @return array
+     */
+    public static function getTypeTitles()
+    {
+        return self::$type_titles;
+    }
+
+    /**
      * Get title for current type
      *
      * @return string
      */
     public function getTypeTitle()
     {
-        return self::$type_titles[$this->type];
+        return isset(self::$type_titles[$this->type]) ? self::$type_titles[$this->type] : '';
     }
 
     /**
@@ -459,47 +481,12 @@ class Storage
     }
 
     /**
-     * Save storage id
+     * To string
      *
-     * @ORM\PostPersist
+     * @return string
      */
-    public function doSaveStorageId()
+    public function __toString()
     {
-        if (file_exists($this->getPath()) && !file_exists($this->getPath().self::ID_FILE)) {
-            file_put_contents($this->getPath().self::ID_FILE, $this->getId());
-        }
-    }
-
-    /**
-     * Remove storage id
-     *
-     * @ORM\PostRemove
-     */
-    public function doRemoveStorageId()
-    {
-        if (file_exists($this->getPath().self::ID_FILE) &&
-            (file_get_contents($this->getPath().self::ID_FILE) == $this->getId())
-        ) {
-            unlink($this->getPath().self::ID_FILE);
-        }
-    }
-
-    /**
-     * Update storage id
-     *
-     * @ORM\PostUpdate
-     */
-    public function doUpdateStorageId()
-    {
-        // remove old ids
-        foreach ($this->old_paths as $path) {
-            if (file_exists($path.self::ID_FILE) &&
-                (file_get_contents($path.self::ID_FILE) == $this->getId())
-            ) {
-                unlink($path.self::ID_FILE);
-            }
-        }
-
-        $this->doSaveStorageId();
+        return $this->getName();
     }
 }

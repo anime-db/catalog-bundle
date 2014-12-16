@@ -69,7 +69,7 @@ class Builder extends ContainerAware
         $import = $this->container->get('anime_db.plugin.import');
         /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain */
         $export = $this->container->get('anime_db.plugin.export');
-        if ($import->getPlugins() || $export->getPlugins()) {
+        if ($import->hasPlugins() || $export->hasPlugins()) {
             $sync = $menu->addChild('Synchronization')
                 ->setLabelAttribute('class', 'icon-label icon-white-cloud-sync');
             // add import plugin items
@@ -90,7 +90,7 @@ class Builder extends ContainerAware
             'Search by name the source of filling item',
             'icon-label icon-white-search'
         );
-        if ($chain->getPlugins()) {
+        if ($chain->hasPlugins()) {
             $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
                 ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'))
                 ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
@@ -111,7 +111,7 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-white-storage');
         $settings->addChild('List of notice', ['route' => 'notice_list'])
             ->setLinkAttribute('class', 'icon-label icon-white-alert');
-        $settings->addChild('Labels', ['route' => 'home_labels'])
+        $settings->addChild('Labels', ['route' => 'label'])
             ->setLinkAttribute('class', 'icon-label icon-white-label');
         $plugins = $settings->addChild('Plugins')
             ->setLabelAttribute('class', 'icon-label icon-white-plugin');
@@ -149,7 +149,7 @@ class Builder extends ContainerAware
      */
     private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '', $class = '')
     {
-        if ($chain->getPlugins()) {
+        if ($chain->hasPlugins()) {
             $group = $root->addChild($label);
             if ($title) {
                 $group->setAttribute('title', $this->container->get('translator')->trans($title));

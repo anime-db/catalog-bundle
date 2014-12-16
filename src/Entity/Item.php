@@ -12,16 +12,18 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 use AnimeDb\Bundle\CatalogBundle\Entity\Country;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\ExecutionContextInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
+use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
 /**
  * Item
@@ -36,7 +38,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Item
+class Item extends BaseEntity implements ImageInterface
 {
     /**
      * Id
@@ -47,7 +49,7 @@ class Item
      *
      * @var integer
      */
-    protected $id;
+    protected $id = 0;
 
     /**
      * Main name
@@ -272,13 +274,6 @@ class Item
     protected $studio;
 
     /**
-     * Old covers list
-     *
-     * @var array
-     */
-    protected $old_covers = [];
-
-    /**
      * Not cleared path
      *
      * @var string
@@ -436,7 +431,7 @@ class Item
             $this->not_cleared_path = $path;
             $this->doClearPath();
         } else {
-            $this->path = $path;
+            $this->path = '';
         }
         return $this;
     }
@@ -448,7 +443,6 @@ class Item
      */
     public function getPath()
     {
-        $this->doClearPath();
         // path not cleared
         if ($this->not_cleared_path) {
             return $this->not_cleared_path;
@@ -457,6 +451,18 @@ class Item
         if ($this->getStorage() instanceof Storage && $this->getStorage()->getPath()) {
             return $this->getStorage()->getPath().$this->path;
         }
+        return $this->path;
+    }
+
+    /**
+     * Get real path
+     *
+     * Need for tests
+     *
+     * @return string
+     */
+    public function getRealPath()
+    {
         return $this->path;
     }
 
@@ -538,7 +544,8 @@ class Item
      */
     public function addName(Name $name)
     {
-        if (!$this->names->contains($name)) {
+        $names = array_map('strval', $this->names->toArray());
+        if (!in_array($name->getName(), $names)) {
             $this->names->add($name);
             $name->setItem($this);
         }
@@ -549,6 +556,8 @@ class Item
      * Remove name
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Name $name
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeName(Name $name)
     {
@@ -556,6 +565,7 @@ class Item
             $this->names->removeElement($name);
             $name->setItem(null);
         }
+        return $this;
     }
 
     /**
@@ -767,22 +777,38 @@ class Item
      */
     public function setCover($cover)
     {
-        // copy current cover to old for remove old cover file after update
-        if ($this->cover) {
-            $this->old_covers[] = $this->cover;
-        }
-        $this->cover = $cover;
+        $this->setFilename($cover);
         return $this;
     }
 
     /**
      * Get cover
      *
-     * @return string 
+     * @return string
      */
     public function getCover()
     {
-        return $this->cover;
+        return $this->getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::getFilename()
+     */
+    public function getFilename()
+    {
+        return $this->cover ?: parent::getFilename();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::setFilename()
+     */
+    public function setFilename($filename)
+    {
+        $this->cover = $filename;
+        parent::setFilename($filename);
+        return $this;
     }
 
     /**
@@ -794,7 +820,8 @@ class Item
      */
     public function addSource(Source $source)
     {
-        if (!$this->sources->contains($source)) {
+        $sources = array_map('strval', $this->sources->toArray());
+        if (!in_array($source->getUrl(), $sources)) {
             $this->sources->add($source);
             $source->setItem($this);
         }
@@ -805,6 +832,8 @@ class Item
      * Remove source
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Source $source
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeSource(Source $source)
     {
@@ -812,6 +841,7 @@ class Item
             $this->sources->removeElement($source);
             $source->setItem(null);
         }
+        return $this;
     }
 
     /**
@@ -833,7 +863,8 @@ class Item
      */
     public function addImage(Image $image)
     {
-        if (!$this->images->contains($image)) {
+        $images = array_map('strval', $this->images->toArray());
+        if (!in_array($image->getSource(), $images)) {
             $this->images->add($image);
             $image->setItem($this);
         }
@@ -844,6 +875,8 @@ class Item
      * Remove image
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Image $image
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function removeImage(Image $image)
     {
@@ -851,6 +884,7 @@ class Item
             $this->images->removeElement($image);
             $image->setItem(null);
         }
+        return $this;
     }
 
     /**
@@ -861,73 +895,6 @@ class Item
     public function getImages()
     {
         return $this->images;
-    }
-
-    /**
-     * Remove cover file
-     *
-     * @ORM\PostRemove
-     */
-    public function doRemoveCover()
-    {
-        if ($this->cover && file_exists($this->getAbsolutePath())) {
-            unlink($this->getAbsolutePath());
-        }
-    }
-
-    /**
-     * Remove old cover files
-     *
-     * @ORM\PostRemove
-     * @ORM\PostUpdate
-     */
-    public function doRemoveOldCovers()
-    {
-        while ($cover = array_shift($this->old_covers)) {
-            if (file_exists($this->getUploadRootDir().'/'.$cover)) {
-                unlink($this->getUploadRootDir().'/'.$cover);
-            }
-        }
-    }
-
-    /**
-     * Get absolute path
-     *
-     * @return string
-     */
-    public function getAbsolutePath()
-    {
-        return $this->cover !== null ? $this->getUploadRootDir().'/'.$this->cover : null;
-    }
-
-    /**
-     * Get upload root dir
-     *
-     * @return string
-     */
-    protected function getUploadRootDir()
-    {
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
-    }
-
-    /**
-     * Get upload dir
-     *
-     * @return string
-     */
-    protected function getUploadDir()
-    {
-        return 'media';
-    }
-
-    /**
-     * Get web path
-     *
-     * @return string
-     */
-    public function getCoverWebPath()
-    {
-        return $this->cover ? '/'.$this->getUploadDir().'/'.$this->cover : null;
     }
 
     /**
@@ -969,7 +936,7 @@ class Item
     /**
      * Get date add item
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateAdd()
     {
@@ -1068,18 +1035,6 @@ class Item
     }
 
     /**
-     * Set date item add
-     *
-     * @ORM\PrePersist
-     */
-    public function doSetDateItemAdd()
-    {
-        if (!$this->date_add) {
-            $this->date_add = new \DateTime();
-        }
-    }
-
-    /**
      * Is valid path for current type
      *
      * @param \Symfony\Component\Validator\ExecutionContextInterface $context
@@ -1094,12 +1049,13 @@ class Item
     /**
      * Freeze item
      *
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
-    public function freez(EntityManager $em)
+    public function freez(Registry $doctrine)
     {
+        $em = $doctrine->getManager();
         // create reference to existing entity
         if ($this->country) {
             $this->country = $em->getReference(get_class($this->country), $this->country->getId());
@@ -1112,21 +1068,6 @@ class Item
             $this->genres[$key] = $em->getReference(get_class($genre), $genre->getId());
         }
         return $this;
-    }
-
-    /**
-     * Rename cover if in temp folder
-     *
-     * @ORM\PrePersist
-     */
-    public function doRenameCoverFile()
-    {
-        if ($this->cover && strpos($this->cover, 'tmp') !== false) {
-            $filename = pathinfo($this->cover, PATHINFO_BASENAME);
-            $file = new File($this->getAbsolutePath());
-            $this->cover = date('Y/m/d/His/', $this->date_add->getTimestamp()).$filename;
-            $file->move(pathinfo($this->getAbsolutePath(), PATHINFO_DIRNAME), $filename);
-        }
     }
 
     /**
@@ -1156,5 +1097,15 @@ class Item
     public function getUrlName()
     {
         return trim(preg_replace('/\s+/', '_', $this->name), '_');
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

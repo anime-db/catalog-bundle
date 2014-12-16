@@ -23,14 +23,14 @@ class Genre
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Link on external catalog
      *
      * @var string
      */
-    protected $link;
+    protected $link = '';
 
     /**
      * Item

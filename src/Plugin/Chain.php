@@ -61,6 +61,16 @@ abstract class Chain
     }
 
     /**
+     * Has plugins
+     *
+     * @return boolean
+     */
+    public function hasPlugins()
+    {
+        return !empty($this->plugins);
+    }
+
+    /**
      * Get plugins
      *
      * @return array [ \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin ]

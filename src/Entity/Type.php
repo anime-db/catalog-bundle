@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -34,9 +35,9 @@ class Type implements Translatable
      * @ORM\Id
      * @ORM\Column(type="string", length=16)
      *
-     * @var integer
+     * @var string
      */
-    protected $id;
+    protected $id = '';
 
     /**
      * Type name
@@ -47,7 +48,7 @@ class Type implements Translatable
      *
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * Items list
@@ -65,7 +66,7 @@ class Type implements Translatable
      *
      * @var string
      */
-    protected $locale;
+    protected $locale = '';
 
     /**
      * Construct
@@ -122,15 +123,18 @@ class Type implements Translatable
     }
 
     /**
-     * Add items
+     * Add item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $items
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
      */
-    public function addItem(Item $items)
+    public function addItem(Item $item)
     {
-        $this->items[] = $items->setType($this);
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setType($this);
+        }
         return $this;
     }
 
@@ -138,11 +142,16 @@ class Type implements Translatable
      * Remove item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
      */
     public function removeItem(Item $item)
     {
-        $this->items->removeElement($item);
-        $item->setType(null);
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->setType(null);
+        }
+        return $this;
     }
 
     /**
@@ -166,5 +175,25 @@ class Type implements Translatable
     {
         $this->locale = $locale;
         return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string
+     */
+    public function getTranslatableLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }
