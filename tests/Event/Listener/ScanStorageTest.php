@@ -145,7 +145,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 $uif,
                 ['item' => $uif_item],
                 'onUpdateItemFiles',
-                ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
+                ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
             ],
             [
                 $ani,
