@@ -37,7 +37,7 @@ class Search extends AbstractType
     {
         $builder
             ->setMethod('GET')
-            ->add('name', 'text', [
+            ->add('name', 'search', [
                 'label' => 'Name',
                 'attr' => [
                     'placeholder' => 'One Piece',
