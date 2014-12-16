@@ -70,8 +70,8 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
             $this->em->flush($genre);
 
             $repository->translate($genre, 'name', 'ru', $ru);
-            $this->em->flush();
         }
+        $this->em->flush();
     }
 
     /**
