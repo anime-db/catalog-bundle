@@ -20,7 +20,7 @@
 					</div>
 					{% if item.genres is not empty %}
 						<ul class="links genres">
-							{% for genre in item.genres|slice(0, 11) %}
+							{% for genre in item.genres|slice(0, 10) %}
 								<li class="links-item">
 									<a href="{{ path('home_search', {'anime_db_catalog_search_items[genres][]': genre.id}) }}" title="{% trans %}Genre{% endtrans %}">{{ genre.name }}</a>
 								</li>
