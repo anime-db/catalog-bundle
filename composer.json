@@ -37,7 +37,8 @@
 	},
 	"suggest" : {
 		"anime-db/world-art-filler-bundle" : "Allows import data from a site World-Art.ru",
-		"anime-db/shikimori-filler-bundle" : "Allows import data from a site Shikimori.org"
+		"anime-db/shikimori-filler-bundle" : "Allows import data from a site Shikimori.org",
+		"anime-db/ani-db-filler-bundle" : "Allows import data from a site AniDB.net"
 	},
 	"minimum-stability" : "dev"
 }
