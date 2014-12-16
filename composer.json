@@ -4,6 +4,7 @@
 	"type" : "library",
 	"description" : "The application for making home collection anime",
 	"homepage" : "http://anime-db.org",
+	"version" : "0.4.17",
 	"authors" : [
 		{
 			"name" : "Anime DB",
@@ -32,7 +33,7 @@
 		"php" : ">=5.4.0",
 		"ext-mbstring" : "*",
 		"knplabs/knp-menu-bundle" : "1.1.*",
-		"anime-db/app-bundle" : "dev-develop"
+		"anime-db/app-bundle" : ">=0.4.0"
 	},
 	"suggest" : {
 		"anime-db/world-art-filler-bundle" : "Allows import data from a site World-Art.ru",
