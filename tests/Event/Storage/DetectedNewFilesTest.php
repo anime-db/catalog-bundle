@@ -40,10 +40,20 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        touch(sys_get_temp_dir().'/test');
         $this->storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $this->file = $this->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([sys_get_temp_dir().'/test', '', ''])
             ->getMock();
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+        unlink(sys_get_temp_dir().'/test');
     }
 
     /**
