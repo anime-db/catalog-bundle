@@ -93,6 +93,16 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             $this->router,
             $this->form_factory
         );
+        touch(sys_get_temp_dir().'/test');
+    }
+
+    /**
+     * (non-PHPdoc)
+     * @see PHPUnit_Framework_TestCase::tearDown()
+     */
+    protected function tearDown()
+    {
+        unlink(sys_get_temp_dir().'/test');
     }
 
     /**
@@ -145,7 +155,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 $uif,
                 ['item' => $uif_item],
                 'onUpdateItemFiles',
-                ScanStorage::NOTICE_TYPE_UPDATED_ITEM_FILES
+                ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
             ],
             [
                 $ani,
@@ -409,7 +419,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                     $that->assertEquals([$filler], $event->getFillers()->toArray());
                 });
             $file = $this->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
-                ->disableOriginalConstructor()
+                ->setConstructorArgs([sys_get_temp_dir().'/test', '', ''])
                 ->getMock();
             $file
                 ->expects($this->atLeastOnce())
