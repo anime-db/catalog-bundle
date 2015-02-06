@@ -240,10 +240,10 @@ class HomeController extends Controller
 
         if ($form->isValid()) {
             // update params
-            $this->get('anime_db.manipulator.parameters')->setList([
-                'task_scheduler.enabled' => $entity->getTaskScheduler(),
-                'anime_db.catalog.default_search' => $entity->getDefaultSearch(),
-            ]);
+            $this->get('anime_db.manipulator.parameters')
+                ->set('task_scheduler.enabled', $entity->getTaskScheduler());
+            $this->get('anime_db.manipulator.parameters')
+                ->set('anime_db.catalog.default_search', $entity->getDefaultSearch());
 
             // change locale
             if ($request->getLocale() != $entity->getLocale()) {
