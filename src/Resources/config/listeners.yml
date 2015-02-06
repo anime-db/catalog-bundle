@@ -1,7 +1,12 @@
 services:
     anime_db.catalog.listener.scan_storage:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage
-        arguments: [ @doctrine.orm.entity_manager, @templating, @anime_db.plugin.search_fill, @router, @form.factory ]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @templating
+            - @anime_db.plugin.search_fill
+            - @router
+            - @form.factory
         tags:
             - { name: kernel.event_listener, event: anime_db.storage.update_item_files, method: onUpdateItemFiles }
             - { name: kernel.event_listener, event: anime_db.storage.delete_item_files, method: onDeleteItemFiles }
@@ -30,3 +35,9 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postRemove }
             - { name: doctrine.event_listener, event: postUpdate }
+
+    anime_db.catalog.listener.request:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Request
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -500 }
+        arguments: [ %anime_db.catalog.installed%, @router ]

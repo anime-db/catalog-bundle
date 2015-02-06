@@ -134,3 +134,10 @@ plugin_store:
 label:
     pattern:  /labels.html
     defaults: { _controller: AnimeDbCatalogBundle:Label:index }
+
+#
+# Installation
+#
+install:
+    pattern:  /install/
+    defaults: { _controller: AnimeDbCatalogBundle:Install:index }
