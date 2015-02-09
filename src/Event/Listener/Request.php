@@ -60,7 +60,7 @@ class Request
         }
 
         $url = $this->router->generate('install');
-        if ($url != $event->getRequest()->getRequestUri()) {
+        if (strpos($event->getRequest()->getRequestUri(), $url) !== 0) {
             $event->setResponse(new RedirectResponse($url));
         }
     }
