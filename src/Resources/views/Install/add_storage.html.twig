@@ -1,0 +1,12 @@
+{% extends 'AnimeDbCatalogBundle:Install:layout.html.twig' %}
+
+{% block title %}{% trans %}Add storage{% endtrans %}{% endblock %}
+
+{% block content %}
+<h2>{% trans %}Add storage{% endtrans %}</h2>
+<form action="{{ path('install_add_storage') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_widget(form) }}
+	<button type="submit" name="do" value="skip">{% trans %}Skip{% endtrans %}</button>
+	<button type="submit" name="do" value="add">{% trans %}Add{% endtrans %}</button>
+</form>
+{% endblock %}

@@ -141,3 +141,6 @@ label:
 install:
     pattern:  /install/
     defaults: { _controller: AnimeDbCatalogBundle:Install:index }
+install_add_storage:
+    pattern:  /install/add_storage.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:addStorage }

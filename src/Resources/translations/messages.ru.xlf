@@ -770,6 +770,10 @@
                 <source><![CDATA[Now the application supports fully only <strong>Russian</strong> and <strong>English</strong> languages. We recommend that you select your language, then the application will automatically switch to your language as possible.]]></source>
                 <target><![CDATA[Сейчас приложение поддерживает в полной мере только <strong>Русский</strong> и <strong>Английский</strong> языки. Мы рекомендуем выбрать ваш язык, тогда приложение автоматически переключится на ваш язык как только появится такая возможность.]]></target>
             </trans-unit>
+            <trans-unit id="233">
+                <source>Skip</source>
+                <target>Пропустить</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
