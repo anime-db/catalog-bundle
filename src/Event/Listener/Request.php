@@ -24,11 +24,11 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 class Request
 {
     /**
-     * Application is installed
+     * Locale
      *
-     * @var boolean
+     * @var string|null
      */
-    protected $installed = false;
+    protected $locale;
 
     /**
      * Router
@@ -40,11 +40,11 @@ class Request
     /**
      * Construct
      *
-     * @param boolean $installed
+     * @param string|null $locale
      * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
      */
-    public function __construct($installed, Router $router) {
-        $this->installed = $installed;
+    public function __construct($locale, Router $router) {
+        $this->locale = $locale;
         $this->router = $router;
     }
 
@@ -55,7 +55,7 @@ class Request
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($this->installed || $event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
+        if ($this->locale || $event->getRequestType() !== HttpKernelInterface::MASTER_REQUEST) {
             return;
         }
 
