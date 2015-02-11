@@ -144,3 +144,11 @@ install:
 install_add_storage:
     pattern:  /install/add_storage.html
     defaults: { _controller: AnimeDbCatalogBundle:Install:addStorage }
+install_storage_scan:
+    pattern:  /install/scan_{id}.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:scan }
+    requirements:
+        id:  \d+
+install_end:
+    pattern:  /install/end.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:end }

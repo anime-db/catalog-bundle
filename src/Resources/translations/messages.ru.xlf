@@ -774,6 +774,10 @@
                 <source>Skip</source>
                 <target>Пропустить</target>
             </trans-unit>
+            <trans-unit id="234">
+                <source>Installation is complete</source>
+                <target>Установка завершена</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
