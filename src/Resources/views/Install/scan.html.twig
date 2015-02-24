@@ -2,6 +2,8 @@
 
 {% block title %}{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}{% endblock %}
 
+{% set step = 3 %}
+
 {% block content %}
 <div class="b-storage-scan">
 	<h2>{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}</h2>
