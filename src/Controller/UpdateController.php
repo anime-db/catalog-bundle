@@ -135,7 +135,8 @@ class UpdateController extends Controller
     protected function getPlugin($plugin)
     {
         try {
-            return $this->container->get('anime_db.api.client')->getPlugin($plugin);
+            list($vendor, $package) = explode('/', $plugin);
+            return $this->container->get('anime_db.api.client')->getPlugin($vendor, $package);
         } catch (\RuntimeException $e) {
             return null;
         }
