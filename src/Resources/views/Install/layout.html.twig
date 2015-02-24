@@ -25,6 +25,16 @@
 	</div>
 	<div id="content-wrapper">
 		<div class="content">
+			<div class="steps step-{% if step is defined %}{{ step }}{% else %}1{% endif %}">
+				<div class="progress"></div>
+				<ul class="steps-list">
+					<ol class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</ol>
+					<ol class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</ol>
+					<ol class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</ol>
+					<ol class="step step-4" title="{% trans with {'%number%': '4'} %}Step %number%{% endtrans %}">4</ol>
+					<ol class="step step-5" title="{% trans %}End{% endtrans %}">5</ol>
+				</ul>
+			</div>
 			{% block content %}{% endblock %}
 		</div>
 	</div>
