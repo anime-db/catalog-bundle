@@ -1,10 +1,10 @@
 {% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
 
-{% block title %}{% trans %}Search plugin for filling item{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Search plugin by the URL for filling item{% endtrans %}{% endblock %}
 
 {% block content %}
 <div class="b-search-source b-search-source-in-all{% if form.count > 1%} b-large-form{% endif %}">
-	<h2>{% trans %}Search plugin for filling item{% endtrans %}</h2>
+	<h2>{% trans %}Search plugin by the URL for filling item{% endtrans %}</h2>
 	<form action="" method="get" {{ form_enctype(form) }}>
 		{{ form_widget(form) }}
 		<button type="submit">{% trans %}Search{% endtrans %}</button>

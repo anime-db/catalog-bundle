@@ -759,8 +759,12 @@
                 <target>Выполняется сканирование хранилища.</target>
             </trans-unit>
             <trans-unit id="230">
-                <source>Search plugin for filling item</source>
-                <target>Поиск плагина для заполнения записи</target>
+                <source>Search plugin by the URL for filling item</source>
+                <target>Поиск плагина по URL для заполнения записи</target>
+            </trans-unit>
+            <trans-unit id="231">
+                <source>Search plugin by URL</source>
+                <target>Поиск плагина по URL</target>
             </trans-unit>
         </body>
     </file>
