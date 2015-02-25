@@ -786,6 +786,10 @@
                 <source>End</source>
                 <target>Конец</target>
             </trans-unit>
+            <trans-unit id="237">
+                <source>Complete the installation</source>
+                <target>Завершить установку</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
