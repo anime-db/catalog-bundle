@@ -15,7 +15,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchFrom;
-use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\SearchFiller as SearchFillerForm;
+use AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller;
 
 /**
  * Fill
@@ -165,9 +166,17 @@ class FillController extends Controller
         $response = $this->get('cache_time_keeper')->getResponse()
             ->setEtag(md5(implode(',', $names)));
 
+        // response was not modified for this request
+        if (!$request->query->count() && $response->isNotModified($request)) {
+            return $response;
+        }
+
+        $entity = new SearchFiller();
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new FillerForm());
-        $form->handleRequest($request);
+        $form = $this->createForm(new SearchFillerForm(), $entity)->handleRequest($request);
+        if ($form->isValid()) {
+            return $this->redirect($entity->getFiller()->getLinkForFill($entity->getUrl()));
+        }
 
         return $this->render('AnimeDbCatalogBundle:Fill:search_filler.html.twig', [
             'form'   => $form->createView()
