@@ -25,7 +25,7 @@ use Symfony\Component\Filesystem\Exception\IOException;
 class InstallController extends Controller
 {
     /**
-     * Home
+     * Home (Stap #1)
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -62,7 +62,7 @@ class InstallController extends Controller
     }
 
     /**
-     * Add storage
+     * Add storage (Stap #2)
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -99,7 +99,7 @@ class InstallController extends Controller
     }
 
     /**
-     * Scan storage
+     * Scan storage (Stap #4)
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -142,7 +142,7 @@ class InstallController extends Controller
     }
 
     /**
-     * End install
+     * End install (Stap #5)
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -159,6 +159,15 @@ class InstallController extends Controller
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
+        }
+
+        if ($request->isMethod('POST')) {
+            // update params
+            $this->get('anime_db.manipulator.parameters')
+                ->set('anime_db.catalog.installed', true);
+            // clear cache
+            $this->get('anime_db.cache_clearer')->clear();
+            return $this->redirect('home');
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [], $response);

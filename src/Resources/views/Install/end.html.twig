@@ -6,4 +6,7 @@
 
 {% block content %}
 <h2>{% trans %}Installation is complete{% endtrans %}</h2>
+<form action="install_end" method="post">
+<button type="submit">Complete the installation</button>
+</form>
 {% endblock %}
