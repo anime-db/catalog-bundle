@@ -171,7 +171,7 @@ class FillController extends Controller
             return $response;
         }
 
-        $entity = new SearchFiller();
+        $entity = new SearchFiller($this->get('anime_db.plugin.filler'));
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new SearchFillerForm(), $entity)->handleRequest($request);
         if ($form->isValid()) {
