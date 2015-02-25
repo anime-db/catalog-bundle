@@ -763,8 +763,8 @@
                 <target>Поиск плагина по URL для заполнения записи</target>
             </trans-unit>
             <trans-unit id="231">
-                <source>Search plugin by URL</source>
-                <target>Поиск плагина по URL</target>
+                <source>Add from URL</source>
+                <target>Добавить из URL</target>
             </trans-unit>
         </body>
     </file>
