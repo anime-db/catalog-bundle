@@ -1,0 +1,14 @@
+{% extends 'AnimeDbCatalogBundle:Install:layout.html.twig' %}
+
+{% block title %}{% trans %}Choose what you want{% endtrans %}{% endblock %}
+
+{% set step = 3 %}
+
+{% block content %}
+<h2>{% trans %}Choose what you want{% endtrans %}</h2>
+<form action="{{ path('install_what_you_want') }}" method="post">
+	<button type="submit" name="do" value="scan">{% trans %}Scan the storage now{% endtrans %}</button><br />
+	<button type="submit" name="do" value="sample">{% trans %}Install sample items{% endtrans %}</button><br />
+	<button type="submit" name="do" value="skip">{% trans %}Skip{% endtrans %}</button>
+</form>
+{% endblock %}

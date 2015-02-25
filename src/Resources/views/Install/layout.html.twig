@@ -42,7 +42,7 @@
 						<span class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</span>
 					{% endif %}
 					{% if step > 3 and step != 4 %}
-						<a href="{{ path('install_add_storage') }}" class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</a>
+						<a href="{{ path('install_what_you_want') }}" class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</a>
 					{% else %}
 						<span class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</span>
 					{% endif %}

@@ -12,7 +12,7 @@
 			class="b-progress-bar"
 			data-from="{{ path('storage_scan_progress', {'id': storage.id}) }}"
 			data-message="{% trans %}Scanning is complete{% endtrans %}"
-			data-redirect="{{ path('install_end') }}"
+			data-redirect="{{ path('install_end', {'from': 'scan_storage'}) }}"
 		>
 			<div class="b-progress-label">{% trans %}Loading...{% endtrans %}</div>
 		</div>

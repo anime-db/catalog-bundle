@@ -790,6 +790,18 @@
                 <source>Complete the installation</source>
                 <target>Завершить установку</target>
             </trans-unit>
+            <trans-unit id="238">
+                <source>Choose what you want</source>
+                <target>Выбирайте то, что вы хотите</target>
+            </trans-unit>
+            <trans-unit id="239">
+                <source>Scan the storage now</source>
+                <target>Сканировать хранилище сейчас</target>
+            </trans-unit>
+            <trans-unit id="240">
+                <source>Install sample items</source>
+                <target>Установка экземпляров записей</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

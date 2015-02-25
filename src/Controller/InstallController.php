@@ -91,13 +91,51 @@ class InstallController extends Controller
             $em->persist($storage);
             $em->flush();
             // redirect to step 3
-            return $this->redirect($this->generateUrl('install_storage_scan', ['id' => $storage->getId()]));
+            return $this->redirect($this->generateUrl('install_what_you_want'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
             'is_new' => !$storage->getId()
         ], $response);
+    }
+
+    /**
+     * What you want
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function whatYouWantAction(Request $request)
+    {
+        // app already installed
+        if ($this->container->getParameter('anime_db.catalog.installed')) {
+            return $this->redirect($this->generateUrl('home'));
+        }
+
+        $response = $this->get('cache_time_keeper')->getResponse();
+        // response was not modified for this request
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        if ($do = $request->request->get('do')) {
+            switch ($do) {
+                case 'skip':
+                    return $this->redirect($this->generateUrl('install_end', ['from' => 'skip_scan_storage']));
+                    break;
+                case 'scan':
+                    return $this->redirect($this->generateUrl('install_storage_scan'));
+                    break;
+                case 'sample':
+                    // TODO install sample items
+                    return $this->redirect($this->generateUrl('install_end', ['from' => 'install_sample']));
+                    break;
+            }
+        }
+
+        return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [], $response);
     }
 
     /**
