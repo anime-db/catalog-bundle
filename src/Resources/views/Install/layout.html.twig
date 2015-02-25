@@ -25,15 +25,30 @@
 	</div>
 	<div id="content-wrapper">
 		<div class="content">
-			<div class="steps step-{% if step is defined %}{{ step }}{% else %}1{% endif %}">
+			{% if step is not defined %}
+				{% set step = 1 %}
+			{% endif %}
+			<div class="steps step-{{ step }}">
 				<div class="progress"></div>
-				<ul class="steps-list">
-					<ol class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</ol>
-					<ol class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</ol>
-					<ol class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</ol>
-					<ol class="step step-4" title="{% trans with {'%number%': '4'} %}Step %number%{% endtrans %}">4</ol>
-					<ol class="step step-5" title="{% trans %}End{% endtrans %}">5</ol>
-				</ul>
+				<div>
+					{% if step > 1 and step != 4 %}
+						<a href="{{ path('install') }}" class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</a>
+					{% else %}
+						<span class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</span>
+					{% endif %}
+					{% if step > 2 and step != 4 %}
+						<a href="{{ path('install_add_storage') }}" class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</a>
+					{% else %}
+						<span class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</span>
+					{% endif %}
+					{% if step > 3 and step != 4 %}
+						<a href="{{ path('install_add_storage') }}" class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</a>
+					{% else %}
+						<span class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</span>
+					{% endif %}
+					<span class="step step-4" title="{% trans with {'%number%': '4'} %}Step %number%{% endtrans %}">4</span>
+					<span class="step step-5" title="{% trans %}End{% endtrans %}">5</span>
+				</div>
 			</div>
 			{% block content %}{% endblock %}
 		</div>

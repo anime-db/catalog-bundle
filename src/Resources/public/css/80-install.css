@@ -9,10 +9,6 @@
 	position: relative;
 	height: 90px;
 }
-.steps .steps-list {
-	margin: 0;
-	padding: 0;
-}
 .steps .progress {
 	position: absolute;
 	top: 36px;
@@ -42,18 +38,21 @@
 }
 .steps .step {
 	position: absolute;
-	list-style: none;
+	display: block;
 	padding: 20px;
 	width: 48px;
 	height: 48px;
 	line-height: 48px;
 	font-size: 20px;
 	text-align: center;
+	text-decoration: none;
 	background-color: #ccc;
 	border: 1px solid #999;
 	border-radius: 50%;
 	color: #999;
 	top: 0;
+}
+.steps span.step {
 	cursor: default;
 }
 .steps .step.step-2 {
@@ -68,6 +67,7 @@
 .steps .step.step-5 {
 	right: 0;
 }
+/* old steps */
 .steps.step-2 .step.step-1,
 .steps.step-3 .step.step-1,
 .steps.step-3 .step.step-2,
@@ -79,6 +79,7 @@
 	border: 1px solid #4cae4c;
 	color: #fff;
 }
+/* active step */
 .steps.step-1 .step.step-1,
 .steps.step-2 .step.step-2,
 .steps.step-3 .step.step-3,

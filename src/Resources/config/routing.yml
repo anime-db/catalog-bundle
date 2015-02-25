@@ -138,17 +138,17 @@ label:
 #
 # Installation
 #
-install:
+install: # stap 1
     pattern:  /install/
     defaults: { _controller: AnimeDbCatalogBundle:Install:index }
-install_add_storage:
+install_add_storage: # stap 2
     pattern:  /install/add_storage.html
     defaults: { _controller: AnimeDbCatalogBundle:Install:addStorage }
-install_storage_scan:
+install_storage_scan: # stap 4
     pattern:  /install/scan_{id}.html
     defaults: { _controller: AnimeDbCatalogBundle:Install:scan }
     requirements:
         id:  \d+
-install_end:
+install_end: # stap 5
     pattern:  /install/end.html
     defaults: { _controller: AnimeDbCatalogBundle:Install:end }
