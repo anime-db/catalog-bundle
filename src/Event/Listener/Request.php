@@ -59,9 +59,16 @@ class Request
             return;
         }
 
-        $url = $this->router->generate('install');
-        if (strpos($event->getRequest()->getRequestUri(), $url) !== 0) {
-            $event->setResponse(new RedirectResponse($url));
+        // get route name from request
+        $route = $this->router->matchRequest($event->getRequest());
+        if (empty($route['_route'])) {
+            return;
+        }
+        $route = $route['_route'];
+
+        // go to the install page
+        if ($route != 'install' && strpos($route, 'install_') !== 0) {
+            $event->setResponse(new RedirectResponse($this->router->generate('install')));
         }
     }
 }
