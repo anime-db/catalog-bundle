@@ -124,19 +124,9 @@ class InstallController extends Controller
             return $response;
         }
 
-        if ($do = $request->request->get('do')) {
-            switch ($do) {
-                case 'skip':
-                    return $this->redirect($this->generateUrl('install_end', ['from' => 'skip_scan_storage']));
-                    break;
-                case 'scan':
-                    return $this->redirect($this->generateUrl('install_storage_scan'));
-                    break;
-                case 'sample':
-                    // TODO install sample items
-                    return $this->redirect($this->generateUrl('install_end', ['from' => 'install_sample']));
-                    break;
-            }
+        if ($request->isMethod('POST')) {
+            // TODO install sample items
+            return $this->redirect($this->generateUrl('install_end', ['from' => 'install_sample']));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [], $response);

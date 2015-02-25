@@ -7,8 +7,8 @@
 {% block content %}
 <h2>{% trans %}Choose what you want{% endtrans %}</h2>
 <form action="{{ path('install_what_you_want') }}" method="post">
-	<button type="submit" name="do" value="scan">{% trans %}Scan the storage now{% endtrans %}</button><br />
-	<button type="submit" name="do" value="sample">{% trans %}Install sample items{% endtrans %}</button><br />
-	<button type="submit" name="do" value="skip">{% trans %}Skip{% endtrans %}</button>
+	<a href="{{ path('install_storage_scan') }}" class="button">{% trans %}Scan the storage now{% endtrans %}</a><br />
+	<button type="submit">{% trans %}Install sample items{% endtrans %}</button><br />
+	<a href="{{ path('install_end', {'from': 'skip_scan_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
 </form>
 {% endblock %}
