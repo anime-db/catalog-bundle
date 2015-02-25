@@ -18,6 +18,10 @@
                 <source>Path to item does not match path to storage</source>
                 <target>Путь к записе не соответствует пути к хранилищу</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>No fillers that would support this URL</source>
+                <target>Нет наполнителей которые бы поддержимали этот URL</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

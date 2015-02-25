@@ -115,4 +115,16 @@ abstract class Filler extends Plugin
         }
         return $this->fill($query[$this->getForm()->getName()]);
     }
+
+    /**
+     * Is supported URL
+     *
+     * @param string $url
+     *
+     * @return boolean
+     */
+    public function isSupportedUrl($url)
+    {
+        return false;
+    }
 }

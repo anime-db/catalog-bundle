@@ -758,6 +758,14 @@
                 <source>Performed scanning a storage.</source>
                 <target>Выполняется сканирование хранилища.</target>
             </trans-unit>
+            <trans-unit id="230">
+                <source>Search plugin by the URL for filling item</source>
+                <target>Поиск плагина по URL для заполнения записи</target>
+            </trans-unit>
+            <trans-unit id="231">
+                <source>Add from URL</source>
+                <target>Добавить из URL</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -94,6 +94,9 @@ class Builder extends ContainerAware
             $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
                 ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'))
                 ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
+            $add->addChild('Add from URL', ['route' => 'fill_search_filler'])
+                ->setAttribute('title', $this->container->get('translator')->trans('Search plugin by the URL for filling item'))
+                ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
         }
         // add filler plugin items
         $this->addPluginItems(
