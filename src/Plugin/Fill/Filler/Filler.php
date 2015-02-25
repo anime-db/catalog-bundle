@@ -123,5 +123,8 @@ abstract class Filler extends Plugin
      *
      * @return boolean
      */
-    public abstract function isSupportedUrl($url);
+    public function isSupportedUrl($url)
+    {
+        return false;
+    }
 }
