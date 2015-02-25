@@ -43,8 +43,7 @@ class InstallController extends Controller
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $form = $this->createForm('anime_db_catalog_install_locale')
-            ->handleRequest($request);
+        $form = $this->createForm('anime_db_catalog_install_locale')->handleRequest($request);
 
         if ($form->isValid()) {
             // update params
@@ -75,15 +74,17 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Storage');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $storage = new Storage();
+        // get last storage
+        $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+        $storage = $storage ?: new Storage();
+
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new StorageForm(), $storage)
-            ->handleRequest($request);
+        $form = $this->createForm(new StorageForm(), $storage)->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -95,22 +96,27 @@ class InstallController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
+            'is_new' => !$storage->getId()
         ], $response);
     }
 
     /**
      * Scan storage (Stap #4)
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function scanAction(Storage $storage, Request $request)
+    public function scanAction(Request $request)
     {
         // app already installed
         if ($this->container->getParameter('anime_db.catalog.installed')) {
             return $this->redirect($this->generateUrl('home'));
+        }
+
+        $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+        if (!$storage) {
+            return $this->redirect('install_add_storage');
         }
 
         $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
