@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\Filesystem\Exception\IOException;
+use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 
 /**
  * Installation controller
@@ -81,7 +82,10 @@ class InstallController extends Controller
         }
         // get last storage
         $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
-        $storage = $storage ?: new Storage();
+        if (!$storage) {
+            $storage = new Storage();
+            $storage->setPath(Filesystem::getUserHomeDir());
+        }
 
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new StorageForm(), $storage)->handleRequest($request);
