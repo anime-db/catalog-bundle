@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormError;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchFrom;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\SearchFiller as SearchFillerForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
 
 /**
  * Fill
@@ -124,17 +125,11 @@ class FillController extends Controller
      */
     public function searchInAllAction(Request $request)
     {
-        $names = [];
-        $plugins = $this->get('anime_db.plugin.search_fill')->getPlugins();
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
-        foreach ($plugins as $plugin) {
-            $names[] = $plugin->getName();
-        }
-        $response = $this->get('cache_time_keeper')->getResponse()
-            ->setEtag(md5(implode(',', $names)));
+        $chain = $this->get('anime_db.plugin.search_fill');
+        $response = $this->getResponseFromChain($chain);
 
         // response was not modified for this request
-        if (!$request->query->count() && $response->isNotModified($request)) {
+        if ($response->isNotModified($request)) {
             return $response;
         }
 
@@ -143,7 +138,7 @@ class FillController extends Controller
         $form->handleRequest($request);
 
         return $this->render('AnimeDbCatalogBundle:Fill:search_in_all.html.twig', [
-            'plugins' => $plugins,
+            'plugins' => $chain->getPlugins(),
             'form'   => $form->createView()
         ], $response);
     }
@@ -157,21 +152,15 @@ class FillController extends Controller
      */
     public function searchFillerAction(Request $request)
     {
-        $names = [];
-        $plugins = $this->get('anime_db.plugin.filler')->getPlugins();
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
-        foreach ($plugins as $plugin) {
-            $names[] = $plugin->getName();
-        }
-        $response = $this->get('cache_time_keeper')->getResponse()
-            ->setEtag(md5(implode(',', $names)));
+        $chain = $this->get('anime_db.plugin.filler');
+        $response = $this->getResponseFromChain($chain);
 
         // response was not modified for this request
-        if (!$request->query->count() && $response->isNotModified($request)) {
+        if ($response->isNotModified($request)) {
             return $response;
         }
 
-        $entity = new SearchFiller($this->get('anime_db.plugin.filler'));
+        $entity = new SearchFiller($chain);
         /* @var $form \Symfony\Component\Form\Form */
         $form = $this->createForm(new SearchFillerForm(), $entity)->handleRequest($request);
         if ($form->isValid()) {
@@ -181,5 +170,28 @@ class FillController extends Controller
         return $this->render('AnimeDbCatalogBundle:Fill:search_filler.html.twig', [
             'form'   => $form->createView()
         ], $response);
+    }
+
+    /**
+     * Get response from plugins chain
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Chain $chain
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function getResponseFromChain(Chain $chain)
+    {
+        if (!$chain->getPlugins()) {
+            throw $this->createNotFoundException('No any plugins');
+        }
+
+        $names = '';
+        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin */
+        foreach ($chain->getPlugins() as $plugin) {
+            $names .= '|'.$plugin->getName();
+        }
+
+        return $this->get('cache_time_keeper')->getResponse()
+            ->setEtag(md5($names));
     }
 }
