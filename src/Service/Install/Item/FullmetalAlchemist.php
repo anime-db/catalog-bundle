@@ -107,7 +107,7 @@ class FullmetalAlchemist extends Item
             ->addSource((new Source())->setUrl('http://oboi.kards.ru/?act=search&level=6&search_str=FullMetal%20Alchemist'))
             ->addSource((new Source())->setUrl('http://www.fansubs.ru/base.php?id=124'))
             ->addSource((new Source())->setUrl('http://www.world-art.ru/animation/animation.php?id=2368'))
-            ->addSource((new Source())->setUrl('http://shikimori.org/animes/121-fullmetal-alchemist'));;
+            ->addSource((new Source())->setUrl('http://shikimori.org/animes/121-fullmetal-alchemist'));
     }
 
     /**
@@ -127,7 +127,7 @@ class FullmetalAlchemist extends Item
     public function setLocale($locale)
     {
         // installing the language-specific data
-        if ($this->locale == 'ru') {
+        if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
                 ->setFileInfo('+ спэшл')
                 ->setName('Стальной алхимик')

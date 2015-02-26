@@ -71,7 +71,7 @@ class SpiritedAway extends Item
     public function setLocale($locale)
     {
         // installing the language-specific data
-        if ($this->locale == 'ru') {
+        if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
                 ->setName('Унесённые призраками')
                 ->addName((new Name())->setName('Spirited Away'))

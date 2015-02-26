@@ -92,7 +92,7 @@ class Install
         $this->kernel = $kernel;
         $this->root_dir = $root_dir;
         $this->installed = $installed;
-        $this->locale = substr($locale, 0, 2);
+        $this->locale = $locale;
     }
 
     /**

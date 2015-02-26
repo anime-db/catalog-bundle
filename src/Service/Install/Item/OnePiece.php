@@ -51,7 +51,7 @@ class OnePiece extends Item
             ->addSource((new Source())->setUrl('http://ja.wikipedia.org/wiki/ONE_PIECE_%28%E3%82%A2%E3%83%8B%E3%83%A1%29'))
             ->addSource((new Source())->setUrl('http://www.fansubs.ru/base.php?id=731'))
             ->addSource((new Source())->setUrl('http://www.world-art.ru/animation/animation.php?id=803'))
-            ->addSource((new Source())->setUrl('http://shikimori.org/animes/21-one-piece'));;
+            ->addSource((new Source())->setUrl('http://shikimori.org/animes/21-one-piece'));
     }
 
     /**
@@ -71,7 +71,7 @@ class OnePiece extends Item
     public function setLocale($locale)
     {
         // installing the language-specific data
-        if ($this->locale == 'ru') {
+        if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
                 ->setFileInfo('+ 6 спэшлов')
                 ->setName('Большой куш')
