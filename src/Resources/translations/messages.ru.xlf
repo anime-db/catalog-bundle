@@ -800,7 +800,7 @@
             </trans-unit>
             <trans-unit id="240">
                 <source>Install sample items</source>
-                <target>Установка экземпляров записей</target>
+                <target>Установка демонстрационных записей</target>
             </trans-unit>
         </body>
     </file>
