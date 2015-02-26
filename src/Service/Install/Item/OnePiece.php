@@ -74,10 +74,6 @@ class OnePiece extends Item
         if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
                 ->setFileInfo('+ 6 спэшлов')
-                ->setName('Большой куш')
-                ->addName((new Name())->setName('Ван-Пис'))
-                ->addName((new Name())->setName('One Piece'))
-                ->addName((new Name())->setName('ワンピース'))
                 ->setSummary(
                     'Последние слова, произнесенные Королем Пиратов перед казнью, вдохновили многих: «Мои сокровища? '
                     .'Коли хотите, забирайте. Ищите – я их все оставил там!». Легендарная фраза Золотого Роджера '
@@ -96,8 +92,6 @@ class OnePiece extends Item
         } else {
             $this->getItem()
                 ->setFileInfo('+ 6 specials')
-                ->setName('One Piece')
-                ->addName((new Name())->setName('ワンピース'))
                 ->setSummary(
                     'Gol D. Roger was known as the Pirate King, the strongest and most infamous being to have sailed '
                     .'the Grand Line. The capture and death of Roger by the World Government brought a change '
@@ -116,7 +110,50 @@ class OnePiece extends Item
                     .'battling strong enemies, all in order to reach One Piece.'
                 );
         }
-        // TODO set names from locale
+
+        // set names from locale
+        switch (substr($locale, 0, 2)) {
+            case 'ru':
+                $this->getItem()
+                    ->setName('Большой куш')
+                    ->addName((new Name())->setName('Ван-Пис'));
+                break;
+            case 'ua':
+                $this->getItem()
+                    ->setName('Великий куш')
+                    ->addName((new Name())->setName('Большой куш'))
+                    ->addName((new Name())->setName('Ван-Пис'));
+                break;
+            case 'it':
+                $this->getItem()->setName('All`arrembaggio!');
+            case 'el':
+                $this->getItem()->setName('Ντρέικ και το Κυνήγι του Θησαυρού');
+            case 'he':
+                $this->getItem()->setName('וואן פיס');
+            case 'ar':
+                $this->getItem()->setName('ون بيس');
+            case 'th':
+                $this->getItem()->setName('วันพีซ');
+            case 'my':
+                $this->getItem()->setName('Budak Getah');
+            case 'fa':
+                $this->getItem()->setName('وان پیس');
+            case 'bd':
+                $this->getItem()->setName('ওয়ান পিস্');
+            case 'zh':
+                $this->getItem()->setName('海贼王');
+            case 'ko':
+                $this->getItem()->setName('원피스');
+        }
+
+        if (!$this->getItem()->getName()) {
+            $this->getItem()->setName('One Piece');
+        } else {
+            $this->getItem()->addName((new Name())->setName('One Piece'));
+        }
+
+        $this->getItem()->addName((new Name())->setName('ワンピース'));
+
         return parent::setLocale($locale);
     }
 }
