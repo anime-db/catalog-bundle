@@ -23,11 +23,11 @@ use AnimeDb\Bundle\AppBundle\Util\Filesystem as FilesystemUtil;
 class Version20130930180819_Init extends AbstractMigration implements ContainerAwareInterface
 {
     /**
-     * Example dir
+     * Dir for sample images
      *
      * @var string
      */
-    protected $example_dir;
+    protected $samples_dir;
 
     /**
      * Kernel
@@ -43,7 +43,7 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
      */
     public function setContainer(ContainerInterface $container = null)
     {
-        $this->example_dir = $container->getParameter('kernel.root_dir').'/../web/media/example/';
+        $this->samples_dir = $container->getParameter('kernel.root_dir').'/../web/media/samples/';
         $this->kernel = $container->get('kernel');
     }
 
@@ -84,8 +84,8 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
         $this->addDataItem();
 
         // copy images for example items
-        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/example/');
-        (new Filesystem())->mirror($source, $this->example_dir);
+        $source = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/samples/');
+        (new Filesystem())->mirror($source, $this->samples_dir);
     }
 
     /**
@@ -111,7 +111,7 @@ class Version20130930180819_Init extends AbstractMigration implements ContainerA
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
 
         // remove images for example items
-        (new Filesystem())->remove($this->example_dir);
+        (new Filesystem())->remove($this->samples_dir);
     }
 
     protected function createTableImage(Schema $schema)
