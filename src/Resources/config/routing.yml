@@ -155,3 +155,6 @@ install_storage_scan: # stap 4
 install_end: # stap 5
     pattern:  /install/end.html
     defaults: { _controller: AnimeDbCatalogBundle:Install:end }
+install_end_skip: # skip to stap 5
+    pattern:  /install/end/{from}.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:end }

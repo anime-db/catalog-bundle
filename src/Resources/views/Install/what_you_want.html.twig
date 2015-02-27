@@ -22,7 +22,7 @@
 	<h3>{% trans %}Skip this step{% endtrans %}</h3>
 	<blockquote>
 		<p>{% trans %}You can scan the storage after installation.{% endtrans %}</p>
-		<a href="{{ path('install_end', {'from': 'skip_scan_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
+		<a href="{{ path('install_end_skip', {'from': 'skip_scan_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
 	</blockquote>
 </form>
 {% endblock %}

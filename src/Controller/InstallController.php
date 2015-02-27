@@ -137,7 +137,7 @@ class InstallController extends Controller
             $this->get('anime_db.install')->installSamples(
                 $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast()
             );
-            return $this->redirect($this->generateUrl('install_end', ['from' => 'install_sample']));
+            return $this->redirect($this->generateUrl('install_end_skip', ['from' => 'install_sample']));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [
@@ -198,8 +198,9 @@ class InstallController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @param string $from
      */
-    public function endAction(Request $request)
+    public function endAction(Request $request, $from = '')
     {
         // app already installed
         if ($this->container->getParameter('anime_db.catalog.installed')) {
@@ -221,7 +222,9 @@ class InstallController extends Controller
             return $this->redirect('home');
         }
 
-        return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [], $response);
+        return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [
+            'from' => $from
+        ], $response);
     }
 
     /**

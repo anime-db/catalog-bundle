@@ -9,7 +9,7 @@
 <h2>{% trans %}Add storage{% endtrans %}</h2>
 	<form action="{{ path('install_add_storage') }}" method="post" {{ form_enctype(form) }}>
 		{{ form_widget(form) }}
-		<a href="{{ path('install_end', {'from': 'skip_add_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
+		<a href="{{ path('install_end_skip', {'from': 'skip_add_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
 		{% if is_new %}
 			<button type="submit">{% trans %}Add{% endtrans %}</button>
 		{% else %}
