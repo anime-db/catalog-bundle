@@ -131,13 +131,6 @@ class FullmetalAlchemist extends Item
         if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
                 ->setFileInfo('+ спэшл')
-                ->setName('Стальной алхимик')
-                ->addName((new Name())->setName('Fullmetal Alchemist'))
-                ->addName((new Name())->setName('Hagane no Renkin Jutsushi'))
-                ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
-                ->addName((new Name())->setName('Full Metal Alchemist'))
-                ->addName((new Name())->setName('Hagaren'))
-                ->addName((new Name())->setName('鋼の錬金術師'))
                 ->setSummary(
                     'Они нарушили основной закон алхимии и жестоко за это поплатились. И теперь два брата странствуют '
                     .'по миру в поисках загадочного философского камня, который поможет им исправить содеянное… Это '
@@ -150,12 +143,6 @@ class FullmetalAlchemist extends Item
         } else {
             $this->getItem()
                 ->setFileInfo('+ special')
-                ->setName('Fullmetal Alchemist')
-                ->addName((new Name())->setName('Hagane no Renkin Jutsushi'))
-                ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
-                ->addName((new Name())->setName('Full Metal Alchemist'))
-                ->addName((new Name())->setName('Hagaren'))
-                ->addName((new Name())->setName('鋼の錬金術師'))
                 ->setSummary(
                     'The rules of alchemy state that to gain something, one must lose something of equal value. '
                     .'Alchemy is the process of taking apart and reconstructing an object into a different entity, '
@@ -167,7 +154,49 @@ class FullmetalAlchemist extends Item
                     .'journey to restore their bodies, in search for the legendary Philosopher\'s Stone.'
                 );
         }
-        // TODO set names from locale
+
+        // set names from locale
+        switch (substr($locale, 0, 2)) {
+            case 'ru':
+                $this->getItem()->setName('Стальной алхимик');
+                break;
+            case 'cs':
+                $this->getItem()->setName('Fullmetal Alchemist - Hledání kamene mudrců');
+                break;
+            case 'th':
+                $this->getItem()->setName('แขนกลคนแปรธาตุ');
+                break;
+            case 'hu':
+                $this->getItem()->setName('Fullmetal Alchemist - A Bölcsek kövének nyomában');
+                break;
+            case 'el':
+                $this->getItem()->setName('Ο Μεταλλικός Αλχημιστής');
+                break;
+            case 'sr':
+                $this->getItem()->setName('Челични алхемичар/Čelični alhemičar');
+                break;
+            case 'zh':
+                $this->getItem()->setName('钢之炼金术师');
+                break;
+            case 'ko':
+                $this->getItem()->setName('강철의 연금술사');
+                break;
+            default:
+                $this->getItem()->setName('Fullmetal Alchemist');
+        }
+
+        if ($this->getItem()->getName() != 'Fullmetal Alchemist') {
+            $this->getItem()->addName((new Name())->setName('Fullmetal Alchemist'));
+        }
+
+        $this->getItem()
+            ->addName((new Name())->setName('Hagane no Renkin Jutsushi'))
+            ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
+            ->addName((new Name())->setName('Full Metal Alchemist'))
+            ->addName((new Name())->setName('Hagaren'))
+            ->addName((new Name())->setName('鋼の錬金術師'))
+            ->addName((new Name())->setName('鋼の錬金術師 FULLMETAL ALCHEMIST'));
+
         return parent::setLocale($locale);
     }
 }
