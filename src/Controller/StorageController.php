@@ -44,7 +44,7 @@ class StorageController extends Controller
      *
      * @var array
      */
-    protected $support_locales = ['en', 'ru'];
+    public static $support_locales = ['en', 'ru'];
 
     /**
      * Storages list
@@ -274,7 +274,7 @@ class StorageController extends Controller
     protected function getGuideLink($locale)
     {
         $locale = substr($locale, 0, 2);
-        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_GUIDE_LOCALE;
+        $locale = in_array($locale, self::$support_locales) ? $locale : self::DEFAULT_GUIDE_LOCALE;
         return str_replace('%locale%', $locale, self::GUIDE_LINK);
     }
 }

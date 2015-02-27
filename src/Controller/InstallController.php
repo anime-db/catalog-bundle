@@ -16,6 +16,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\Filesystem\Exception\IOException;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
+use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
 
 /**
  * Installation controller
@@ -100,7 +101,8 @@ class InstallController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
-            'is_new' => !$storage->getId()
+            'is_new' => !$storage->getId(),
+            'guide' => $this->getGuideLink($request->getLocale())
         ], $response);
     }
 
@@ -211,5 +213,19 @@ class InstallController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [], $response);
+    }
+
+    /**
+     * Return guide link
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function getGuideLink($locale)
+    {
+        $locale = substr($locale, 0, 2);
+        $locale = in_array($locale, StorageController::$support_locales) ? $locale : StorageController::DEFAULT_GUIDE_LOCALE;
+        return str_replace('%locale%', $locale, StorageController::GUIDE_LINK);
     }
 }
