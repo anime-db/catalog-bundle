@@ -156,34 +156,7 @@ class FullmetalAlchemist extends Item
         }
 
         // set names from locale
-        switch (substr($locale, 0, 2)) {
-            case 'ru':
-                $this->getItem()->setName('Стальной алхимик');
-                break;
-            case 'cs':
-                $this->getItem()->setName('Fullmetal Alchemist - Hledání kamene mudrců');
-                break;
-            case 'th':
-                $this->getItem()->setName('แขนกลคนแปรธาตุ');
-                break;
-            case 'hu':
-                $this->getItem()->setName('Fullmetal Alchemist - A Bölcsek kövének nyomában');
-                break;
-            case 'el':
-                $this->getItem()->setName('Ο Μεταλλικός Αλχημιστής');
-                break;
-            case 'sr':
-                $this->getItem()->setName('Челични алхемичар/Čelični alhemičar');
-                break;
-            case 'zh':
-                $this->getItem()->setName('钢之炼金术师');
-                break;
-            case 'ko':
-                $this->getItem()->setName('강철의 연금술사');
-                break;
-            default:
-                $this->getItem()->setName('Fullmetal Alchemist');
-        }
+        $this->getItem()->setName($this->getNameForLocale($locale));
 
         if ($this->getItem()->getName() != 'Fullmetal Alchemist') {
             $this->getItem()->addName((new Name())->setName('Fullmetal Alchemist'));
@@ -198,5 +171,36 @@ class FullmetalAlchemist extends Item
             ->addName((new Name())->setName('鋼の錬金術師 FULLMETAL ALCHEMIST'));
 
         return parent::setLocale($locale);
+    }
+
+    /**
+     * Get name for locale
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function getNameForLocale($locale)
+    {
+        switch (substr($locale, 0, 2)) {
+            case 'ru':
+                return 'Стальной алхимик';
+            case 'cs':
+                return 'Fullmetal Alchemist - Hledání kamene mudrců';
+            case 'th':
+                return 'แขนกลคนแปรธาตุ';
+            case 'hu':
+                return 'Fullmetal Alchemist - A Bölcsek kövének nyomában';
+            case 'el':
+                return 'Ο Μεταλλικός Αλχημιστής';
+            case 'sr':
+                return 'Челични алхемичар/Čelični alhemičar';
+            case 'zh':
+                return '钢之炼金术师';
+            case 'ko':
+                return '강철의 연금술사';
+            default:
+                return 'Fullmetal Alchemist';
+        }
     }
 }
