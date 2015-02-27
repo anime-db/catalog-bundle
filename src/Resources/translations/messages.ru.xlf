@@ -531,8 +531,8 @@
                 <target>папка, в которой хранятся файлы аниме (видеофайлы, субтитры, обложки, звуковые дорожки и т.д.)</target>
             </trans-unit>
             <trans-unit id="173">
-                <source>For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application.</source>
-                <target>Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения.</target>
+                <source><![CDATA[For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application. For more information, <a href="%guide%">read the guide</a>.]]></source>
+                <target><![CDATA[Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения. Для получения более подробной информации. <a href="%guide%">читайте руководство</a>.]]></target>
             </trans-unit>
             <trans-unit id="174">
                 <source>Rating</source>

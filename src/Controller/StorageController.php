@@ -26,6 +26,27 @@ use Symfony\Component\Filesystem\Exception\IOException;
 class StorageController extends Controller
 {
     /**
+     * Link to guide, how add a new storage
+     *
+     * @var strong
+     */
+    const GUIDE_LINK = 'http://anime-db.org/%locale%/guide/storage/add.html';
+
+    /**
+     * Default guide locale
+     *
+     * @var string
+     */
+    const DEFAULT_GUIDE_LOCALE = 'en';
+
+    /**
+     * Supported guide locales
+     *
+     * @var array
+     */
+    protected $support_locales = ['en', 'ru'];
+
+    /**
      * Storages list
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -113,7 +134,8 @@ class StorageController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Storage:add.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'guide' => $this->getGuideLink($request->getLocale())
         ], $response);
     }
 
@@ -240,5 +262,19 @@ class StorageController extends Controller
 
         $log = trim(file_get_contents($filename), " \r\n%");
         return new JsonResponse(['status' => ($log != '' ? intval($log) : 100)]);
+    }
+
+    /**
+     * Return guide link
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function getGuideLink($locale)
+    {
+        $locale = substr($locale, 0, 2);
+        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_GUIDE_LOCALE;
+        return str_replace('%locale%', $locale, self::GUIDE_LINK);
     }
 }
