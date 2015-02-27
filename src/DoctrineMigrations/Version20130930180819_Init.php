@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use AnimeDb\Bundle\AppBundle\Util\Filesystem as FilesystemUtil;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -49,7 +48,6 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addDataGenre();
         $this->addDataExtTranslations();
         $this->addDataCountryTranslation();
-        $this->addDataStorage();
     }
 
     /**
@@ -1125,12 +1123,5 @@ class Version20130930180819_Init extends AbstractMigration
             $this->addSql('INSERT INTO "country_translation" VALUES(526,"ZW","ru","name","Зимбабве")');
             $this->addSql('INSERT INTO "country_translation" VALUES(527,"AX","en","name","Åland Islands")');
             $this->addSql('INSERT INTO "country_translation" VALUES(528,"AX","ru","name","Аландские острова")');
-    }
-
-    protected function addDataStorage()
-    {
-        $this->addSql('INSERT INTO "storage" VALUES(1,"Local","Storage on local computer","folder","'.FilesystemUtil::getUserHomeDir().'")');
-        // add sequence
-        $this->addSql('INSERT INTO "sqlite_sequence" VALUES("storage",1)');
     }
 }
