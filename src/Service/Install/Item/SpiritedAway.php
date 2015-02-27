@@ -74,10 +74,6 @@ class SpiritedAway extends Item
         // installing the language-specific data
         if (substr($locale, 0, 2) == 'ru') {
             $this->getItem()
-                ->setName('Унесённые призраками')
-                ->addName((new Name())->setName('Spirited Away'))
-                ->addName((new Name())->setName('Sen to Chihiro no Kamikakushi'))
-                ->addName((new Name())->setName('千と千尋の神隠し'))
                 ->setSummary(
                     'Маленькая Тихиро вместе с мамой и папой переезжают в новый дом. Заблудившись по дороге, они '
                     .'оказываются в странном пустынном городе, где их ждет великолепный пир. Родители с жадностью '
@@ -89,9 +85,6 @@ class SpiritedAway extends Item
                 );
         } else {
             $this->getItem()
-                ->setName('Spirited Away')
-                ->addName((new Name())->setName('Sen to Chihiro no Kamikakushi'))
-                ->addName((new Name())->setName('千と千尋の神隠し'))
                 ->setSummary(
                     'On the way to their new home, 10-year-old Chihiro Ogino\'s family stumbles upon a deserted theme '
                     .'park. Intrigued, the family investigates the park, though unbeknownst to them, it is secretly '
@@ -104,7 +97,86 @@ class SpiritedAway extends Item
                     .'Chihiro embarks on a journey to turn her parents back to their original forms and return home.'
                 );
         }
-        // TODO set main name from locale
+
+        // set names from locale
+        $this->getItem()->setName($this->getNameForLocale($locale));
+
+        if ($this->getItem()->getName() != 'Spirited Away') {
+            $this->getItem()->addName((new Name())->setName('Spirited Away'));
+        }
+
+        $this->getItem()
+            ->addName((new Name())->setName('Sen to Chihiro no Kamikakushi'))
+            ->addName((new Name())->setName('千と千尋の神隠し'));
+
         return parent::setLocale($locale);
+    }
+
+    /**
+     * Get name for locale
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function getNameForLocale($locale)
+    {
+        switch (substr($locale, 0, 2)) {
+            case 'ru':
+                return 'Унесённые призраками';
+            case 'pt':
+                return 'A Viagem de Chihiro';
+            case 'hr':
+                return 'Avanture male Chihiro';
+            case 'no':
+            case 'da':
+                return 'Chihiro Og Heksene';
+            case 'de':
+                return 'Chihiros Reise ins Zauberland';
+            case 'es':
+                return 'El Viaje de Chihiro';
+            case 'fi':
+                return 'Henkien kätkemä';
+            case 'it':
+                return 'La Città Incantata';
+            case 'fr':
+                return 'Le voyage de Chihiro';
+            case 'tr':
+                return 'Ruhların Kaçışı';
+            case 'pl':
+                return 'Spirited Away: W krainie bogów';
+            case 'lt':
+                return 'Stebuklingi Šihiros nuotykiai Dvasių pasaulyje';
+            case 'et':
+                return 'Vaimudest viidud';
+            case 'he':
+                return 'המסע המופלא';
+            case 'ar':
+                return 'شيهيرو';
+            case 'cs':
+                return 'Cesta do fantazie';
+            case 'sk':
+                return 'Cesta do fantázie';
+            case 'hu':
+                return 'Chihiro Szellemországban';
+            case 'nl':
+                return 'De reis van Chihiro';
+            case 'lv':
+                return 'Gariem līdzi';
+            case 'sr':
+                return 'Začarani grad';
+            case 'sl':
+                return 'Čudežno potovanje';
+            case 'el':
+                return 'Ταξίδι στη Χώρα των Θαυμάτων';
+            case 'bg':
+                return 'Отнесени от Духове';
+            case 'zh':
+                return '千與千尋';
+            case 'ko':
+                return '센과 치히로의 행방불명';
+            default:
+                return 'Spirited Away';
+        }
     }
 }
