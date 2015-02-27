@@ -44,6 +44,7 @@ class OnePiece extends Item
             ->addSource((new Source())->setUrl('http://www.animenewsnetwork.com/encyclopedia/anime.php?id=836'))
             ->addSource((new Source())->setUrl('http://anidb.net/perl-bin/animedb.pl?show=anime&aid=69'))
             ->addSource((new Source())->setUrl('http://myanimelist.net/anime/21/One_Piece'))
+            ->addSource((new Source())->setUrl('http://myanimelist.net/anime/21/'))
             ->addSource((new Source())->setUrl('http://cal.syoboi.jp/tid/350/time'))
             ->addSource((new Source())->setUrl('http://www.allcinema.net/prog/show_c.php?num_c=162790'))
             ->addSource((new Source())->setUrl('http://en.wikipedia.org/wiki/One_Piece'))

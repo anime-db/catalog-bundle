@@ -44,6 +44,7 @@ class SpiritedAway extends Item
             ->addSource((new Source())->setUrl('http://anidb.net/perl-bin/animedb.pl?show=anime&aid=112'))
             ->addSource((new Source())->setUrl('http://www.allcinema.net/prog/show_c.php?num_c=163027'))
             ->addSource((new Source())->setUrl('http://myanimelist.net/anime/199/Sen_to_Chihiro_no_Kamikakushi'))
+            ->addSource((new Source())->setUrl('http://myanimelist.net/anime/199/'))
             ->addSource((new Source())->setUrl('http://en.wikipedia.org/wiki/Spirited_Away'))
             ->addSource((new Source())->setUrl('http://ru.wikipedia.org/wiki/%D0%A3%D0%BD%D0%B5%D1%81%D1%91%D0%BD%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%B8%D0%B7%D1%80%D0%B0%D0%BA%D0%B0%D0%BC%D0%B8'))
             ->addSource((new Source())->setUrl('http://ja.wikipedia.org/wiki/%E5%8D%83%E3%81%A8%E5%8D%83%E5%B0%8B%E3%81%AE%E7%A5%9E%E9%9A%A0%E3%81%97'))

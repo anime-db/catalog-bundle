@@ -101,6 +101,7 @@ class FullmetalAlchemist extends Item
             ->addSource((new Source())->setUrl('http://www.allcinema.net/prog/show_c.php?num_c=241943'))
             ->addSource((new Source())->setUrl('http://www1.vecceed.ne.jp/~m-satomi/FULLMETALALCHEMIST.html'))
             ->addSource((new Source())->setUrl('http://myanimelist.net/anime/121/Fullmetal_Alchemist'))
+            ->addSource((new Source())->setUrl('http://myanimelist.net/anime/121/'))
             ->addSource((new Source())->setUrl('http://en.wikipedia.org/wiki/Fullmetal_Alchemist'))
             ->addSource((new Source())->setUrl('http://ru.wikipedia.org/wiki/Fullmetal_Alchemist'))
             ->addSource((new Source())->setUrl('http://ja.wikipedia.org/wiki/%E9%8B%BC%E3%81%AE%E9%8C%AC%E9%87%91%E8%A1%93%E5%B8%AB_%28%E3%82%A2%E3%83%8B%E3%83%A1%29'))
@@ -166,7 +167,7 @@ class FullmetalAlchemist extends Item
                     .'journey to restore their bodies, in search for the legendary Philosopher\'s Stone.'
                 );
         }
-        // TODO set main name from locale
+        // TODO set names from locale
         return parent::setLocale($locale);
     }
 }
