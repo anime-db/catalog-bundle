@@ -27,6 +27,13 @@ use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
 class InstallController extends Controller
 {
     /**
+     * Link to guide, how scan the storage
+     *
+     * @var strong
+     */
+    const GUIDE_LINK = 'http://anime-db.org/%locale%/guide/storage/scan.html';
+
+    /**
      * Home (Stap #1)
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -102,7 +109,7 @@ class InstallController extends Controller
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
             'is_new' => !$storage->getId(),
-            'guide' => $this->getGuideLink($request->getLocale())
+            'guide' => $this->getGuideLink($request->getLocale(), StorageController::GUIDE_LINK)
         ], $response);
     }
 
@@ -133,7 +140,9 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('install_end', ['from' => 'install_sample']));
         }
 
-        return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [], $response);
+        return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [
+            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK)
+        ], $response);
     }
 
     /**
@@ -219,13 +228,14 @@ class InstallController extends Controller
      * Return guide link
      *
      * @param string $locale
+     * @param string $link
      *
      * @return string
      */
-    protected function getGuideLink($locale)
+    protected function getGuideLink($locale, $link)
     {
         $locale = substr($locale, 0, 2);
         $locale = in_array($locale, StorageController::$support_locales) ? $locale : StorageController::DEFAULT_GUIDE_LOCALE;
-        return str_replace('%locale%', $locale, StorageController::GUIDE_LINK);
+        return str_replace('%locale%', $locale, $link);
     }
 }

@@ -532,7 +532,7 @@
             </trans-unit>
             <trans-unit id="173">
                 <source><![CDATA[For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application. For more information, <a href="%guide%">read the guide</a>.]]></source>
-                <target><![CDATA[Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения. Для получения более подробной информации. <a href="%guide%">читайте руководство</a>.]]></target>
+                <target><![CDATA[Для корректной работы программы храните в папках только файлы, связанные с аниме. В случае обнаружения в папке иных файлов или программ, возможны сбои в работе приложения. Для получения более подробной информации, <a href="%guide%">читайте руководство</a>.]]></target>
             </trans-unit>
             <trans-unit id="174">
                 <source>Rating</source>
@@ -791,8 +791,8 @@
                 <target>Завершить установку</target>
             </trans-unit>
             <trans-unit id="238">
-                <source>Choose what you want</source>
-                <target>Выбирайте то, что вы хотите</target>
+                <source>What do you want to do next?</source>
+                <target>Что вы хотите сделать дальше?</target>
             </trans-unit>
             <trans-unit id="239">
                 <source>Scan the storage now</source>
@@ -801,6 +801,26 @@
             <trans-unit id="240">
                 <source>Install sample items</source>
                 <target>Установка демонстрационных записей</target>
+            </trans-unit>
+            <trans-unit id="241">
+                <source>Install items</source>
+                <target>Установить записи</target>
+            </trans-unit>
+            <trans-unit id="242">
+                <source>Skip this step</source>
+                <target>Пропустить этот шаг</target>
+            </trans-unit>
+            <trans-unit id="243">
+                <source>You can scan the storage after installation.</source>
+                <target>Вы можете выполнить сканирование хранилища после установки приложения.</target>
+            </trans-unit>
+            <trans-unit id="244">
+                <source>If you do not want to scan the storage now, you can add the samples in your database to have a general idea of the items.</source>
+                <target>Если вы не хотите выполнять сканирование хранилища сейчас, вы можете добавить демонстрационные записи в вышу базу данных, чтобы иметь общее представление об записях.</target>
+            </trans-unit>
+            <trans-unit id="245">
+                <source><![CDATA[Start the scan storage to automatically populate your database. During scanning, the application will analyze the files and folders on the storage and search the items by name to add them. For more information, <a href="%guide%">read the guide</a>.]]></source>
+                <target><![CDATA[Запустите сканирование хранилище чтобы автоматически заполнить вашу базу данных. Во время сканирования, приложение будет анализировать файлы и папки на хранилище и искать записи по имени, чтобы добавить их. Для получения более подробной информации, <a href="%guide%">читайте руководство</a>.]]></target>
             </trans-unit>
         </body>
     </file>
