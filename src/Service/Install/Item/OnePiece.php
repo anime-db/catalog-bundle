@@ -126,29 +126,39 @@ class OnePiece extends Item
                 break;
             case 'it':
                 $this->getItem()->setName('All`arrembaggio!');
+                break;
             case 'el':
                 $this->getItem()->setName('Ντρέικ και το Κυνήγι του Θησαυρού');
+                break;
             case 'he':
                 $this->getItem()->setName('וואן פיס');
+                break;
             case 'ar':
                 $this->getItem()->setName('ون بيس');
+                break;
             case 'th':
                 $this->getItem()->setName('วันพีซ');
+                break;
             case 'my':
                 $this->getItem()->setName('Budak Getah');
+                break;
             case 'fa':
                 $this->getItem()->setName('وان پیس');
+                break;
             case 'bd':
                 $this->getItem()->setName('ওয়ান পিস্');
+                break;
             case 'zh':
                 $this->getItem()->setName('海贼王');
+                break;
             case 'ko':
                 $this->getItem()->setName('원피스');
+                break;
+            default:
+                $this->getItem()->setName('One Piece');
         }
 
-        if (!$this->getItem()->getName()) {
-            $this->getItem()->setName('One Piece');
-        } else {
+        if ($this->getItem()->getName() != 'One Piece') {
             $this->getItem()->addName((new Name())->setName('One Piece'));
         }
 
