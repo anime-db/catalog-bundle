@@ -173,21 +173,8 @@ class InstallController extends Controller
 
         $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
 
-        $scan_output = $this->container->getParameter('anime_db.catalog.storage.scan_output');
-        $scan_output = sprintf($scan_output, $storage->getId());
-        if (!is_dir($dir = pathinfo($scan_output, PATHINFO_DIRNAME))) {
-            if (true !== @mkdir($dir, 0755, true)) {
-                throw new IOException('Unable to create directory for logging output');
-            }
-        }
-
         // scan storage in background
-        $this->get('anime_db.command')->send(sprintf(
-            'php app/console animedb:scan-storage --no-ansi --export=%s %s >%s 2>&1',
-            sprintf($this->container->getParameter('anime_db.catalog.storage.scan_progress'), $storage->getId()),
-            $storage->getId(),
-            $scan_output
-        ));
+        $this->get('anime_db.storage_scanner')->export($storage);
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
