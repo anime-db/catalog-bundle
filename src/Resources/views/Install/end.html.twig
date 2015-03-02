@@ -5,7 +5,18 @@
 {% set step = 5 %}
 
 {% block content %}
-<h2>{% trans %}Installation is complete{% endtrans %}</h2>
+<h2>{% trans %}Installation is complete. Thank you for using our software.{% endtrans %}</h2>
+<p>{% trans with {'%guide%': guide} %}We recommend that you <a href="%guide%">read the quick start guide</a> to get started with the application.{% endtrans %}</p>
+{% if from == 'install_sample' %}
+	<p>{% trans %}Established several items as an example. You can get acquainted with them, and after that remove them.{% endtrans %}</p>
+{% elseif from == 'scan_storage' %}
+	<p>{% trans %}Scanning the storage successfully completed. You can view a list of detected items per page notifications: Settings > List of notice.{% endtrans %}</p>
+{% elseif from == 'skip_scan_storage' %}
+	<p>{% trans %}You missed a step of scan the storage. You can scan on the storages management page: Settings > File storages.{% endtrans %}</p>
+{% elseif from == 'skip_add_storage' %}
+	<p>{% trans %}You have not added storage and did not the automatic import records from it. You can always do it on the storages management page: Settings > File storages.{% endtrans %}</p>
+{% endif %}
+<br />
 <form action="" method="post">
 <button type="submit">{% trans %}Complete the installation{% endtrans %}</button>
 </form>

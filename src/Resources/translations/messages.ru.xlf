@@ -822,6 +822,30 @@
                 <source><![CDATA[Start the scan storage to automatically populate your database. During scanning, the application will analyze the files and folders on the storage and search the items by name to add them. For more information, <a href="%guide%">read the guide</a>.]]></source>
                 <target><![CDATA[Запустите сканирование хранилище чтобы автоматически заполнить вашу базу данных. Во время сканирования, приложение будет анализировать файлы и папки на хранилище и искать записи по имени, чтобы добавить их. Для получения более подробной информации, <a href="%guide%">читайте руководство</a>.]]></target>
             </trans-unit>
+            <trans-unit id="246">
+                <source>Installation is complete. Thank you for using our software.</source>
+                <target>Установка завершена. Спасибо что воспользовались нашей программой.</target>
+            </trans-unit>
+            <trans-unit id="247">
+                <source><![CDATA[We recommend that you <a href="%guide%">read the quick start guide</a> to get started with the application.]]></source>
+                <target><![CDATA[Мы рекомендуем <a href="%guide%">ознакомится с кратким руководством</a>, чтобы начать работу с приложением.]]></target>
+            </trans-unit>
+            <trans-unit id="248">
+                <source>Established several items as an example. You can get acquainted with them, and after that remove them.</source>
+                <target>Установлено несколько записей в качестве примера. Вы можете ознакомится с ними, а за тем удалить их.</target>
+            </trans-unit>
+            <trans-unit id="249">
+                <source>Scanning the storage successfully completed. You can view a list of detected items per page notifications: Settings > List of notice.</source>
+                <target>Сканирование хранилища успешно завершено. Вы можете просмотреть список обнаруженных записей на странице уведомлений: Настройки > Список уведомлений.</target>
+            </trans-unit>
+            <trans-unit id="250">
+                <source>You missed a step of scan the storage. You can scan on the storages management page: Settings > File storages.</source>
+                <target>Вы пропустили шаг сканирования хранилища. Вы можете выполнить сканирование на странице управления хранилищами: Настройки > Файловые хранилища.</target>
+            </trans-unit>
+            <trans-unit id="251">
+                <source>You have not added storage and did not the automatic import records from it. You can always do it on the storages management page: Settings > File storages.</source>
+                <target>Вы не добавили хранилище и не выполнили автоматический импорт записей с него. Вы всегда можете сделать это на странице управления хранилищами: Настройки > Файловые хранилища.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

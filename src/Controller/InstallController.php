@@ -31,7 +31,14 @@ class InstallController extends Controller
      *
      * @var strong
      */
-    const GUIDE_LINK = 'http://anime-db.org/%locale%/guide/storage/scan.html';
+    const GUIDE_LINK_SCAN = 'http://anime-db.org/%locale%/guide/storage/scan.html';
+
+    /**
+     * Link to guide, how to start work
+     *
+     * @var strong
+     */
+    const GUIDE_LINK_START = 'http://anime-db.org/%locale%/guide/start.html';
 
     /**
      * Home (Stap #1)
@@ -141,7 +148,7 @@ class InstallController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [
-            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK)
+            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK_SCAN)
         ], $response);
     }
 
@@ -223,6 +230,7 @@ class InstallController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [
+            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK_START),
             'from' => $from
         ], $response);
     }
