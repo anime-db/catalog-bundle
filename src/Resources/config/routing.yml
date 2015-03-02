@@ -137,3 +137,27 @@ plugin_store:
 label:
     pattern:  /labels.html
     defaults: { _controller: AnimeDbCatalogBundle:Label:index }
+
+#
+# Installation
+#
+install: # stap 1
+    pattern:  /install/
+    defaults: { _controller: AnimeDbCatalogBundle:Install:index }
+install_add_storage: # stap 2
+    pattern:  /install/add_storage.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:addStorage }
+install_what_you_want: # stap 3
+    pattern:  /install/what_you_want.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:whatYouWant }
+install_storage_scan: # stap 4
+    pattern:  /install/scan_storage.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:scan }
+    requirements:
+        id:  \d+
+install_end: # stap 5
+    pattern:  /install/end.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:end }
+install_end_skip: # skip to stap 5
+    pattern:  /install/end/{from}.html
+    defaults: { _controller: AnimeDbCatalogBundle:Install:end }

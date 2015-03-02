@@ -1,0 +1,28 @@
+{% extends 'AnimeDbCatalogBundle:Install:layout.html.twig' %}
+
+{% block title %}{% trans %}What do you want to do next?{% endtrans %}{% endblock %}
+
+{% set step = 3 %}
+
+{% block content %}
+<h2>{% trans %}What do you want to do next?{% endtrans %}</h2>
+<form action="{{ path('install_what_you_want') }}" method="post">
+	<h3>{% trans %}Scan the storage now{% endtrans %}</h3>
+	<blockquote>
+		<p>{% trans with {'%guide%': guide} %}Start the scan storage to automatically populate your database. During scanning, the application will analyze the files and folders on the storage and search the items by name to add them. For more information, <a href="%guide%">read the guide</a>.{% endtrans %}</p>
+		<a href="{{ path('install_storage_scan') }}" class="button">{% trans %}Scan storage{% endtrans %}</a><br />
+	</blockquote>
+	<br />
+	<h3>{% trans %}Install sample items{% endtrans %}</h3>
+	<blockquote>
+		<p>{% trans %}If you do not want to scan the storage now, you can add the samples in your database to have a general idea of the items.{% endtrans %}</p>
+		<button type="submit">{% trans %}Install items{% endtrans %}</button><br />
+	</blockquote>
+	<br />
+	<h3>{% trans %}Skip this step{% endtrans %}</h3>
+	<blockquote>
+		<p>{% trans %}You can scan the storage after installation.{% endtrans %}</p>
+		<a href="{{ path('install_end_skip', {'from': 'skip_scan_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
+	</blockquote>
+</form>
+{% endblock %}
