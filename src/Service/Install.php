@@ -49,11 +49,18 @@ class Install
     protected $kernel;
 
     /**
-     * Root dir
+     * Origin dir
      *
      * @var string
      */
-    protected $root_dir = '';
+    protected $origin_dir = '';
+
+    /**
+     * Target dir
+     *
+     * @var string
+     */
+    protected $target_dir = '';
 
     /**
      * App is installed
@@ -90,7 +97,7 @@ class Install
         $this->em = $em;
         $this->fs = $fs;
         $this->kernel = $kernel;
-        $this->root_dir = $root_dir;
+        $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
         $this->locale = $locale;
     }
@@ -107,32 +114,58 @@ class Install
             return;
         }
 
-        // copy images for sample items
-        $this->fs->mirror(
-            $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/samples/'),
-            $this->root_dir.'/../web/media/samples/'
-        );
-
         // create items
-        $this->persistItem(new OnePiece($this->em), $storage);
-        $this->persistItem(new FullmetalAlchemist($this->em), $storage);
-        $this->persistItem(new SpiritedAway($this->em), $storage);
-        $this->em->flush();
+        $status = $this->persist(new OnePiece($this->em), $storage);
+        $status = $this->persist(new FullmetalAlchemist($this->em), $storage) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em), $storage) ?: $status;
+        if ($status) {
+            $this->em->flush();
+        }
     }
 
     /**
-     * Persist iItem
+     * Persist item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      */
-    protected function persistItem(Item $item, Storage $storage)
+    protected function persist(Item $item, Storage $storage)
     {
-        $this->em->persist(
-            $item
+        if (!$this->fs->exists($this->getTargetCover($item))) {
+            $this->em->persist($item
                 ->setStorage($storage)
                 ->setLocale($this->locale)
                 ->getItem()
-        );
+            );
+            return $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+        }
+        return false;
+    }
+
+    /**
+     * Get origin cover
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     *
+     * @return string
+     */
+    protected function getOriginCover(Item $item)
+    {
+        if (!$this->origin_dir) {
+            $this->origin_dir = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/');
+        }
+        return $this->origin_dir.$item->getItem()->getCover();
+    }
+
+    /**
+     * Get target cover
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     *
+     * @return string
+     */
+    protected function getTargetCover(Item $item)
+    {
+        return $this->target_dir.$item->getItem()->getCover();
     }
 }
