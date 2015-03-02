@@ -59,7 +59,7 @@ class OnePiece extends Item
      * (non-PHPdoc)
      * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::setStorage()
      */
-    public function setStorage($storage)
+    public function setStorage(Storage $storage)
     {
         $this->getItem()->setPath($storage->getPath().'One Piece (2011) [TV]'.DIRECTORY_SEPARATOR);
         return parent::setStorage($storage);
