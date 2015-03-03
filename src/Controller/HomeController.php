@@ -244,13 +244,10 @@ class HomeController extends Controller
                 'task_scheduler.enabled' => $entity->getTaskScheduler(),
                 'anime_db.catalog.default_search' => $entity->getDefaultSearch(),
             ]);
-
-            // change locale
-            if ($request->getLocale() != $entity->getLocale()) {
-                $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
-            } else {
-                $this->get('anime_db.cache_clearer')->clear(); // clear cache
-            }
+            $this->get('anime_db.manipulator.parameters')
+                ->set('locale', $entity->getLocale());
+            $this->get('anime_db.app.listener.request')->setLocale($request, $entity->getLocale());
+            $this->get('anime_db.cache_clearer')->clear();
 
             return $this->redirect($this->generateUrl('home_settings'));
         }
