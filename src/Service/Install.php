@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\FullmetalAlchemist;
@@ -167,5 +168,26 @@ class Install
     protected function getTargetCover(Item $item)
     {
         return $this->target_dir.$item->getItem()->getCover();
+    }
+
+    /**
+     * Install labels
+     */
+    protected function installLabels()
+    {
+        if (substr($this->locale, 0, 2) == 'ru') { // russian
+            $this->em->persist((new Label())->setName('Запланировано'));
+            $this->em->persist((new Label())->setName('Смотрю'));
+            $this->em->persist((new Label())->setName('Просмотрено'));
+            $this->em->persist((new Label())->setName('Отложено'));
+            $this->em->persist((new Label())->setName('Брошено'));
+        } else {
+            $this->em->persist((new Label())->setName('Scheduled'));
+            $this->em->persist((new Label())->setName('Watching'));
+            $this->em->persist((new Label())->setName('Views'));
+            $this->em->persist((new Label())->setName('Postponed'));
+            $this->em->persist((new Label())->setName('Dropped'));
+        }
+        $this->em->flush();
     }
 }
