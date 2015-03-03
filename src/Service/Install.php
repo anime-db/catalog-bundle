@@ -180,7 +180,7 @@ class Install
     /**
      * Install labels
      */
-    protected function installLabels()
+    public function installLabels()
     {
         if (substr($this->locale, 0, 2) == 'ru') { // russian
             $this->em->persist((new Label())->setName('Запланировано'));
