@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
-use Symfony\Component\Filesystem\Exception\IOException;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
 
