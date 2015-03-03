@@ -15,7 +15,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Storages
