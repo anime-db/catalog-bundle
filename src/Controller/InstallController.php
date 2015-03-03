@@ -226,7 +226,7 @@ class InstallController extends Controller
                 ->set('anime_db.catalog.installed', true);
             // clear cache
             $this->get('anime_db.cache_clearer')->clear();
-            return $this->redirect('home');
+            return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [
