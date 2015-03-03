@@ -11,33 +11,13 @@
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\DBAL\Schema\Schema;
-use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20140415172522_AddItemLabel extends AbstractMigration implements ContainerAwareInterface
+class Version20140415172522_AddItemLabel extends AbstractMigration
 {
-    /**
-     * Entity manager
-     *
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em;
-
-    /**
-     * Set container
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->em = $container->get('doctrine.orm.entity_manager');
-    }
-
     /**
      * (non-PHPdoc)
      * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
@@ -69,25 +49,5 @@ class Version20140415172522_AddItemLabel extends AbstractMigration implements Co
     {
         $schema->dropTable('label');
         $schema->dropTable('items_labels');
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see Doctrine\DBAL\Migrations.AbstractMigration::postUp()
-     */
-    public function postUp(Schema $schema)
-    {
-        $this->em->persist((new Label())->setName('Scheduled'));
-        $this->em->persist((new Label())->setName('Watching'));
-        $this->em->persist((new Label())->setName('Views'));
-        $this->em->persist((new Label())->setName('Postponed'));
-        $this->em->persist((new Label())->setName('Dropped'));
-        // russian
-        $this->em->persist((new Label())->setName('Запланировано'));
-        $this->em->persist((new Label())->setName('Смотрю'));
-        $this->em->persist((new Label())->setName('Просмотрено'));
-        $this->em->persist((new Label())->setName('Отложено'));
-        $this->em->persist((new Label())->setName('Брошено'));
-        $this->em->flush();
     }
 }

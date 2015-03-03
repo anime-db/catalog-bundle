@@ -14,6 +14,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\FullmetalAlchemist;
@@ -114,10 +115,15 @@ class Install
             return;
         }
 
+        // sample label
+        $name = substr($this->locale, 0, 2) == 'ru' ? 'Пример' : 'Sample';
+        $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
+        $label = $label ?: (new Label())->setName($name);
+
         // create items
-        $status = $this->persist(new OnePiece($this->em), $storage);
-        $status = $this->persist(new FullmetalAlchemist($this->em), $storage) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em), $storage) ?: $status;
+        $status = $this->persist(new OnePiece($this->em), $storage, $label);
+        $status = $this->persist(new FullmetalAlchemist($this->em), $storage, $label) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em), $storage, $label) ?: $status;
         if ($status) {
             $this->em->flush();
         }
@@ -128,14 +134,16 @@ class Install
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
      */
-    protected function persist(Item $item, Storage $storage)
+    protected function persist(Item $item, Storage $storage, Label $label)
     {
         if (!$this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
                 ->setLocale($this->locale)
                 ->getItem()
+                ->addLabel($label)
             );
             return $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
         }
@@ -167,5 +175,26 @@ class Install
     protected function getTargetCover(Item $item)
     {
         return $this->target_dir.$item->getItem()->getCover();
+    }
+
+    /**
+     * Install labels
+     */
+    protected function installLabels()
+    {
+        if (substr($this->locale, 0, 2) == 'ru') { // russian
+            $this->em->persist((new Label())->setName('Запланировано'));
+            $this->em->persist((new Label())->setName('Смотрю'));
+            $this->em->persist((new Label())->setName('Просмотрено'));
+            $this->em->persist((new Label())->setName('Отложено'));
+            $this->em->persist((new Label())->setName('Брошено'));
+        } else {
+            $this->em->persist((new Label())->setName('Scheduled'));
+            $this->em->persist((new Label())->setName('Watching'));
+            $this->em->persist((new Label())->setName('Views'));
+            $this->em->persist((new Label())->setName('Postponed'));
+            $this->em->persist((new Label())->setName('Dropped'));
+        }
+        $this->em->flush();
     }
 }

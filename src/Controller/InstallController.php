@@ -212,6 +212,7 @@ class InstallController extends Controller
                 ->set('anime_db.catalog.installed', true);
             // clear cache
             $this->get('anime_db.cache_clearer')->clear();
+            $this->get('anime_db.install')->installLabels();
             return $this->redirect('home');
         }
 
