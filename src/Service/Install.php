@@ -115,10 +115,15 @@ class Install
             return;
         }
 
+        // sample label
+        $name = substr($this->locale, 0, 2) == 'ru' ? 'Пример' : 'Sample';
+        $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
+        $label = $label ?: (new Label())->setName($name);
+
         // create items
-        $status = $this->persist(new OnePiece($this->em), $storage);
-        $status = $this->persist(new FullmetalAlchemist($this->em), $storage) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em), $storage) ?: $status;
+        $status = $this->persist(new OnePiece($this->em), $storage, $label);
+        $status = $this->persist(new FullmetalAlchemist($this->em), $storage, $label) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em), $storage, $label) ?: $status;
         if ($status) {
             $this->em->flush();
         }
@@ -129,14 +134,16 @@ class Install
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
      */
-    protected function persist(Item $item, Storage $storage)
+    protected function persist(Item $item, Storage $storage, Label $label)
     {
         if (!$this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
                 ->setLocale($this->locale)
                 ->getItem()
+                ->addLabel($label)
             );
             return $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
         }
