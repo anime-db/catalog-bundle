@@ -137,7 +137,8 @@ class Install
                 ->setLocale($this->locale)
                 ->getItem()
             );
-            return $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+            $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+            return true;
         }
         return false;
     }
