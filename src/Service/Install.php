@@ -145,7 +145,8 @@ class Install
                 ->getItem()
                 ->addLabel($label)
             );
-            return $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+            $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+            return true;
         }
         return false;
     }
