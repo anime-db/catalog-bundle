@@ -41,3 +41,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -500 }
         arguments: [ %locale%, @router ]
+
+    anime_db.catalog.listener.install:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install
+        arguments: [ @anime_db.manipulator.parameters, @anime_db.cache_clearer ]
+        tags:
+            - { name: kernel.event_listener, event: anime_db.install.app, method: onInstallApp }

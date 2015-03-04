@@ -223,11 +223,6 @@ class InstallController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            // update params
-            $this->get('anime_db.manipulator.parameters')
-                ->set('anime_db.catalog.installed', true);
-            // clear cache
-            $this->get('anime_db.cache_clearer')->clear();
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new App());
             return $this->redirect($this->generateUrl('home'));
         }

@@ -51,7 +51,8 @@ class Package
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param string $root_dir
      */
-    public function __construct(Kernel $kernel, Filesystem $fs, $root_dir) {
+    public function __construct(Kernel $kernel, Filesystem $fs, $root_dir)
+    {
         $this->kernel = $kernel;
         $this->root_dir = $root_dir;
         $this->fs = $fs;
