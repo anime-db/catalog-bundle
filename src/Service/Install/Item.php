@@ -60,8 +60,8 @@ abstract class Item
     public function __construct(ObjectManager $em, Translator $translator)
     {
         $this->em = $em;
-        $this->item = $this->buildItem();
         $this->translator = $translator;
+        $this->item = $this->buildItem();
     }
 
     /**
