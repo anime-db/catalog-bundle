@@ -854,6 +854,26 @@
                 <source>You have not added storage and did not the automatic import records from it. You can always do it on the storages management page: Settings > File storages.</source>
                 <target>Вы не добавили хранилище и не выполнили автоматический импорт записей с него. Вы всегда можете сделать это на странице управления хранилищами: Настройки > Файловые хранилища.</target>
             </trans-unit>
+            <trans-unit id="252">
+                <source>Scheduled</source>
+                <target>Запланировано</target>
+            </trans-unit>
+            <trans-unit id="253">
+                <source>Watching</source>
+                <target>Смотрю</target>
+            </trans-unit>
+            <trans-unit id="254">
+                <source>Views</source>
+                <target>Просмотрено</target>
+            </trans-unit>
+            <trans-unit id="255">
+                <source>Postponed</source>
+                <target>Отложено</target>
+            </trans-unit>
+            <trans-unit id="256">
+                <source>Dropped</source>
+                <target>Брошено</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

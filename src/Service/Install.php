@@ -194,19 +194,11 @@ class Install
      */
     public function installLabels()
     {
-        if (substr($this->locale, 0, 2) == 'ru') { // russian
-            $this->em->persist((new Label())->setName('Запланировано'));
-            $this->em->persist((new Label())->setName('Смотрю'));
-            $this->em->persist((new Label())->setName('Просмотрено'));
-            $this->em->persist((new Label())->setName('Отложено'));
-            $this->em->persist((new Label())->setName('Брошено'));
-        } else {
-            $this->em->persist((new Label())->setName('Scheduled'));
-            $this->em->persist((new Label())->setName('Watching'));
-            $this->em->persist((new Label())->setName('Views'));
-            $this->em->persist((new Label())->setName('Postponed'));
-            $this->em->persist((new Label())->setName('Dropped'));
-        }
+        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
         $this->em->flush();
     }
 }
