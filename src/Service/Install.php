@@ -15,6 +15,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\FullmetalAlchemist;
@@ -125,10 +126,15 @@ class Install
             return;
         }
 
+        // sample label
+        $name = substr($this->locale, 0, 2) == 'ru' ? 'Пример' : 'Sample';
+        $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
+        $label = $label ?: (new Label())->setName($name);
+
         // create items
-        $status = $this->persist(new OnePiece($this->em, $this->translator), $storage);
-        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $storage) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $storage) ?: $status;
+        $status = $this->persist(new OnePiece($this->em, $this->translator), $storage, $label);
+        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $storage, $label) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $storage, $label) ?: $status;
         if ($status) {
             $this->em->flush();
         }
@@ -139,14 +145,16 @@ class Install
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
      */
-    protected function persist(Item $item, Storage $storage)
+    protected function persist(Item $item, Storage $storage, Label $label)
     {
         if (!$this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
                 ->setLocale($this->locale)
                 ->getItem()
+                ->addLabel($label)
             );
             $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
             return true;

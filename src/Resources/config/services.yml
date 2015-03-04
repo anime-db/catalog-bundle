@@ -24,10 +24,10 @@ services:
     anime_db.install:
         class: AnimeDb\Bundle\CatalogBundle\Service\Install
         arguments:
-          - @doctrine.orm.entity_manager
-          - @filesystem
-          - @kernel
-          - @translator
-          - %kernel.root_dir%
-          - %anime_db.catalog.installed%
-          - %locale%
+            - @doctrine.orm.entity_manager
+            - @filesystem
+            - @kernel
+            - @translator
+            - %kernel.root_dir%
+            - %anime_db.catalog.installed%
+            - %locale%
