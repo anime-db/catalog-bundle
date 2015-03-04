@@ -61,7 +61,6 @@ abstract class Item
     {
         $this->em = $em;
         $this->translator = $translator;
-        $this->item = $this->buildItem();
     }
 
     /**
@@ -110,6 +109,9 @@ abstract class Item
      */
     public function getItem()
     {
+        if (!$this->item) {
+            $this->item = $this->buildItem();
+        }
         return $this->item;
     }
 
