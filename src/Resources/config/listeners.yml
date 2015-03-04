@@ -44,6 +44,10 @@ services:
 
     anime_db.catalog.listener.install:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install
-        arguments: [ @anime_db.manipulator.parameters, @anime_db.cache_clearer ]
+        arguments:
+            - @anime_db.manipulator.parameters
+            - @anime_db.cache_clearer
+            - @translator
+            - @doctrine.orm.entity_manager
         tags:
             - { name: kernel.event_listener, event: anime_db.install.app, method: onInstallApp }

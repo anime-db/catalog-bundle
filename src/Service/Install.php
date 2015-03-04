@@ -188,17 +188,4 @@ class Install
     {
         return $this->target_dir.$item->getItem()->getCover();
     }
-
-    /**
-     * Install labels
-     */
-    public function installLabels()
-    {
-        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
-        $this->em->flush();
-    }
 }

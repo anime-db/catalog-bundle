@@ -223,7 +223,6 @@ class InstallController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            $this->get('anime_db.install')->installLabels();
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new App());
             return $this->redirect($this->generateUrl('home'));
         }
