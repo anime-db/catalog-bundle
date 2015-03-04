@@ -30,14 +30,14 @@ class InstallController extends Controller
      *
      * @var strong
      */
-    const GUIDE_LINK_SCAN = 'http://anime-db.org/%locale%/guide/storage/scan.html';
+    const GUIDE_LINK_SCAN = '/guide/storage/scan.html';
 
     /**
      * Link to guide, how to start work
      *
      * @var strong
      */
-    const GUIDE_LINK_START = 'http://anime-db.org/%locale%/guide/start.html';
+    const GUIDE_LINK_START = '/guide/start.html';
 
     /**
      * Home (Stap #1)
@@ -115,7 +115,7 @@ class InstallController extends Controller
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
             'is_new' => !$storage->getId(),
-            'guide' => $this->getGuideLink($request->getLocale(), StorageController::GUIDE_LINK)
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(StorageController::GUIDE_LINK)
         ], $response);
     }
 
@@ -147,7 +147,7 @@ class InstallController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [
-            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK_SCAN)
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_SCAN)
         ], $response);
     }
 
@@ -217,23 +217,8 @@ class InstallController extends Controller
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [
-            'guide' => $this->getGuideLink($request->getLocale(), self::GUIDE_LINK_START),
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_START),
             'from' => $from
         ], $response);
-    }
-
-    /**
-     * Return guide link
-     *
-     * @param string $locale
-     * @param string $link
-     *
-     * @return string
-     */
-    protected function getGuideLink($locale, $link)
-    {
-        $locale = substr($locale, 0, 2);
-        $locale = in_array($locale, StorageController::$support_locales) ? $locale : StorageController::DEFAULT_GUIDE_LOCALE;
-        return str_replace('%locale%', $locale, $link);
     }
 }

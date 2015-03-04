@@ -29,21 +29,7 @@ class StorageController extends Controller
      *
      * @var strong
      */
-    const GUIDE_LINK = 'http://anime-db.org/%locale%/guide/storage/add.html';
-
-    /**
-     * Default guide locale
-     *
-     * @var string
-     */
-    const DEFAULT_GUIDE_LOCALE = 'en';
-
-    /**
-     * Supported guide locales
-     *
-     * @var array
-     */
-    public static $support_locales = ['en', 'ru'];
+    const GUIDE_LINK = '/guide/storage/add.html';
 
     /**
      * Storages list
@@ -134,7 +120,7 @@ class StorageController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Storage:add.html.twig', [
             'form' => $form->createView(),
-            'guide' => $this->getGuideLink($request->getLocale())
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)
         ], $response);
     }
 
@@ -247,19 +233,5 @@ class StorageController extends Controller
 
         $log = trim(file_get_contents($filename), " \r\n%");
         return new JsonResponse(['status' => ($log != '' ? intval($log) : 100)]);
-    }
-
-    /**
-     * Return guide link
-     *
-     * @param string $locale
-     *
-     * @return string
-     */
-    protected function getGuideLink($locale)
-    {
-        $locale = substr($locale, 0, 2);
-        $locale = in_array($locale, self::$support_locales) ? $locale : self::DEFAULT_GUIDE_LOCALE;
-        return str_replace('%locale%', $locale, self::GUIDE_LINK);
     }
 }

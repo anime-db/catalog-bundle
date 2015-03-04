@@ -66,7 +66,7 @@ class PluginController extends Controller
         }
 
         $plugins = [];
-        $data = $this->container->get('anime_db.api.client')->getPlugins();
+        $data = $this->get('anime_db.api.client')->getPlugins();
         foreach ($data['plugins'] as $plugin) {
             $plugins[$plugin['name']] = $plugin;
             $plugins[$plugin['name']]['installed'] = false;
