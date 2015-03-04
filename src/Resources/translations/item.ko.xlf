@@ -10,6 +10,10 @@
                 <source>Fullmetal Alchemist</source>
                 <target>강철의 연금술사</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Spirited Away</source>
+                <target>센과 치히로의 행방불명</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

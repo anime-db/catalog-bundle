@@ -10,6 +10,10 @@
                 <source>Fullmetal Alchemist</source>
                 <target>钢之炼金术师</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Spirited Away</source>
+                <target>千與千尋</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

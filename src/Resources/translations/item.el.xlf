@@ -10,6 +10,10 @@
                 <source>Fullmetal Alchemist</source>
                 <target>Ο Μεταλλικός Αλχημιστής</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Spirited Away</source>
+                <target>Ταξίδι στη Χώρα των Θαυμάτων</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

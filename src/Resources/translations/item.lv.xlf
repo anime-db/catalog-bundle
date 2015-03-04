@@ -3,12 +3,8 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>Fullmetal Alchemist</source>
-                <target>Fullmetal Alchemist - Hledání kamene mudrců</target>
-            </trans-unit>
-            <trans-unit id="2">
                 <source>Spirited Away</source>
-                <target>Cesta do fantazie</target>
+                <target>Gariem līdzi</target>
             </trans-unit>
         </body>
     </file>
