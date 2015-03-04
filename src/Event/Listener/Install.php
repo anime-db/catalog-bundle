@@ -19,10 +19,10 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\FullmetalAlchemist;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\SpiritedAway;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\OnePiece;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\FullmetalAlchemist;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SpiritedAway;
 
 /**
  * Install listener
@@ -184,7 +184,7 @@ class Install
     /**
      * Persist item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
      */

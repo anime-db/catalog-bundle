@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service\Install;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -25,7 +25,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
  *     ->getItem();
  * </code>
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Install
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Item
