@@ -29,13 +29,13 @@ class FullmetalAlchemist extends Item
      */
     protected function buildItem()
     {
-        return parent::buildItem()
+        $item = parent::buildItem()
             ->setCountry($this->getCountry('JP'))
             ->setCover('samples/fullmetal-alchemist.jpg')
             ->setDateEnd(new \DateTime('2004-10-02'))
             ->setDatePremiere(new \DateTime('2003-10-04'))
             ->setDuration(25)
-            ->setEpisodes(
+            ->setEpisodes($this->translator->trans(
 '1. To Challenge the Sun (04.10.2003, 25 мин.)
 2. Body of the Sanctioned (11.10.2003, 25 мин.)
 3. Mother (18.10.2003, 25 мин.)
@@ -86,11 +86,27 @@ class FullmetalAlchemist extends Item
 48. Goodbye (11.09.2004, 25 мин.)
 49. The Other Side of the Gate (18.09.2004, 25 мин.)
 50. Death (25.09.2004, 25 мин.)
-51. Laws and Promises (02.10.2004, 25 мин.)'
-            )
+51. Laws and Promises (02.10.2004, 25 мин.)',
+                [],
+                'item'
+            ))
             ->setEpisodesNumber('51')
+            ->setFileInfo($this->translator->trans('+ special', [], 'item'))
+            ->setName($this->translator->trans('Fullmetal Alchemist', [], 'item'))
             ->setStudio($this->getStudio('Bones'))
             ->setType($this->getType('tv'))
+            ->setSummary($this->translator->trans(
+                'The rules of alchemy state that to gain something, one must lose something of equal value. '
+                .'Alchemy is the process of taking apart and reconstructing an object into a different entity, '
+                .'with the rules of alchemy to govern this procedure. However, there exists an object that can '
+                .'bring any alchemist above these rules, the object known as the Philosopher\'s Stone. The young '
+                .'Edward Elric is a particularly talented alchemist who through an accident years back lost his '
+                .'younger brother Alphonse and one of his legs. Sacrificing one of his arms as well, he used '
+                .'alchemy to bind his brother\'s soul to a suit of armor. This lead to the beginning of their '
+                .'journey to restore their bodies, in search for the legendary Philosopher\'s Stone.',
+                [],
+                'item'
+            ))
             ->addGenre($this->getGenre('Adventure'))
             ->addGenre($this->getGenre('Drama'))
             ->addGenre($this->getGenre('Shounen'))
@@ -109,6 +125,18 @@ class FullmetalAlchemist extends Item
             ->addSource((new Source())->setUrl('http://www.fansubs.ru/base.php?id=124'))
             ->addSource((new Source())->setUrl('http://www.world-art.ru/animation/animation.php?id=2368'))
             ->addSource((new Source())->setUrl('http://shikimori.org/animes/121-fullmetal-alchemist'));
+
+        if ($item->getName() != 'Fullmetal Alchemist') {
+            $item->addName((new Name())->setName('Fullmetal Alchemist'));
+        }
+
+        return $item
+            ->addName((new Name())->setName('Hagane no Renkin Jutsushi'))
+            ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
+            ->addName((new Name())->setName('Full Metal Alchemist'))
+            ->addName((new Name())->setName('Hagaren'))
+            ->addName((new Name())->setName('鋼の錬金術師'))
+            ->addName((new Name())->setName('鋼の錬金術師 FULLMETAL ALCHEMIST'));
     }
 
     /**
@@ -119,88 +147,5 @@ class FullmetalAlchemist extends Item
     {
         $this->getItem()->setPath($storage->getPath().'Fullmetal Alchemist (2003) [TV]'.DIRECTORY_SEPARATOR);
         return parent::setStorage($storage);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::setLocale()
-     */
-    public function setLocale($locale)
-    {
-        // installing the language-specific data
-        if (substr($locale, 0, 2) == 'ru') {
-            $this->getItem()
-                ->setFileInfo('+ спэшл')
-                ->setSummary(
-                    'Они нарушили основной закон алхимии и жестоко за это поплатились. И теперь два брата странствуют '
-                    .'по миру в поисках загадочного философского камня, который поможет им исправить содеянное… Это '
-                    .'мир, в котором вместо науки властвует магия, в котором люди способны управлять стихиями. Но у '
-                    .'магии тоже есть законы, которым нужно следовать. В противном случае расплата будет жестокой и '
-                    .'страшной. Два брата - Эдвард и Альфонс Элрики - пытаются совершить запретное: воскресить '
-                    .'умершую мать. Однако закон равноценного обмена гласит: чтобы что-то получить, ты должен отдать '
-                    .'нечто равноценное…'
-                );
-        } else {
-            $this->getItem()
-                ->setFileInfo('+ special')
-                ->setSummary(
-                    'The rules of alchemy state that to gain something, one must lose something of equal value. '
-                    .'Alchemy is the process of taking apart and reconstructing an object into a different entity, '
-                    .'with the rules of alchemy to govern this procedure. However, there exists an object that can '
-                    .'bring any alchemist above these rules, the object known as the Philosopher\'s Stone. The young '
-                    .'Edward Elric is a particularly talented alchemist who through an accident years back lost his '
-                    .'younger brother Alphonse and one of his legs. Sacrificing one of his arms as well, he used '
-                    .'alchemy to bind his brother\'s soul to a suit of armor. This lead to the beginning of their '
-                    .'journey to restore their bodies, in search for the legendary Philosopher\'s Stone.'
-                );
-        }
-
-        // set names from locale
-        $this->getItem()->setName($this->getNameForLocale($locale));
-
-        if ($this->getItem()->getName() != 'Fullmetal Alchemist') {
-            $this->getItem()->addName((new Name())->setName('Fullmetal Alchemist'));
-        }
-
-        $this->getItem()
-            ->addName((new Name())->setName('Hagane no Renkin Jutsushi'))
-            ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
-            ->addName((new Name())->setName('Full Metal Alchemist'))
-            ->addName((new Name())->setName('Hagaren'))
-            ->addName((new Name())->setName('鋼の錬金術師'))
-            ->addName((new Name())->setName('鋼の錬金術師 FULLMETAL ALCHEMIST'));
-
-        return parent::setLocale($locale);
-    }
-
-    /**
-     * Get name for locale
-     *
-     * @param string $locale
-     *
-     * @return string
-     */
-    protected function getNameForLocale($locale)
-    {
-        switch (substr($locale, 0, 2)) {
-            case 'ru':
-                return 'Стальной алхимик';
-            case 'cs':
-                return 'Fullmetal Alchemist - Hledání kamene mudrců';
-            case 'th':
-                return 'แขนกลคนแปรธาตุ';
-            case 'hu':
-                return 'Fullmetal Alchemist - A Bölcsek kövének nyomában';
-            case 'el':
-                return 'Ο Μεταλλικός Αλχημιστής';
-            case 'sr':
-                return 'Челични алхемичар/Čelični alhemičar';
-            case 'zh':
-                return '钢之炼金术师';
-            case 'ko':
-                return '강철의 연금술사';
-            default:
-                return 'Fullmetal Alchemist';
-        }
     }
 }

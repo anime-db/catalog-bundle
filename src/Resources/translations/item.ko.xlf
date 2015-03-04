@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>One Piece</source>
+                <target>원피스</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Fullmetal Alchemist</source>
+                <target>강철의 연금술사</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Spirited Away</source>
+                <target>센과 치히로의 행방불명</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
