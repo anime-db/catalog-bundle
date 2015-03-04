@@ -96,13 +96,6 @@ class Install
     protected $installed = false;
 
     /**
-     * Locale
-     *
-     * @var string
-     */
-    protected $locale = '';
-
-    /**
      * Construct
      *
      * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
@@ -113,7 +106,6 @@ class Install
      * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      * @param string $root_dir
      * @param boolean $installed
-     * @param string $locale
      */
     public function __construct(
         Parameters $manipulator,
@@ -123,8 +115,7 @@ class Install
         KernelInterface $kernel,
         Translator $translator,
         $root_dir,
-        $installed,
-        $locale
+        $installed
     ) {
         $this->em = $em;
         $this->fs = $fs;
@@ -132,7 +123,6 @@ class Install
         $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
-        $this->locale = $locale;
         $this->manipulator = $manipulator;
         $this->cache_clearer = $cache_clearer;
     }
@@ -176,6 +166,12 @@ class Install
         $status = $this->persist(new OnePiece($this->em, $this->translator), $event->getStorage(), $label);
         $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $event->getStorage(), $label) ?: $status;
         $status = $this->persist(new SpiritedAway($this->em, $this->translator), $event->getStorage(), $label) ?: $status;
+
+        // install more items only for debug
+        if ($this->kernel->isDebug()) {
+            // TODO install samples
+        }
+
         if ($status) {
             $this->em->flush();
         }
@@ -193,7 +189,6 @@ class Install
         if (!$this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
-                ->setLocale($this->locale)
                 ->getItem()
                 ->addLabel($label)
             );

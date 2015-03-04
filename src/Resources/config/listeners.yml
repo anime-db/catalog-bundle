@@ -53,7 +53,6 @@ services:
             - @translator
             - %kernel.root_dir%
             - %anime_db.catalog.installed%
-            - %locale%
         tags:
             - { name: kernel.event_listener, event: anime_db.install.app, method: onInstallApp }
             - { name: kernel.event_listener, event: anime_db.install.samples, method: onInstallSamples }

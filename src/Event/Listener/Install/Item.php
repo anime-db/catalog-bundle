@@ -21,7 +21,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
  * <code>
  * $item = (new Item($em))
  *     ->setStorage($storage)
- *     ->setLocale($locale)
  *     ->getItem();
  * </code>
  *
@@ -85,20 +84,6 @@ abstract class Item
     public function setStorage(Storage $storage)
     {
         $this->getItem()->setStorage($storage);
-        return $this;
-    }
-
-    /**
-     * Set locale
-     *
-     * Heir configures item in accordance with locale
-     *
-     * @param string $locale
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Install\Item
-     */
-    public function setLocale($locale)
-    {
         return $this;
     }
 
