@@ -43,7 +43,8 @@ class Request
      * @param string|null $locale
      * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
      */
-    public function __construct($locale, Router $router) {
+    public function __construct($locale, Router $router)
+    {
         $this->locale = $locale;
         $this->router = $router;
     }

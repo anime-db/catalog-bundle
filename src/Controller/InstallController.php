@@ -17,6 +17,8 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\Filesystem\Exception\IOException;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\App;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\StoreEvents;
 
 /**
  * Installation controller
@@ -221,12 +223,8 @@ class InstallController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            // update params
-            $this->get('anime_db.manipulator.parameters')
-                ->set('anime_db.catalog.installed', true);
-            // clear cache
-            $this->get('anime_db.cache_clearer')->clear();
             $this->get('anime_db.install')->installLabels();
+            $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new App());
             return $this->redirect($this->generateUrl('home'));
         }
 
