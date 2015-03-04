@@ -78,6 +78,13 @@ class Install
     protected $installed = false;
 
     /**
+     * Locale
+     *
+     * @var string
+     */
+    protected $locale = '';
+
+    /**
      * Construct
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $em
@@ -86,6 +93,7 @@ class Install
      * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      * @param string $root_dir
      * @param boolean $installed
+     * @param string $locale
      */
     public function __construct(
         ObjectManager $em,
@@ -93,7 +101,8 @@ class Install
         KernelInterface $kernel,
         Translator $translator,
         $root_dir,
-        $installed
+        $installed,
+        $locale
     ) {
         $this->em = $em;
         $this->fs = $fs;
@@ -101,6 +110,7 @@ class Install
         $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
+        $this->locale = $locale;
     }
 
     /**
@@ -133,7 +143,11 @@ class Install
     protected function persist(Item $item, Storage $storage)
     {
         if (!$this->fs->exists($this->getTargetCover($item))) {
-            $this->em->persist($item->setStorage($storage)->getItem());
+            $this->em->persist($item
+                ->setStorage($storage)
+                ->setLocale($this->locale)
+                ->getItem()
+            );
             $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
             return true;
         }

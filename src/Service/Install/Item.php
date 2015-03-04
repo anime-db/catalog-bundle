@@ -90,6 +90,20 @@ abstract class Item
     }
 
     /**
+     * Set locale
+     *
+     * Heir configures item in accordance with locale
+     *
+     * @param string $locale
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Service\Install\Item
+     */
+    public function setLocale($locale)
+    {
+        return $this;
+    }
+
+    /**
      * Get item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item

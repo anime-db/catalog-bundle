@@ -30,3 +30,4 @@ services:
           - @translator
           - %kernel.root_dir%
           - %anime_db.catalog.installed%
+          - %locale%
