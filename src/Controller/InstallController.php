@@ -17,7 +17,8 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\Filesystem\Exception\IOException;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
-use AnimeDb\Bundle\CatalogBundle\Event\Install\App;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\App as AppInstall;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\StoreEvents;
 
 /**
@@ -143,9 +144,9 @@ class InstallController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            $this->get('anime_db.install')->installSamples(
-                $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast()
-            );
+            $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+            $this->get('anime_db.install')->installSamples($storage);
+            $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_SAMPLES, new SamplesInstall($storage));
             return $this->redirect($this->generateUrl('install_end_skip', ['from' => 'install_sample']));
         }
 
@@ -223,7 +224,7 @@ class InstallController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-            $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new App());
+            $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new AppInstall());
             return $this->redirect($this->generateUrl('home'));
         }
 

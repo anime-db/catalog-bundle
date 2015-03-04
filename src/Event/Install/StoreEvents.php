@@ -24,4 +24,11 @@ final class StoreEvents
      * @var string
      */
     const INSTALL_APP = 'anime_db.install.app';
+
+    /**
+     * Event thrown when a install samples
+     *
+     * @var string
+     */
+    const INSTALL_SAMPLES = 'anime_db.install.samples';
 }
