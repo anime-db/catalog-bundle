@@ -29,7 +29,7 @@ class OnePiece extends Item
      */
     protected function buildItem()
     {
-        $item = parent::buildItem()
+        return parent::buildItem()
             ->setCountry($this->getCountry('JP'))
             ->setCover('samples/one-piece.jpg')
             ->setDatePremiere(new \DateTime('1999-10-20'))
@@ -62,7 +62,6 @@ class OnePiece extends Item
             ->addGenre($this->getGenre('Comedy'))
             ->addGenre($this->getGenre('Shounen'))
             ->addGenre($this->getGenre('Fantasy'))
-            ->addName((new Name())->setName('ワンピース'))
             ->addSource((new Source())->setUrl('http://www.animenewsnetwork.com/encyclopedia/anime.php?id=836'))
             ->addSource((new Source())->setUrl('http://anidb.net/perl-bin/animedb.pl?show=anime&aid=69'))
             ->addSource((new Source())->setUrl('http://myanimelist.net/anime/21/One_Piece'))
@@ -75,12 +74,6 @@ class OnePiece extends Item
             ->addSource((new Source())->setUrl('http://www.fansubs.ru/base.php?id=731'))
             ->addSource((new Source())->setUrl('http://www.world-art.ru/animation/animation.php?id=803'))
             ->addSource((new Source())->setUrl('http://shikimori.org/animes/21-one-piece'));
-
-        if ($item->getName() != 'One Piece') {
-            $item->addName((new Name())->setName('One Piece'));
-        }
-
-        return $item;
     }
 
     /**
@@ -106,6 +99,13 @@ class OnePiece extends Item
             case 'ru':
                 $this->getItem()->addName((new Name())->setName('Ван-Пис'));
         }
+
+        if ($this->getItem()->getName() != 'One Piece') {
+            $this->getItem()->addName((new Name())->setName('One Piece'));
+        }
+
+        $this->getItem()->addName((new Name())->setName('ワンピース'));
+
         return parent::setLocale($locale);
     }
 }
