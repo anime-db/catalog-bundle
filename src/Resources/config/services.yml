@@ -20,14 +20,3 @@ services:
     anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
         arguments: [ @anime_db.item.search ]
-
-    anime_db.install:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Install
-        arguments:
-            - @doctrine.orm.entity_manager
-            - @filesystem
-            - @kernel
-            - @translator
-            - %kernel.root_dir%
-            - %anime_db.catalog.installed%
-            - %locale%
