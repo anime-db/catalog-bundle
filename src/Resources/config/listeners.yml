@@ -47,6 +47,7 @@ services:
         arguments:
             - @anime_db.manipulator.parameters
             - @anime_db.cache_clearer
+            - @anime_db.install.item.chain
             - @doctrine.orm.entity_manager
             - @filesystem
             - @kernel

@@ -20,9 +20,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
-use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\OnePiece;
-use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\FullmetalAlchemist;
-use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SpiritedAway;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain;
 
 /**
  * Install listener
@@ -75,6 +73,13 @@ class Install
     protected $translator;
 
     /**
+     * Item chain
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+     */
+    protected $item_chain;
+
+    /**
      * Origin dir
      *
      * @var string
@@ -100,6 +105,7 @@ class Install
      *
      * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
      * @param \AnimeDb\Bundle\AppBundle\Service\CacheClearer $cache_clearer
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain $item_chain
      * @param \Doctrine\Common\Persistence\ObjectManager $em
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
@@ -110,6 +116,7 @@ class Install
     public function __construct(
         Parameters $manipulator,
         CacheClearer $cache_clearer,
+        Chain $item_chain,
         ObjectManager $em,
         Filesystem $fs,
         KernelInterface $kernel,
@@ -123,6 +130,7 @@ class Install
         $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
+        $this->item_chain = $item_chain;
         $this->manipulator = $manipulator;
         $this->cache_clearer = $cache_clearer;
     }
@@ -162,14 +170,17 @@ class Install
         $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
         $label = $label ?: (new Label())->setName($name);
 
+        $status = false;
         // create items
-        $status = $this->persist(new OnePiece($this->em, $this->translator), $event->getStorage(), $label);
-        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $event->getStorage(), $label) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $event->getStorage(), $label) ?: $status;
+        foreach ($this->item_chain->getPublicItems() as $item) {
+            $status = $this->persist($item, $event->getStorage(), $label) ?: $status;
+        }
 
-        // install more items only for debug
+        // install more items only for debug mode
         if ($this->kernel->isDebug()) {
-            // TODO install samples
+            foreach ($this->item_chain->getDebugItems() as $item) {
+                $status = $this->persist($item, $event->getStorage(), $label) ?: $status;
+            }
         }
 
         if ($status) {
