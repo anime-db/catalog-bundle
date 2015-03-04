@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
@@ -49,6 +50,13 @@ class Install
     protected $kernel;
 
     /**
+     * Translator
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     */
+    protected $translator;
+
+    /**
      * Origin dir
      *
      * @var string
@@ -70,36 +78,29 @@ class Install
     protected $installed = false;
 
     /**
-     * Locale
-     *
-     * @var string
-     */
-    protected $locale = '';
-
-    /**
      * Construct
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $em
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      * @param string $root_dir
      * @param boolean $installed
-     * @param string $locale
      */
     public function __construct(
         ObjectManager $em,
         Filesystem $fs,
         KernelInterface $kernel,
+        Translator $translator,
         $root_dir,
-        $installed,
-        $locale
+        $installed
     ) {
         $this->em = $em;
         $this->fs = $fs;
         $this->kernel = $kernel;
+        $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
-        $this->locale = $locale;
     }
 
     /**
@@ -115,9 +116,9 @@ class Install
         }
 
         // create items
-        $status = $this->persist(new OnePiece($this->em), $storage);
-        $status = $this->persist(new FullmetalAlchemist($this->em), $storage) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em), $storage) ?: $status;
+        $status = $this->persist(new OnePiece($this->em, $this->translator), $storage);
+        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $storage) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $storage) ?: $status;
         if ($status) {
             $this->em->flush();
         }
@@ -132,11 +133,7 @@ class Install
     protected function persist(Item $item, Storage $storage)
     {
         if (!$this->fs->exists($this->getTargetCover($item))) {
-            $this->em->persist($item
-                ->setStorage($storage)
-                ->setLocale($this->locale)
-                ->getItem()
-            );
+            $this->em->persist($item->setStorage($storage)->getItem());
             $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
             return true;
         }

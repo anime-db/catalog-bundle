@@ -24,7 +24,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
  */
 class Builder extends ContainerAware
 {
-
     /**
      * Link to documentation by update the application on Windows XP
      * 

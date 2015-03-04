@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Service\Install;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
@@ -37,6 +38,13 @@ abstract class Item
     private $em;
 
     /**
+     * Translator
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     */
+    protected $translator;
+
+    /**
      * Item
      *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
@@ -47,11 +55,13 @@ abstract class Item
      * Construct
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $em
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      */
-    public function __construct(ObjectManager $em)
+    public function __construct(ObjectManager $em, Translator $translator)
     {
         $this->em = $em;
         $this->item = $this->buildItem();
+        $this->translator = $translator;
     }
 
     /**
@@ -76,20 +86,6 @@ abstract class Item
     public function setStorage(Storage $storage)
     {
         $this->getItem()->setStorage($storage);
-        return $this;
-    }
-
-    /**
-     * Set locale
-     *
-     * Heir configures item in accordance with locale
-     *
-     * @param string $locale
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Install\Item
-     */
-    public function setLocale($locale)
-    {
         return $this;
     }
 
