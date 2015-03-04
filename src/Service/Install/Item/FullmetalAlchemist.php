@@ -92,6 +92,7 @@ class FullmetalAlchemist extends Item
             ))
             ->setEpisodesNumber('51')
             ->setFileInfo($this->translator->trans('+ special', [], 'item'))
+            ->setName($this->translator->trans('Fullmetal Alchemist', [], 'item'))
             ->setStudio($this->getStudio('Bones'))
             ->setType($this->getType('tv'))
             ->setSummary($this->translator->trans(
