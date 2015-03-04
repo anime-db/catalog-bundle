@@ -136,7 +136,7 @@ class Builder extends ContainerAware
         // add link to guide
         $locale = substr($this->container->get('request')->getLocale(), 0, 2);
         $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-        $settings->addChild('Help', ['uri' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
+        $settings->addChild('Help', ['uri' => $this->container->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
             ->setLinkAttribute('class', 'icon-label icon-white-help');
 
         return $menu;
