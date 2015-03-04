@@ -168,7 +168,7 @@ class Install
         }
 
         // sample label
-        $name = substr($this->locale, 0, 2) == 'ru' ? 'Пример' : 'Sample';
+        $name = $this->translator->trans('Sample');
         $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
         $label = $label ?: (new Label())->setName($name);
 
