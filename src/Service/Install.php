@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Service;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
@@ -50,6 +51,13 @@ class Install
     protected $kernel;
 
     /**
+     * Translator
+     *
+     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     */
+    protected $translator;
+
+    /**
      * Origin dir
      *
      * @var string
@@ -83,6 +91,7 @@ class Install
      * @param \Doctrine\Common\Persistence\ObjectManager $em
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
+     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      * @param string $root_dir
      * @param boolean $installed
      * @param string $locale
@@ -91,6 +100,7 @@ class Install
         ObjectManager $em,
         Filesystem $fs,
         KernelInterface $kernel,
+        Translator $translator,
         $root_dir,
         $installed,
         $locale
@@ -98,6 +108,7 @@ class Install
         $this->em = $em;
         $this->fs = $fs;
         $this->kernel = $kernel;
+        $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
         $this->locale = $locale;
@@ -121,9 +132,9 @@ class Install
         $label = $label ?: (new Label())->setName($name);
 
         // create items
-        $status = $this->persist(new OnePiece($this->em), $storage, $label);
-        $status = $this->persist(new FullmetalAlchemist($this->em), $storage, $label) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em), $storage, $label) ?: $status;
+        $status = $this->persist(new OnePiece($this->em, $this->translator), $storage, $label);
+        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $storage, $label) ?: $status;
+        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $storage, $label) ?: $status;
         if ($status) {
             $this->em->flush();
         }

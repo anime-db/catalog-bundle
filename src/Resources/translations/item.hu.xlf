@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Fullmetal Alchemist</source>
+                <target>Fullmetal Alchemist - A Bölcsek kövének nyomában</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Spirited Away</source>
+                <target>Chihiro Szellemországban</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

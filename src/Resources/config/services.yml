@@ -27,6 +27,7 @@ services:
             - @doctrine.orm.entity_manager
             - @filesystem
             - @kernel
+            - @translator
             - %kernel.root_dir%
             - %anime_db.catalog.installed%
             - %locale%
