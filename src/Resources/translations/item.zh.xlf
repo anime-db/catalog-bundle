@@ -6,6 +6,10 @@
                 <source>One Piece</source>
                 <target>海贼王</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Fullmetal Alchemist</source>
+                <target>钢之炼金术师</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

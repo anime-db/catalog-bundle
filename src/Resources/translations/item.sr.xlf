@@ -3,12 +3,8 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>One Piece</source>
-                <target>원피스</target>
-            </trans-unit>
-            <trans-unit id="2">
                 <source>Fullmetal Alchemist</source>
-                <target>강철의 연금술사</target>
+                <target>Челични алхемичар/Čelični alhemičar</target>
             </trans-unit>
         </body>
     </file>
