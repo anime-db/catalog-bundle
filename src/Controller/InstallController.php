@@ -145,7 +145,6 @@ class InstallController extends Controller
 
         if ($request->isMethod('POST')) {
             $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
-            $this->get('anime_db.install')->installSamples($storage);
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_SAMPLES, new SamplesInstall($storage));
             return $this->redirect($this->generateUrl('install_end_skip', ['from' => 'install_sample']));
         }
