@@ -26,11 +26,11 @@ class Builder extends ContainerAware
 {
 
     /**
-     * Link to documentation by update the application on Windows XP
+     * Link to guide by update the application on Windows XP
      * 
      * @var string
      */
-    const DOC_LINK = 'http://anime-db.org/%locale%/guide/';
+    const GUIDE_LINK = '/guide/';
 
     /**
      * Default documentation locale
@@ -136,7 +136,7 @@ class Builder extends ContainerAware
         // add link to guide
         $locale = substr($this->container->get('request')->getLocale(), 0, 2);
         $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-        $settings->addChild('Help', ['uri' => str_replace('%locale%', $locale, self::DOC_LINK)])
+        $settings->addChild('Help', ['uri' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
             ->setLinkAttribute('class', 'icon-label icon-white-help');
 
         return $menu;
