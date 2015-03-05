@@ -135,8 +135,7 @@ class FullmetalAlchemist extends Item
             ->addName((new Name())->setName('Hagane no Renkinjutsushi'))
             ->addName((new Name())->setName('Full Metal Alchemist'))
             ->addName((new Name())->setName('Hagaren'))
-            ->addName((new Name())->setName('鋼の錬金術師'))
-            ->addName((new Name())->setName('鋼の錬金術師 FULLMETAL ALCHEMIST'));
+            ->addName((new Name())->setName('鋼の錬金術師'));
     }
 
     /**

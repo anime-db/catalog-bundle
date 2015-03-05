@@ -72,9 +72,7 @@ class SpiritedAway extends Item
             $item->addName((new Name())->setName('Spirited Away'));
         }
 
-        return $item
-            ->addName((new Name())->setName('Sen to Chihiro no Kamikakushi'))
-            ->addName((new Name())->setName('千と千尋の神隠し'));
+        return $item->addName((new Name())->setName('Sen to Chihiro no Kamikakushi'));
     }
 
     /**
