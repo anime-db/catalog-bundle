@@ -18,6 +18,10 @@
                 <source>Gintama</source>
                 <target>은혼</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>GTO</source>
+                <target>반항하지마</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

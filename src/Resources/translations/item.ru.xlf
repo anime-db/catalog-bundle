@@ -273,6 +273,14 @@ Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of
                 <source>Gintama</source>
                 <target>Гинтама</target>
             </trans-unit>
+            <trans-unit id="18">
+                <source>Tough on the outside, all heart on the inside, Onizuka turned to the life of a high school teacher for less excitement and action... or so he thought. GTO, A.K.A.: Great Teacher Onizuka, is the racy story of Onizuka, a former motorcycle gang member who becomes a teacher to make a difference and... to meet girls? Using his street smarts to deal with colleagues, students and troublemakers, Onizuka finds that he too has many lessons to learn!</source>
+                <target>Онидзука Эйкити («22 года, холост», - как он сам любит представляться) - настоящий ужас на двух колесах, член нагоняющей ужас на горожан банды мотоциклистов, решает переквалифицироваться в… школьного учителя. Ведь в любом учебном заведении полным-полно аппетитных старшеклассниц в коротеньких юбочках! Но чем глубже примеривший необычную роль хулиган окунается в перипетии общего образования, тем сильнее он пытается переиначить место работы на свой манер - одерживая одну за другой победы над царящими в школе косностью, лицемерием, показухой и безразличием.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>GTO</source>
+                <target>Крутой учитель Онидзука</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

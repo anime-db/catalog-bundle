@@ -6,6 +6,10 @@
                 <source>Beck</source>
                 <target>Beck - Mongolian Chop Squad</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>GTO</source>
+                <target>Great Teacher Onizuka</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -10,6 +10,10 @@
                 <source>Bakuman.</source>
                 <target>Bakuman</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>GTO</source>
+                <target>Great Teacher Onizuka</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
