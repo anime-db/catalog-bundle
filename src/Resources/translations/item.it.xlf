@@ -10,6 +10,10 @@
                 <source>Spirited Away</source>
                 <target>La Città Incantata</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Beck</source>
+                <target>Beck - Mongolian Chop Squad</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

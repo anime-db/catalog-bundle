@@ -26,3 +26,9 @@ services:
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+    anime_db.install.item.beck:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Beck
+        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        public: false
+        tags:
+            - { name: anime_db.install_item, debug: true }

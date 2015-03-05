@@ -18,6 +18,10 @@
                 <source>Bakuman.</source>
                 <target>バクマン.</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Beck</source>
+                <target>ベック</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
