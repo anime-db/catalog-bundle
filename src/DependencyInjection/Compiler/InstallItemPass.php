@@ -40,7 +40,7 @@ class InstallItemPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds('anime_db.install_item');
         foreach ($taggedServices as $id => $attributes) {
             $definition->addMethodCall(
-                $attributes[0]['debug'] ? 'addDebugItem' : 'addPublicItem',
+                !empty($attributes[0]['debug']) ? 'addDebugItem' : 'addPublicItem',
                 [new Reference($id)]
             );
         }

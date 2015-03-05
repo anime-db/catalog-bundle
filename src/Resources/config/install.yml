@@ -6,16 +6,16 @@ services:
         arguments: [ @doctrine.orm.entity_manager, @translator ]
         public: false
         tags:
-            - { name: anime_db.install_item, debug: false }
+            - { name: anime_db.install_item }
     anime_db.install.item.one_piece:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\OnePiece
         arguments: [ @doctrine.orm.entity_manager, @translator ]
         public: false
         tags:
-            - { name: anime_db.install_item, debug: false }
+            - { name: anime_db.install_item }
     anime_db.install.item.spirited_away:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SpiritedAway
         arguments: [ @doctrine.orm.entity_manager, @translator ]
         public: false
         tags:
-            - { name: anime_db.install_item, debug: false }
+            - { name: anime_db.install_item }
