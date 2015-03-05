@@ -10,6 +10,10 @@
                 <source>Fullmetal Alchemist</source>
                 <target>แขนกลคนแปรธาตุ</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Gintama</source>
+                <target>กินทามะ</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

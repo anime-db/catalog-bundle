@@ -14,6 +14,10 @@
                 <source>Spirited Away</source>
                 <target>센과 치히로의 행방불명</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>Gintama</source>
+                <target>은혼</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

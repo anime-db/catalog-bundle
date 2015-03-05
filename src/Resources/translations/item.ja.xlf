@@ -22,6 +22,10 @@
                 <source>Beck</source>
                 <target>ベック</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>Gintama</source>
+                <target>銀魂[ぎんたま]</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
