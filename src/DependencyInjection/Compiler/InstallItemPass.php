@@ -29,10 +29,7 @@ class InstallItemPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (
-            $container->getParameter('anime_db.catalog.installed') ||
-            !$container->has('anime_db.install.item.chain')
-        ) {
+        if (!$container->has('anime_db.install.item.chain')) {
             return;
         }
 

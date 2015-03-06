@@ -31,6 +31,10 @@ class AnimeDbCatalogBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new PluginPass());
-        $container->addCompilerPass(new InstallItemPass());
+
+        // item installer compiler pass
+        if (!$container->getParameter('anime_db.catalog.installed')) {
+            $container->addCompilerPass(new InstallItemPass());
+        }
     }
 }
