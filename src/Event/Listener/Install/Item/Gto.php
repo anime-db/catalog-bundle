@@ -36,6 +36,7 @@ class Gto extends Item
             ->setDateEnd(new \DateTime('2000-09-17'))
             ->setDuration(25)
             ->setEpisodesNumber('43')
+            ->setFileInfo($this->translator->trans('+ 2 episode collage', [], 'item'))
             ->setName($this->translator->trans('GTO', [], 'item'))
             ->setStudio($this->getStudio('Pierrot'))
             ->setType($this->getType('tv'))

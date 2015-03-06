@@ -281,6 +281,10 @@ Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of
                 <source>GTO</source>
                 <target>Крутой учитель Онидзука</target>
             </trans-unit>
+            <trans-unit id="20">
+                <source>+ 2 episode collage</source>
+                <target>+ 2 эпизода коллажа</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
