@@ -30,6 +30,10 @@
                 <source>GTO</source>
                 <target>GTO(グレート・ティーチャー・オニヅカ)</target>
             </trans-unit>
+            <trans-unit id="8">
+                <source>Hellsing</source>
+                <target>HELLSING</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

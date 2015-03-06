@@ -285,6 +285,44 @@ Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of
                 <source>+ 2 episode collage</source>
                 <target>+ 2 эпизода коллажа</target>
             </trans-unit>
+            <trans-unit id="21">
+                <source>1. Hellsing I (10.02.2006, 50 min.)
+2. Hellsing II (25.08.2006, 45 min.)
+3. Hellsing III (04.04.2007, 50 min.)
+4. Hellsing IV (22.02.2008, 55 min.)
+5. Hellsing V (21.11.2008, 40 min.)
+6. Hellsing VI (24.07.2009, 40 min.)
+7. Hellsing VII (23.12.2009, 45 min.)
+8. Hellsing VIII (27.07.2011, 50 min.)
+9. Hellsing IX (15.02.2012, 45 min.)
+10. Hellsing X (26.12.2012, 65 min.)</source>
+                <target>1. Hellsing I (10.02.2006, 50 мин.)
+2. Hellsing II (25.08.2006, 45 мин.)
+3. Hellsing III (04.04.2007, 50 мин.)
+4. Hellsing IV (22.02.2008, 55 мин.)
+5. Hellsing V (21.11.2008, 40 мин.)
+6. Hellsing VI (24.07.2009, 40 мин.)
+7. Hellsing VII (23.12.2009, 45 мин.)
+8. Hellsing VIII (27.07.2011, 50 мин.)
+9. Hellsing IX (15.02.2012, 45 мин.)
+10. Hellsing X (26.12.2012, 65 мин.)</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Hellsing, a secret organization of the British government, have long been battling supernatural threats to keep the people safe from the creatures of the night. The current leader, Integra Wingates Hellsing controls her own personal army to eliminate the undead beings, but even her highly trained soldiers pale in comparison to her most trusted vampire exterminator, a man by the name of Alucard, who is actually a powerful vampire himself. Along with Integra's mysterious butler and Alucard's new vampire minion, Seras Victoria, The Hellsing Organization must face not only regular ghouls and vampires, but a rivalling secret organization from the Vatican, and Millennium, an enigmatic group of madmen spawned by a certain war over 50 years ago...</source>
+                <target>На каждое действие найдётся противодействие – для борьбы с кровожадной нечистью в Великобритании был создан Королевский Орден Протестантских Рыцарей, которому служит древнейший вампир Алукард. Согласно заключённому договору, он подчиняется главе тайной организации «Хеллсинг».
+У Ватикана свой козырь – особый Тринадцатый Отдел, организация «Искариот», в составе которой неубиваемый отец Александр. Для них Алукард ничем не отличается от остальных монстров.
+Однако всем им придётся на время забыть о дрязгах между католической и англиканской церквями, когда на сцену выйдет могущественный враг из прошлого – загадочный Майор во главе секретной нацистской организации «Миллениум».
+Но пока не началась битва за Англию, Алукард занят воспитанием новообращённой вампирши: Виктория Серас раньше служила в полиции, а теперь ей приходится привыкать к жизни в старинном особняке, к своим новым способностям и новым обязанностям. Даже хозяйка Алукарда, леди Интегра, не знает, зачем он обратил эту упрямую девушку...
+Вторая экранизация манги Хирано Кота дотошно следует оригиналу, и потому заметно отличается от сериала, ведь именно чёрный юмор, реки крови, харизматичные враги и закрученный конфликт сделали «Хеллсинга» всемирно популярным.</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>+ 4 specials</source>
+                <target>+ 4 спэшла</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Hellsing</source>
+                <target>Хеллсинг</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -18,6 +18,10 @@
                 <source>GTO</source>
                 <target>G.T.O. - Great Teacher Onizuka</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Hellsing</source>
+                <target>Hellsing Ultimate</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
