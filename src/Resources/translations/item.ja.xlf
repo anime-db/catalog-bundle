@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>One Piece</source>
+                <target>ONE PIECE</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Spirited Away</source>
+                <target>千と千尋の神隠し</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Fullmetal Alchemist</source>
+                <target>鋼の錬金術師 FULLMETAL ALCHEMIST</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Bakuman.</source>
+                <target>バクマン.</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Beck</source>
+                <target>ベック</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Gintama</source>
+                <target>銀魂[ぎんたま]</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>GTO</source>
+                <target>GTO(グレート・ティーチャー・オニヅカ)</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Hellsing</source>
+                <target>HELLSING</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Samurai Champloo</source>
+                <target>サムライチャンプルー</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>るろうに剣心 -明治剣客浪漫譚- 追憶編</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>天元突破 グレンラガン</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Tonari no Totoro</source>
+                <target>となりのトトロ</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

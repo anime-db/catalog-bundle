@@ -8,7 +8,7 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service\Install;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -21,11 +21,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
  * <code>
  * $item = (new Item($em))
  *     ->setStorage($storage)
- *     ->setLocale($locale)
  *     ->getItem();
  * </code>
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Install
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Item
@@ -61,7 +60,6 @@ abstract class Item
     {
         $this->em = $em;
         $this->translator = $translator;
-        $this->item = $this->buildItem();
     }
 
     /**
@@ -90,26 +88,15 @@ abstract class Item
     }
 
     /**
-     * Set locale
-     *
-     * Heir configures item in accordance with locale
-     *
-     * @param string $locale
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Install\Item
-     */
-    public function setLocale($locale)
-    {
-        return $this;
-    }
-
-    /**
      * Get item
      *
      * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     public function getItem()
     {
+        if (!$this->item) {
+            $this->item = $this->buildItem();
+        }
         return $this->item;
     }
 

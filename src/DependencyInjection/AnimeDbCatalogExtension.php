@@ -37,6 +37,7 @@ class AnimeDbCatalogExtension extends Extension
         $loader->load('plugins.yml');
         $loader->load('forms.yml');
         $loader->load('listeners.yml');
+        $loader->load('install.yml');
 
         $search_driver = $container->getParameter('anime_db.catalog.item.search_driver');
         $container->setAlias('anime_db.item.search.driver', $search_driver);

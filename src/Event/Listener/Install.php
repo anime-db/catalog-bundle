@@ -8,27 +8,42 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
+use AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters;
+use AnimeDb\Bundle\AppBundle\Service\CacheClearer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\OnePiece;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\FullmetalAlchemist;
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item\SpiritedAway;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain;
 
 /**
- * Installation service
+ * Install listener
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Install
 {
+    /**
+     * Parameters manipulator
+     *
+     * @var \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters
+     */
+    protected $manipulator;
+
+    /**
+     * Cache clearer
+     *
+     * @var \AnimeDb\Bundle\AppBundle\Service\CacheClearer
+     */
+    protected $cache_clearer;
+
     /**
      * Entity manager
      *
@@ -58,6 +73,13 @@ class Install
     protected $translator;
 
     /**
+     * Item chain
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+     */
+    protected $item_chain;
+
+    /**
      * Origin dir
      *
      * @var string
@@ -79,31 +101,28 @@ class Install
     protected $installed = false;
 
     /**
-     * Locale
-     *
-     * @var string
-     */
-    protected $locale = '';
-
-    /**
      * Construct
      *
+     * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
+     * @param \AnimeDb\Bundle\AppBundle\Service\CacheClearer $cache_clearer
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain $item_chain
      * @param \Doctrine\Common\Persistence\ObjectManager $em
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
      * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
      * @param string $root_dir
      * @param boolean $installed
-     * @param string $locale
      */
     public function __construct(
+        Parameters $manipulator,
+        CacheClearer $cache_clearer,
+        Chain $item_chain,
         ObjectManager $em,
         Filesystem $fs,
         KernelInterface $kernel,
         Translator $translator,
         $root_dir,
-        $installed,
-        $locale
+        $installed
     ) {
         $this->em = $em;
         $this->fs = $fs;
@@ -111,15 +130,35 @@ class Install
         $this->translator = $translator;
         $this->target_dir = $root_dir.'/../web/media/';
         $this->installed = $installed;
-        $this->locale = $locale;
+        $this->item_chain = $item_chain;
+        $this->manipulator = $manipulator;
+        $this->cache_clearer = $cache_clearer;
     }
 
     /**
-     * Install samples
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * On install application
      */
-    public function installSamples(Storage $storage)
+    public function onInstallApp()
+    {
+        // update param
+        $this->manipulator->set('anime_db.catalog.installed', true);
+        $this->cache_clearer->clear();
+
+        // install labels
+        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
+        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
+        $this->em->flush();
+    }
+
+    /**
+     * On install samples
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Install\Samples $event
+     */
+    public function onInstallSamples(SamplesInstall $event)
     {
         // app already installed
         if ($this->installed) {
@@ -127,14 +166,23 @@ class Install
         }
 
         // sample label
-        $name = substr($this->locale, 0, 2) == 'ru' ? 'Пример' : 'Sample';
+        $name = $this->translator->trans('Sample');
         $label = $this->em->getRepository('AnimeDbCatalogBundle:Label')->findOneBy(['name' => $name]);
         $label = $label ?: (new Label())->setName($name);
 
+        $status = false;
         // create items
-        $status = $this->persist(new OnePiece($this->em, $this->translator), $storage, $label);
-        $status = $this->persist(new FullmetalAlchemist($this->em, $this->translator), $storage, $label) ?: $status;
-        $status = $this->persist(new SpiritedAway($this->em, $this->translator), $storage, $label) ?: $status;
+        foreach ($this->item_chain->getPublicItems() as $item) {
+            $status = $this->persist($item, $event->getStorage(), $label) ?: $status;
+        }
+
+        // install more items only for debug mode
+        if ($this->kernel->isDebug()) {
+            foreach ($this->item_chain->getDebugItems() as $item) {
+                $status = $this->persist($item, $event->getStorage(), $label) ?: $status;
+            }
+        }
+
         if ($status) {
             $this->em->flush();
         }
@@ -143,7 +191,7 @@ class Install
     /**
      * Persist item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
      */
@@ -152,7 +200,6 @@ class Install
         if (!$this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
-                ->setLocale($this->locale)
                 ->getItem()
                 ->addLabel($label)
             );
@@ -187,18 +234,5 @@ class Install
     protected function getTargetCover(Item $item)
     {
         return $this->target_dir.$item->getItem()->getCover();
-    }
-
-    /**
-     * Install labels
-     */
-    public function installLabels()
-    {
-        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
-        $this->em->flush();
     }
 }

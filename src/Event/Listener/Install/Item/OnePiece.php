@@ -8,9 +8,9 @@
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
 
-namespace AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
+namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 
-use AnimeDb\Bundle\CatalogBundle\Service\Install\Item;
+use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use AnimeDb\Bundle\CatalogBundle\Entity\Name;
@@ -18,7 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 /**
  * Install item
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Install\Item
+ * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class OnePiece extends Item
@@ -29,7 +29,7 @@ class OnePiece extends Item
      */
     protected function buildItem()
     {
-        return parent::buildItem()
+        $item = parent::buildItem()
             ->setCountry($this->getCountry('JP'))
             ->setCover('samples/one-piece.jpg')
             ->setDatePremiere(new \DateTime('1999-10-20'))
@@ -74,6 +74,20 @@ class OnePiece extends Item
             ->addSource((new Source())->setUrl('http://www.fansubs.ru/base.php?id=731'))
             ->addSource((new Source())->setUrl('http://www.world-art.ru/animation/animation.php?id=803'))
             ->addSource((new Source())->setUrl('http://shikimori.org/animes/21-one-piece'));
+
+        // installing the language-specific data
+        switch (substr($this->translator->getLocale(), 0, 2)) {
+            case 'ua':
+                $item->addName((new Name())->setName('Большой куш'));
+            case 'ru':
+                $item->addName((new Name())->setName('Ван-Пис'));
+        }
+
+        if ($item->getName() != 'One Piece') {
+            $item->addName((new Name())->setName('One Piece'));
+        }
+
+        return $item->addName((new Name())->setName('ワンピース'));
     }
 
     /**
@@ -84,28 +98,5 @@ class OnePiece extends Item
     {
         $this->getItem()->setPath($storage->getPath().'One Piece (2011) [TV]'.DIRECTORY_SEPARATOR);
         return parent::setStorage($storage);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::setLocale()
-     */
-    public function setLocale($locale)
-    {
-        // installing the language-specific data
-        switch (substr($locale, 0, 2)) {
-            case 'ua':
-                $this->getItem()->addName((new Name())->setName('Большой куш'));
-            case 'ru':
-                $this->getItem()->addName((new Name())->setName('Ван-Пис'));
-        }
-
-        if ($this->getItem()->getName() != 'One Piece') {
-            $this->getItem()->addName((new Name())->setName('One Piece'));
-        }
-
-        $this->getItem()->addName((new Name())->setName('ワンピース'));
-
-        return parent::setLocale($locale);
     }
 }

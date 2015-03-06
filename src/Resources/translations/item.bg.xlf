@@ -6,6 +6,14 @@
                 <source>Spirited Away</source>
                 <target>Отнесени от Духове</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Небесен пробив Гурен Лаган</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Tonari no Totoro</source>
+                <target>Моят Съсед Тоторо</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

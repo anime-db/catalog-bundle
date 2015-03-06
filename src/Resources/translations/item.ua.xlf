@@ -6,6 +6,22 @@
                 <source>One Piece</source>
                 <target>Великий куш</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Bakuman.</source>
+                <target>Бакуман</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>GTO</source>
+                <target>Крутий вчитель Онідзука</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Hellsing</source>
+                <target>Хеллсинг</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Samurai Champloo</source>
+                <target>Самурай Чамплу</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

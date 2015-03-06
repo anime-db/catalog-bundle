@@ -10,6 +10,26 @@
                 <source>Spirited Away</source>
                 <target>La Città Incantata</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Beck</source>
+                <target>Beck - Mongolian Chop Squad</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>GTO</source>
+                <target>G.T.O. - Great Teacher Onizuka</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Hellsing</source>
+                <target>Hellsing Ultimate</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Sfondamento dei Cieli Gurren Lagann</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Tonari no Totoro</source>
+                <target>Il mio vicino Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

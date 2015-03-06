@@ -874,6 +874,10 @@
                 <source>Dropped</source>
                 <target>Брошено</target>
             </trans-unit>
+            <trans-unit id="257">
+                <source>Sample</source>
+                <target>Пример</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

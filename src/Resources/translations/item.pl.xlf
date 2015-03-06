@@ -6,6 +6,14 @@
                 <source>Spirited Away</source>
                 <target>Spirited Away: W krainie bogów</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>GTO</source>
+                <target>Great Teacher Onizuka</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Tonari no Totoro</source>
+                <target>Mój sąsiad Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
