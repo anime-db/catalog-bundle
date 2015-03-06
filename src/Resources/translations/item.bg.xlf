@@ -6,6 +6,10 @@
                 <source>Spirited Away</source>
                 <target>Отнесени от Духове</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Небесен пробив Гурен Лаган</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

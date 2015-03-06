@@ -6,6 +6,10 @@
                 <source>Spirited Away</source>
                 <target>Vaimudest viidud</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Gurren Lagann</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

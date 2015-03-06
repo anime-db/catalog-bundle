@@ -14,6 +14,10 @@
                 <source>Gintama</source>
                 <target>กินทามะ</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>อภินิหารหุ่นทะลวงสวรรค์ กุเร็นลากันน์</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

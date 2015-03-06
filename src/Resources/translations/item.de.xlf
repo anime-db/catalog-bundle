@@ -18,6 +18,10 @@
                 <source>Hellsing</source>
                 <target>Hellsing Ultimate OVA</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Gurren Lagann</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

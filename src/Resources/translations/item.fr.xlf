@@ -22,6 +22,10 @@
                 <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
                 <target>Kenshin le vagabond - Le chapitre de la mémoire</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Gurren Lagann</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

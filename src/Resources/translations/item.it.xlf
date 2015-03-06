@@ -22,6 +22,10 @@
                 <source>Hellsing</source>
                 <target>Hellsing Ultimate</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Sfondamento dei Cieli Gurren Lagann</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
