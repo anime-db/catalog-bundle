@@ -14,6 +14,10 @@
                 <source>Hellsing</source>
                 <target>Hellsing Ultimate</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Samurai X: Trust &amp; Betrayal</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

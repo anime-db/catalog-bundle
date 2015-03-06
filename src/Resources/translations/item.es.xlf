@@ -6,6 +6,10 @@
                 <source>Spirited Away</source>
                 <target>El Viaje de Chihiro</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Kenshin: El Guerrero Samurái - Recuerdos</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -386,6 +386,26 @@ Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of
                 <source>Samurai Champloo</source>
                 <target>Самурай Чамплу</target>
             </trans-unit>
+            <trans-unit id="28">
+                <source>1. The Man of the Slashing Sword (20.02.1999, 30 min.)
+2. The Lost Cat (21.04.1999, 30 min.)
+3. The Previous Night at the Mountain Home (19.06.1999, 30 min.)
+4. The Cross-Shaped Wound (22.09.1999, 30 min.)</source>
+                <target>1. The Man of the Slashing Sword (20.02.1999, 30 мин.)
+2. The Lost Cat (21.04.1999, 30 мин.)
+3. The Previous Night at the Mountain Home (19.06.1999, 30 мин.)
+4. The Cross-Shaped Wound (22.09.1999, 30 мин.)</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>Taken by slavers when he was a child, Himura Kenshin is rescued only when an encounter with bandits kills off everyone but him. He is found by a master of the Divine Justice School of Swordmanship, a school so deadly that to train in it, means death for either the master or student, there can only be one master. Taken by the master, Kenshin is trained in this school, only to leave before finishing so that he may join the Meiji restoration and help prevent further tragedies like his own.
+
+Thus is born the Battousai, the greatest strength of the Ishin Patriots, a boy of 15 who kills for the sake of building a new, better world. One night, he comes across a mysterious woman, Tomoe. He must hide with her when the revolution stumbles. They marry for appearances, but soon fall in love. Tomoe has another reason to be with Kenshin, one she regrets but cannot stop. Revenge must be satisfied, and only blood can do that.</source>
+                <target>XIX век, Японию раздирает клановая вражда. Маленький Синта в детстве был продан работорговцам и попал вместе с другими в засаду - всех спутников мальчика на его глазах закололи, его же спас случайно проходивший мимо воин, мастерски владеющий мечом. Синта поступает к нему в ученики и становится мастером меча по имени Кэнсин. Парень выбирает жизненный путь убийцы экстра-класса. В одной из операций он встречает таинственную девушку Томоэ, которая видит Кэнсина в действии. Привыкший не оставлять свидетелей, самурай не убивает девушку, а забирает её с собой. Что-то дрогнуло у него в душе при виде Томоэ, возможно, она смягчит этого смелого, но холодного человека?</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Бродяга Кэнсин: Воспоминания</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

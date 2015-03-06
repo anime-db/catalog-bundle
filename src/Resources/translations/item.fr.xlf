@@ -18,6 +18,10 @@
                 <source>Hellsing</source>
                 <target>Hellsing Ultimate</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Kenshin le vagabond - Le chapitre de la mémoire</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

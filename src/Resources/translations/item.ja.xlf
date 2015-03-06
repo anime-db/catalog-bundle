@@ -38,6 +38,10 @@
                 <source>Samurai Champloo</source>
                 <target>サムライチャンプルー</target>
             </trans-unit>
+            <trans-unit id="10">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>るろうに剣心 -明治剣客浪漫譚- 追憶編</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

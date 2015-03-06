@@ -6,6 +6,10 @@
                 <source>Spirited Away</source>
                 <target>Stebuklingi Šihiros nuotykiai Dvasių pasaulyje</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Kenshin Samurai Vagabondo - Memorie del passato</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

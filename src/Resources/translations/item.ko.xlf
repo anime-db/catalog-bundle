@@ -26,6 +26,10 @@
                 <source>Samurai Champloo</source>
                 <target>사무라이 참프루</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>바람의 검심 추억편</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
