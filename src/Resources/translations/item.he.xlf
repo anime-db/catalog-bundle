@@ -10,6 +10,10 @@
                 <source>Spirited Away</source>
                 <target>המסע המופלא</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Tonari no Totoro</source>
+                <target>השכן שלי טוטורו</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

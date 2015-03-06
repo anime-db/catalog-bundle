@@ -10,6 +10,10 @@
                 <source>Spirited Away</source>
                 <target>Cesta do fantazie</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Tonari no Totoro</source>
+                <target>Můj soused Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -46,6 +46,10 @@
                 <source>Tengen Toppa Gurren Lagann</source>
                 <target>天元突破 グレンラガン</target>
             </trans-unit>
+            <trans-unit id="12">
+                <source>Tonari no Totoro</source>
+                <target>となりのトトロ</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

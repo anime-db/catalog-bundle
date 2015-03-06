@@ -480,6 +480,14 @@ And so begins the "epic" adventure...</source>
                 <source>Tengen Toppa Gurren Lagann</source>
                 <target>Гуррен-Лаганн</target>
             </trans-unit>
+            <trans-unit id="35">
+                <source>Totoro is a forest spirit that little Mei, and later her older sister Satsuki, encounter in a giant camphor tree near their new home in the countryside. Although their father Kusakabe Tatsuo, a university professor, is with them when they move, their mother Yasuko is in the hospital, recovering from some unnamed illness. When Mei hears that her mother's condition may be getting worse, she resolves to visit her all by herself. When everyone realizes she is missing, only Totoro knows how to find her!</source>
+                <target>Япония, пятидесятые годы прошлого века. Переехав в деревню, две маленькие сестры Сацуки (старшая) и Мэй (младшая) глубоко внутри дерева обнаружили необыкновенный, чудесный мир, населённый Тоторо, очаровательными пушистыми созданиями, с которыми у девочек сразу же завязалась дружба. Одни из них большие, другие совсем крохотные, но у всех у них огромное, доброе сердце и магические способности совершать необыкновенные вещи, наподобие полётов над горами или взращивания огромного дерева за одну ночь! Но увидеть этих существ могут лишь дети, которые им приглянутся... Подружившись с сёстрами, Тоторо не только устраивают им воздушную экскурсию по своим владениям, но и помогают Мэй повидаться с лежащей в больнице мамой.</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Tonari no Totoro</source>
+                <target>Мой сосед Тоторо</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

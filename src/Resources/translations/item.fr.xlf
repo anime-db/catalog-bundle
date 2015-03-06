@@ -26,6 +26,10 @@
                 <source>Tengen Toppa Gurren Lagann</source>
                 <target>Gurren Lagann</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>Tonari no Totoro</source>
+                <target>Mon voisin Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

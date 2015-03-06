@@ -10,6 +10,10 @@
                 <source>GTO</source>
                 <target>Great Teacher Onizuka</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Tonari no Totoro</source>
+                <target>Mój sąsiad Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

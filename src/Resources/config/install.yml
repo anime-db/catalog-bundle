@@ -68,3 +68,9 @@ services:
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+    anime_db.install.item.tonari_no_totoro:
+        class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\TonariNoTotoro
+        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        public: false
+        tags:
+            - { name: anime_db.install_item, debug: true }

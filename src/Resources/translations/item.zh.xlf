@@ -18,6 +18,10 @@
                 <source>Gintama</source>
                 <target>银魂</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Tonari no Totoro</source>
+                <target>龍貓</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

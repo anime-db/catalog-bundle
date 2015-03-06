@@ -6,6 +6,10 @@
                 <source>Spirited Away</source>
                 <target>A Viagem de Chihiro</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>Tonari no Totoro</source>
+                <target>Meu Vizinho Totoro</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
