@@ -34,6 +34,10 @@
                 <source>Hellsing</source>
                 <target>HELLSING</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>Samurai Champloo</source>
+                <target>サムライチャンプルー</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

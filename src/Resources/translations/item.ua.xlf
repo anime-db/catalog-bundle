@@ -18,6 +18,10 @@
                 <source>Hellsing</source>
                 <target>Хеллсинг</target>
             </trans-unit>
+            <trans-unit id="5">
+                <source>Samurai Champloo</source>
+                <target>Самурай Чамплу</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
