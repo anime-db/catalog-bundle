@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
@@ -39,7 +39,7 @@ abstract class Item
     /**
      * Translator
      *
-     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected $translator;
 
@@ -54,9 +54,9 @@ abstract class Item
      * Construct
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $em
-     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      */
-    public function __construct(ObjectManager $em, Translator $translator)
+    public function __construct(ObjectManager $em, TranslatorInterface $translator)
     {
         $this->em = $em;
         $this->translator = $translator;

@@ -15,7 +15,7 @@ use AnimeDb\Bundle\AppBundle\Service\CacheClearer;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Label;
@@ -68,7 +68,7 @@ class Install
     /**
      * Translator
      *
-     * @var \Symfony\Bundle\FrameworkBundle\Translation\Translator
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected $translator;
 
@@ -109,7 +109,7 @@ class Install
      * @param \Doctrine\Common\Persistence\ObjectManager $em
      * @param \Symfony\Component\Filesystem\Filesystem $fs
      * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
-     * @param \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      * @param string $root_dir
      * @param boolean $installed
      */
@@ -120,7 +120,7 @@ class Install
         ObjectManager $em,
         Filesystem $fs,
         KernelInterface $kernel,
-        Translator $translator,
+        TranslatorInterface $translator,
         $root_dir,
         $installed
     ) {
