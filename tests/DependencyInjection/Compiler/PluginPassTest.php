@@ -68,7 +68,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         foreach ($chain_names as $i => $chain_name) {
             $this->container
                 ->expects($this->at($i))
-                ->method('getDefinition')
+                ->method('has')
                 ->with($chain_name)
                 ->willReturn(false);
         }
@@ -87,12 +87,22 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                 $i+1 => [],
                 $i+2 => [],
             ];
+            $definition = $this->getMock('\Symfony\Component\DependencyInjection\Definition');
             $this->container
-                ->expects($this->at(($i*2)+1))
+                ->expects($this->at($i*3))
+                ->method('has')
+                ->with($chain_name)
+                ->willReturn(true);
+            $this->container
+                ->expects($this->at(($i*3)+1))
+                ->method('findDefinition')
+                ->with($chain_name)
+                ->willReturn($definition);
+            $this->container
+                ->expects($this->at(($i*3)+2))
                 ->method('findTaggedServiceIds')
                 ->willReturn($services)
                 ->with($this->chains[$chain_name]);
-            $definition = $this->getMock('\Symfony\Component\DependencyInjection\Definition');
             foreach (array_keys($services) as $j => $id) {
                 $definition
                     ->expects($this->at($j))
@@ -104,11 +114,6 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                     })
                     ->with('addPlugin');
             }
-            $this->container
-                ->expects($this->at($i*2))
-                ->method('getDefinition')
-                ->with($chain_name)
-                ->willReturn($definition);
         }
 
         $this->compiler->process($this->container);
