@@ -119,6 +119,7 @@ button[type~=submit][disabled] {
 	background-position: center center;
 	overflow: hidden;
 	text-indent: 4em;
+	white-space: nowrap;
 	width: 4em;
 }
 
