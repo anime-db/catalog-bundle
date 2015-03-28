@@ -11,6 +11,9 @@ html, body {
 	padding: 0;
 	height: 100%;
 }
+body.progress {
+	cursor: progress;
+}
 
 a:link,
 a:visited {
