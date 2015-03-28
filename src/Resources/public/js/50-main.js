@@ -180,6 +180,7 @@ $('.b-progress:not(.b-update-container) .b-progress-log code[data-from]').each(f
 
 $('form').submit(function(){
 	$(this).find('input[type=submit], button[type=submit]').attr('disabled', 'disabled');
+	$('body').addClass('progress');
 });
 
 });
