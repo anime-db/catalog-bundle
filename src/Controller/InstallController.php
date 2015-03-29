@@ -61,12 +61,14 @@ class InstallController extends Controller
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $form = $this->createForm('anime_db_catalog_install_locale')->handleRequest($request);
+        $form = $this->createForm('anime_db_catalog_install_settings')->handleRequest($request);
 
         if ($form->isValid()) {
             // update params
             $this->get('anime_db.manipulator.parameters')
                 ->set('locale', $form->getData()['locale']);
+            $this->get('anime_db.manipulator.parameters')
+                ->set('anime_db.catalog.default_search', $form->getData()['default_search']);
             // clear cache
             $this->get('anime_db.cache_clearer')->clear();
             // redirect to step 2

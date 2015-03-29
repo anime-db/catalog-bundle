@@ -13,14 +13,15 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Install;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
 
 /**
- * Select locale on install
+ * Settings for installation page
  *
  * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Locale extends AbstractType
+class Settings extends AbstractType
 {
     /**
      * Request
@@ -28,6 +29,23 @@ class Locale extends AbstractType
      * @var \Symfony\Component\HttpFoundation\Request|null
      */
     protected $request;
+
+    /**
+     * Search chain
+     *
+     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Search\Filler\Chain
+     */
+    protected $chain;
+
+    /**
+     * Construct
+     *
+     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain $cain
+     */
+    public function __construct(Chain $cain)
+    {
+        $this->chain = $cain;
+    }
 
     /**
      * Set request
@@ -47,10 +65,21 @@ class Locale extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $search_choices = ['' => 'No'];
+        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
+        foreach ($this->chain->getPlugins() as $plugin) {
+            $search_choices[$plugin->getName()] = $plugin->getTitle();
+        }
+
         $builder
             ->add('locale', 'locale', [
                 'label' => 'Language',
                 'data' => $this->request ? $this->request->getLocale() : ''
+            ])
+            ->add('default_search', 'choice', [
+                'required' => false,
+                'choices' => $search_choices,
+                'label' => 'Default search plugin'
             ]);
     }
 
@@ -60,6 +89,6 @@ class Locale extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_install_locale';
+        return 'anime_db_catalog_install_settings';
     }
 }
