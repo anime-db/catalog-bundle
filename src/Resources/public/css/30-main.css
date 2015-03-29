@@ -11,8 +11,9 @@ html, body {
 	padding: 0;
 	height: 100%;
 }
-body.progress {
-	cursor: progress;
+body.progress,
+body.progress * {
+	cursor: progress !important;
 }
 
 a:link,
@@ -116,7 +117,7 @@ button:hover {
 }
 input[type~=submit][disabled],
 button[type~=submit][disabled] {
-	cursor: default;
+	cursor: progress;
 	background-image: url(/bundles/animedbcatalog/images/loader-hinclude.gif);
 	background-repeat: no-repeat;
 	background-position: center center;
