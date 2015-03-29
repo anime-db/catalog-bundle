@@ -15,12 +15,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Select locale on install
+ * Settings for installation page
  *
  * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Locale extends AbstractType
+class Settings extends AbstractType
 {
     /**
      * Request
@@ -60,6 +60,6 @@ class Locale extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_install_locale';
+        return 'anime_db_catalog_install_settings';
     }
 }

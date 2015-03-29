@@ -41,9 +41,9 @@ services:
     anime_db.form.view_sorter:
         class: AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
         arguments: [ %locale% ]
-    anime_db.form.type.install.locale:
-        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Install\Locale
+    anime_db.form.type.install.settings:
+        class: AnimeDb\Bundle\CatalogBundle\Form\Type\Install\Settings
         tags:
-            - { name: form.type, alias: anime_db_catalog_install_locale }
+            - { name: form.type, alias: anime_db_catalog_install_settings }
         calls:
             - [setRequest, ['@?request=']]

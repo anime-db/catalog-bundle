@@ -61,7 +61,7 @@ class InstallController extends Controller
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $form = $this->createForm('anime_db_catalog_install_locale')->handleRequest($request);
+        $form = $this->createForm('anime_db_catalog_install_settings')->handleRequest($request);
 
         if ($form->isValid()) {
             // update params
