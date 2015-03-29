@@ -58,13 +58,16 @@ class General extends AbstractType
             ->add('task_scheduler', 'checkbox', [
                 'required' => false,
                 'label' => 'Task scheduler',
-                'help' => 'A separate process to perform various tasks in the background, such as checks for system updates'
+                'help' => 'A separate process to perform various tasks in the background, such as checks for system '.
+                    'updates'
             ])
             ->add('default_search', 'choice', [
                 'required' => false,
                 'choices' => $search_choices,
                 'label' => 'Default search plugin',
-                'help' => 'When detects a new item, the application will try to add it using the selected plugin, otherwise will be used all the plugins'
+                'help' => 'When detects a new item, the application will try to add it using the selected plugin in '.
+                    'the first place. If you leave the field blank then the selection of plugins will be carried out '.
+                    'in alphabetical order.'
             ]);
     }
 
