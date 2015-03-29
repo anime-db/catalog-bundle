@@ -7,32 +7,32 @@
  */
 .steps {
 	position: relative;
-	height: 90px;
+	height: 70px;
 }
 .steps .progress {
 	position: absolute;
-	top: 36px;
-	left: 44px;
+	top: 26px;
+	left: 35px;
 	height: 18px;
-	width: 97px;
+	width: 101px;
 	background-color: #ff9f0b;
-	border-right: 719px solid #ccc;
+	border-right: 709px solid #ccc;
 	border-left: 0 solid #5cb85c;
 }
 .steps.step-2 .progress {
-	border-left-width: 197px;
-	border-right-width: 522px;
+	border-left-width: 202px;
+	border-right-width: 507px;
 }
 .steps.step-3 .progress {
-	border-left-width: 394px;
-	border-right-width: 325px;
+	border-left-width: 404px;
+	border-right-width: 305px;
 }
 .steps.step-4 .progress {
-	border-left-width: 591px;
-	border-right-width: 128px;
+	border-left-width: 606px;
+	border-right-width: 103px;
 }
 .steps.step-5 .progress {
-	border-left-width: 816px;
+	border-left-width: 841px;
 	border-right-width: 0;
 	width: 0;
 }
@@ -40,9 +40,9 @@
 	position: absolute;
 	display: block;
 	padding: 20px;
-	width: 48px;
-	height: 48px;
-	line-height: 48px;
+	width: 28px;
+	height: 28px;
+	line-height: 28px;
 	font-size: 20px;
 	text-align: center;
 	text-decoration: none;
@@ -56,13 +56,13 @@
 	cursor: default;
 }
 .steps .step.step-2 {
-	left: 197px;
+	left: 202px;
 }
 .steps .step.step-3 {
-	left: 394px;
+	left: 404px;
 }
 .steps .step.step-4 {
-	left: 591px;
+	left: 606px;
 }
 .steps .step.step-5 {
 	right: 0;
