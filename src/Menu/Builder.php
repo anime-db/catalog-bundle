@@ -24,13 +24,12 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
  */
 class Builder extends ContainerAware
 {
-
     /**
-     * Link to documentation by update the application on Windows XP
+     * Link to guide by update the application on Windows XP
      * 
      * @var string
      */
-    const DOC_LINK = 'http://anime-db.org/%locale%/guide/';
+    const GUIDE_LINK = '/guide/';
 
     /**
      * Default documentation locale
@@ -94,6 +93,9 @@ class Builder extends ContainerAware
             $add->addChild('Search in all plugins', ['route' => 'fill_search_in_all'])
                 ->setAttribute('title', $this->container->get('translator')->trans('Search by name in all plugins'))
                 ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
+            $add->addChild('Add from URL', ['route' => 'fill_search_filler'])
+                ->setAttribute('title', $this->container->get('translator')->trans('Search plugin by the URL for filling item'))
+                ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
         }
         // add filler plugin items
         $this->addPluginItems(
@@ -133,7 +135,7 @@ class Builder extends ContainerAware
         // add link to guide
         $locale = substr($this->container->get('request')->getLocale(), 0, 2);
         $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-        $settings->addChild('Help', ['uri' => str_replace('%locale%', $locale, self::DOC_LINK)])
+        $settings->addChild('Help', ['uri' => $this->container->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
             ->setLinkAttribute('class', 'icon-label icon-white-help');
 
         return $menu;

@@ -105,4 +105,19 @@ class Storage extends EntityRepository
 
         return $result ? $result['date_update'] : null;
     }
+
+    /**
+     * Get last storage
+     *
+     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage|null
+     */
+    public function getLast()
+    {
+        return $this->createQueryBuilder('s')
+            ->addOrderBy('s.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

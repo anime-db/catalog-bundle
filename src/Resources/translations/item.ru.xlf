@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>One Piece</source>
+                <target>Большой куш</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>+ 6 specials</source>
+                <target>+ 6 спэшлов</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Gol D. Roger was known as the Pirate King, the strongest and most infamous being to have sailed the Grand Line. The capture and death of Roger by the World Government brought a change throughout the world. His last words before his death revealed the location of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece (which promises an unlimited amount of riches and fame), and quite possibly the most coveted of titles for the person who found it, the title of the Pirate King.
+
+Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate who ransacks villages for fun, Luffy’s reason for being a pirate is one of pure wonder; the thought of an exciting adventure and meeting new and intriguing people, along with finding One Piece, are his reasons of becoming a pirate. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach One Piece.</source>
+                <target>Последние слова, произнесенные Королем Пиратов перед казнью, вдохновили многих: «Мои сокровища? Коли хотите, забирайте. Ищите – я их все оставил там!». Легендарная фраза Золотого Роджера ознаменовала начало Великой Эры Пиратов – тысячи людей в погоне за своими мечтами отправились на Гранд Лайн, самое опасное место в мире, желая стать обладателями мифических сокровищ... Но с каждым годом романтиков становилось все меньше, их постепенно вытесняли прагматичные пираты-разбойники, которым награбленное добро было куда ближе, чем какие-то «никчемные мечты». Но вот, одним прекрасным днем, семнадцатилетний Монки Д. Луффи исполнил заветную мечту детства - отправился в море. Его цель - ни много, ни мало стать новым Королем Пиратов. За достаточно короткий срок юному капитану удается собрать команду, состоящую из не менее амбициозных искателей приключений. И пусть ими движут совершенно разные устремления, главное, этим ребятам важны не столько деньги и слава, сколько куда более ценное – принципы и верность друзьям. И еще – служение Мечте. Что ж, пока по Гранд Лайн плавают такие люди, Великая Эра Пиратов всегда будет с нами!</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>+ special</source>
+                <target>+ спэшл</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>The rules of alchemy state that to gain something, one must lose something of equal value. Alchemy is the process of taking apart and reconstructing an object into a different entity, with the rules of alchemy to govern this procedure. However, there exists an object that can bring any alchemist above these rules, the object known as the Philosopher's Stone. The young Edward Elric is a particularly talented alchemist who through an accident years back lost his younger brother Alphonse and one of his legs. Sacrificing one of his arms as well, he used alchemy to bind his brother's soul to a suit of armor. This lead to the beginning of their journey to restore their bodies, in search for the legendary Philosopher's Stone.</source>
+                <target>Они нарушили основной закон алхимии и жестоко за это поплатились. И теперь два брата странствуют по миру в поисках загадочного философского камня, который поможет им исправить содеянное… Это мир, в котором вместо науки властвует магия, в котором люди способны управлять стихиями. Но у магии тоже есть законы, которым нужно следовать. В противном случае расплата будет жестокой и страшной. Два брата - Эдвард и Альфонс Элрики - пытаются совершить запретное: воскресить умершую мать. Однако закон равноценного обмена гласит: чтобы что-то получить, ты должен отдать нечто равноценное…</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>1. To Challenge the Sun (04.10.2003, 25 min.)
+2. Body of the Sanctioned (11.10.2003, 25 min.)
+3. Mother (18.10.2003, 25 min.)
+4. A Forger`s Love (25.10.2003, 25 min.)
+5. The Man with the Mechanical Arm (01.11.2003, 25 min.)
+6. The Alchemy Exam (08.11.2003, 25 min.)
+7. Night of the Chimera`s Cry (15.11.2003, 25 min.)
+8. The Philosopher`s Stone (22.11.2003, 25 min.)
+9. Be Thou for the People (29.11.2003, 25 min.)
+10. The Phantom Thief (06.12.2003, 25 min.)
+11. The Other Brothers Elric, Part 1 (13.12.2003, 25 min.)
+12. The Other Brothers Elric, Part 2 (20.12.2003, 25 min.)
+13. Fullmetal vs. Flame (27.12.2003, 25 min.)
+14. Destruction`s Right Hand (10.01.2004, 25 min.)
+15. The Ishbal Massacre (17.01.2004, 25 min.)
+16. That Which Is Lost (24.01.2004, 25 min.)
+17. House of the Waiting Family (31.01.2004, 25 min.)
+18. Marcoh`s Notes (07.02.2004, 25 min.)
+19. The Truth Behind Truths (14.02.2004, 25 min.)
+20. Soul of the Guardian (21.02.2004, 25 min.)
+21. The Red Glow (28.02.2004, 25 min.)
+22. Created Human (06.03.2004, 25 min.)
+23. Fullmetal Heart (13.03.2004, 25 min.)
+24. Bonding Memories (20.03.2004, 25 min.)
+25. Words of Farewell (27.03.2004, 25 min.)
+26. Her Reason (03.04.2004, 25 min.)
+27. Teacher (10.04.2004, 25 min.)
+28. All is One, One is All (17.04.2004, 25 min.)
+29. The Untainted Child (24.04.2004, 25 min.)
+30. Assault on South Headquarters (01.05.2004, 25 min.)
+31. Sin (08.05.2004, 25 min.)
+32. Dante of the Deep Forest (15.05.2004, 25 min.)
+33. Al, Captured (29.05.2004, 25 min.)
+34. Theory of Avarice (05.06.2004, 25 min.)
+35. Reunion of the Fallen (12.06.2004, 25 min.)
+36. The Sinner Within (19.06.2004, 25 min.)
+37. The Flame Alchemist, the Bachelor Lieutenant and the Mystery of Warehouse 13 (26.06.2004, 25 min.)
+38. With the River`s Flow (03.07.2004, 25 min.)
+39. Secret of Ishbal (10.07.2004, 25 min.)
+40. The Scar (17.07.2004, 25 min.)
+41. Holy Mother (24.07.2004, 25 min.)
+42. His Name is Unknown (24.07.2004, 25 min.)
+43. The Stray Dog (31.07.2004, 25 min.)
+44. Hohenheim of Light (07.08.2004, 25 min.)
+45. A Rotted Heart (21.08.2004, 25 min.)
+46. Human Transmutation (28.08.2004, 25 min.)
+47. Sealing the Homunculus (04.09.2004, 25 min.)
+48. Goodbye (11.09.2004, 25 min.)
+49. The Other Side of the Gate (18.09.2004, 25 min.)
+50. Death (25.09.2004, 25 min.)
+51. Laws and Promises (02.10.2004, 25 min.)</source>
+                <target>1. To Challenge the Sun (04.10.2003, 25 мин.)
+2. Body of the Sanctioned (11.10.2003, 25 мин.)
+3. Mother (18.10.2003, 25 мин.)
+4. A Forger`s Love (25.10.2003, 25 мин.)
+5. The Man with the Mechanical Arm (01.11.2003, 25 мин.)
+6. The Alchemy Exam (08.11.2003, 25 мин.)
+7. Night of the Chimera`s Cry (15.11.2003, 25 мин.)
+8. The Philosopher`s Stone (22.11.2003, 25 мин.)
+9. Be Thou for the People (29.11.2003, 25 мин.)
+10. The Phantom Thief (06.12.2003, 25 мин.)
+11. The Other Brothers Elric, Part 1 (13.12.2003, 25 мин.)
+12. The Other Brothers Elric, Part 2 (20.12.2003, 25 мин.)
+13. Fullmetal vs. Flame (27.12.2003, 25 мин.)
+14. Destruction`s Right Hand (10.01.2004, 25 мин.)
+15. The Ishbal Massacre (17.01.2004, 25 мин.)
+16. That Which Is Lost (24.01.2004, 25 мин.)
+17. House of the Waiting Family (31.01.2004, 25 мин.)
+18. Marcoh`s Notes (07.02.2004, 25 мин.)
+19. The Truth Behind Truths (14.02.2004, 25 мин.)
+20. Soul of the Guardian (21.02.2004, 25 мин.)
+21. The Red Glow (28.02.2004, 25 мин.)
+22. Created Human (06.03.2004, 25 мин.)
+23. Fullmetal Heart (13.03.2004, 25 мин.)
+24. Bonding Memories (20.03.2004, 25 мин.)
+25. Words of Farewell (27.03.2004, 25 мин.)
+26. Her Reason (03.04.2004, 25 мин.)
+27. Teacher (10.04.2004, 25 мин.)
+28. All is One, One is All (17.04.2004, 25 мин.)
+29. The Untainted Child (24.04.2004, 25 мин.)
+30. Assault on South Headquarters (01.05.2004, 25 мин.)
+31. Sin (08.05.2004, 25 мин.)
+32. Dante of the Deep Forest (15.05.2004, 25 мин.)
+33. Al, Captured (29.05.2004, 25 мин.)
+34. Theory of Avarice (05.06.2004, 25 мин.)
+35. Reunion of the Fallen (12.06.2004, 25 мин.)
+36. The Sinner Within (19.06.2004, 25 мин.)
+37. The Flame Alchemist, the Bachelor Lieutenant and the Mystery of Warehouse 13 (26.06.2004, 25 мин.)
+38. With the River`s Flow (03.07.2004, 25 мин.)
+39. Secret of Ishbal (10.07.2004, 25 мин.)
+40. The Scar (17.07.2004, 25 мин.)
+41. Holy Mother (24.07.2004, 25 мин.)
+42. His Name is Unknown (24.07.2004, 25 мин.)
+43. The Stray Dog (31.07.2004, 25 мин.)
+44. Hohenheim of Light (07.08.2004, 25 мин.)
+45. A Rotted Heart (21.08.2004, 25 мин.)
+46. Human Transmutation (28.08.2004, 25 мин.)
+47. Sealing the Homunculus (04.09.2004, 25 мин.)
+48. Goodbye (11.09.2004, 25 мин.)
+49. The Other Side of the Gate (18.09.2004, 25 мин.)
+50. Death (25.09.2004, 25 мин.)
+51. Laws and Promises (02.10.2004, 25 мин.)</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Fullmetal Alchemist</source>
+                <target>Стальной алхимик</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>On the way to their new home, 10-year-old Chihiro Ogino's family stumbles upon a deserted theme park. Intrigued, the family investigates the park, though unbeknownst to them, it is secretly inhabited by spirits who sleep by day and appear at night. When Chihiro's mother and father eat food from a restaurant in the street, angry spirits turn them into pigs. Furthermore, a wide sea has appeared between the spirit world and the human one, trapping Chihiro, the sole human, in a land of spirits. Luckily for her though, a mysterious boy named Haku appears, claiming to know her from the past. Under his instructions, Chihiro secures a job in the bathhouse where Haku works. With only her courage and some new found friends to aid her, Chihiro embarks on a journey to turn her parents back to their original forms and return home.</source>
+                <target>Маленькая Тихиро вместе с мамой и папой переезжают в новый дом. Заблудившись по дороге, они оказываются в странном пустынном городе, где их ждет великолепный пир. Родители с жадностью набрасываются на еду и к ужасу девочки превращаются в свиней, став пленниками злой колдуньи Юбабы, властительницы таинственного мира древних богов и могущественных духов. Теперь, оказавшись одна среди магических существ и загадочных видений, отважная Тихиро должна придумать, как избавить своих родителей от чар коварной старухи и спастись из пугающего царства призраков...</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Spirited Away</source>
+                <target>Унесённые призраками</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Bakuman.</source>
+                <target>Бакуман</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Bakuman follows the story of high school student Mashiro Moritaka, a talented artist who does not know what he wants to do with his future. One day he draws a picture of Azuki Miho, a girl he is secretly fond of, during class and forgets the notebook at school. He comes back to find that his classmate Takagi Akito is waiting for him with his notebook. Takagi tries to convince Mashiro to become a mangaka, a manga artist, with him, only leading to Mashiro's disagreement. Mashiro goes home and thinks about his mangaka uncle, who had only one successful series before he died in obscurity. Mashiro is interrupted by a phone call from Takagi, who says that he is going to tell Azuki that Mashiro likes her. Mashiro runs down to Azuki's house to find Takagi waiting for him. Once Azuki comes out to meet them, Takagi tells her that he and Mashiro are aiming to be mangaka. Mashiro then learns that she wants to be a seiyuu, a voice actor, and has shown promise in the field. Mashiro, once again thinking about his uncle, accidentally proposes to Azuki who accepts. However, she will only marry him after they achieve their dreams.</source>
+                <target>Хорошие школьные оценки – престижный вуз – крупная корпорация: вот жизненный план большинства японских юношей и девушек. Но в каждом поколении находятся упрямцы, готовые отринуть синицу в руках ради возможности сохранить индивидуальность и заняться любимым делом. Таковы юный художник Моритака Масиро и начинающий писатель Акито Такаги, которые пока оканчивают среднюю школу, но уже приняли непростое решение – посвятить жизнь созданию манги, уникального феномена японской культуры.
+Герои сериала - фанаты манги, лауреаты юношеских конкурсов и знакомы с реалиями «взрослого» шоу-бизнеса, где наверх пробиваются единицы. Но когда еще рисковать, как не в 16 лет?! А тут Моритака, склонный к рефлексии, внезапно узнает, что его любимая и одноклассница, Михо Адзуки, хочет быть актрисой-сэйю, то есть работать по «смежной специальности». Будучи во власти эйфории, парень тут же предлагает девушке две вещи: сыграть когда-нибудь в аниме по их манге и… выйти за него замуж. Самое интересное, что Адзуки соглашается на то и другое – но в этой же строгой последовательности. Теперь творческому дуэту придется поставить на карту все – тяжкий труд, талант, потенциальную карьеру – и крепко верить в себя и свою удачу. Не попробуешь – не узнаешь, Драгонболл тоже не сразу строился!</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>1. Dream and Reality (02.10.2010, 25 min.)
+2. Stupid and Clever (09.10.2010, 25 min.)
+3. Parent and Child (16.10.2010, 25 min.)
+4. Time and Key (23.10.2010, 25 min.)
+5. Summer and Storyboard (30.10.2010, 25 min.)
+6. Carrot and Stick (06.11.2010, 25 min.)
+7. Tears and Tears (13.11.2010, 25 min.)
+8. Anxiety and Anticipation (20.11.2010, 25 min.)
+9. Regret and Consent (27.11.2010, 25 min.)
+10. 10 and 2 (04.12.2010, 25 min.)
+11. Chocolate and Next! (11.12.2010, 25 min.)
+12. Feast and Graduation (18.12.2010, 25 min.)
+13. Early Results And The Real Deal (25.12.2010, 25 min.)
+14. Battles and Copying (08.01.2011, 25 min.)
+15. Debut and Hectic (15.01.2011, 25 min.)
+16. Wall and Kiss (22.01.2011, 25 min.)
+17. Braggart and Kindness (29.01.2011, 25 min.)
+18. Jealousy and Love (05.02.2011, 25 min.)
+19. Two and One (12.02.2011, 25 min.)
+20. Cooperation and Conditions (19.02.2011, 25 min.)
+21. Literature and Music (26.02.2011, 25 min.)
+22. Solidarity and Breakdown (05.03.2011, 25 min.)
+23. Tuesday and Friday (19.03.2011, 25 min.)
+24. Call and Eve (26.03.2011, 25 min.)
+25. Yes and No (02.04.2011, 25 min.)</source>
+                <target>1. Dream and Reality (02.10.2010, 25 мин.)
+2. Stupid and Clever (09.10.2010, 25 мин.)
+3. Parent and Child (16.10.2010, 25 мин.)
+4. Time and Key (23.10.2010, 25 мин.)
+5. Summer and Storyboard (30.10.2010, 25 мин.)
+6. Carrot and Stick (06.11.2010, 25 мин.)
+7. Tears and Tears (13.11.2010, 25 мин.)
+8. Anxiety and Anticipation (20.11.2010, 25 мин.)
+9. Regret and Consent (27.11.2010, 25 мин.)
+10. 10 and 2 (04.12.2010, 25 мин.)
+11. Chocolate and Next! (11.12.2010, 25 мин.)
+12. Feast and Graduation (18.12.2010, 25 мин.)
+13. Early Results And The Real Deal (25.12.2010, 25 мин.)
+14. Battles and Copying (08.01.2011, 25 мин.)
+15. Debut and Hectic (15.01.2011, 25 мин.)
+16. Wall and Kiss (22.01.2011, 25 мин.)
+17. Braggart and Kindness (29.01.2011, 25 мин.)
+18. Jealousy and Love (05.02.2011, 25 мин.)
+19. Two and One (12.02.2011, 25 мин.)
+20. Cooperation and Conditions (19.02.2011, 25 мин.)
+21. Literature and Music (26.02.2011, 25 мин.)
+22. Solidarity and Breakdown (05.03.2011, 25 мин.)
+23. Tuesday and Friday (19.03.2011, 25 мин.)
+24. Call and Eve (26.03.2011, 25 мин.)
+25. Yes and No (02.04.2011, 25 мин.)</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Beck</source>
+                <target>Бек</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Tanaka Yukio, better known by his nickname Koyuki is a 14 year old who feels disconnected from life in general. Through the act of saving a mismatched dog, he meets guitarist Minami Ryuusuke, and becomes involved in Ryuusuke's new band BECK. Koyuki's life starts to change as the band struggles towards fame.</source>
+                <target>В начале была Песня – так верят многие народы, и не зря музыка все так же объединяет нас спустя тысячелетия после начала писаной и неписаной истории. Бек – это аниме про молодых людей, ищущих свой жизненный путь, и про уже состоявшихся людей, которым музыка помогла и помогает в жизни. Бек – это аниме про универсальный язык, на котором могут разговаривать разные поколения. А еще это аниме про современное общество, в котором всплески таланта и искренние порывы души рано или поздно становятся частью глобальной индустрии развлечений. Можно спорить – хорошо это или плохо, но таков мир, в котором мы живем.
+А вообще-то, Бек – это рассказ о простом японском парне, 14-летнем Юкио Танаке, который волею судьбы встретился с молодым гитаристом Рюскэ Минами и, благодаря таланту, силе духа, простому и открытому характеру, нашел свое место в жизни, обрел друзей и встретил любовь. Это рассказ о поиске путей самовыражения, на которых искренность и честность приносят радость, а злоба и лицемерие заводят в тупик. А еще это рассказ о встрече непростых людей, которые сумели создать и сохранить рок-группу, то самое целое, которое куда больше суммы слагаемых. Именно так и рождается настоящая музыка. Именно так вышло одно из лучших музыкальных аниме всех времен!</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>1. The View at Fourteen (07.10.2004, 25 min.)
+2. Live House (14.10.2004, 25 min.)
+3. Moon on the Water (21.10.2004, 25 min.)
+4. Strum the Guitar (28.10.2004, 25 min.)
+5. Beck (04.11.2004, 25 min.)
+6. Hyodo and the Jaguar (11.11.2004, 25 min.)
+7. Prudence (18.11.2004, 25 min.)
+8. Broadcast in the School (25.11.2004, 25 min.)
+9. The Night Before Live (02.12.2004, 25 min.)
+10. Face (09.12.2004, 25 min.)
+11. Summer Holiday (16.12.2004, 25 min.)
+12. Secret Live (23.12.2004, 25 min.)
+13. Ciel Bleu (30.12.2004, 25 min.)
+14. Dream (06.01.2005, 25 min.)
+15. Back to School (13.01.2005, 25 min.)
+16. Indies (20.01.2005, 25 min.)
+17. Three Days (27.01.2005, 25 min.)
+18. Leon Sykes (03.02.2005, 25 min.)
+19. Blues (10.02.2005, 25 min.)
+20. Greatful Sound (17.02.2005, 25 min.)
+21. Write Music (24.02.2005, 25 min.)
+22. Night Before the Festival (03.03.2005, 25 min.)
+23. Festival (10.03.2005, 25 min.)
+24. Third Stage (17.03.2005, 25 min.)
+25. Slip Out (24.03.2005, 25 min.)
+26. America (31.03.2005, 25 min.)</source>
+                <target>1. The View at Fourteen (07.10.2004, 25 мин.)
+2. Live House (14.10.2004, 25 мин.)
+3. Moon on the Water (21.10.2004, 25 мин.)
+4. Strum the Guitar (28.10.2004, 25 мин.)
+5. Beck (04.11.2004, 25 мин.)
+6. Hyodo and the Jaguar (11.11.2004, 25 мин.)
+7. Prudence (18.11.2004, 25 мин.)
+8. Broadcast in the School (25.11.2004, 25 мин.)
+9. The Night Before Live (02.12.2004, 25 мин.)
+10. Face (09.12.2004, 25 мин.)
+11. Summer Holiday (16.12.2004, 25 мин.)
+12. Secret Live (23.12.2004, 25 мин.)
+13. Ciel Bleu (30.12.2004, 25 мин.)
+14. Dream (06.01.2005, 25 мин.)
+15. Back to School (13.01.2005, 25 мин.)
+16. Indies (20.01.2005, 25 мин.)
+17. Three Days (27.01.2005, 25 мин.)
+18. Leon Sykes (03.02.2005, 25 мин.)
+19. Blues (10.02.2005, 25 мин.)
+20. Greatful Sound (17.02.2005, 25 мин.)
+21. Write Music (24.02.2005, 25 мин.)
+22. Night Before the Festival (03.03.2005, 25 мин.)
+23. Festival (10.03.2005, 25 мин.)
+24. Third Stage (17.03.2005, 25 мин.)
+25. Slip Out (24.03.2005, 25 мин.)
+26. America (31.03.2005, 25 мин.)</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Sakata Gintoki is a samurai living in an era when samurais are no longer needed. To add to his troubles, oppressive aliens have moved in to invade. Gintoki lives with Kagura and Shimura Shinpachi, taking on odd jobs to make the world a better place... and to pay their rent.</source>
+                <target>Абсурдистская фантастическо-самурайская пародийная комедия о приключениях фрилансеров в псевдо-средневековом Эдо. Захватив Землю, пришельцы Аманто запретили ношение мечей, единственный, в ком ещё жив подлинно японский дух – самоуверенный сластёна Гинтоки Саката. Неуклюжий очкарик Симпати нанялся к нему в ученики. Третьим в их команде стала прелестная Кагура из сильнейшей во вселенной семьи Ятудзоку, а с ней её питомец Садахару – пёсик размером с бегемота, обладающий забавной привычкой грызть головы всем, кто под морду подвернётся. Они называют себя «мастерами на все руки» и выполняют любые заказы – главное, чтобы заплатили.
+Кроме инопланетян с ушками, бандитов со шрамами, самураев с бокэнами, девушек-ниндзя с натто и странных существ, в «Гинтаме» встречаются также Синсэнгуми, состоящие из придурковатых юношей в европейской одежде. Высмеиванию подвергается множество штампов, пародируется «Блич», «Ковбой Бибоп» и многие другие известные сериалы. Юмор колеблется от «сортирного» до «тонкой иронии», в целом это весьма «зубастая» комедия, лишённая каких-либо рамок и ограничений.</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Gintama</source>
+                <target>Гинтама</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Tough on the outside, all heart on the inside, Onizuka turned to the life of a high school teacher for less excitement and action... or so he thought. GTO, A.K.A.: Great Teacher Onizuka, is the racy story of Onizuka, a former motorcycle gang member who becomes a teacher to make a difference and... to meet girls? Using his street smarts to deal with colleagues, students and troublemakers, Onizuka finds that he too has many lessons to learn!</source>
+                <target>Онидзука Эйкити («22 года, холост», - как он сам любит представляться) - настоящий ужас на двух колесах, член нагоняющей ужас на горожан банды мотоциклистов, решает переквалифицироваться в… школьного учителя. Ведь в любом учебном заведении полным-полно аппетитных старшеклассниц в коротеньких юбочках! Но чем глубже примеривший необычную роль хулиган окунается в перипетии общего образования, тем сильнее он пытается переиначить место работы на свой манер - одерживая одну за другой победы над царящими в школе косностью, лицемерием, показухой и безразличием.</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>GTO</source>
+                <target>Крутой учитель Онидзука</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>+ 2 episode collage</source>
+                <target>+ 2 эпизода коллажа</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>1. Hellsing I (10.02.2006, 50 min.)
+2. Hellsing II (25.08.2006, 45 min.)
+3. Hellsing III (04.04.2007, 50 min.)
+4. Hellsing IV (22.02.2008, 55 min.)
+5. Hellsing V (21.11.2008, 40 min.)
+6. Hellsing VI (24.07.2009, 40 min.)
+7. Hellsing VII (23.12.2009, 45 min.)
+8. Hellsing VIII (27.07.2011, 50 min.)
+9. Hellsing IX (15.02.2012, 45 min.)
+10. Hellsing X (26.12.2012, 65 min.)</source>
+                <target>1. Hellsing I (10.02.2006, 50 мин.)
+2. Hellsing II (25.08.2006, 45 мин.)
+3. Hellsing III (04.04.2007, 50 мин.)
+4. Hellsing IV (22.02.2008, 55 мин.)
+5. Hellsing V (21.11.2008, 40 мин.)
+6. Hellsing VI (24.07.2009, 40 мин.)
+7. Hellsing VII (23.12.2009, 45 мин.)
+8. Hellsing VIII (27.07.2011, 50 мин.)
+9. Hellsing IX (15.02.2012, 45 мин.)
+10. Hellsing X (26.12.2012, 65 мин.)</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Hellsing, a secret organization of the British government, have long been battling supernatural threats to keep the people safe from the creatures of the night. The current leader, Integra Wingates Hellsing controls her own personal army to eliminate the undead beings, but even her highly trained soldiers pale in comparison to her most trusted vampire exterminator, a man by the name of Alucard, who is actually a powerful vampire himself. Along with Integra's mysterious butler and Alucard's new vampire minion, Seras Victoria, The Hellsing Organization must face not only regular ghouls and vampires, but a rivalling secret organization from the Vatican, and Millennium, an enigmatic group of madmen spawned by a certain war over 50 years ago...</source>
+                <target>На каждое действие найдётся противодействие – для борьбы с кровожадной нечистью в Великобритании был создан Королевский Орден Протестантских Рыцарей, которому служит древнейший вампир Алукард. Согласно заключённому договору, он подчиняется главе тайной организации «Хеллсинг».
+У Ватикана свой козырь – особый Тринадцатый Отдел, организация «Искариот», в составе которой неубиваемый отец Александр. Для них Алукард ничем не отличается от остальных монстров.
+Однако всем им придётся на время забыть о дрязгах между католической и англиканской церквями, когда на сцену выйдет могущественный враг из прошлого – загадочный Майор во главе секретной нацистской организации «Миллениум».
+Но пока не началась битва за Англию, Алукард занят воспитанием новообращённой вампирши: Виктория Серас раньше служила в полиции, а теперь ей приходится привыкать к жизни в старинном особняке, к своим новым способностям и новым обязанностям. Даже хозяйка Алукарда, леди Интегра, не знает, зачем он обратил эту упрямую девушку...
+Вторая экранизация манги Хирано Кота дотошно следует оригиналу, и потому заметно отличается от сериала, ведь именно чёрный юмор, реки крови, харизматичные враги и закрученный конфликт сделали «Хеллсинга» всемирно популярным.</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>+ 4 specials</source>
+                <target>+ 4 спэшла</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Hellsing</source>
+                <target>Хеллсинг</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>1. Tempestuous Temperaments (20.05.2004, 25 min.)
+2. Redeye Reprisal (03.06.2004, 25 min.)
+3. Hellhounds for Hire (Part 1) (10.06.2004, 25 min.)
+4. Hellhounds for Hire (Part 2) (17.06.2004, 25 min.)
+5. Artistic Anarchy (24.06.2004, 25 min.)
+6. Stranger Searching (01.07.2004, 25 min.)
+7. A Risky Racket (08.07.2004, 25 min.)
+8. The Art of Altercation (15.07.2004, 25 min.)
+9. Beatbox Bandits (22.07.2004, 25 min.)
+10. Lethal Lunacy (29.07.2004, 25 min.)
+11. Gamblers and Gallantry (05.08.2004, 25 min.)
+12. The Disorder Diaries (12.08.2004, 25 min.)
+13. Misguided Miscreants (Part 1) (26.08.2004, 25 min.)
+14. Misguided Miscreants (Part 2) (02.09.2004, 25 min.)
+15. Bogus Booty (09.09.2004, 25 min.)
+16. Lullabies of The Lost (Verse 1) (16.09.2004, 25 min.)
+17. Lullabies of The Lost (Verse 2) (23.09.2004, 25 min.)
+18. War of The Words (22.01.2005, 25 min.)
+19. Unholy Union (29.01.2005, 25 min.)
+20. Elegy of Entrapment (Verse 1) (05.02.2005, 25 min.)
+21. Elegy of Entrapment (Verse 2) (12.02.2005, 25 min.)
+22. Cosmic Collisions (19.02.2005, 25 min.)
+23. Baseball Blues (26.02.2005, 25 min.)
+24. Evanescent Encounter (Part 1) (05.03.2005, 25 min.)
+25. Evanescent Encounter (Part 2) (12.03.2005, 25 min.)
+26. Evanescent Encounter (Part 3) (19.03.2005, 25 min.)</source>
+                <target>1. Tempestuous Temperaments (20.05.2004, 25 мин.)
+2. Redeye Reprisal (03.06.2004, 25 мин.)
+3. Hellhounds for Hire (Part 1) (10.06.2004, 25 мин.)
+4. Hellhounds for Hire (Part 2) (17.06.2004, 25 мин.)
+5. Artistic Anarchy (24.06.2004, 25 мин.)
+6. Stranger Searching (01.07.2004, 25 мин.)
+7. A Risky Racket (08.07.2004, 25 мин.)
+8. The Art of Altercation (15.07.2004, 25 мин.)
+9. Beatbox Bandits (22.07.2004, 25 мин.)
+10. Lethal Lunacy (29.07.2004, 25 мин.)
+11. Gamblers and Gallantry (05.08.2004, 25 мин.)
+12. The Disorder Diaries (12.08.2004, 25 мин.)
+13. Misguided Miscreants (Part 1) (26.08.2004, 25 мин.)
+14. Misguided Miscreants (Part 2) (02.09.2004, 25 мин.)
+15. Bogus Booty (09.09.2004, 25 мин.)
+16. Lullabies of The Lost (Verse 1) (16.09.2004, 25 мин.)
+17. Lullabies of The Lost (Verse 2) (23.09.2004, 25 мин.)
+18. War of The Words (22.01.2005, 25 мин.)
+19. Unholy Union (29.01.2005, 25 мин.)
+20. Elegy of Entrapment (Verse 1) (05.02.2005, 25 мин.)
+21. Elegy of Entrapment (Verse 2) (12.02.2005, 25 мин.)
+22. Cosmic Collisions (19.02.2005, 25 мин.)
+23. Baseball Blues (26.02.2005, 25 мин.)
+24. Evanescent Encounter (Part 1) (05.03.2005, 25 мин.)
+25. Evanescent Encounter (Part 2) (12.03.2005, 25 мин.)
+26. Evanescent Encounter (Part 3) (19.03.2005, 25 мин.)</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>Mugen's a buck-wild warrior — violent, thoughtless and womanising. Jin is a vagrant ronin — mysterious, traditional, well-mannered and very strong as well. These two fiercely independent warriors cannot be any more different from one another, yet their paths cross when Fuu, a ditzy waitress, saves them from being executed when they are arrested after a violent sword fight. Fuu convinces the two vagrant young men to help her find a mysterious samurai "who smells of sunflowers". And so their journey begins...</source>
+                <target>Потеряв маму, юная Фуу год проработала в чайной, а потом решила отправиться на поиски человека, который, кажется, виновен во всех её несчастьях. У Фуу была надёжная примета: это самурай, пахнущий подсолнухами. Но как выжить в Японии эпохи Эдо, когда за каждым поворотом – бандиты, которые могут тебя похитить и продать в бордель, а единственный друг – ручная белка-летяга? Фуу повезло: она встретила двух юных и при этом весьма сноровистых бойцов – бывшего пирата Мугэна и ронина Дзина. Заручившись их поддержкой, девушка отправилась в путь через всю страну. Не важно, что в животе всё время бурчит, и нет ни денег, ни документов – зато есть несравненные способности ввязываться в неприятности! При первой встрече Мугэн и Дзин попытались выяснить, кто из них круче – и они готовы продолжить дуэль при первой возможности, однако главная проблема в том, что у каждого из путешественников своё прошлое и опасные враги, о которых они даже не подозревают. И неизвестно ещё, у кого этих врагов и старых грехов больше – у пирата, грабившего корабли, у ронина, убившего своего учителя, или у девушки-сиротки?
+Автор знаменитого Cowboy Bebop Синъитиро Ватанабэ смешал стильный коктейль из катан и хип-хопа. В его сериале прошлое сталкивается с будущим, Восток – с Западом, герои классического кино – с реальными историческими персонажами. Но все эти забористые ингредиенты лишь оттеняют историю о трёх разных людях, которых свела и сроднила долгая дорога...</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>Samurai Champloo</source>
+                <target>Самурай Чамплу</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>1. The Man of the Slashing Sword (20.02.1999, 30 min.)
+2. The Lost Cat (21.04.1999, 30 min.)
+3. The Previous Night at the Mountain Home (19.06.1999, 30 min.)
+4. The Cross-Shaped Wound (22.09.1999, 30 min.)</source>
+                <target>1. The Man of the Slashing Sword (20.02.1999, 30 мин.)
+2. The Lost Cat (21.04.1999, 30 мин.)
+3. The Previous Night at the Mountain Home (19.06.1999, 30 мин.)
+4. The Cross-Shaped Wound (22.09.1999, 30 мин.)</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>Taken by slavers when he was a child, Himura Kenshin is rescued only when an encounter with bandits kills off everyone but him. He is found by a master of the Divine Justice School of Swordmanship, a school so deadly that to train in it, means death for either the master or student, there can only be one master. Taken by the master, Kenshin is trained in this school, only to leave before finishing so that he may join the Meiji restoration and help prevent further tragedies like his own.
+
+Thus is born the Battousai, the greatest strength of the Ishin Patriots, a boy of 15 who kills for the sake of building a new, better world. One night, he comes across a mysterious woman, Tomoe. He must hide with her when the revolution stumbles. They marry for appearances, but soon fall in love. Tomoe has another reason to be with Kenshin, one she regrets but cannot stop. Revenge must be satisfied, and only blood can do that.</source>
+                <target>XIX век, Японию раздирает клановая вражда. Маленький Синта в детстве был продан работорговцам и попал вместе с другими в засаду - всех спутников мальчика на его глазах закололи, его же спас случайно проходивший мимо воин, мастерски владеющий мечом. Синта поступает к нему в ученики и становится мастером меча по имени Кэнсин. Парень выбирает жизненный путь убийцы экстра-класса. В одной из операций он встречает таинственную девушку Томоэ, которая видит Кэнсина в действии. Привыкший не оставлять свидетелей, самурай не убивает девушку, а забирает её с собой. Что-то дрогнуло у него в душе при виде Томоэ, возможно, она смягчит этого смелого, но холодного человека?</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Бродяга Кэнсин: Воспоминания</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>+ 2 specials</source>
+                <target>+ 2 спэшла</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>In the distant future, people build their homes and raise domestic animals in subterranean caverns called "pits". This way of life has persisted for hundreds of years, and yet, the people are still powerless against the earthquakes and cave-ins which occasionally devastate their villages. Jeeha is one such village...
+
+One day, while digging tunnels to expand Jeeha's edges, a boy named Simon happens to find a small, shiny drill. Meanwhile, Kamina — Simon's soon-to-be "bro" — insists that there is another land above the village and tries to break through the ceiling in order to leave the cavern. He fails; however, an earthquake suddenly occurs, the ceiling collapses, and a gigantic robot — a "Ganmen" — crashes to the cave floor!
+
+Kamina is now certain that there is a world above their tiny pit-village. Encouraged, he begins to fight recklessly against the robot, until he encounters another person who has arrived from the land above. She is a beautiful girl by the name of Youko, who has come from a neighbouring village with a rifle in hand. She has been hunting the robot, but her shots only seem to irritate it. Desperately trying to escape its attacks, Simon brings Kamina and Youko to what he had previously found: A mysterious robot with a head for a body.
+
+And so begins the "epic" adventure...</source>
+                <target>Сотни лет люди живут в глубоких пещерах, в постоянном страхе перед землетрясениями и обвалами. В одной из таких подземных деревень живет мальчик Симон и его «духовный наставник» — молодой парень Камина. Камина верит, что наверху есть другой мир, без стен и потолков; его мечта — попасть туда. Но его мечты остаются пустыми фантазиями, пока в один прекрасный день Симон случайно не находит дрель... вернее, ключ от странного железного лица в толще земли. В этот же день происходит землетрясение, и потолок пещеры рушится — так начинается поистине эпическое приключение Симона, Камины и их компаньонов в новом для них мире: мире под открытым небом огромной Вселенной.</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>1. Pierce the Heavens with Your Drill! (01.04.2007, 25 min.)
+2. I Said I`d Ride It (08.04.2007, 25 min.)
+3. You Two-Faced Son of a Bitch! (15.04.2007, 25 min.)
+4. Does Having So Many Faces Make You Great? (22.04.2007, 25 min.)
+5. I Don`t Understand It At All! (29.04.2007, 25 min.)
+6. All of You Bastards Put Us In Hot Water! (06.05.2007, 25 min.)
+7. You`ll Be the One To Do That! (13.05.2007, 25 min.)
+8. Farewell Comrades! (20.05.2007, 25 min.)
+9. Just What Exactly Is a Human? (27.05.2007, 25 min.)
+10. Who Really Was Your Big Brother? (03.06.2007, 25 min.)
+11. Simon, Please Remove Your Hand (10.06.2007, 25 min.)
+12. Youko-san, I Have Something to Ask of You (17.06.2007, 25 min.)
+13. Everybody, Eat to Your Heart`s Content (24.06.2007, 25 min.)
+14. How Are You, Everyone? (01.07.2007, 25 min.)
+15. I`ll Head Towards Tomorrow (08.07.2007, 25 min.)
+16. Summary Episode (15.07.2007, 25 min.)
+17. You Understand Nothing (22.07.2007, 25 min.)
+18. I`ll Make You Tell the Truth of the World (29.07.2007, 25 min.)
+19. We Must Survive. No Matter What it Takes! (05.08.2007, 25 min.)
+20. Oh God, To How Far Will You Test Us? (12.08.2007, 25 min.)
+21. You Must Survive (19.08.2007, 25 min.)
+22. And to Space (26.08.2007, 25 min.)
+23. Let`s Go, The Final Battle (02.09.2007, 25 min.)
+24. We Will Never Forget, This Minute and Second (09.09.2007, 25 min.)
+25. I Accept Your Dying Wish! (16.09.2007, 25 min.)
+26. Let`s Go, Comrades! (23.09.2007, 25 min.)
+27. All the Lights in the Sky are Stars (30.09.2007, 25 min.)</source>
+                <target>1. Pierce the Heavens with Your Drill! (01.04.2007, 25 мин.)
+2. I Said I`d Ride It (08.04.2007, 25 мин.)
+3. You Two-Faced Son of a Bitch! (15.04.2007, 25 мин.)
+4. Does Having So Many Faces Make You Great? (22.04.2007, 25 мин.)
+5. I Don`t Understand It At All! (29.04.2007, 25 мин.)
+6. All of You Bastards Put Us In Hot Water! (06.05.2007, 25 мин.)
+7. You`ll Be the One To Do That! (13.05.2007, 25 мин.)
+8. Farewell Comrades! (20.05.2007, 25 мин.)
+9. Just What Exactly Is a Human? (27.05.2007, 25 мин.)
+10. Who Really Was Your Big Brother? (03.06.2007, 25 мин.)
+11. Simon, Please Remove Your Hand (10.06.2007, 25 мин.)
+12. Youko-san, I Have Something to Ask of You (17.06.2007, 25 мин.)
+13. Everybody, Eat to Your Heart`s Content (24.06.2007, 25 мин.)
+14. How Are You, Everyone? (01.07.2007, 25 мин.)
+15. I`ll Head Towards Tomorrow (08.07.2007, 25 мин.)
+16. Summary Episode (15.07.2007, 25 мин.)
+17. You Understand Nothing (22.07.2007, 25 мин.)
+18. I`ll Make You Tell the Truth of the World (29.07.2007, 25 мин.)
+19. We Must Survive. No Matter What it Takes! (05.08.2007, 25 мин.)
+20. Oh God, To How Far Will You Test Us? (12.08.2007, 25 мин.)
+21. You Must Survive (19.08.2007, 25 мин.)
+22. And to Space (26.08.2007, 25 мин.)
+23. Let`s Go, The Final Battle (02.09.2007, 25 мин.)
+24. We Will Never Forget, This Minute and Second (09.09.2007, 25 мин.)
+25. I Accept Your Dying Wish! (16.09.2007, 25 мин.)
+26. Let`s Go, Comrades! (23.09.2007, 25 мин.)
+27. All the Lights in the Sky are Stars (30.09.2007, 25 мин.)</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Гуррен-Лаганн</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>Totoro is a forest spirit that little Mei, and later her older sister Satsuki, encounter in a giant camphor tree near their new home in the countryside. Although their father Kusakabe Tatsuo, a university professor, is with them when they move, their mother Yasuko is in the hospital, recovering from some unnamed illness. When Mei hears that her mother's condition may be getting worse, she resolves to visit her all by herself. When everyone realizes she is missing, only Totoro knows how to find her!</source>
+                <target>Япония, пятидесятые годы прошлого века. Переехав в деревню, две маленькие сестры Сацуки (старшая) и Мэй (младшая) глубоко внутри дерева обнаружили необыкновенный, чудесный мир, населённый Тоторо, очаровательными пушистыми созданиями, с которыми у девочек сразу же завязалась дружба. Одни из них большие, другие совсем крохотные, но у всех у них огромное, доброе сердце и магические способности совершать необыкновенные вещи, наподобие полётов над горами или взращивания огромного дерева за одну ночь! Но увидеть этих существ могут лишь дети, которые им приглянутся... Подружившись с сёстрами, Тоторо не только устраивают им воздушную экскурсию по своим владениям, но и помогают Мэй повидаться с лежащей в больнице мамой.</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Tonari no Totoro</source>
+                <target>Мой сосед Тоторо</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

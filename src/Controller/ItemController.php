@@ -161,22 +161,19 @@ class ItemController extends Controller
         $item = new Item();
 
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm('anime_db_catalog_entity_item', $item);
+        $form = $this->createForm('anime_db_catalog_entity_item', $item)
+            ->handleRequest($request);
+        if ($form->isValid()) {
+            /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
+            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-                $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-
-                // Add a new entry only if no duplicates
-                $duplicate = $repository->findDuplicate($item);
-                if ($duplicate) {
-                    $request->getSession()->set(self::NAME_ITEM_ADDED, $item);
-                    return $this->redirect($this->generateUrl('item_duplicate'));
-                } else {
-                    return $this->addItem($item);
-                }
+            // Add a new entry only if no duplicates
+            $duplicate = $repository->findDuplicate($item);
+            if ($duplicate) {
+                $request->getSession()->set(self::NAME_ITEM_ADDED, $item);
+                return $this->redirect($this->generateUrl('item_duplicate'));
+            } else {
+                return $this->addItem($item);
             }
         }
 
@@ -196,19 +193,16 @@ class ItemController extends Controller
     public function changeAction(Item $item, Request $request)
     {
         /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm('anime_db_catalog_entity_item', $item);
-
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($item);
-                $em->flush();
-                return $this->redirect($this->generateUrl(
-                    'item_show',
-                    ['id' => $item->getId(), 'name' => $item->getName()]
-                ));
-            }
+        $form = $this->createForm('anime_db_catalog_entity_item', $item)
+            ->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+            return $this->redirect($this->generateUrl(
+                'item_show',
+                ['id' => $item->getId(), 'name' => $item->getName()]
+            ));
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:change.html.twig', [
@@ -367,8 +361,10 @@ class ItemController extends Controller
         $controls = $this->get('anime_db.item.list_controls');
 
         $direction = $controls->getSortDirection($request->query->all());
-        $sort_direction['type'] = $direction == 'ASC' ? 'DESC' : 'ASC';
-        $sort_direction['link'] = $controls->getSortDirectionLink($request->query->all());
+        $sort_direction = [
+            'type' => $direction == 'ASC' ? 'DESC' : 'ASC',
+            'link' => $controls->getSortDirectionLink($request->query->all())
+        ];
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
             'sort_by' => $controls->getSortColumns($request->query->all()),

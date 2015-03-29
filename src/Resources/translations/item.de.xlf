@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Spirited Away</source>
+                <target>Chihiros Reise ins Zauberland</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Bakuman.</source>
+                <target>Bakuman</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>GTO</source>
+                <target>Great Teacher Onizuka</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Hellsing</source>
+                <target>Hellsing Ultimate OVA</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Gurren Lagann</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Tonari no Totoro</source>
+                <target>Mein Nachbar Totoro</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

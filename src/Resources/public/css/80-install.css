@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+/*
+ * Interval between steps: 107px
+ * Step inner size: 48px/48px
+ * Step full size: 90px/90px
+ */
+.steps {
+	position: relative;
+	height: 90px;
+}
+.steps .progress {
+	position: absolute;
+	top: 36px;
+	left: 44px;
+	height: 18px;
+	width: 97px;
+	background-color: #ff9f0b;
+	border-right: 719px solid #ccc;
+	border-left: 0 solid #5cb85c;
+}
+.steps.step-2 .progress {
+	border-left-width: 197px;
+	border-right-width: 522px;
+}
+.steps.step-3 .progress {
+	border-left-width: 394px;
+	border-right-width: 325px;
+}
+.steps.step-4 .progress {
+	border-left-width: 591px;
+	border-right-width: 128px;
+}
+.steps.step-5 .progress {
+	border-left-width: 816px;
+	border-right-width: 0;
+	width: 0;
+}
+.steps .step {
+	position: absolute;
+	display: block;
+	padding: 20px;
+	width: 48px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 20px;
+	text-align: center;
+	text-decoration: none;
+	background-color: #ccc;
+	border: 1px solid #999;
+	border-radius: 50%;
+	color: #999;
+	top: 0;
+}
+.steps span.step {
+	cursor: default;
+}
+.steps .step.step-2 {
+	left: 197px;
+}
+.steps .step.step-3 {
+	left: 394px;
+}
+.steps .step.step-4 {
+	left: 591px;
+}
+.steps .step.step-5 {
+	right: 0;
+}
+/* old steps */
+.steps.step-2 .step.step-1,
+.steps.step-3 .step.step-1,
+.steps.step-3 .step.step-2,
+.steps.step-4 .step.step-1,
+.steps.step-4 .step.step-2,
+.steps.step-4 .step.step-3,
+.steps.step-5 .step {
+	background-color: #5cb85c;
+	border: 1px solid #4cae4c;
+	color: #fff;
+}
+/* active step */
+.steps.step-1 .step.step-1,
+.steps.step-2 .step.step-2,
+.steps.step-3 .step.step-3,
+.steps.step-4 .step.step-4,
+.steps.step-5 .step.step-5 {
+	background-color: #ff9f0b;
+	border: 1px solid #db3400;
+	color: #fff;
+}

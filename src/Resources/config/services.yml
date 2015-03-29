@@ -20,3 +20,11 @@ services:
     anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
         arguments: [ @anime_db.item.search ]
+
+    anime_db.storage_scanner:
+        class: AnimeDb\Bundle\CatalogBundle\Service\StorageScanner
+        arguments:
+            - @anime_db.command
+            - @filesystem
+            - %anime_db.catalog.storage.scan_output%
+            - %anime_db.catalog.storage.scan_progress%

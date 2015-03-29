@@ -1,0 +1,15 @@
+{% extends 'AnimeDbCatalogBundle:Install:layout.html.twig' %}
+
+{% block title %}{% trans %}Installation application{% endtrans %}{% endblock %}
+
+{% set step = 1 %}
+
+{% block content %}
+<h2>{% trans %}Installation application{% endtrans %}</h2>
+<p>{% trans %}Your language was automatically detected, you can change it if you see fit.{% endtrans %}</p>
+<p>{% trans %}Now the application supports fully only <strong>Russian</strong> and <strong>English</strong> languages. We recommend that you select your language, then the application will automatically switch to your language as possible.{% endtrans %}</p>
+<form action="{{ path('install') }}" method="post" {{ form_enctype(form) }}>
+	{{ form_widget(form) }}
+	<button type="submit">{% trans %}Save{% endtrans %}</button>
+</form>
+{% endblock %}

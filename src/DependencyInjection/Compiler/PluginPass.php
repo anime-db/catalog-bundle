@@ -47,11 +47,14 @@ class PluginPass implements CompilerPassInterface
      */
     private function compilerChain(ContainerBuilder $container, $chain_name, $tag)
     {
-        if ($definition = $container->getDefinition($chain_name)) {
-            $taggedServices = $container->findTaggedServiceIds($tag);
-            foreach ($taggedServices as $id => $attributes) {
-                $definition->addMethodCall('addPlugin', [new Reference($id)]);
-            }
+        if (!$container->has($chain_name)) {
+            return;
+        }
+
+        $definition = $container->findDefinition($chain_name);
+        $taggedServices = $container->findTaggedServiceIds($tag);
+        foreach ($taggedServices as $id => $attributes) {
+            $definition->addMethodCall('addPlugin', [new Reference($id)]);
         }
     }
 }

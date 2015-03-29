@@ -30,10 +30,16 @@ class AnimeDbCatalogBundleTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $container
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('addCompilerPass')
             ->willReturnCallback(function ($pass) use ($that) {
                 $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass', $pass);
+            });
+        $container
+            ->expects($this->at(1))
+            ->method('addCompilerPass')
+            ->willReturnCallback(function ($pass) use ($that) {
+                $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\InstallItemPass', $pass);
             });
         $bundle = new AnimeDbCatalogBundle();
         $bundle->build($container);

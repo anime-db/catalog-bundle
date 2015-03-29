@@ -1,0 +1,28 @@
+{% extends 'AnimeDbCatalogBundle::layout.html.twig' %}
+
+{% block title %}{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}{% endblock %}
+
+{% set step = 3 %}
+
+{% block content %}
+<div class="b-storage-scan">
+	<h2>{% trans with {'%name%': storage.name} %}Scanning a storage: %name%{% endtrans %}</h2>
+	<div class="b-progress">
+		<div
+			class="b-progress-bar"
+			data-from="{{ path('storage_scan_progress', {'id': storage.id}) }}"
+			data-message="{% trans %}Scanning is complete{% endtrans %}"
+			data-redirect="{{ path('install_end_skip', {'from': 'scan_storage'}) }}"
+		>
+			<div class="b-progress-label">{% trans %}Loading...{% endtrans %}</div>
+		</div>
+		<div class="b-message">
+			{% trans %}Performed scanning a storage.{% endtrans %}
+			<a href="#" class="bt-toggle-block" data-target=".b-progress-log">{% trans %}Show execution log.{% endtrans %}</a>
+		</div>
+		<pre class="b-progress-log"><code
+			data-from="{{ path('storage_scan_output', {'id': storage.id}) }}"
+		></code></pre>
+	</div>
+</div>
+{% endblock %}

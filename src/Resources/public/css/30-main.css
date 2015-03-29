@@ -11,6 +11,10 @@ html, body {
 	padding: 0;
 	height: 100%;
 }
+body.progress,
+body.progress * {
+	cursor: progress !important;
+}
 
 a:link,
 a:visited {
@@ -111,6 +115,18 @@ button:hover {
 	color: #b00;
 	text-decoration: none;
 }
+input[type~=submit][disabled],
+button[type~=submit][disabled] {
+	cursor: progress;
+	background-image: url(/bundles/animedbcatalog/images/loader-hinclude.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	overflow: hidden;
+	text-indent: 4em;
+	white-space: nowrap;
+	width: 4em;
+}
+
 .f-row {
 	margin-bottom: 5px;
 	clear: both;

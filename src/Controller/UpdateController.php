@@ -29,25 +29,11 @@ class UpdateController extends Controller
     const END_MESSAGE = 'Updating the application has been completed';
 
     /**
-     * Link to documentation by update the application on Windows XP
+     * Link to guide by update the application on Windows XP
      * 
      * @var string
      */
-    const DOC_LINK = 'http://anime-db.org/%locale%/guide/general/update.html#update-win-xp';
-
-    /**
-     * Default documentation locale
-     * 
-     * @var string
-     */
-    const DEFAULT_DOC_LOCALE = 'en';
-
-    /**
-     * Supported documentation locale
-     *
-     * @var array
-     */
-    protected $support_locales = ['en', 'ru'];
+    const GUIDE_LINK = '/guide/general/update.html#update-win-xp';
 
     /**
      * Update page
@@ -85,7 +71,7 @@ class UpdateController extends Controller
 
         return $this->render('AnimeDbCatalogBundle:Update:index.html.twig', [
             'can_update' => $can_update,
-            'doc' => !$can_update ? $this->getDocLink($request->getLocale()) : '',
+            'doc' => !$can_update ? $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK) : '',
             'referer' => $request->headers->get('referer'),
             'plugin' => $action ? $plugin : [],
             'action' => $action
@@ -112,20 +98,6 @@ class UpdateController extends Controller
     }
 
     /**
-     * Return documentation link
-     *
-     * @param string $locale
-     *
-     * @return string
-     */
-    protected function getDocLink($locale)
-    {
-        $locale = substr($locale, 0, 2);
-        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
-        return str_replace('%locale%', $locale, self::DOC_LINK);
-    }
-
-    /**
      * Get plugin
      *
      * @param string $plugin
@@ -135,7 +107,8 @@ class UpdateController extends Controller
     protected function getPlugin($plugin)
     {
         try {
-            return $this->container->get('anime_db.api.client')->getPlugin($plugin);
+            list($vendor, $package) = explode('/', $plugin);
+            return $this->get('anime_db.api.client')->getPlugin($vendor, $package);
         } catch (\RuntimeException $e) {
             return null;
         }

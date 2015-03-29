@@ -194,7 +194,6 @@ class ScanStorage
      */
     protected function tryAddItem(Search $search, DetectedNewFiles $event)
     {
-
         $item = $search->getCatalogItem($event->getName());
 
         if ($item instanceof Item) {

@@ -23,7 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
  */
 class AddNewItem extends Event
 {
-
     /**
      * Fillers
      *

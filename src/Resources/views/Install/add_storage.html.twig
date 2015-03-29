@@ -1,0 +1,31 @@
+{% extends 'AnimeDbCatalogBundle:Install:layout.html.twig' %}
+
+{% block title %}{% trans %}Add storage{% endtrans %}{% endblock %}
+
+{% set step = 2 %}
+
+{% block content %}
+<div class="b-addition-form">
+<h2>{% trans %}Add storage{% endtrans %}</h2>
+	<form action="{{ path('install_add_storage') }}" method="post" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+		<a href="{{ path('install_end_skip', {'from': 'skip_add_storage'}) }}" class="button">{% trans %}Skip{% endtrans %}</a>
+		{% if is_new %}
+			<button type="submit">{% trans %}Add{% endtrans %}</button>
+		{% else %}
+			<button type="submit">{% trans %}Change{% endtrans %}</button>
+		{% endif %}
+	</form>
+	<br />
+	{% trans %}Example data storage structures:{% endtrans %}<br />
+	<blockquote>
+		<strong>C:\Downloads\Sailor Moon (1992) [TV]\</strong><br />
+	</blockquote>
+	{% trans %}wherein{% endtrans %},<br />
+	<blockquote>
+		<strong>C:\Downloads\</strong> - {% trans %}the path to the anime, contains several folders{% endtrans %};<br />
+		<strong>Sailor Moon (1992) [TV]</strong> - {% trans %}folder where the files are stored anime (video, subtitles, covers, soundtracks, etc.){% endtrans %}.<br />
+	</blockquote>
+	<p>{% trans with {'%guide%': guide} %}For correct operation of the program stored in a folder only the files associated with anime. If located in a folder other files or programs may result in malfunction of the application. For more information, <a href="%guide%">read the guide</a>.{% endtrans %}</p>
+</div>
+{% endblock %}

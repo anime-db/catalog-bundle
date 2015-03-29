@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Spirited Away</source>
+                <target>Le voyage de Chihiro</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Beck</source>
+                <target>Beck - Mongolian Chop Squad</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>GTO</source>
+                <target>GTO - Great Teacher Onizuka</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Hellsing</source>
+                <target>Hellsing Ultimate</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuioku Hen</source>
+                <target>Kenshin le vagabond - Le chapitre de la mémoire</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Tengen Toppa Gurren Lagann</source>
+                <target>Gurren Lagann</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Tonari no Totoro</source>
+                <target>Mon voisin Totoro</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
