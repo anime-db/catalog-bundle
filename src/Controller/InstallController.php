@@ -67,6 +67,8 @@ class InstallController extends Controller
             // update params
             $this->get('anime_db.manipulator.parameters')
                 ->set('locale', $form->getData()['locale']);
+            $this->get('anime_db.manipulator.parameters')
+                ->set('anime_db.catalog.default_search', $form->getData()['default_search']);
             // clear cache
             $this->get('anime_db.cache_clearer')->clear();
             // redirect to step 2
