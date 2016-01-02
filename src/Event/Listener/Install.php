@@ -158,8 +158,8 @@ class Install
         $this->cache_clearer->clear();
 
         // prepare labels
-        foreach ($this->labels as $label) {
-            $this->labels[] = $this->translator->trans($label);
+        foreach ($this->labels as $key => $label) {
+            $this->labels[$key] = $this->translator->trans($label);
         }
 
         // remove exists labels
