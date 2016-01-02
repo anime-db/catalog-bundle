@@ -28,7 +28,7 @@ class ViewSorter
      */
     public function choice(FormView $choice)
     {
-        // need use intl Collator::compare
+        // TODO need use intl Collator::compare
         if ($choice->vars['compound']) {
             usort($choice->children, function (FormView $a, FormView $b) {
                 $a = $a->vars['label']?:$a->vars['value'];
