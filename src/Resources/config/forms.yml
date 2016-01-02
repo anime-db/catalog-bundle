@@ -4,47 +4,54 @@ services:
         tags:
             - { name: form.type, alias: anime_db_catalog_entity_item }
         calls:
-            - [ setRefillerChain, [ @anime_db.plugin.refiller ] ]
-            - [ setTemplating, [ @templating ] ]
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
-            - [ setRouter, [ @router ] ]
+            - [ setRefillerChain, [ '@anime_db.plugin.refiller' ] ]
+            - [ setTemplating, [ '@templating' ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+            - [ setRouter, [ '@router' ] ]
+
     anime_db.form.type.search:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Search
         tags:
             - { name: form.type, alias: anime_db_catalog_search_items }
         calls:
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
-            - [ setRouter, [ @router ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+            - [ setRouter, [ '@router' ] ]
+
     anime_db.form.type.refill.country:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Country
         calls:
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+
     anime_db.form.type.refill.studio:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Studio
         calls:
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+
     anime_db.form.type.refill.gengres:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Gengres
         calls:
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+
     anime_db.form.type.labels:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\Labels
         tags:
             - { name: form.type, alias: anime_db_catalog_labels }
         calls:
-            - [ setViewSorter, [ @anime_db.form.view_sorter ] ]
+            - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
+
     anime_db.form.notice.filter:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Filter
-        arguments: [ @doctrine.orm.entity_manager ]
+        arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
             - { name: form.type, alias: anime_db_catalog_notices_filter }
+
     anime_db.form.view_sorter:
         class: AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
-        arguments: [ %locale% ]
+
     anime_db.form.type.install.settings:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Install\Settings
-        arguments: [ @anime_db.plugin.search_fill ]
+        arguments: [ '@anime_db.plugin.search_fill' ]
         tags:
             - { name: form.type, alias: anime_db_catalog_install_settings }
         calls:
-            - [setRequest, ['@?request=']]
+            - [ setRequest, [ '@?request=' ] ]

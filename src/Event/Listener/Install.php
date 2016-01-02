@@ -101,6 +101,19 @@ class Install
     protected $installed = false;
 
     /**
+     * Labels
+     *
+     * @var array
+     */
+    protected $labels = [
+        'Scheduled',
+        'Watching',
+        'Views',
+        'Postponed',
+        'Dropped'
+    ];
+
+    /**
      * Construct
      *
      * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
@@ -144,12 +157,28 @@ class Install
         $this->manipulator->set('anime_db.catalog.installed', true);
         $this->cache_clearer->clear();
 
-        // install labels
-        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
+        // prepare labels
+        foreach ($this->labels as $key => $label) {
+            $this->labels[$key] = $this->translator->trans($label);
+        }
+
+        // remove exists labels
+        /* @var $labels Label[] */
+        $labels = $this->em->getRepository('AnimeDbCatalogBundle:Label')
+            ->findBy(['name' => $this->labels]);
+        foreach ($labels as $label) {
+            $i = array_search($label->getName(), $this->labels);
+            if ($i !== false) {
+                unset($this->labels[$i]);
+            }
+        }
+        unset($labels);
+
+        // install new labels
+        foreach ($this->labels as $label) {
+            $this->em->persist((new Label())->setName($label));
+        }
+
         $this->em->flush();
     }
 
@@ -194,10 +223,12 @@ class Install
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return boolean
      */
     protected function persist(Item $item, Storage $storage, Label $label)
     {
-        if (!$this->fs->exists($this->getTargetCover($item))) {
+        if ($this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
                 ->getItem()
@@ -212,7 +243,7 @@ class Install
     /**
      * Get origin cover
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      *
      * @return string
      */
@@ -227,7 +258,7 @@ class Install
     /**
      * Get target cover
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      *
      * @return string
      */

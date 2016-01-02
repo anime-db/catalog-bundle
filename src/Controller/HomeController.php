@@ -76,12 +76,14 @@ class HomeController extends Controller
         // show not all items
         if ($limit = $controls->getLimit($request->query->all())) {
             $that = $this;
+            $query = $request->query->all();
+            unset($query['page']);
             $pagination = $this->get('anime_db.pagination')
                 ->create(ceil($repository->count()/$limit), $current_page)
-                ->setPageLink(function ($page) use ($that) {
-                    return $that->generateUrl('home', ['page' => $page]);
+                ->setPageLink(function ($page) use ($that, $query) {
+                    return $that->generateUrl('home', array_merge($query, ['page' => $page]));
                 })
-                ->setFerstPageLink($this->generateUrl('home'))
+                ->setFerstPageLink($this->generateUrl('home', $query))
                 ->getView();
         }
 

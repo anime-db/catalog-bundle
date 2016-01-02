@@ -31,14 +31,14 @@ class InstallController extends Controller
     /**
      * Link to guide, how scan the storage
      *
-     * @var strong
+     * @var string
      */
     const GUIDE_LINK_SCAN = '/guide/storage/scan.html';
 
     /**
      * Link to guide, how to start work
      *
-     * @var strong
+     * @var string
      */
     const GUIDE_LINK_START = '/guide/start.html';
 
