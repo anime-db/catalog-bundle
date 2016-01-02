@@ -101,6 +101,19 @@ class Install
     protected $installed = false;
 
     /**
+     * Labels
+     *
+     * @var array
+     */
+    protected $labels = [
+        'Scheduled',
+        'Watching',
+        'Views',
+        'Postponed',
+        'Dropped'
+    ];
+
+    /**
      * Construct
      *
      * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
@@ -144,12 +157,27 @@ class Install
         $this->manipulator->set('anime_db.catalog.installed', true);
         $this->cache_clearer->clear();
 
-        // install labels
-        $this->em->persist((new Label())->setName($this->translator->trans('Scheduled')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Watching')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Views')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Postponed')));
-        $this->em->persist((new Label())->setName($this->translator->trans('Dropped')));
+        // prepare labels
+        foreach ($this->labels as $label) {
+            $this->labels[] = $this->translator->trans($label);
+        }
+
+        // remove exists labels
+        /* @var $labels Label[] */
+        $labels = $this->em->getRepository('AnimeDbCatalogBundle:Label')
+            ->findBy(['name' => $this->labels]);
+        foreach ($labels as $label) {
+            if ($i = array_search($label->getName(), $this->labels)) {
+                unset($this->labels[$i]);
+            }
+        }
+        unset($labels);
+
+        // install new labels
+        foreach ($this->labels as $label) {
+            $this->em->persist((new Label())->setName($label));
+        }
+
         $this->em->flush();
     }
 

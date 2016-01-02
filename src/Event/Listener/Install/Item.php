@@ -79,7 +79,7 @@ abstract class Item
      *
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Install\Item
+     * @return \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item
      */
     public function setStorage(Storage $storage)
     {
