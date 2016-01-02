@@ -194,6 +194,8 @@ class Install
      * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
      * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
+     *
+     * @return boolean
      */
     protected function persist(Item $item, Storage $storage, Label $label)
     {
@@ -212,7 +214,7 @@ class Install
     /**
      * Get origin cover
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      *
      * @return string
      */
