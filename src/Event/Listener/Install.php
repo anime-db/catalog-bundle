@@ -228,7 +228,7 @@ class Install
      */
     protected function persist(Item $item, Storage $storage, Label $label)
     {
-        if (!$this->fs->exists($this->getTargetCover($item))) {
+        if ($this->fs->exists($this->getTargetCover($item))) {
             $this->em->persist($item
                 ->setStorage($storage)
                 ->getItem()
