@@ -40,7 +40,6 @@ services:
             - { name: form.type, alias: anime_db_catalog_notices_filter }
     anime_db.form.view_sorter:
         class: AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
-        arguments: [ %locale% ]
     anime_db.form.type.install.settings:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Install\Settings
         arguments: [ @anime_db.plugin.search_fill ]

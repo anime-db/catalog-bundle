@@ -22,37 +22,24 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 class ViewSorter
 {
     /**
-     * Collator
-     *
-     * @var \Collator
-     */
-    protected $collator;
-
-    /**
-     * Construct
-     *
-     * @param string $locale
-     */
-    public function __construct($locale)
-    {
-        $this->collator = new \Collator($locale);
-    }
-
-    /**
      * Sort choice
      *
      * @param \Symfony\Component\Form\FormView $choice
      */
     public function choice(FormView $choice)
     {
-        $collator = $this->collator;
+        // need use intl Collator::compare
         if ($choice->vars['compound']) {
-            usort($choice->children, function (FormView $a, FormView $b) use ($collator) {
-                return $collator->compare($a->vars['label']?:$a->vars['value'], $b->vars['label']?:$b->vars['value']);
+            usort($choice->children, function (FormView $a, FormView $b) {
+                $a = $a->vars['label']?:$a->vars['value'];
+                $b = $b->vars['label']?:$b->vars['value'];
+                return $a == $b ? 0 : ($a > $b ? 1 : -1);
             });
         } else {
-            usort($choice->vars['choices'], function (ChoiceView $a, ChoiceView $b) use ($collator) {
-                return $collator->compare($a->label?:$a->value, $b->label?:$b->value);
+            usort($choice->vars['choices'], function (ChoiceView $a, ChoiceView $b) {
+                $a = $a->label?:$a->value;
+                $b = $b->label?:$b->value;
+                return $a == $b ? 0 : ($a > $b ? 1 : -1);
             });
         }
     }
