@@ -78,10 +78,10 @@ class HomeController extends Controller
             $that = $this;
             $pagination = $this->get('anime_db.pagination')
                 ->create(ceil($repository->count()/$limit), $current_page)
-                ->setPageLink(function ($page) use ($that) {
-                    return $that->generateUrl('home', ['page' => $page]);
+                ->setPageLink(function ($page) use ($that, $limit) {
+                    return $that->generateUrl('home', ['page' => $page, 'limit' => $limit]);
                 })
-                ->setFerstPageLink($this->generateUrl('home'))
+                ->setFerstPageLink($this->generateUrl('home', ['limit' => $limit]))
                 ->getView();
         }
 
