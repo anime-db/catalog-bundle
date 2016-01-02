@@ -167,7 +167,8 @@ class Install
         $labels = $this->em->getRepository('AnimeDbCatalogBundle:Label')
             ->findBy(['name' => $this->labels]);
         foreach ($labels as $label) {
-            if ($i = array_search($label->getName(), $this->labels)) {
+            $i = array_search($label->getName(), $this->labels);
+            if ($i !== false) {
                 unset($this->labels[$i]);
             }
         }
@@ -257,7 +258,7 @@ class Install
     /**
      * Get target cover
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Install\Item $item
+     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
      *
      * @return string
      */
