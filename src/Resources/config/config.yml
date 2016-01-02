@@ -13,8 +13,8 @@ avalanche_imagine:
 
 twig:
     globals:
-        ga_account: "UA-42991303-2"
-        admin_email: "support@anime-db.org"
+        ga_account: 'UA-42991303-2'
+        admin_email: 'support@anime-db.org'
 
 assetic:
     bundles: [ AnimeDbCatalogBundle ]

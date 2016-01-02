@@ -1,6 +1,6 @@
 parameters:
     anime_db.catalog.default_search: null
-    anime_db.catalog.item.search_driver: anime_db.item.search.driver.sql_like
-    anime_db.catalog.storage.scan_output: %kernel.logs_dir%/scan_storage/%s-output.log
-    anime_db.catalog.storage.scan_progress: %kernel.logs_dir%/scan_storage/%s-progress.log
+    anime_db.catalog.item.search_driver: 'anime_db.item.search.driver.sql_like'
+    anime_db.catalog.storage.scan_output: '%kernel.logs_dir%/scan_storage/%s-output.log'
+    anime_db.catalog.storage.scan_progress: '%kernel.logs_dir%/scan_storage/%s-progress.log'
     anime_db.catalog.installed: false

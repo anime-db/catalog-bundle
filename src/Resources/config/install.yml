@@ -1,76 +1,88 @@
 services:
     anime_db.install.item.chain:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+
     anime_db.install.item.fullmetal_alchemist:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\FullmetalAlchemist
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item }
+
     anime_db.install.item.one_piece:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\OnePiece
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item }
+
     anime_db.install.item.spirited_away:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SpiritedAway
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item }
+
     # Only for debug mode
     anime_db.install.item.bakuman:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Bakuman
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.beck:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Beck
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.gintama:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Gintama
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.gto:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Gto
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.hellsing:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Hellsing
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.samurai_champloo:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SamuraiChamploo
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.samurai_x_trust_betrayal:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\SamuraiXTrustBetrayal
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.tengen_toppa_gurren_lagann:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\TengenToppaGurrenLagann
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }
+
     anime_db.install.item.tonari_no_totoro:
         class: AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\TonariNoTotoro
-        arguments: [ @doctrine.orm.entity_manager, @translator ]
+        arguments: [ '@doctrine.orm.entity_manager', '@translator' ]
         public: false
         tags:
             - { name: anime_db.install_item, debug: true }

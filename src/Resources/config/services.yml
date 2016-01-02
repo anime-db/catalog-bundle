@@ -7,24 +7,24 @@ services:
 
     anime_db.item.search.driver.sql_like:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
-        arguments: [ @doctrine, @anime_db.item.search.selector ]
+        arguments: [ '@doctrine', '@anime_db.item.search.selector' ]
         public: false
     anime_db.item.search.selector:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
-        arguments: [ @doctrine ]
+        arguments: [ '@doctrine' ]
         public: false
     anime_db.item.search:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
-        arguments: [ @anime_db.item.search.driver ]
+        arguments: [ '@anime_db.item.search.driver' ]
 
     anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
-        arguments: [ @anime_db.item.search ]
+        arguments: [ '@anime_db.item.search' ]
 
     anime_db.storage_scanner:
         class: AnimeDb\Bundle\CatalogBundle\Service\StorageScanner
         arguments:
-            - @anime_db.command
-            - @filesystem
-            - %anime_db.catalog.storage.scan_output%
-            - %anime_db.catalog.storage.scan_progress%
+            - '@anime_db.command'
+            - '@filesystem'
+            - '%anime_db.catalog.storage.scan_output%'
+            - '%anime_db.catalog.storage.scan_progress%'
