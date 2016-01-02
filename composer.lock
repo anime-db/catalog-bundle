@@ -223,19 +223,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/app-bundle.git",
-                "reference": "affa2a814a9169a574af7fc1385b184358a53511"
+                "reference": "97e0ea6aabe8367bab8b3531af282356a86c27ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/affa2a814a9169a574af7fc1385b184358a53511",
-                "reference": "affa2a814a9169a574af7fc1385b184358a53511",
+                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/97e0ea6aabe8367bab8b3531af282356a86c27ca",
+                "reference": "97e0ea6aabe8367bab8b3531af282356a86c27ca",
                 "shasum": ""
             },
             "require": {
                 "anime-db/anime-db": ">=0.3.15",
                 "anime-db/api-client-bundle": "0.1.*",
                 "anime-db/cache-time-keeper-bundle": "1.0.*",
-                "patchwork/utf8": "1.2.*",
+                "patchwork/utf8": "1.3.*",
                 "php": ">=5.4.0"
             },
             "suggest": {
@@ -273,7 +273,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2016-01-02 20:29:58"
+            "time": "2016-01-02 21:18:04"
         },
         {
             "name": "anime-db/cache-time-keeper-bundle",
@@ -2278,12 +2278,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/tchwork/utf8.git",
-                "reference": "985a62a053f95da18917c6945fe1316e907e016d"
+                "reference": "3bd61bc162ed5c5f4a11e40a0106acc255b451d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tchwork/utf8/zipball/985a62a053f95da18917c6945fe1316e907e016d",
-                "reference": "985a62a053f95da18917c6945fe1316e907e016d",
+                "url": "https://api.github.com/repos/tchwork/utf8/zipball/3bd61bc162ed5c5f4a11e40a0106acc255b451d9",
+                "reference": "3bd61bc162ed5c5f4a11e40a0106acc255b451d9",
                 "shasum": ""
             },
             "require": {
@@ -2299,14 +2299,16 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "1.3-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Patchwork": "class/",
-                    "Normalizer": "class/"
-                }
+                "psr-4": {
+                    "Patchwork\\": "src/Patchwork/"
+                },
+                "classmap": [
+                    "src/Normalizer.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2327,7 +2329,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2015-03-19 14:18:56"
+            "time": "2015-12-15 15:34:15"
         },
         {
             "name": "psr/log",
