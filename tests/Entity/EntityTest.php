@@ -77,6 +77,20 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Get entity mock
+     *
+     * @param string $entity
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getEntityMock($entity)
+    {
+        return $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Entity\\'.$entity)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
      * Call entity method
      *
      * @param string $entity
@@ -300,72 +314,11 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     public function getMethodsOneToMany()
     {
         return [
-            [
-                'country',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
-                'getItems',
-                'addItem',
-                'removeItem',
-                'setCountry'
-            ],
-            [
-                'country',
-                $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation')
-                    ->disableOriginalConstructor()
-                    ->getMock(),
-                'getTranslations',
-                'addTranslation',
-                'removeTranslation',
-                'setObject'
-            ],
-            [
-                'item',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Name'),
-                'getNames',
-                'addName',
-                'removeName',
-                'setItem'
-            ],
-            [
-                'item',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Source'),
-                'getSources',
-                'addSource',
-                'removeSource',
-                'setItem'
-            ],
-            [
-                'item',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Image'),
-                'getImages',
-                'addImage',
-                'removeImage',
-                'setItem'
-            ],
-            [
-                'storage',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
-                'getItems',
-                'addItem',
-                'removeItem',
-                'setStorage'
-            ],
-            [
-                'studio',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
-                'getItems',
-                'addItem',
-                'removeItem',
-                'setStudio'
-            ],
-            [
-                'type',
-                $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'),
-                'getItems',
-                'addItem',
-                'removeItem',
-                'setType'
-            ]
+            ['country', 'Item', 'getItems', 'addItem', 'removeItem', 'setCountry'],
+            ['country', 'CountryTranslation', 'getTranslations', 'addTranslation', 'removeTranslation', 'setObject'],
+            ['storage', 'Item', 'getItems', 'addItem', 'removeItem', 'setStorage'],
+            ['studio', 'Item', 'getItems', 'addItem', 'removeItem', 'setStudio'],
+            ['type', 'Item', 'getItems', 'addItem', 'removeItem', 'setType']
         ];
     }
 
@@ -375,31 +328,26 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMethodsOneToMany
      *
      * @param string $entity
-     * @param \PHPUnit_Framework_MockObject_MockObject $related
+     * @param string $related
      * @param string $get
      * @param string $add
      * @param string $remove
      * @param string $set
      */
-    public function testOneToMany(
-        $entity,
-        \PHPUnit_Framework_MockObject_MockObject $related,
-        $get,
-        $add,
-        $remove,
-        $set
-    ) {
+    public function testOneToMany($entity, $related, $get, $add, $remove, $set)
+    {
+        $related = $this->getEntityMock($related);
         $related
             ->expects($this->at(0))
             ->method($set)
-            ->willReturnSelf()
+            ->will($this->returnSelf())
             ->with($this->get($entity));
         $related
-            ->expects($this->at(2))
+            ->expects($this->at(1))
             ->method($set)
-            ->willReturnSelf()
+            ->will($this->returnSelf())
             ->with(null);
-        $this->assertEmpty($this->call($entity, $get));
+        $this->assertEmpty($this->call($entity, $get)->toArray());
 
         // add
         $this->assertEquals($this->get($entity), $this->call($entity, $add, $related));
@@ -411,7 +359,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
 
         // remove
         $this->assertEquals($this->get($entity), $this->call($entity, $remove, $related));
-        $this->assertEmpty($this->call($entity, $get));
+        $this->assertEmpty($this->call($entity, $get)->toArray());
     }
 
     /**
