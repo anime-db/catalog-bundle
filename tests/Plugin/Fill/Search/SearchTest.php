@@ -186,7 +186,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('search')
-            ->willThrowException(new \Exception())
+            ->will(self::throwException(new \Exception()))
             ->with(['name' => 'foo']);
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
@@ -208,7 +208,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $filler
             ->expects($this->once())
             ->method('fillFromSearchResult')
-            ->willThrowException(new \Exception())
+            ->will(self::throwException(new \Exception()))
             ->with($item);
         $this->search->setFiller($filler);
         $this->search
