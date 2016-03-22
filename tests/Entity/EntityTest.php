@@ -41,10 +41,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      */
     protected $entities = [];
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->entities['general'] = new General();
@@ -434,13 +430,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $related
             ->expects($this->once())
             ->method($related_add)
-            ->willReturnSelf()
-            ->with($this->get($entity));
+            ->with($this->get($entity))
+            ->will($this->returnSelf());
         $related
             ->expects($this->once())
             ->method($related_remove)
-            ->willReturnSelf()
-            ->with($this->get($entity));
+            ->with($this->get($entity))
+            ->will($this->returnSelf());
         $this->assertEmpty($this->call($entity, $get));
 
         // add
@@ -543,17 +539,17 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method($add)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related1
             ->expects($this->once())
             ->method($remove)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related2
             ->expects($this->once())
             ->method($add)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related2
             ->expects($this->never())
             ->method($remove);

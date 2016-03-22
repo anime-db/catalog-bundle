@@ -34,10 +34,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     protected $driver;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->driver = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface');
@@ -63,8 +59,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getSearchData
      *
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $sort_column
      * @param string $sort_direction
      */
@@ -75,7 +71,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->driver
             ->expects($this->once())
             ->method('search')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with(
                 $data,
                 $limit > 0 ? (int)$limit : 0,
@@ -95,7 +91,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->driver
             ->expects($this->once())
             ->method('searchByName')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with('my_name', 123);
         $this->assertEquals($expected, $this->manager->searchByName('my_name', 123));
     }

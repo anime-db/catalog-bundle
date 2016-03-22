@@ -27,10 +27,6 @@ class TwigExtensionTest extends \PHPUnit_Framework_TestCase
      */
     protected $extension;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->extension = new TwigExtension();

@@ -29,19 +29,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
      */
     protected $root;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->root = sys_get_temp_dir().'/test/';
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
     protected function tearDown()
     {
         (new Filesystem())->remove($this->root);

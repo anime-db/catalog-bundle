@@ -32,8 +32,8 @@ class TypeTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('setType')
-            ->willReturnSelf()
-            ->with($type);
+            ->with($type)
+            ->will($this->returnSelf());
         $this->assertEquals($type, $type->setItem($item));
         $this->assertEquals($type, $type->setItem($item));
         $this->assertEquals($item, $type->getItem());

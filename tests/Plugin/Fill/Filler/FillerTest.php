@@ -27,10 +27,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
      */
     protected $filler;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->filler = $this->getMockForAbstractClass('AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
@@ -46,7 +42,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('addChild')
-            ->willReturn($child)
+            ->will($this->returnValue($child))
             ->with('foo', [
                 'route' => 'fill_filler',
                 'routeParameters' => ['plugin' => 'bar']
@@ -54,11 +50,11 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->filler
             ->expects($this->once())
             ->method('getTitle')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->filler
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('bar');
+            ->will($this->returnValue('bar'));
         $this->assertEquals($child, $this->filler->buildMenu($item));
     }
 
@@ -91,7 +87,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $router
             ->expects($this->once())
             ->method('generate')
-            ->willReturn('my_url')
+            ->will($this->returnValue('my_url'))
             ->with('fill_filler', [
                 'plugin' => 'foo',
                 FillerForm::FORM_NAME => ['url' => ['my_data']]
@@ -99,7 +95,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->filler
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->filler->setRouter($router);
         $this->assertEquals('my_url', $this->filler->getLinkForFill(['my_data']));
     }
@@ -134,7 +130,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('getLink')
-            ->willReturn($link);
+            ->will($this->returnValue($link));
         $this->assertNull($this->filler->fillFromSearchResult($item));
     }
 
@@ -152,11 +148,11 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('getLink')
-            ->willReturn($link);
+            ->will($this->returnValue($link));
         $this->filler
             ->expects($this->once())
             ->method('fill')
-            ->willReturn($result)
+            ->will($this->returnValue($result))
             ->with($data);
         $this->assertEquals($result, $this->filler->fillFromSearchResult($item));
     }

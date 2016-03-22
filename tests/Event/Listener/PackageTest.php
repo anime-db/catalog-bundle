@@ -76,11 +76,11 @@ class PackageTest extends \PHPUnit_Framework_TestCase
         $package
             ->expects($this->once())
             ->method('getName')
-            ->willReturn($package_name);
+            ->will($this->returnValue($package_name));
         $event
             ->expects($this->once())
             ->method('getPackage')
-            ->willReturn($package);
+            ->will($this->returnValue($package));
 
         $fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
         $kernel = $this->getMockBuilder('\Symfony\Component\HttpKernel\Kernel')
@@ -92,7 +92,7 @@ class PackageTest extends \PHPUnit_Framework_TestCase
             $kernel
                 ->expects($this->once())
                 ->method('locateResource')
-                ->willReturn($from)
+                ->will($this->returnValue($from))
                 ->with('@AnimeDbCatalogBundle/Resources/views/');
             $fs
                 ->expects($this->at(0))

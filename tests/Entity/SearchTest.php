@@ -27,10 +27,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     protected $search;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->search = new Search();

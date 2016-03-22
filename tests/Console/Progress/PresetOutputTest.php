@@ -41,10 +41,6 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
      */
     protected $preset_output;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->progress = $this->getMock('\Symfony\Component\Console\Helper\ProgressHelper');
@@ -78,7 +74,7 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
         $this->progress
             ->expects($this->once())
             ->method($method)
-            ->willReturn($data);
+            ->will($this->returnValue($data));
         $this->assertEquals($data, call_user_func([$this->preset_output, $method]));
     }
 

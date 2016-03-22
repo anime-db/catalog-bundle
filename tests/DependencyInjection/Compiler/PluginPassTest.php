@@ -49,10 +49,6 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         'anime_db.plugin.setting' => 'anime_db.setting'
     ];
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->container = $this->getMock('\Symfony\Component\DependencyInjection\ContainerBuilder');
@@ -70,7 +66,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at($i))
                 ->method('has')
                 ->with($chain_name)
-                ->willReturn(false);
+                ->will($this->returnValue(false));
         }
 
         $this->compiler->process($this->container);
@@ -92,26 +88,26 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                 ->expects($this->at($i*3))
                 ->method('has')
                 ->with($chain_name)
-                ->willReturn(true);
+                ->will($this->returnValue(true));
             $this->container
                 ->expects($this->at(($i*3)+1))
                 ->method('findDefinition')
                 ->with($chain_name)
-                ->willReturn($definition);
+                ->will($this->returnValue($definition));
             $this->container
                 ->expects($this->at(($i*3)+2))
                 ->method('findTaggedServiceIds')
-                ->willReturn($services)
+                ->will($this->returnValue($services))
                 ->with($this->chains[$chain_name]);
             foreach (array_keys($services) as $j => $id) {
                 $definition
                     ->expects($this->at($j))
                     ->method('addMethodCall')
-                    ->willReturnCallback(function ($method, $reference) use ($that, $id) {
+                    ->will($this->returnCallback(function ($method, $reference) use ($that, $id) {
                         $that->assertInternalType('array', $reference);
                         $that->assertInstanceOf('\Symfony\Component\DependencyInjection\Reference', $reference[0]);
                         $that->assertEquals($id, $reference[0]->__toString());
-                    })
+                    }))
                     ->with('addPlugin');
             }
         }

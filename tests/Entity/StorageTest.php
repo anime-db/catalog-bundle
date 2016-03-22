@@ -27,10 +27,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
      */
     protected $storage;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->storage = new Storage();
@@ -177,7 +173,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getRequiredPaths
      *
      * @param string $type
-     * @param boolean $required
+     * @param bool $required
      * @param string $path
      */
     public function testIsPathValid($type, $path)

@@ -49,10 +49,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
      */
     protected $storage;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->root = sys_get_temp_dir().'/test/';
@@ -61,10 +57,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->real_fs = new Filesystem();
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
     protected function tearDown()
     {
         $this->real_fs->remove($this->root);
@@ -108,11 +100,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->once())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo');
         $this->fs
             ->expects($this->never())
@@ -129,16 +121,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo');
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -155,20 +147,20 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo');
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->once())
@@ -186,11 +178,11 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -207,15 +199,15 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn($this->root);
+            ->will($this->returnValue($this->root));
         $storage
             ->expects($this->once())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($this->root.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -235,15 +227,15 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn($this->root);
+            ->will($this->returnValue($this->root));
         $storage
             ->expects($this->once())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($this->root.Storage::ID_FILE);
         $this->fs
             ->expects($this->once())
@@ -260,7 +252,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
      *
      * @param object $storage
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     protected function getArgs($storage)
     {
@@ -270,7 +262,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $args
             ->expects($this->atLeastOnce())
             ->method('getEntity')
-            ->willReturn($storage);
+            ->will($this->returnValue($storage));
         return $args;
     }
 
@@ -283,25 +275,25 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn(['foo', 'bar']);
+            ->will($this->returnValue(['foo', 'bar']));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('bar'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(2))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('baz');
         $this->fs
             ->expects($this->never())
@@ -322,19 +314,19 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn([dirname($file1).'/', dirname($file2).'/']);
+            ->will($this->returnValue([dirname($file1).'/', dirname($file2).'/']));
         $this->fs
             ->expects($this->atLeastOnce())
             ->method('exists')
-            ->willReturn(true);
+            ->will($this->returnValue(true));
         $this->fs
             ->expects($this->never())
             ->method('remove');
@@ -357,34 +349,34 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn([dirname($file1).'/', dirname($file2).'/']);
+            ->will($this->returnValue([dirname($file1).'/', dirname($file2).'/']));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($file1);
         $this->fs
             ->expects($this->at(2))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($file2);
         $this->fs
             ->expects($this->at(4))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('baz');
         $this->fs
             ->expects($this->at(5))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('baz'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(1))

@@ -29,10 +29,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     protected $search;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->search = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search');
@@ -48,7 +44,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('addChild')
-            ->willReturn($child)
+            ->will($this->returnValue($child))
             ->with('foo', [
                 'route' => 'fill_search',
                 'routeParameters' => ['plugin' => 'bar']
@@ -56,11 +52,11 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('getTitle')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->search
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('bar');
+            ->will($this->returnValue('bar'));
         $this->assertEquals($child, $this->search->buildMenu($item));
     }
 
@@ -96,7 +92,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $filler
             ->expects($this->once())
             ->method('getLinkForFill')
-            ->willReturn('my_url')
+            ->will($this->returnValue('my_url'))
             ->with(['my_data']);
         $this->search->setFiller($filler);
         $this->assertEquals('my_url', $this->search->getLinkForFill(['my_data']));
@@ -113,7 +109,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $router
             ->expects($this->once())
             ->method('generate')
-            ->willReturn('my_url')
+            ->will($this->returnValue('my_url'))
             ->with(
                 'fill_filler',
                 [
@@ -125,7 +121,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->assertEquals('my_url', $this->search->getLinkForFill(['my_data']));
     }
 
@@ -140,7 +136,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $router
             ->expects($this->once())
             ->method('generate')
-            ->willReturn('my_url')
+            ->will($this->returnValue('my_url'))
             ->with(
                 'fill_search',
                 [
@@ -152,7 +148,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->assertEquals('my_url', $this->search->getLinkForSearch('bar'));
     }
 
@@ -201,7 +197,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('search')
-            ->willReturn([$item])
+            ->will($this->returnValue([$item]))
             ->with(['name' => 'foo']);
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
@@ -245,7 +241,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search
             ->expects($this->once())
             ->method('search')
-            ->willReturn($results)
+            ->will($this->returnValue($results))
             ->with(['name' => 'foo']);
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
@@ -265,13 +261,13 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $filler
             ->expects($this->once())
             ->method('fillFromSearchResult')
-            ->willReturn($item)
+            ->will($this->returnValue($item))
             ->with($search_item);
         $this->search->setFiller($filler);
         $this->search
             ->expects($this->once())
             ->method('search')
-            ->willReturn([$search_item])
+            ->will($this->returnValue([$search_item]))
             ->with(['name' => 'foo']);
         $this->assertEquals($item, $this->search->getCatalogItem('foo'));
     }

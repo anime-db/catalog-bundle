@@ -47,7 +47,7 @@ class ChainTest extends \PHPUnit_Framework_TestCase
         $plugin
             ->expects($this->atLeastOnce())
             ->method('getName')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
 
         $chain = new Chain($dafeult_plugin);
         $chain->addPlugin($plugin);

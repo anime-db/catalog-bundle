@@ -37,7 +37,7 @@ class StorageScannerTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(5);
+            ->will($this->returnValue(5));
         $fs
             ->expects($this->once())
             ->method('mkdir')

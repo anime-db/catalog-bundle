@@ -27,10 +27,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
      */
     protected $item;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->item = new Item();
@@ -47,8 +43,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $type
             ->expects($this->once())
             ->method('setItem')
-            ->willReturnSelf()
-            ->with($this->item);
+            ->with($this->item)
+            ->will($this->returnSelf());
         $this->assertEquals($this->item, $this->item->setType($type));
         $this->assertEquals($this->item, $this->item->setType($type));
         $this->assertEquals($type, $this->item->getType());
@@ -65,8 +61,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $genre
             ->expects($this->once())
             ->method('setItem')
-            ->willReturnSelf()
-            ->with($this->item);
+            ->with($this->item)
+            ->will($this->returnSelf());
         $this->assertEquals($this->item, $this->item->addGenre($genre));
         $this->assertEquals($this->item, $this->item->addGenre($genre));
         /* @var $coll \Doctrine\Common\Collections\Collection */

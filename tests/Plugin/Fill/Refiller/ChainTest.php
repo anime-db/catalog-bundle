@@ -40,8 +40,8 @@ class ChainTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getPlugins
      *
-     * @param boolean $is_can_refill
-     * @param boolean $is_can_search
+     * @param bool $is_can_refill
+     * @param bool $is_can_search
      */
     public function testGetPluginsThatCanFillItem($is_can_refill, $is_can_search)
     {
@@ -51,26 +51,26 @@ class ChainTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('isCanRefill')
             ->with($item, 'foo')
-            ->willReturn($is_can_refill);
+            ->will($this->returnValue($is_can_refill));
         $plugin1
             ->expects($is_can_refill ? $this->never() : $this->once())
             ->method('isCanSearch')
             ->with($item, 'foo')
-            ->willReturn($is_can_search);
+            ->will($this->returnValue($is_can_search));
         $plugin1
             ->expects($this->atLeastOnce())
             ->method('getName')
-            ->willReturn('plugin1');
+            ->will($this->returnValue('plugin1'));
         $plugin2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller');
         $plugin2
             ->expects($this->once())
             ->method('isCanRefill')
             ->with($item, 'foo')
-            ->willReturn(true);
+            ->will($this->returnValue(true));
         $plugin2
             ->expects($this->atLeastOnce())
             ->method('getName')
-            ->willReturn('plugin2');
+            ->will($this->returnValue('plugin2'));
 
         $chain = new Chain();
         $chain->addPlugin($plugin1);

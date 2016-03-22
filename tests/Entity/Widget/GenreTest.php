@@ -32,8 +32,8 @@ class GenreTest extends \PHPUnit_Framework_TestCase
         $item
             ->expects($this->once())
             ->method('addGenre')
-            ->willReturnSelf()
-            ->with($genre);
+            ->with($genre)
+            ->will($this->returnSelf());
         $this->assertEquals($genre, $genre->setItem($item));
         $this->assertEquals($genre, $genre->setItem($item));
         $this->assertEquals($item, $genre->getItem());

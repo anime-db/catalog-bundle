@@ -34,10 +34,6 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
      */
     protected $controls;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     public function setUp()
     {
         $this->searcher = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager')
@@ -70,7 +66,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getLimits
      *
      * @param array $query
-     * @param integer $expected
+     * @param int $expected
      */
     public function testGetLimit(array $query, $expected)
     {
@@ -83,7 +79,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getLimits
      *
      * @param array $query
-     * @param integer $expected
+     * @param int $expected
      */
     public function testGetLimits(array $query, $expected)
     {
@@ -125,7 +121,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
         $this->searcher
             ->expects($this->once())
             ->method('getValidSortColumn')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with(isset($query['sort_by']) ? $query['sort_by'] : null);
         $this->assertEquals($expected, $this->controls->getSortColumn($query));
     }
@@ -143,7 +139,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
         $this->searcher
             ->expects($this->once())
             ->method('getValidSortColumn')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with(isset($query['sort_by']) ? $query['sort_by'] : null);
         $sort_by = [];
         foreach (ListControls::$sort_by_column as $column => $info) {
@@ -186,7 +182,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
         $this->searcher
             ->expects($this->once())
             ->method('getValidSortDirection')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with(isset($query['sort_direction']) ? $query['sort_direction'] : null);
         $this->assertEquals($expected, $this->controls->getSortDirection($query));
     }
@@ -204,7 +200,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
         $this->searcher
             ->expects($this->once())
             ->method('getValidSortDirection')
-            ->willReturn($expected)
+            ->will($this->returnValue($expected))
             ->with(isset($query['sort_direction']) ? $query['sort_direction'] : null);
         $this->assertEquals('?'.http_build_query(
             array_merge($query, ['sort_direction' => $expected == 'ASC' ? 'DESC' : 'ASC'])

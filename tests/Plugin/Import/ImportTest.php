@@ -27,10 +27,6 @@ class ImportTest extends \PHPUnit_Framework_TestCase
      */
     protected $plugin;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->plugin = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import');
@@ -55,11 +51,11 @@ class ImportTest extends \PHPUnit_Framework_TestCase
         $this->plugin
             ->expects($this->once())
             ->method('getTitle')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->plugin
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('bar');
+            ->will($this->returnValue('bar'));
 
         $this->plugin->buildMenu($item);
     }

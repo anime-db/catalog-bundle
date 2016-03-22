@@ -43,10 +43,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
      */
     protected $file;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->root = sys_get_temp_dir().'/test/';
@@ -54,13 +50,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         $this->output = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
     protected function tearDown()
     {
-        (new Filesystem())->remove($this->root);
+        $fs = new Filesystem();
+        $fs->chmod([$this->root, $this->file], 0777);
+        $fs->remove($this->root);
     }
 
     /**
@@ -258,11 +252,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMessages
      *
      * @param string $method
-     * @param boolean $append
+     * @param bool $append
      * @param string|array $messages1
      * @param string|array $messages2
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWrite($method, $append, $messages1, $messages2, $newline, $type)
     {

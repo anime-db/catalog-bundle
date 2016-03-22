@@ -35,10 +35,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      */
     protected $lazy_write;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->output = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
@@ -65,8 +61,8 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getNewlineTypes
      *
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWrite($newline, $type)
     {
@@ -97,7 +93,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getTypes
      *
-     * @param integer $type
+     * @param int $type
      */
     public function testWriteLn($type)
     {
@@ -130,8 +126,8 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMessagesNewlineTypes
      *
      * @param string|array $messages
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWriteNoWrite($messages, $newline, $type)
     {
@@ -147,8 +143,8 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMessagesNewlineTypes
      *
      * @param string|array $messages
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWriteLazy($messages, $newline, $type)
     {
@@ -184,7 +180,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMessagesTypes
      *
      * @param string|array $messages
-     * @param integer $type
+     * @param int $type
      */
     public function testWriteLnNoWrite($messages, $type)
     {
@@ -200,7 +196,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getMessagesTypes
      *
      * @param string|array $messages
-     * @param integer $type
+     * @param int $type
      */
     public function testWriteLnLazy($messages, $type)
     {

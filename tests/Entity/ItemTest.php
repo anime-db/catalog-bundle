@@ -27,10 +27,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
      */
     protected $item;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->item = new Item();
@@ -69,8 +65,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getRequiredPaths
      *
-     * @param boolean $storage
-     * @param boolean $required
+     * @param bool $storage
+     * @param bool $required
      * @param string $path
      */
     public function testIsPathValid($storage, $required, $path)
@@ -80,7 +76,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             $storage
                 ->expects($this->once())
                 ->method('isPathRequired')
-                ->willReturn($required);
+                ->will($this->returnValue($required));
             $this->item->setStorage($storage);
         }
         $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
@@ -103,19 +99,19 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $em
             ->expects($this->atLeastOnce())
             ->method('getReference')
-            ->willReturnCallback(function ($class_name, $id) {
+            ->will($this->returnCallback(function ($class_name, $id) {
                 $ref = new \stdClass();
                 $ref->class = $class_name;
                 $ref->id = $id;
                 return $ref;
-            });
+            }));
         $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine
             ->expects($this->once())
             ->method('getManager')
-            ->willReturn($em);
+            ->will($this->returnValue($em));
 
         // set related entities
         $country = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Country', 'setCountry');
@@ -148,7 +144,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $mock
             ->expects($this->once())
             ->method('getId')
-            ->willReturn($id = rand());
+            ->will($this->returnValue($id = rand()));
         call_user_func([$this->item, $set], $mock);
 
         $ref = new \stdClass();
@@ -188,7 +184,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             $storage
                 ->expects($this->atLeastOnce())
                 ->method('getPath')
-                ->willReturn($storage_path);
+                ->will($this->returnValue($storage_path));
             $this->item->setStorage($storage);
         }
         $this->item->setPath($path);
