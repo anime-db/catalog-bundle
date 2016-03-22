@@ -10,11 +10,13 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Storages
@@ -22,54 +24,54 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class StorageController extends Controller
+class StorageController extends BaseController
 {
     /**
      * Link to guide, how add a new storage
      *
-     * @var strong
+     * @var string
      */
     const GUIDE_LINK = '/guide/storage/add.html';
 
     /**
-     * Storages list
+     * Storage list
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Storage');
+        $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbCatalogBundle:Storage');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
+        /* @var $rep StorageRepository */
+        $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
         return $this->render('AnimeDbCatalogBundle:Storage:list.html.twig', [
-            'storages' => $repository->getList()
+            'storages' => $rep->getList()
         ], $response);
     }
 
     /**
-     * Change storages
+     * Change storage
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Storage $storage
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function changeAction(Storage $storage, Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
+        $response = $this->getCacheTimeKeeper()->getResponse($storage->getDateUpdate());
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm(new StorageForm(), $storage);
 
         if ($request->getMethod() == 'POST') {
@@ -89,15 +91,15 @@ class StorageController extends Controller
     }
 
     /**
-     * Add storages
+     * Add storage
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -105,7 +107,7 @@ class StorageController extends Controller
 
         $storage = new Storage();
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm(new StorageForm(), $storage);
 
         if ($request->getMethod() == 'POST') {
@@ -125,11 +127,11 @@ class StorageController extends Controller
     }
 
     /**
-     * Delete storages
+     * Delete storage
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param Storage $storage
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteAction(Storage $storage)
     {
@@ -142,21 +144,21 @@ class StorageController extends Controller
     /**
      * Get storage path
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function getPathAction(Request $request)
     {
-        /* @var $response \Symfony\Component\HttpFoundation\JsonResponse */
-        $response = $this->get('cache_time_keeper')
+        /* @var $response JsonResponse */
+        $response = $this->getCacheTimeKeeper()
             ->getResponse('AnimeDbCatalogBundle:Storage', -1, new JsonResponse());
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+        /* @var $storage Storage */
         $storage = $this->getDoctrine()->getManager()
             ->find('AnimeDbCatalogBundle:Storage', $request->get('id'));
 
@@ -169,14 +171,14 @@ class StorageController extends Controller
     /**
      * Scan storage
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Storage $storage
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function scanAction(Storage $storage, Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
+        $response = $this->getCacheTimeKeeper()->getResponse($storage->getDateUpdate());
 
         $this->get('anime_db.storage_scanner')->export($storage);
 
@@ -193,10 +195,10 @@ class StorageController extends Controller
     /**
      * Get storage scan output
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Storage $storage
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function scanOutputAction(Storage $storage, Request $request)
     {
@@ -219,9 +221,9 @@ class StorageController extends Controller
     /**
      * Get storage scan progress
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param Storage $storage
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function scanProgressAction(Storage $storage)
     {

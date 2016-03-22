@@ -10,14 +10,20 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchFrom;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\SearchFiller as SearchFillerForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain as ChainFiller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Fill
@@ -25,31 +31,33 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class FillController extends Controller
+class FillController extends BaseController
 {
     /**
      * Create new item from source fill
      *
      * @param string $plugin
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function fillerAction($plugin, Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        /* @var $response Response */
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $chain \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain */
+        /* @var $chain ChainFiller */
         $chain = $this->get('anime_db.plugin.filler');
+        /* @var $filler Filler */
         if (!($filler = $chain->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm($filler->getForm());
 
         $fill_form = null;
@@ -75,24 +83,24 @@ class FillController extends Controller
      * Search source fill for item
      *
      * @param string $plugin
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchAction($plugin, Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $search \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
+        /* @var $search Search */
         if (!($search = $this->get('anime_db.plugin.search_fill')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm($search->getForm());
 
         $list = [];
@@ -119,12 +127,13 @@ class FillController extends Controller
     /**
      * Search source fill for item
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchInAllAction(Request $request)
     {
+        /* @var $chain ChainSearch */
         $chain = $this->get('anime_db.plugin.search_fill');
         $response = $this->getResponseFromChain($chain);
 
@@ -133,7 +142,7 @@ class FillController extends Controller
             return $response;
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm(new SearchFrom());
         $form->handleRequest($request);
 
@@ -146,12 +155,13 @@ class FillController extends Controller
     /**
      * Search filler by URL for fill item
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchFillerAction(Request $request)
     {
+        /* @var $chain ChainFiller */
         $chain = $this->get('anime_db.plugin.filler');
         $response = $this->getResponseFromChain($chain);
 
@@ -161,7 +171,7 @@ class FillController extends Controller
         }
 
         $entity = new SearchFiller($chain);
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm(new SearchFillerForm(), $entity)->handleRequest($request);
         if ($form->isValid()) {
             return $this->redirect($entity->getFiller()->getLinkForFill($entity->getUrl()));
@@ -175,9 +185,9 @@ class FillController extends Controller
     /**
      * Get response from plugins chain
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Chain $chain
+     * @param Chain $chain
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     protected function getResponseFromChain(Chain $chain)
     {
@@ -186,12 +196,14 @@ class FillController extends Controller
         }
 
         $names = '';
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin */
+        /* @var $plugin Plugin */
         foreach ($chain->getPlugins() as $plugin) {
             $names .= '|'.$plugin->getName();
         }
 
-        return $this->get('cache_time_keeper')->getResponse()
+        return $this
+            ->getCacheTimeKeeper()
+            ->getResponse()
             ->setEtag(md5($names));
     }
 }

@@ -10,9 +10,10 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AnimeDb\Bundle\CatalogBundle\Repository\Label;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Label
@@ -20,29 +21,29 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class LabelController extends Controller
+class LabelController extends BaseController
 {
     /**
      * Edit labels
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request) {
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Label');
+        $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbCatalogBundle:Label');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Label */
-        $repository = $this->getDoctrine()->getManager()->getRepository('AnimeDbCatalogBundle:Label');
+        /* @var $rep Label */
+        $rep = $this->getDoctrine()->getManager()->getRepository('AnimeDbCatalogBundle:Label');
 
-        $form = $this->createForm('anime_db_catalog_labels', ['labels' => $repository->findAll()])
+        $form = $this->createForm('anime_db_catalog_labels', ['labels' => $rep->findAll()])
             ->handleRequest($request);
         if ($form->isValid()) {
-            $repository->updateListLabels(new ArrayCollection($form->getData()['labels']));
+            $rep->updateListLabels(new ArrayCollection($form->getData()['labels']));
             return $this->redirect($this->generateUrl('label'));
         }
 

@@ -10,8 +10,10 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AnimeDb\Bundle\AppBundle\Entity\Plugin;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Plugin
@@ -19,47 +21,47 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class PluginController extends Controller
+class PluginController extends BaseController
 {
     /**
      * Cache lifetime 1 day
      *
-     * @var integer
+     * @var int
      */
     const CACHE_LIFETIME = 86400;
 
     /**
      * Installed plugins
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function installedAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbAppBundle:Plugin');
+        $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbAppBundle:Plugin');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $repository \Doctrine\ORM\EntityRepository */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
+        /* @var $rep EntityRepository */
+        $rep = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
         return $this->render('AnimeDbCatalogBundle:Plugin:installed.html.twig', [
-            'plugins' => $repository->findAll()
+            'plugins' => $rep->findAll()
         ], $response);
     }
 
     /**
      * Store of plugins
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function storeAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse([], self::CACHE_LIFETIME);
+        $response = $this->getCacheTimeKeeper()->getResponse([], self::CACHE_LIFETIME);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -72,10 +74,10 @@ class PluginController extends Controller
             $plugins[$plugin['name']]['installed'] = false;
         }
 
-        /* @var $repository \Doctrine\ORM\EntityRepository */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
-        /* @var $plugin \AnimeDb\Bundle\AppBundle\Entity\Plugin */
-        foreach ($repository->findAll() as $plugin) {
+        /* @var $rep EntityRepository */
+        $rep = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
+        /* @var $plugin Plugin */
+        foreach ($rep->findAll() as $plugin) {
             $plugins[$plugin->getName()]['installed'] = true;
         }
 
