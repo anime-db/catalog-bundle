@@ -66,14 +66,14 @@ abstract class Chain
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getNames() {
         return array_keys($this->plugins);
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     public function getTitles() {
         return $this->titles;

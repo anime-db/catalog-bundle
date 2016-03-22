@@ -44,7 +44,7 @@ abstract class Item
     protected $translator;
 
     /**
-     * @var Item
+     * @var ItemEntity
      */
     private $item;
 

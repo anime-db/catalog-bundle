@@ -83,8 +83,8 @@ class SearchFiller
      */
     public function isUrlSupported(ExecutionContextInterface $context)
     {
-        /* @var $plugin FillerInterface */
         foreach ($this->chain->getPlugins() as $plugin) {
+            /* @var $plugin FillerInterface */
             if ($plugin->isSupportedUrl($this->url)) {
                 $this->filler = $plugin;
                 return;

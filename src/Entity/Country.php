@@ -34,7 +34,7 @@ class Country implements Translatable
      * @Assert\NotBlank()
      * @Assert\Country()
      *
-     * @var int
+     * @var string
      */
     protected $id = 0;
 
