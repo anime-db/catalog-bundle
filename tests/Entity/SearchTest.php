@@ -21,8 +21,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 class SearchTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Search
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Search
      */
     protected $search;
@@ -33,8 +31,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get add methods
-     *
      * @return array
      */
     public function getAddMethods()
@@ -56,8 +52,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add entity
-     *
      * @dataProvider getAddMethods
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $entity
@@ -83,8 +77,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get set methods
-     *
      * @return array
      */
     public function getSetMethods()
@@ -114,8 +106,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test set entity
-     *
      * @dataProvider getSetMethods
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $entity

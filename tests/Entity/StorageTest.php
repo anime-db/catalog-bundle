@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Test storage
@@ -21,8 +22,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Storage
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Storage
      */
     protected $storage;
@@ -32,9 +31,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage = new Storage();
     }
 
-    /**
-     * Test get types
-     */
     public function testGetTypes()
     {
         $this->assertEquals([
@@ -45,9 +41,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         ], Storage::getTypes());
     }
 
-    /**
-     * Test get type titles
-     */
     public function testGetTypeTitles()
     {
         $this->assertEquals([
@@ -58,9 +51,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         ], Storage::getTypeTitles());
     }
 
-    /**
-     * Test get types writable
-     */
     public function testGetTypesWritable()
     {
         $this->assertEquals([
@@ -69,9 +59,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         ], Storage::getTypesWritable());
     }
 
-    /**
-     * Test get types readable
-     */
     public function testGetTypesReadable()
     {
         $this->assertEquals([
@@ -82,8 +69,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get types
-     *
      * @return array
      */
     public function getTypes()
@@ -98,8 +83,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get type title
-     *
      * @dataProvider getTypes
      *
      * @param string $type
@@ -116,8 +99,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get access
-     *
      * @return array
      */
     public function getAccess()
@@ -136,8 +117,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test access
-     *
      * @dataProvider getAccess
      *
      * @param string $method
@@ -151,8 +130,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get required paths
-     *
      * @return array
      */
     public function getRequiredPaths()
@@ -168,18 +145,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test is path valid
-     *
      * @dataProvider getRequiredPaths
      *
      * @param string $type
-     * @param bool $required
      * @param string $path
      */
     public function testIsPathValid($type, $path)
     {
         $this->storage->setType($type);
         $this->storage->setPath($path);
+        /* @var $context \PHPUnit_Framework_MockObject_MockObject|ExecutionContextInterface */
         $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
         $context
             ->expects($this->storage->isPathRequired() && !$path ? $this->once() : $this->never())
@@ -188,9 +163,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->isPathValid($context);
     }
 
-    /**
-     * Test do change date update
-     */
     public function testDoChangeDateUpdate()
     {
         $date = (new \DateTime())->modify('+100 seconds');
@@ -201,9 +173,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($date, $this->storage->getDateUpdate());
     }
 
-    /**
-     * Test get old paths
-     */
     public function testGetOldPaths()
     {
         $this->assertEmpty($this->storage->getOldPaths());

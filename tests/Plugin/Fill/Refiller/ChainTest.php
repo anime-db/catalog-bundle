@@ -23,8 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class ChainTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get plugins
-     *
      * @return array
      */
     public function getPlugins()
@@ -38,8 +36,6 @@ class ChainTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get plugins that can fill item
-     *
      * @dataProvider getPlugins
      *
      * @param bool $is_can_refill

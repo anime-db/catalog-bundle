@@ -23,22 +23,16 @@ use Symfony\Component\Filesystem\Filesystem;
 class ExportTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Output
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
     /**
-     * Root dir
-     *
      * @var string
      */
     protected $root;
 
     /**
-     * Filename
-     *
      * @var string
      */
     protected $file;
@@ -58,8 +52,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test construct bad dir
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructBadDir()
@@ -68,8 +60,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test construct bad file
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructBadFile()
@@ -82,8 +72,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test construct fail lock
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructFailLock()
@@ -97,8 +85,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get messages
-     *
      * @return array
      */
     public function getMessages()
@@ -138,8 +124,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add appends
-     *
      * @param array $params
      *
      * @return array
@@ -159,8 +143,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add messages 1
-     *
      * @param array $params
      *
      * @return array
@@ -180,8 +162,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add messages 2
-     *
      * @param array $params
      *
      * @return array
@@ -201,8 +181,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add newlines
-     *
      * @param array $params
      *
      * @return array
@@ -222,8 +200,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add types
-     *
      * @param array $params
      *
      * @return array
@@ -247,8 +223,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write
-     *
      * @dataProvider getMessages
      *
      * @param string $method

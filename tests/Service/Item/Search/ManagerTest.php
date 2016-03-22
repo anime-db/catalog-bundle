@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
+use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Test search manager
@@ -21,16 +23,12 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Search manager
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
      */
     protected $manager;
 
     /**
-     * Search driver
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|DriverInterface
      */
     protected $driver;
 
@@ -41,8 +39,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get search data
-     *
      * @return array
      */
     public function getSearchData()
@@ -55,8 +51,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test search
-     *
      * @dataProvider getSearchData
      *
      * @param int $limit
@@ -66,6 +60,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearch($limit, $offset, $sort_column, $sort_direction)
     {
+        /* @var $data \PHPUnit_Framework_MockObject_MockObject|Search */
         $data = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Search');
         $expected = ['foo', 'bar'];
         $this->driver
@@ -82,9 +77,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $this->manager->search($data, $limit, $offset, $sort_column, $sort_direction));
     }
 
-    /**
-     * Test search by name
-     */
     public function testSearchByName()
     {
         $expected = ['foo', 'bar'];
@@ -97,8 +89,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get valid sort methods
-     *
      * @return array
      */
     public function getValidSortMethods()
@@ -117,8 +107,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get valid sort column
-     *
      * @dataProvider getValidSortMethods
      *
      * @param string $method

@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
  * Test event DeleteItemFiles
@@ -20,11 +21,9 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
  */
 class DeleteItemFilesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test get item
-     */
     public function testGetItem()
     {
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|Item */
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
         $event = new DeleteItemFiles($item);
         $this->assertEquals($item, $event->getItem());

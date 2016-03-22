@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage;
 use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Test storage entity listener
@@ -29,22 +30,16 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     protected $root;
 
     /**
-     * Filesystem
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Filesystem
      */
     protected $fs;
 
     /**
-     * Real filesystem
-     *
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     protected $real_fs;
 
     /**
-     * Storage
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage
      */
     protected $storage;
@@ -63,8 +58,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get event listeners
-     *
      * @return array
      */
     public function getEventListeners()
@@ -77,8 +70,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test entity is not a storage
-     *
      * @dataProvider getEventListeners
      *
      * @param string $method
@@ -91,9 +82,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         call_user_func([$this->storage, $method], $this->getArgs(new \stdClass()));
     }
 
-    /**
-     * Test post persist no path
-     */
     public function testPostPersistNoPath()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -112,9 +100,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post persist file exists
-     */
     public function testPostPersistFileExists()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -138,9 +123,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post persist
-     */
     public function testPostPersist()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -169,9 +151,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove no path
-     */
     public function testPostRemoveNoPath()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -190,9 +169,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postRemove($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove bad file
-     */
     public function testPostRemoveBadFile()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -218,9 +194,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postRemove($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove
-     */
     public function testPostRemove()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -248,11 +221,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get args
-     *
      * @param object $storage
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|LifecycleEventArgs
      */
     protected function getArgs($storage)
     {
@@ -266,9 +237,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         return $args;
     }
 
-    /**
-     * Test post update no file
-     */
     public function testPostUpdateNoFile()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
@@ -302,9 +270,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postUpdate($this->getArgs($storage));
     }
 
-    /**
-     * Test post update bad id
-     */
     public function testPostUpdateBadId()
     {
         $file1 = $this->root.'foo/'.Storage::ID_FILE;
@@ -337,9 +302,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postUpdate($this->getArgs($storage));
     }
 
-    /**
-     * Test post update
-     */
     public function testPostUpdate()
     {
         $file1 = $this->root.'foo/'.Storage::ID_FILE;

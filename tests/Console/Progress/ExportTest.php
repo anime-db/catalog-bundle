@@ -24,8 +24,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ExportTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Root dir
-     *
      * @var string
      */
     protected $root;
@@ -42,9 +40,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         $fs->remove($this->root);
     }
 
-    /**
-     * Test export
-     */
     public function testExport()
     {
         $filename = $this->root.'example.log';

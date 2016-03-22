@@ -26,8 +26,6 @@ use Knp\Menu\ItemInterface;
 class SearchTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Search
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject|Search
      */
     protected $search;
@@ -37,9 +35,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->search = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search');
     }
 
-    /**
-     * Test build menu
-     */
     public function testBuildMenu()
     {
         $child = $this->getMock('\Knp\Menu\ItemInterface');
@@ -64,9 +59,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($child, $this->search->buildMenu($item));
     }
 
-    /**
-     * Test get form
-     */
     public function testGetForm()
     {
         $this->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search', $this->search->getForm());
@@ -87,9 +79,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($filler, $this->search->getFiller());
     }
 
-    /**
-     * Test get link for fill from filler
-     */
     public function testGetLinkForFillFromFiller()
     {
         /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
@@ -106,9 +95,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('my_url', $this->search->getLinkForFill(['my_data']));
     }
 
-    /**
-     * Test get link for fill from router
-     */
     public function testGetLinkForFillFromRouter()
     {
         /* @var $router \PHPUnit_Framework_MockObject_MockObject|Router */
@@ -135,9 +121,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('my_url', $this->search->getLinkForFill(['my_data']));
     }
 
-    /**
-     * Test get link for search
-     */
     public function testGetLinkForSearch()
     {
         /* @var $router \PHPUnit_Framework_MockObject_MockObject|Router */
@@ -164,17 +147,11 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('my_url', $this->search->getLinkForSearch('bar'));
     }
 
-    /**
-     * Test get catalog item no filler
-     */
     public function testGetCatalogItemNoFiller()
     {
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
 
-    /**
-     * Test get catalog item fail search
-     */
     public function testGetCatalogItemFailSearch()
     {
         /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
@@ -191,9 +168,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
 
-    /**
-     * Test get catalog item fail fill
-     */
     public function testGetCatalogItemFailFill()
     {
         $item = $this
@@ -220,8 +194,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get search results
-     *
      * @return array
      */
     public function getSearchResults()
@@ -242,8 +214,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get catalog item cant fill
-     *
      * @dataProvider getSearchResults
      *
      * @param array $results
@@ -267,9 +237,6 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->search->getCatalogItem('foo'));
     }
 
-    /**
-     * Test get catalog item
-     */
     public function testGetCatalogItem()
     {
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');

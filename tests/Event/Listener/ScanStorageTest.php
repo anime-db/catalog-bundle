@@ -13,6 +13,13 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\TwigBundle\TwigEngine;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Form\FormFactory;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
+use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
 
 /**
  * Test ScanStorage listener
@@ -25,60 +32,65 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * Listener
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage
+     * @var ScanStorage
      */
     protected $listener;
 
     /**
      * Entity manager
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|EntityManager
      */
     protected $em;
 
     /**
      * Templating
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|TwigEngine
      */
     protected $templating;
 
     /**
      * Search chain
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Chain
      */
     protected $search;
 
     /**
      * Router
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Router
      */
     protected $router;
 
     /**
      * Form factory
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|FormFactory
      */
     protected $form_factory;
 
     protected function setUp()
     {
-        $this->em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+        $this->em = $this
+            ->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->templating = $this->getMockBuilder('\Symfony\Bundle\TwigBundle\TwigEngine')
+        $this->templating = $this
+            ->getMockBuilder('\Symfony\Bundle\TwigBundle\TwigEngine')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->search = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain')
+        $this->search = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->router = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
+        $this->router = $this
+            ->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->form_factory = $this->getMockBuilder('\Symfony\Component\Form\FormFactory')
+        $this->form_factory = $this
+            ->getMockBuilder('\Symfony\Component\Form\FormFactory')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -105,7 +117,8 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     public function getNotices()
     {
         $dif_item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $dif = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles')
+        $dif = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles')
             ->disableOriginalConstructor()
             ->getMock();
         $dif
@@ -114,7 +127,8 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($dif_item));
 
         $uif_item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $uif = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles')
+        $uif = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles')
             ->disableOriginalConstructor()
             ->getMock();
         $uif
@@ -128,7 +142,8 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getStorage')
             ->will($this->returnValue($ani_storage));
-        $ani = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem')
+        $ani = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem')
             ->disableOriginalConstructor()
             ->getMock();
         $ani
@@ -224,7 +239,8 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
         $has_plugins
     ) {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
-        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
+        $event = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
             ->disableOriginalConstructor()
             ->getMock();
         $event
@@ -323,21 +339,26 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test on detected new files try add
-     *
      * @dataProvider getPlugins
      *
-     * @param bool $is_dir
+     * @param \PHPUnit_Framework_MockObject_MockObject $default
+     * @param bool $default_is_added
+     * @param bool $default_is_dir
+     * @param \PHPUnit_Framework_MockObject_MockObject $second
+     * @param bool $second_is_added
+     * @param bool $second_is_dir
      */
     public function testOnDetectedNewFilesTryAdd(
-        $default,
+        \PHPUnit_Framework_MockObject_MockObject $default,
         $default_is_added,
         $default_is_dir,
-        $second,
+        \PHPUnit_Framework_MockObject_MockObject $second,
         $second_is_added,
         $second_is_dir
     ) {
-        $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
+        /* @var $event \PHPUnit_Framework_MockObject_MockObject|DetectedNewFiles */
+        $event = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles')
             ->disableOriginalConstructor()
             ->getMock();
         $this->search
@@ -368,8 +389,6 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Try add item
-     *
      * @param \PHPUnit_Framework_MockObject_MockObject $plugin
      * @param \PHPUnit_Framework_MockObject_MockObject $event
      * @param bool $is_added
@@ -448,12 +467,10 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             ->with('foo');
     }
 
-    /**
-     * Test on add new item persist it
-     */
     public function testOnAddNewItemPersistIt()
     {
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
+        /* @var $event \PHPUnit_Framework_MockObject_MockObject|AddNewItem */
         $event = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem')
             ->disableOriginalConstructor()
             ->getMock();

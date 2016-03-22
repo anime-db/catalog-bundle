@@ -12,6 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Selector;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Test selector builder
@@ -36,16 +38,12 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     protected $total;
 
     /**
-     * Builder
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder
      */
     protected $builder;
 
     /**
-     * Entity
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Search
      */
     protected $entity;
 
@@ -82,6 +80,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->with('i')
             ->will($this->returnValue($this->total));
 
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
         $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
@@ -95,25 +94,17 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->builder = new Builder($doctrine);
     }
 
-    /**
-     * Test get query select
-     */
     public function testGetQuerySelect()
     {
         $this->assertEquals($this->select, $this->builder->getQuerySelect());
     }
 
-    /**
-     * Test get query total
-     */
     public function testGetQueryTotal()
     {
         $this->assertEquals($this->total, $this->builder->getQueryTotal());
     }
 
     /**
-     * Get names
-     *
      * @return array
      */
     public function getNames()
@@ -129,8 +120,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add name
-     *
      * @dataProvider getNames
      *
      * @param string $name
@@ -167,8 +156,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get dates
-     *
      * @return array
      */
     public function getDates()
@@ -180,8 +167,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date add
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -212,8 +197,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date premiere
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -244,8 +227,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date end
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -276,8 +257,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get ids
-     *
      * @return array
      */
     public function getIds()
@@ -289,8 +268,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add country
-     *
      * @dataProvider getIds
      *
      * @param int $id
@@ -331,8 +308,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add storage
-     *
      * @dataProvider getIds
      *
      * @param int $id
@@ -373,8 +348,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add type
-     *
      * @dataProvider getIds
      *
      * @param int $id
@@ -415,8 +388,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add studio
-     *
      * @dataProvider getIds
      *
      * @param int $id
@@ -457,8 +428,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get ids lists
-     *
      * @return array
      */
     public function getIdsLists()
@@ -470,8 +439,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add genres
-     *
      * @dataProvider getIdsLists
      *
      * @param array $ids
@@ -510,8 +477,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add labels
-     *
      * @dataProvider getIdsLists
      *
      * @param array $ids
@@ -550,8 +515,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add data to queries
-     *
      * @param \Closure $adder
      */
     protected function add(\Closure $adder)
@@ -561,8 +524,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get numbers
-     *
      * @return array
      */
     public function getNumbers()
@@ -575,8 +536,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test limit
-     *
      * @dataProvider getNumbers
      *
      * @param int $number
@@ -593,8 +552,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test offset
-     *
      * @dataProvider getNumbers
      *
      * @param int $number
@@ -610,9 +567,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->builder->offset($number);
     }
 
-    /**
-     * Test sort
-     */
     public function testSort()
     {
         $this->select

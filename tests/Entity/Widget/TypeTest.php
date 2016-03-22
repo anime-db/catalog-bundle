@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type;
+use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
 
 /**
  * Test type widget
@@ -28,6 +29,7 @@ class TypeTest extends \PHPUnit_Framework_TestCase
         $type = new Type();
         $this->assertNull($type->getItem());
 
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|Item */
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item');
         $item
             ->expects($this->once())

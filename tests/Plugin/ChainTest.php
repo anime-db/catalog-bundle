@@ -31,9 +31,6 @@ class ChainTest extends \PHPUnit_Framework_TestCase
         $this->chain = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Chain');
     }
 
-    /**
-     * Test get plugin
-     */
     public function testGetPlugin()
     {
         $this->assertFalse($this->chain->hasPlugins());

@@ -22,15 +22,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LazyWriteTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Output
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
     /**
-     * LazyWrite
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite
      */
     protected $lazy_write;
@@ -42,8 +38,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get newline types
-     *
      * @return array
      */
     public function getNewlineTypes()
@@ -57,8 +51,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write
-     *
      * @dataProvider getNewlineTypes
      *
      * @param bool $newline
@@ -75,8 +67,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get types
-     *
      * @return array
      */
     public function getTypes()
@@ -89,8 +79,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write ln
-     *
      * @dataProvider getTypes
      *
      * @param int $type
@@ -106,8 +94,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get messages newline types
-     *
      * @return array
      */
     public function getMessagesNewlineTypes()
@@ -121,8 +107,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write no write
-     *
      * @dataProvider getMessagesNewlineTypes
      *
      * @param string|array $messages
@@ -138,8 +122,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write lazy
-     *
      * @dataProvider getMessagesNewlineTypes
      *
      * @param string|array $messages
@@ -160,8 +142,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get messages types
-     *
      * @return array
      */
     public function getMessagesTypes()
@@ -175,8 +155,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write ln no write
-     *
      * @dataProvider getMessagesTypes
      *
      * @param string|array $messages
@@ -191,8 +169,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write ln lazy
-     *
      * @dataProvider getMessagesTypes
      *
      * @param string|array $messages
@@ -211,9 +187,6 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
         $this->lazy_write->writeAll();
     }
 
-    /**
-     * Test lazy write
-     */
     public function testLazyWrite()
     {
         $this->assertTrue($this->lazy_write->isLazyWrite());

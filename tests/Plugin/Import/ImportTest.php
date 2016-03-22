@@ -22,8 +22,6 @@ use Knp\Menu\ItemInterface;
 class ImportTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Plugin
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject|Import
      */
     protected $plugin;
@@ -33,9 +31,6 @@ class ImportTest extends \PHPUnit_Framework_TestCase
         $this->plugin = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import');
     }
 
-    /**
-     * Test build menu
-     */
     public function testBuildMenu()
     {
         /* @var $item \PHPUnit_Framework_MockObject_MockObject|ItemInterface */

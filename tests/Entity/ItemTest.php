@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use Symfony\Component\Validator\ExecutionContextInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
  * Test item
@@ -21,8 +23,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Item
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     protected $item;
@@ -32,9 +32,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->item = new Item();
     }
 
-    /**
-     * Test do change date update
-     */
     public function testDoChangeDateUpdate()
     {
         $date = (new \DateTime())->modify('+100 seconds');
@@ -46,8 +43,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get required paths
-     *
      * @return array
      */
     public function getRequiredPaths()
@@ -61,8 +56,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test is path valid
-     *
      * @dataProvider getRequiredPaths
      *
      * @param bool $storage
@@ -79,6 +72,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue($required));
             $this->item->setStorage($storage);
         }
+        /* @var $context \PHPUnit_Framework_MockObject_MockObject|ExecutionContextInterface */
         $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
         $context
             ->expects($storage && $required && !$path ? $this->once() : $this->never())
@@ -88,9 +82,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->item->isPathValid($context);
     }
 
-    /**
-     * Test freez
-     */
     public function testFreez()
     {
         $em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
@@ -105,6 +96,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
                 $ref->id = $id;
                 return $ref;
             }));
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
         $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
@@ -154,8 +146,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get cleared paths
-     *
      * @return array
      */
     public function getClearedPaths()
@@ -169,8 +159,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test do clear path
-     *
      * @dataProvider getClearedPaths
      *
      * @param string $path
@@ -193,8 +181,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get url names
-     *
      * @return array
      */
     public function getUrlNames()
@@ -207,8 +193,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get url name
-     *
      * @dataProvider getUrlNames
      *
      * @param string $name

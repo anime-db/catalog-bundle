@@ -41,8 +41,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get newline types
-     *
      * @return array
      */
     public function getNewlineTypes()
@@ -56,8 +54,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write
-     *
      * @dataProvider getNewlineTypes
      *
      * @param bool $newline
@@ -73,8 +69,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get types
-     *
      * @return array
      */
     public function getTypes()
@@ -87,8 +81,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write ln
-     *
      * @dataProvider getTypes
      *
      * @param int $type
@@ -103,8 +95,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get set methods
-     *
      * @return array
      */
     public function getSetMethods()
@@ -118,8 +108,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test setters
-     *
      * @dataProvider getSetMethods
      * 
      * @param string $method
@@ -135,8 +123,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get get methods
-     *
      * @return array
      */
     public function getGetMethods()
@@ -150,8 +136,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getters
-     *
      * @dataProvider getGetMethods
      * 
      * @param string $method

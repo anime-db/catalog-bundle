@@ -35,8 +35,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * List entities
-     *
      * @var array
      */
     protected $entities = [];
@@ -222,7 +220,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      * @param string $getter
      * @param string $setter
      * @param mixed $default
-     * @param mixed $new
      */
     public function testGetSetTime($entity, $getter, $setter, $default = null)
     {

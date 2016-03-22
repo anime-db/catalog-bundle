@@ -25,8 +25,6 @@ use Knp\Menu\ItemInterface;
 class FillerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Filler
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject|Filler
      */
     protected $filler;
@@ -36,9 +34,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->filler = $this->getMockForAbstractClass('AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
     }
 
-    /**
-     * Test build menu
-     */
     public function testBuildMenu()
     {
         $child = $this->getMock('\Knp\Menu\ItemInterface');
@@ -63,17 +58,12 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($child, $this->filler->buildMenu($item));
     }
 
-    /**
-     * Test get form
-     */
     public function testGetForm()
     {
         $this->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler', $this->filler->getForm());
     }
 
     /**
-     * Test get link for fill fail
-     *
      * @expectedException \LogicException
      */
     public function testGetLinkForFillFail()
@@ -81,9 +71,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->filler->getLinkForFill([]);
     }
 
-    /**
-     * Test get link for fill
-     */
     public function testGetLinkForFill()
     {
         /* @var $router \PHPUnit_Framework_MockObject_MockObject|Router */
@@ -107,8 +94,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get links
-     *
      * @return array
      */
     public function getLinks()
@@ -121,8 +106,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test fill from search result fail
-     *
      * @dataProvider getLinks
      *
      * @param string $link
@@ -141,9 +124,6 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->filler->fillFromSearchResult($item));
     }
 
-    /**
-     * Test fill from search result
-     */
     public function testFillFromSearchResult()
     {
         $data = ['foo', 'bar'];

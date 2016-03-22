@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\DependencyInjection;
 
 use AnimeDb\Bundle\CatalogBundle\DependencyInjection\AnimeDbCatalogExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Test DependencyInjection
@@ -20,12 +21,11 @@ use AnimeDb\Bundle\CatalogBundle\DependencyInjection\AnimeDbCatalogExtension;
  */
 class AnimeDbCatalogExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test load
-     */
     public function testLoad()
     {
+        /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
         $di = new AnimeDbCatalogExtension();
-        $di->load([], $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder'));
+        $di->load([], $container);
     }
 }

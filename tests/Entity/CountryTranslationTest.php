@@ -20,9 +20,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation;
  */
 class CountryTranslationTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test
-     */
     public function test()
     {
         $trans = new CountryTranslation('my_locale', 'my_field', 'my_value');

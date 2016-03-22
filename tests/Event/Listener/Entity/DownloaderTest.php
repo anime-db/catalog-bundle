@@ -13,6 +13,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Image;
+use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Test entity downloader listener
@@ -25,14 +27,12 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     /**
      * LifecycleEventArgs
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|LifecycleEventArgs
      */
     protected $args;
 
     /**
-     * Filesystem
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Filesystem
      */
     protected $fs;
 
@@ -44,9 +44,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     protected $root = '/foo/';
 
     /**
-     * Listener
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity
+     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader
      */
     protected $listener;
 
@@ -60,8 +58,6 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get entity
-     *
      * @return array
      */
     public function getEntity()
@@ -80,8 +76,6 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test pre persist
-     *
      * @dataProvider getEntity
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $entity
@@ -94,6 +88,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
             ->method('getEntity')
             ->will($this->returnValue($entity));
         if ($entity instanceof Item || $entity instanceof Image) {
+            /* @var $entity \PHPUnit_Framework_MockObject_MockObject|Item|Image */
             $time = $this->getMock('\DateTime');
             $time
                 ->expects($this->once())

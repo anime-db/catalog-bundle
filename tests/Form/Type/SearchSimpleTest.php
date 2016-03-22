@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Form\Type;
 
 use AnimeDb\Bundle\CatalogBundle\Form\Type\SearchSimple;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Test form SearchSimple
@@ -21,8 +22,6 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\SearchSimple;
 class SearchSimpleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get sources
-     *
      * @return array
      */
     public function getSources()
@@ -34,15 +33,14 @@ class SearchSimpleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test build form
-     *
      * @dataProvider getSources
      *
-     * @param unknown $source
+     * @param string $source
      */
     public function testBuildForm($source)
     {
         $form = new SearchSimple($source);
+        /* @var $builder \PHPUnit_Framework_MockObject_MockObject|FormBuilderInterface */
         $builder = $this->getMock('\Symfony\Component\Form\FormBuilderInterface');
         $builder
             ->expects($this->once())
@@ -55,9 +53,6 @@ class SearchSimpleTest extends \PHPUnit_Framework_TestCase
         $form->buildForm($builder, []);
     }
 
-    /**
-     * Test get name
-     */
     public function testGetName()
     {
         $form = new SearchSimple();

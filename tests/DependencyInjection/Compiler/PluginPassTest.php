@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\DependencyInjection\Compiler;
 
 use AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Test plugin pass
@@ -21,15 +22,11 @@ use AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass;
 class PluginPassTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Container
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder
      */
     protected $container;
 
     /**
-     * PluginPass
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass
      */
     protected $compiler;
@@ -55,9 +52,6 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         $this->compiler = new PluginPass();
     }
 
-    /**
-     * Test process fail
-     */
     public function testProcessFail()
     {
         $chain_names = array_keys($this->chains);
@@ -72,9 +66,6 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         $this->compiler->process($this->container);
     }
 
-    /**
-     * Test process
-     */
     public function testProcess()
     {
         $that = $this;
@@ -106,7 +97,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                     ->will($this->returnCallback(function ($method, $reference) use ($that, $id) {
                         $that->assertInternalType('array', $reference);
                         $that->assertInstanceOf('\Symfony\Component\DependencyInjection\Reference', $reference[0]);
-                        $that->assertEquals($id, $reference[0]->__toString());
+                        $that->assertEquals($id, (string)$reference[0]);
                     }))
                     ->with('addPlugin');
             }

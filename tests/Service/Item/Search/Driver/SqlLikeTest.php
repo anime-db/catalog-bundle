@@ -11,6 +11,9 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
+use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Test SqlLike
@@ -21,40 +24,38 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike;
 class SqlLikeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Driver
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
      */
     protected $driver;
 
     /**
-     * Repository
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $repository;
 
     /**
-     * Selector
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Selector
      */
     protected $selector;
 
     protected function setUp()
     {
         $driver = $this->getMock('\Doctrine\DBAL\Driver\Connection');
-        $conn = $this->getMockBuilder('\Doctrine\DBAL\Connection')
+        $conn = $this
+            ->getMockBuilder('\Doctrine\DBAL\Connection')
             ->disableOriginalConstructor()
             ->getMock();
         $conn
             ->expects($this->once())
             ->method('getWrappedConnection')
             ->will($this->returnValue($driver));
-        $this->repository = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Repository\Item')
+        $this->repository = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Repository\Item')
             ->disableOriginalConstructor()
             ->getMock();
-        $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
+        $doctrine = $this
+            ->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine
@@ -66,15 +67,13 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('getConnection')
             ->will($this->returnValue($conn));
-        $this->selector = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector')
+        $this->selector = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector')
             ->disableOriginalConstructor()
             ->getMock();
         $this->driver = new SqlLike($doctrine, $this->selector);
     }
 
-    /**
-     * Test search
-     */
     public function testSearch()
     {
         $result = ['list' => ['foo', 'bar'], 'total' => 123];
@@ -94,6 +93,7 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             ->method('getQuery')
             ->will($this->returnValue($this->getQuery($result['total'], true)));
 
+        /* @var $entity \PHPUnit_Framework_MockObject_MockObject|Search */
         $entity = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Search');
         // build query selector
         $builder = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder')
@@ -149,9 +149,6 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($result, $this->driver->search($entity, 111, 222, 'my_column', 'my_direction'));
     }
 
-    /**
-     * Test search by name fail
-     */
     public function testSearchByNameFail()
     {
         $this->repository
@@ -161,8 +158,6 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get names
-     *
      * @return array
      */
     public function getNames()
@@ -177,8 +172,6 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test search by name
-     *
      * @dataProvider getNames
      *
      * @param string $name
@@ -231,8 +224,6 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get query
-     *
      * @param mixed $result
      * @param bool $single
      *

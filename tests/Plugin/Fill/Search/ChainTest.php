@@ -22,8 +22,6 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 class ChainTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get dafeult plugins
-     *
      * @return array
      */
     public function getDafeultPlugins()
@@ -36,8 +34,6 @@ class ChainTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get dafeult plugin
-     *
      * @dataProvider getDafeultPlugins
      *
      * @param string $dafeult_plugin
