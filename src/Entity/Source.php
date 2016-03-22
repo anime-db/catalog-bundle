@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation;
 
 /**
  * Source for item fill
@@ -21,7 +20,6 @@ use Doctrine\Common\Annotations\Annotation;
  * @ORM\Table(name="source", indexes={
  *   @ORM\Index(name="source_url_idx", columns={"url"})
  * })
- * @Annotation\IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
