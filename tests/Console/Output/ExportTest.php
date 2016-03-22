@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Test output decorator
@@ -47,7 +48,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $fs = new Filesystem();
-        $fs->chmod([$this->root, $this->file], 0755);
+        try {
+            $fs->chmod([$this->root, $this->file], 0755);
+        } catch (IOException $e) {
+            // ignore exception
+        }
         $fs->remove($this->root);
     }
 
