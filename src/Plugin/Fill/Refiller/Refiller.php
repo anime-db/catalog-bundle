@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
@@ -19,7 +20,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Refiller extends Plugin
+abstract class Refiller extends Plugin implements PluginInterface
 {
     /**
      * Item names for refill

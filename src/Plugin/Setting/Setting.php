@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Setting;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\ItemInterface;
 
 /**
@@ -19,7 +20,7 @@ use Knp\Menu\ItemInterface;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Setting
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Setting extends Plugin
+abstract class Setting extends Plugin implements PluginInMenuInterface
 {
     /**
      * @param ItemInterface $item

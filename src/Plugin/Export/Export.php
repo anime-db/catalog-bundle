@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Export;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\ItemInterface;
 
 /**
@@ -19,11 +20,9 @@ use Knp\Menu\ItemInterface;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Export
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Export extends Plugin
+abstract class Export extends Plugin implements PluginInMenuInterface
 {
     /**
-     * Build menu for plugin
-     *
      * @param ItemInterface $item
      *
      * @return ItemInterface

@@ -10,7 +10,7 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Menu;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -36,20 +36,6 @@ class Builder extends ContainerAware
      * @var string
      */
     const GUIDE_LINK = '/guide/';
-
-    /**
-     * Default documentation locale
-     * 
-     * @var string
-     */
-    const DEFAULT_DOC_LOCALE = 'en';
-
-    /**
-     * Supported documentation locale
-     *
-     * @var array
-     */
-    protected $support_locales = ['en', 'ru'];
 
     /**
      * @param FactoryInterface $factory
@@ -136,12 +122,11 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-white-shop');
         // add settings plugin items
         foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
+            /* @var $plugin PluginInMenuInterface */
             $plugin->buildMenu($plugins);
         }
 
         // add link to guide
-        $locale = substr($this->container->get('request')->getLocale(), 0, 2);
-        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
         $settings->addChild('Help', ['uri' => $this->container->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
             ->setLinkAttribute('class', 'icon-label icon-white-help');
 
@@ -167,12 +152,12 @@ class Builder extends ContainerAware
             if ($class) {
                 $group->setLabelAttribute('class', $class);
             }
-        }
 
-        // add child items
-        foreach ($chain->getPlugins() as $plugin) {
-            /* @var $plugin Plugin */
-            $plugin->buildMenu($group);
+            // add child items
+            foreach ($chain->getPlugins() as $plugin) {
+                /* @var $plugin PluginInMenuInterface */
+                $plugin->buildMenu($group);
+            }
         }
     }
 
@@ -187,11 +172,14 @@ class Builder extends ContainerAware
         if (empty($options['item']) || !($options['item'] instanceof Item)) {
             throw new \InvalidArgumentException('Item is not found');
         }
+        /* @var $item Item */
+        $item = $options['item'];
+
         /* @var $menu ItemInterface */
         $menu = $factory->createItem('root');
         $params = [
-            'id' => $options['item']->getId(),
-            'name' => $options['item']->getUrlName()
+            'id' => $item->getId(),
+            'name' => $item->getUrlName()
         ];
 
         $menu->addChild('Change record', ['route' => 'item_change', 'routeParameters' => $params])
@@ -208,7 +196,7 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-delete')
             ->setLinkAttribute('data-message', $this->container->get('translator')->trans(
                 'Are you sure want to delete %name%?',
-                ['%name%' => $options['item']->getName()]
+                ['%name%' => $item->getName()]
             ));
 
         return $menu;

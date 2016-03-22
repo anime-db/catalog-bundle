@@ -10,12 +10,18 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Plugin;
 
+use Knp\Menu\ItemInterface;
+
 /**
- * @deprecated use PluginInterface
- *
+ * Interface PluginInMenuInterface
  * @package AnimeDb\Bundle\CatalogBundle\Plugin
- * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Plugin implements PluginInterface
+interface PluginInMenuInterface extends PluginInterface
 {
+    /**
+     * @param ItemInterface $item
+     *
+     * @return ItemInterface
+     */
+    public function buildMenu(ItemInterface $item);
 }

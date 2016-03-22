@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\ItemInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
@@ -23,7 +24,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Filler extends Plugin
+abstract class Filler extends Plugin implements PluginInMenuInterface
 {
     /**
      * @var Router
@@ -40,8 +41,6 @@ abstract class Filler extends Plugin
     abstract public function fill(array $data);
 
     /**
-     * Build menu for plugin
-     *
      * @param ItemInterface $item
      *
      * @return ItemInterface
