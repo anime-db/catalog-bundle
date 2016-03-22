@@ -25,7 +25,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     /**
      * Output
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
@@ -53,7 +53,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $fs = new Filesystem();
-        $fs->chmod([$this->root, $this->file], 0777);
+        $fs->chmod([$this->root, $this->file], 0755);
         $fs->remove($this->root);
     }
 
@@ -294,6 +294,8 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         foreach ((array)$messages2 as $message) {
             $expected .= strip_tags($message).($newline ? PHP_EOL : '');
         }
+        unset($export);
+
         $this->assertEquals($expected, file_get_contents($this->file));
     }
 }
