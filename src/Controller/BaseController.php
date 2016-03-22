@@ -22,7 +22,7 @@ abstract class BaseController extends Controller
     /**
      * @return Keeper
      */
-    public function getCacheTimeKeeper()
+    protected function getCacheTimeKeeper()
     {
         return $this->get('cache_time_keeper');
     }
