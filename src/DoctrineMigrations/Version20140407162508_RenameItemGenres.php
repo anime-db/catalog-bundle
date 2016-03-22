@@ -88,7 +88,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
 
         /* @var $genre Genre */
         foreach ($this->rename as $from => $to) {
-            $genre = $rep->findOneByName($from);
+            $genre = $rep->findOneBy(['name' => $from]);
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
@@ -99,15 +99,15 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
             $this->em->persist($genre);
         }
         // remove
-        $genre = $rep->findOneByName('Mystery play');
+        $genre = $rep->findOneBy(['name' => 'Mystery play']);
         $this->em->remove($genre);
 
         // rename russian
-        $genre = $rep->findOneByName('History');
+        $genre = $rep->findOneBy(['name' => 'History']);
         $genre->setName('Исторический')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
-        $genre = $rep->findOneByName('War');
+        $genre = $rep->findOneBy(['name' => 'War']);
         $genre->setName('Военное')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
@@ -123,7 +123,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
 
         /* @var $genre Genre */
         foreach ($this->restore as $from => $to) {
-            $genre = $rep->findOneByName($from);
+            $genre = $rep->findOneBy(['name' => $from]);
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
@@ -142,11 +142,11 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
         $this->em->persist($genre);
 
         // rename russian
-        $genre = $rep->findOneByName('History');
+        $genre = $rep->findOneBy(['name' => 'History']);
         $genre->setName('История')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
-        $genre = $rep->findOneByName('War');
+        $genre = $rep->findOneBy(['name' => 'War']);
         $genre->setName('Война')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 

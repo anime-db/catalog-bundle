@@ -88,7 +88,7 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
         // rename studios
         /* @var $studio Studio */
         foreach ($this->rename as $from => $to) {
-            $studio = $rep->findOneByName($from);
+            $studio = $rep->findOneBy(['name' => $from]);
             $studio->setName($to);
             $this->em->persist($studio);
         }
@@ -112,14 +112,14 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
         // rename studios
         /* @var $studio Studio */
         foreach ($this->rename as $from => $to) {
-            $studio = $rep->findOneByName($to);
+            $studio = $rep->findOneBy(['name' => $to]);
             $studio->setName($from);
             $this->em->persist($studio);
         }
 
         // remove studios
         foreach ($this->add as $name) {
-            $this->em->remove($rep->findOneByName($name));
+            $this->em->remove($rep->findOneBy(['name' => $name]));
         }
     }
 }
