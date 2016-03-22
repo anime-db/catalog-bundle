@@ -11,7 +11,6 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\ItemInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
@@ -25,7 +24,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as EntityItem;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Search extends Plugin implements PluginInMenuInterface
+abstract class Search extends Plugin implements SearchInterface
 {
     /**
      * @var Router
@@ -36,15 +35,6 @@ abstract class Search extends Plugin implements PluginInMenuInterface
      * @var Filler
      */
     protected $filler;
-
-    /**
-     * Search source by name
-     *
-     * @param array $data
-     *
-     * @return Item[]
-     */
-    abstract public function search(array $data);
 
     /**
      * Build menu for plugin
@@ -70,7 +60,7 @@ abstract class Search extends Plugin implements PluginInMenuInterface
     }
 
     /**
-     * @return Search
+     * @return SearchForm
      */
     public function getForm()
     {

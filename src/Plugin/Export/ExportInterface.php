@@ -10,14 +10,12 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Export;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 
 /**
- * @deprecated use ExportInterface
- * 
+ * Interface ExportInterface
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Export
- * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Export extends Plugin implements ExportInterface
+interface ExportInterface extends PluginInMenuInterface
 {
 }

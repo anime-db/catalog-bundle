@@ -11,23 +11,13 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface;
-use Knp\Menu\ItemInterface;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * Plugin item interface
+ * @deprecated use ItemInterface
  * 
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Item extends Plugin implements PluginInterface
+abstract class Item extends Plugin implements ItemInterface
 {
-    /**
-     * @param ItemInterface $node
-     * @param ItemEntity $item
-     *
-     * @return ItemInterface
-     */
-    abstract public function buildMenu(ItemInterface $node, ItemEntity $item);
 }

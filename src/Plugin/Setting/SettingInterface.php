@@ -10,14 +10,11 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Setting;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 
 /**
- * @deprecated use SettingInterface
- *
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Setting
- * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Setting extends Plugin implements SettingInterface
+interface SettingInterface extends PluginInMenuInterface
 {
 }
