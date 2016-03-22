@@ -20,7 +20,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain as ChainImport;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain as ChainExport;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain as ChainFiller;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Item\Item as ItemPlugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Item\ItemInterface as ItemPluginInterface;
 
 /**
  * Menu builder
@@ -187,7 +187,7 @@ class Builder extends ContainerAware
 
         // add settings plugin items
         $chain = $this->container->get('anime_db.plugin.item');
-        /* @var $plugin ItemPlugin */
+        /* @var $plugin ItemPluginInterface */
         foreach ($chain->getPlugins() as $plugin) {
             $plugin->buildMenu($menu, $options['item']);
         }

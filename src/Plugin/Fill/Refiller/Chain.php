@@ -27,7 +27,7 @@ class Chain extends ChainPlugin
      * @param Item $item
      * @param string $field
      *
-     * @return Refiller[]
+     * @return RefillerInterface[]
      */
     public function getPluginsThatCanFillItem(Item $item, $field) {
         $plugins = [];

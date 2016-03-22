@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import;
+use Knp\Menu\ItemInterface;
 
 /**
  * Test plugin import
@@ -23,7 +24,7 @@ class ImportTest extends \PHPUnit_Framework_TestCase
     /**
      * Plugin
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Import
      */
     protected $plugin;
 
@@ -37,6 +38,7 @@ class ImportTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildMenu()
     {
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|ItemInterface */
         $item = $this->getMock('\Knp\Menu\ItemInterface');
         $item
             ->expects($this->once())

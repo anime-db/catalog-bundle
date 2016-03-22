@@ -10,7 +10,7 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Import\ImportInterface;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
@@ -241,7 +241,7 @@ class ItemController extends BaseController
     {
         /* @var $chain ChainSearch */
         $chain = $this->get('anime_db.plugin.import');
-        /* @var $import Import */
+        /* @var $import ImportInterface */
         if (!($import = $chain->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }

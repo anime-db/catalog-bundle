@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 
 /**
  * Test search chain
@@ -43,7 +44,8 @@ class ChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDafeultPlugin($dafeult_plugin)
     {
-        $plugin = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search');
+        /* @var $plugin \PHPUnit_Framework_MockObject_MockObject|SearchInterface */
+        $plugin = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface');
         $plugin
             ->expects($this->atLeastOnce())
             ->method('getName')

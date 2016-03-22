@@ -29,9 +29,9 @@ abstract class Chain
     protected $titles = [];
 
     /**
-     * @param Plugin $plugin
+     * @param PluginInterface $plugin
      */
-    public function addPlugin(Plugin $plugin) {
+    public function addPlugin(PluginInterface $plugin) {
         $this->plugins[$plugin->getName()] = $plugin;
         $this->titles[$plugin->getName()] = $plugin->getTitle();
         ksort($this->plugins);
@@ -41,7 +41,7 @@ abstract class Chain
     /**
      * @param string $name
      *
-     * @return Plugin|null
+     * @return PluginInterface|null
      */
     public function getPlugin($name) {
         if (array_key_exists($name, $this->plugins)) {
@@ -59,7 +59,7 @@ abstract class Chain
     }
 
     /**
-     * @return Plugin[]
+     * @return PluginInterface[]
      */
     public function getPlugins() {
         return $this->plugins;

@@ -10,19 +10,19 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchFrom;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\SearchFiller as SearchFillerForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain as ChainFiller;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -52,7 +52,7 @@ class FillController extends BaseController
 
         /* @var $chain ChainFiller */
         $chain = $this->get('anime_db.plugin.filler');
-        /* @var $filler Filler */
+        /* @var $filler FillerInterface */
         if (!($filler = $chain->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -95,7 +95,7 @@ class FillController extends BaseController
             return $response;
         }
 
-        /* @var $search Search */
+        /* @var $search SearchInterface */
         if (!($search = $this->get('anime_db.plugin.search_fill')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -196,7 +196,7 @@ class FillController extends BaseController
         }
 
         $names = '';
-        /* @var $plugin Plugin */
+        /* @var $plugin PluginInterface */
         foreach ($chain->getPlugins() as $plugin) {
             $names .= '|'.$plugin->getName();
         }

@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
  * Test refiller plugin
@@ -45,8 +47,11 @@ class ChainTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPluginsThatCanFillItem($is_can_refill, $is_can_search)
     {
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|Item */
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $plugin1 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller');
+
+        /* @var $plugin1 \PHPUnit_Framework_MockObject_MockObject|RefillerInterface */
+        $plugin1 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface');
         $plugin1
             ->expects($this->once())
             ->method('isCanRefill')
@@ -61,7 +66,9 @@ class ChainTest extends \PHPUnit_Framework_TestCase
             ->expects($this->atLeastOnce())
             ->method('getName')
             ->will($this->returnValue('plugin1'));
-        $plugin2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller');
+
+        /* @var $plugin2 \PHPUnit_Framework_MockObject_MockObject|RefillerInterface */
+        $plugin2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface');
         $plugin2
             ->expects($this->once())
             ->method('isCanRefill')

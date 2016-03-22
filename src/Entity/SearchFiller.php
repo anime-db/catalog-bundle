@@ -10,7 +10,7 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -34,7 +34,7 @@ class SearchFiller
     protected $url = '';
 
     /**
-     * @var Filler|null
+     * @var FillerInterface|null
      */
     protected $filler;
 
@@ -71,7 +71,7 @@ class SearchFiller
     }
 
     /**
-     * @return Filler|null
+     * @return FillerInterface|null
      */
     public function getFiller()
     {
@@ -83,7 +83,7 @@ class SearchFiller
      */
     public function isUrlSupported(ExecutionContextInterface $context)
     {
-        /* @var $plugin Filler */
+        /* @var $plugin FillerInterface */
         foreach ($this->chain->getPlugins() as $plugin) {
             if ($plugin->isSupportedUrl($this->url)) {
                 $this->filler = $plugin;
@@ -91,7 +91,8 @@ class SearchFiller
             }
         }
 
-        $context->buildViolation('No fillers that would support this URL')
+        $context
+            ->buildViolation('No fillers that would support this URL')
             ->atPath('url')
             ->addViolation();
     }

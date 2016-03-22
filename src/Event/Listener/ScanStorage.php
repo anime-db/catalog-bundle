@@ -22,7 +22,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as SearchChain;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
@@ -162,19 +162,22 @@ class ScanStorage
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
+            /* @var $plugin SearchInterface */
             if ($plugin !== $dafeult_plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
-     * @param Search $search
+     * @param SearchInterface $search
      * @param DetectedNewFiles $event
      *
      * @return bool
      */
-    protected function tryAddItem(Search $search, DetectedNewFiles $event)
+    protected function tryAddItem(SearchInterface $search, DetectedNewFiles $event)
     {
         $item = $search->getCatalogItem($event->getName());
 

@@ -34,7 +34,7 @@ class Chain extends ChainPlugin
     }
 
     /**
-     * @return Search|null
+     * @return SearchInterface|null
      */
     public function getDafeultPlugin()
     {

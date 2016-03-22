@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface;
 
 /**
  * Test plugin chain
@@ -38,8 +38,8 @@ class ChainTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->chain->hasPlugins());
 
-        /* @var $plugin_first \PHPUnit_Framework_MockObject_MockObject|Plugin */
-        $plugin_first = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Plugin');
+        /* @var $plugin_first \PHPUnit_Framework_MockObject_MockObject|PluginInterface */
+        $plugin_first = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface');
         $plugin_first
             ->expects($this->atLeastOnce())
             ->method('getName')
@@ -50,8 +50,8 @@ class ChainTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('bar first'));
         $this->chain->addPlugin($plugin_first);
 
-        /* @var $plugin_second \PHPUnit_Framework_MockObject_MockObject|Plugin */
-        $plugin_second = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Plugin');
+        /* @var $plugin_second \PHPUnit_Framework_MockObject_MockObject|PluginInterface */
+        $plugin_second = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface');
         $plugin_second
             ->expects($this->atLeastOnce())
             ->method('getName')

@@ -13,6 +13,9 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Search;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Knp\Menu\ItemInterface;
 
 /**
  * Test search plugin
@@ -25,7 +28,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     /**
      * Search
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Search
      */
     protected $search;
 
@@ -40,6 +43,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testBuildMenu()
     {
         $child = $this->getMock('\Knp\Menu\ItemInterface');
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|ItemInterface */
         $item = $this->getMock('\Knp\Menu\ItemInterface');
         $item
             ->expects($this->once())
@@ -73,7 +77,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testFiller()
     {
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $this->assertNull($this->search->getFiller());
@@ -86,7 +92,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLinkForFillFromFiller()
     {
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $filler
@@ -103,7 +111,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLinkForFillFromRouter()
     {
-        $router = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
+        /* @var $router \PHPUnit_Framework_MockObject_MockObject|Router */
+        $router = $this
+            ->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
             ->disableOriginalConstructor()
             ->getMock();
         $router
@@ -130,7 +140,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetLinkForSearch()
     {
-        $router = $this->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
+        /* @var $router \PHPUnit_Framework_MockObject_MockObject|Router */
+        $router = $this
+            ->getMockBuilder('\Symfony\Bundle\FrameworkBundle\Routing\Router')
             ->disableOriginalConstructor()
             ->getMock();
         $router
@@ -165,7 +177,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCatalogItemFailSearch()
     {
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $this->search->setFiller($filler);
@@ -182,10 +196,13 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCatalogItemFailFill()
     {
-        $item = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
+        $item = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
             ->disableOriginalConstructor()
             ->getMock();
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $filler
@@ -212,10 +229,12 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         return [
             [[]],
             [[
-                $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
                     ->disableOriginalConstructor()
                     ->getMock(),
-                $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
                     ->disableOriginalConstructor()
                     ->getMock()
             ]]
@@ -231,7 +250,9 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetCatalogItemCantFill(array $results)
     {
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $filler
@@ -252,10 +273,13 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     public function testGetCatalogItem()
     {
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $search_item = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
+        $search_item = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
             ->disableOriginalConstructor()
             ->getMock();
-        $filler = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler')
+        /* @var $filler \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface')
             ->disableOriginalConstructor()
             ->getMock();
         $filler

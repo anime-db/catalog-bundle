@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 use Symfony\Component\EventDispatcher\Event;
 use Doctrine\Common\Collections\ArrayCollection;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 
 /**
  * Event thrown when a new item is added
@@ -35,9 +35,9 @@ class AddNewItem extends Event
 
     /**
      * @param Item $item
-     * @param Filler $filler
+     * @param FillerInterface $filler
      */
-    public function __construct(Item $item, Filler $filler)
+    public function __construct(Item $item, FillerInterface $filler)
     {
         $this->item = $item;
         $this->fillers = new ArrayCollection([$filler]);
@@ -60,11 +60,11 @@ class AddNewItem extends Event
     }
 
     /**
-     * @param Filler $filler
+     * @param FillerInterface $filler
      *
      * @return AddNewItem
      */
-    public function addFiller(Filler $filler)
+    public function addFiller(FillerInterface $filler)
     {
         if (!$this->fillers->contains($filler)) {
             $this->fillers->add($filler);

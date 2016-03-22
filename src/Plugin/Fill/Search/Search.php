@@ -14,7 +14,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as EntityItem;
 
@@ -32,7 +32,7 @@ abstract class Search extends Plugin implements SearchInterface
     protected $router;
 
     /**
-     * @var Filler
+     * @var FillerInterface
      */
     protected $filler;
 
@@ -68,15 +68,15 @@ abstract class Search extends Plugin implements SearchInterface
     }
 
     /**
-     * @param Filler $filler
+     * @param FillerInterface $filler
      */
-    public function setFiller(Filler $filler)
+    public function setFiller(FillerInterface $filler)
     {
         $this->filler = $filler;
     }
 
     /**
-     * @return Filler
+     * @return FillerInterface
      */
     public function getFiller()
     {
@@ -90,7 +90,7 @@ abstract class Search extends Plugin implements SearchInterface
      */
     public function getLinkForFill($data)
     {
-        if ($this->filler instanceof Filler) {
+        if ($this->filler instanceof FillerInterface) {
             return $this->filler->getLinkForFill($data);
         } else {
             return $this->router->generate(
@@ -125,7 +125,7 @@ abstract class Search extends Plugin implements SearchInterface
      */
     public function getCatalogItem($name)
     {
-        if (!($this->getFiller() instanceof Filler)) {
+        if (!($this->getFiller() instanceof FillerInterface)) {
             return null;
         }
 
