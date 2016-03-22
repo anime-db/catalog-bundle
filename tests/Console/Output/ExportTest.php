@@ -294,7 +294,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         foreach ((array)$messages2 as $message) {
             $expected .= strip_tags($message).($newline ? PHP_EOL : '');
         }
-        unset($export);
+        $export->unlock();
 
         $this->assertEquals($expected, file_get_contents($this->file));
     }
