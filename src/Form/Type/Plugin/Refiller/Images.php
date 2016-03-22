@@ -23,8 +23,8 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Image;
 class Images extends AbstractType
 {
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -46,8 +46,7 @@ class Images extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

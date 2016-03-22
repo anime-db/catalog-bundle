@@ -12,8 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
  * Source for item fill
@@ -22,7 +21,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
  * @ORM\Table(name="source", indexes={
  *   @ORM\Index(name="source_url_idx", columns={"url"})
  * })
- * @IgnoreAnnotation("ORM")
+ * @Annotation\IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -30,19 +29,15 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class Source
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * URL
-     *
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      * @Assert\Url()
@@ -52,19 +47,15 @@ class Source
     protected $url = '';
 
     /**
-     * Items list
-     *
      * @ORM\ManyToOne(targetEntity="Item", inversedBy="sources", cascade={"persist"})
      * @ORM\JoinColumn(name="item", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -72,11 +63,9 @@ class Source
     }
 
     /**
-     * Set url
-     *
      * @param string $url
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Source
+     * @return Source
      */
     public function setUrl($url)
     {
@@ -85,9 +74,7 @@ class Source
     }
 
     /**
-     * Get url
-     *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -95,11 +82,9 @@ class Source
     }
 
     /**
-     * Set item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Source
+     * @return Source
      */
     public function setItem(Item $item = null)
     {
@@ -120,9 +105,7 @@ class Source
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {
@@ -130,8 +113,6 @@ class Source
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

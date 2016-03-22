@@ -24,24 +24,18 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 class Request
 {
     /**
-     * Locale
-     *
      * @var string|null
      */
     protected $locale;
 
     /**
-     * Router
-     *
-     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @var Router
      */
     protected $router;
 
     /**
-     * Construct
-     *
      * @param string|null $locale
-     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     * @param Router $router
      */
     public function __construct($locale, Router $router)
     {
@@ -50,9 +44,7 @@ class Request
     }
 
     /**
-     * Kernel request handler
-     *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event)
     {

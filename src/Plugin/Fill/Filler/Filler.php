@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
@@ -25,9 +26,7 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
 abstract class Filler extends Plugin
 {
     /**
-     * Router
-     *
-     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @var Router
      */
     protected $router;
 
@@ -36,16 +35,16 @@ abstract class Filler extends Plugin
      *
      * @param array $data
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     * @return Item|null
      */
     abstract public function fill(array $data);
 
     /**
      * Build menu for plugin
      *
-     * @param \Knp\Menu\ItemInterface $item
+     * @param ItemInterface $item
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function buildMenu(ItemInterface $item)
     {
@@ -56,9 +55,7 @@ abstract class Filler extends Plugin
     }
 
     /**
-     * Get form
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler
+     * @return Filler
      */
     public function getForm()
     {
@@ -66,9 +63,7 @@ abstract class Filler extends Plugin
     }
 
     /**
-     * Set router
-     *
-     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     * @param Router $router
      */
     public function setRouter(Router $router)
     {
@@ -76,8 +71,6 @@ abstract class Filler extends Plugin
     }
 
     /**
-     * Get link for fill item
-     *
      * @throws \LogicException
      *
      * @param mixed $data
@@ -102,9 +95,9 @@ abstract class Filler extends Plugin
     /**
      * Fill from search result
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item $item
+     * @param ItemSearch $item
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     * @return Item|null
      */
     public function fillFromSearchResult(ItemSearch $item)
     {
@@ -117,11 +110,9 @@ abstract class Filler extends Plugin
     }
 
     /**
-     * Is supported URL
-     *
      * @param string $url
      *
-     * @return boolean
+     * @return bool
      */
     public function isSupportedUrl($url)
     {

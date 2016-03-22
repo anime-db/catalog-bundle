@@ -10,8 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Plugin;
 
-use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-
 /**
  * Chain plugins
  * 
@@ -21,23 +19,17 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 abstract class Chain
 {
     /**
-     * List plugins
-     *
      * @var array
      */
     protected $plugins = [];
 
     /**
-     * List plugin titles
-     *
      * @var array
      */
     protected $titles = [];
 
     /**
-     * Add plugin
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin $plugin
+     * @param Plugin $plugin
      */
     public function addPlugin(Plugin $plugin) {
         $this->plugins[$plugin->getName()] = $plugin;
@@ -47,11 +39,9 @@ abstract class Chain
     }
 
     /**
-     * Get plugin by name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin|null
+     * @return Plugin|null
      */
     public function getPlugin($name) {
         if (array_key_exists($name, $this->plugins)) {
@@ -61,9 +51,7 @@ abstract class Chain
     }
 
     /**
-     * Has plugins
-     *
-     * @return boolean
+     * @return bool
      */
     public function hasPlugins()
     {
@@ -71,17 +59,13 @@ abstract class Chain
     }
 
     /**
-     * Get plugins
-     *
-     * @return array [ \AnimeDb\Bundle\CatalogBundle\Plugin\Plugin ]
+     * @return Plugin[]
      */
     public function getPlugins() {
         return $this->plugins;
     }
 
     /**
-     * Get plugin names
-     *
      * @return array
      */
     public function getNames() {
@@ -89,8 +73,6 @@ abstract class Chain
     }
 
     /**
-     * Get plugin titles
-     *
      * @return array
      */
     public function getTitles() {

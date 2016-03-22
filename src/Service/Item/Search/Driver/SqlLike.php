@@ -11,9 +11,11 @@
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
+use AnimeDb\Bundle\CatalogBundle\Repository\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Search driver use a SQL LIKE for select name
@@ -24,24 +26,18 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
 class SqlLike implements DriverInterface
 {
     /**
-     * Item repository
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Repository\Item
+     * @var Item
      */
     protected $repository;
 
     /**
-     * Selector
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @var Selector
      */
     protected $selector;
 
     /**
-     * Construct
-     *
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector $selector
+     * @param Registry $doctrine
+     * @param Selector $selector
      */
     public function __construct(Registry $doctrine, Selector $selector)
     {
@@ -58,11 +54,9 @@ class SqlLike implements DriverInterface
     }
 
     /**
-     * Search items
-     * 
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     * @param integer $limit
-     * @param integer $offset
+     * @param Search $entity
+     * @param int $limit
+     * @param int $offset
      * @param string $sort_column
      * @param string $sort_direction
      *
@@ -99,10 +93,8 @@ class SqlLike implements DriverInterface
     }
 
     /**
-     * Search items by name
-     * 
      * @param string $name
-     * @param integer $limit
+     * @param int $limit
      *
      * @return array
      */
@@ -112,7 +104,7 @@ class SqlLike implements DriverInterface
             return [];
         }
 
-        /* @var $selector \Doctrine\ORM\QueryBuilder */
+        /* @var $selector QueryBuilder */
         $selector = $this->repository->createQueryBuilder('i');
         $selector
             ->innerJoin('i.names', 'n')

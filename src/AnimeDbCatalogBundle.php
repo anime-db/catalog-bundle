@@ -16,16 +16,13 @@ use AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass;
 use AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\InstallItemPass;
 
 /**
- * Bundle
- *
  * @package AnimeDb\Bundle\CatalogBundle
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class AnimeDbCatalogBundle extends Bundle
 {
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\HttpKernel\Bundle.Bundle::build()
+     * @param ContainerBuilder $container
      */
     public function build(ContainerBuilder $container)
     {

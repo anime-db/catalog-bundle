@@ -24,24 +24,18 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 class AddNewItem extends Event
 {
     /**
-     * Fillers
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $fillers;
 
     /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
+     * @param Item $item
+     * @param Filler $filler
      */
     public function __construct(Item $item, Filler $filler)
     {
@@ -50,9 +44,7 @@ class AddNewItem extends Event
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {
@@ -60,9 +52,7 @@ class AddNewItem extends Event
     }
 
     /**
-     * Get fillers
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getFillers()
     {
@@ -70,11 +60,9 @@ class AddNewItem extends Event
     }
 
     /**
-     * Add filler
+     * @param Filler $filler
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem
+     * @return AddNewItem
      */
     public function addFiller(Filler $filler)
     {

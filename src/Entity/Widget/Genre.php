@@ -19,8 +19,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity\Widget;
 class Genre
 {
     /**
-     * Name
-     *
      * @var string
      */
     protected $name = '';
@@ -33,18 +31,14 @@ class Genre
     protected $link = '';
 
     /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type
+     * @return Type
      */
     public function setName($name)
     {
@@ -53,8 +47,6 @@ class Genre
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -63,11 +55,9 @@ class Genre
     }
 
     /**
-     * Set link
-     *
      * @param string $link
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type
+     * @return Type
      */
     public function setLink($link)
     {
@@ -76,8 +66,6 @@ class Genre
     }
 
     /**
-     * Get link
-     *
      * @return string
      */
     public function getLink()
@@ -86,11 +74,9 @@ class Genre
     }
 
     /**
-     * Set item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type
+     * @return Type
      */
     public function setItem(Item $item)
     {
@@ -101,9 +87,7 @@ class Genre
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function getItem()
     {

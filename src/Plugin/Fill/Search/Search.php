@@ -16,6 +16,7 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item as EntityItem;
 
 /**
  * Plugin search
@@ -26,41 +27,30 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 abstract class Search extends Plugin
 {
     /**
-     * Router
-     *
-     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @var Router
      */
     protected $router;
 
     /**
-     * Filler
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler
+     * @var Filler
      */
     protected $filler;
 
     /**
      * Search source by name
      *
-     * Return structure
-     * <code>
-     * [
-     *     \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item
-     * ]
-     * </code>
-     *
      * @param array $data
      *
-     * @return array
+     * @return Item[]
      */
     abstract public function search(array $data);
 
     /**
      * Build menu for plugin
      *
-     * @param \Knp\Menu\ItemInterface $item
+     * @param ItemInterface $item
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function buildMenu(ItemInterface $item)
     {
@@ -71,9 +61,7 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Set router
-     *
-     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     * @param Router $router
      */
     public function setRouter(Router $router)
     {
@@ -81,9 +69,7 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Get form
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search
+     * @return Search
      */
     public function getForm()
     {
@@ -91,9 +77,7 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Set filler
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
+     * @param Filler $filler
      */
     public function setFiller(Filler $filler)
     {
@@ -101,9 +85,7 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Get filler
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler
+     * @return Filler
      */
     public function getFiller()
     {
@@ -111,8 +93,6 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Get link for fill item
-     *
      * @param mixed $data
      *
      * @return string
@@ -133,8 +113,6 @@ abstract class Search extends Plugin
     }
 
     /**
-     * Get link for search items
-     *
      * @param string $name
      *
      * @return string
@@ -152,7 +130,7 @@ abstract class Search extends Plugin
      *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     * @return EntityItem|null
      */
     public function getCatalogItem($name)
     {

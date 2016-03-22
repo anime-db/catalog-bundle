@@ -23,9 +23,9 @@ interface DriverInterface
     /**
      * Search items
      * 
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $data
-     * @param integer $limit
-     * @param integer $offset
+     * @param Search $data
+     * @param int $limit
+     * @param int $offset
      * @param string $sort_column
      * @param string $sort_direction
      *
@@ -37,7 +37,7 @@ interface DriverInterface
      * Search items by name
      * 
      * @param string $name
-     * @param integer $limit
+     * @param int $limit
      *
      * @return array
      */

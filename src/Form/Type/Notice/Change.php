@@ -50,8 +50,8 @@ class Change extends AbstractType
     const ACTION_REMOVE = 'remove';
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -73,8 +73,7 @@ class Change extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

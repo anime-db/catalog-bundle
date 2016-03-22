@@ -14,6 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
 
 /**
  * Settings for installation page
@@ -24,23 +25,17 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
 class Settings extends AbstractType
 {
     /**
-     * Request
-     *
-     * @var \Symfony\Component\HttpFoundation\Request|null
+     * @var Request|null
      */
     protected $request;
 
     /**
-     * Search chain
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Search\Filler\Chain
+     * @var Chain
      */
     protected $chain;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain $cain
+     * @param Chain $cain
      */
     public function __construct(Chain $cain)
     {
@@ -48,9 +43,7 @@ class Settings extends AbstractType
     }
 
     /**
-     * Set request
-     *
-     * @param \Symfony\Component\HttpFoundation\Request|null $request
+     * @param Request|null $request
      */
     public function setRequest(Request $request = null)
     {
@@ -60,13 +53,13 @@ class Settings extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $search_choices = ['' => 'No'];
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search */
+        /* @var $plugin Search */
         foreach ($this->chain->getPlugins() as $plugin) {
             $search_choices[$plugin->getName()] = $plugin->getTitle();
         }
@@ -84,8 +77,7 @@ class Settings extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

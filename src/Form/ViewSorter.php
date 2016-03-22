@@ -22,15 +22,11 @@ use Symfony\Component\Form\Extension\Core\View\ChoiceView;
 class ViewSorter
 {
     /**
-     * Collator
-     *
      * @var \Collator|null
      */
     protected $collator = null;
 
     /**
-     * Construct
-     *
      * @param string $locale
      */
     public function __construct($locale)
@@ -43,7 +39,7 @@ class ViewSorter
     /**
      * Sort choice
      *
-     * @param \Symfony\Component\Form\FormView $choice
+     * @param FormView $choice
      */
     public function choice(FormView $choice)
     {
@@ -63,7 +59,7 @@ class ViewSorter
      * @param string $a
      * @param string $b
      *
-     * @return integer
+     * @return int
      */
     public function compare($a, $b)
     {

@@ -19,8 +19,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Service;
 class TwigExtension extends \Twig_Extension
 {
     /**
-     * (non-PHPdoc)
-     * @see Twig_Extension::getFilters()
+     * @return array
      */
     public function getFilters()
     {
@@ -35,7 +34,7 @@ class TwigExtension extends \Twig_Extension
      * @param string $path
      * @param string $filter
      *
-     * @return boolean
+     * @return bool
      */
     public function dummy($path, $filter)
     {
@@ -43,8 +42,7 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Twig_ExtensionInterface::getName()
+     * @return string
      */
     public function getName()
     {

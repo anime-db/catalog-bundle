@@ -10,6 +10,8 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Command;
 
+use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -75,10 +77,6 @@ class ScanStoragesCommand extends ContainerAwareCommand
         'ismv'
     ];
 
-    /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Console\Command.Command::configure()
-     */
     protected function configure()
     {
         $this
@@ -120,16 +118,18 @@ EOT
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Console\Command.Command::execute()
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output) {
         $start = time();
 
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $dispatcher = $this->getContainer()->get('event_dispatcher');
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Storage */
-        $repository = $em->getRepository('AnimeDbCatalogBundle:Storage');
+        /* @var $rep StorageRepository */
+        $rep = $em->getRepository('AnimeDbCatalogBundle:Storage');
 
         $progress = $this->getProgress($input, $output);
         $lazywrite = new LazyWrite($output);
@@ -137,7 +137,7 @@ EOT
 
         // get list storages
         if ($id = $input->getArgument('storage')) {
-            $storage = $repository->find($id);
+            $storage = $rep->find($id);
             if (!($storage instanceof Storage)) {
                 throw new \InvalidArgumentException('Not found the storage with id: '.$id);
             }
@@ -146,10 +146,10 @@ EOT
             }
             $storages = [$storage];
         } else {
-            $storages = $repository->getList(Storage::getTypesWritable());
+            $storages = $rep->getList(Storage::getTypesWritable());
         }
 
-        /* @var $storage \AnimeDb\Bundle\CatalogBundle\Entity\Storage */
+        /* @var $storage Storage */
         foreach ($storages as $storage) {
             $output->writeln('Scan storage <info>'.$storage->getName().'</info>:');
 
@@ -162,7 +162,7 @@ EOT
             }
 
             // check storage id
-            $owner = $this->checkStorageId($path, $storage, $repository);
+            $owner = $this->checkStorageId($path, $storage, $rep);
             if ($owner instanceof Storage) {
                 $output->writeln('Path <info>'.$storage->getPath().'</info> reserved storage <info>'
                     .$owner->getName().'</info>');
@@ -184,7 +184,7 @@ EOT
             $progress->start(ceil($total+($total*0.01)));
             $progress->display();
 
-            /* @var $file \Symfony\Component\Finder\SplFileInfo */
+            /* @var $file SplFileInfo */
             foreach ($files as $file) {
                 // ignore not supported files
                 if ($file->isFile() && !$this->isAllowFile($file)) {
@@ -233,8 +233,8 @@ EOT
     /**
      * Get items of deleted files
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\Finder\Finder $finder
+     * @param Storage $storage
+     * @param Finder $finder
      *
      * @return array
      */
@@ -256,14 +256,14 @@ EOT
     /**
      * Get item from files
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\Finder\SplFileInfo $file
+     * @param Storage $storage
+     * @param SplFileInfo $file
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|boolean
+     * @return Item|bool
      */
     protected function getItemFromFile(Storage $storage, SplFileInfo $file)
     {
-        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+        /* @var $item Item */
         foreach ($storage->getItems() as $item) {
             if (pathinfo($item->getPath(), PATHINFO_BASENAME) == $file->getFilename()) {
                 return $item;
@@ -277,7 +277,7 @@ EOT
      *
      * @param string $path
      *
-     * @return \Symfony\Component\Finder\Finder
+     * @return Finder
      */
     protected function getFilesByPath($path)
     {
@@ -291,9 +291,9 @@ EOT
     /**
      * Is allow file
      *
-     * @param \Symfony\Component\Finder\SplFileInfo $file
+     * @param SplFileInfo $file
      *
-     * @return boolean
+     * @return bool
      */
     protected function isAllowFile(SplFileInfo $file)
     {
@@ -304,34 +304,35 @@ EOT
      * Update storage id
      *
      * @param string $path
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \AnimeDb\Bundle\CatalogBundle\Repository\Storage $repository
+     * @param Storage $storage
+     * @param StorageRepository $rep
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage|boolean
+     * @return Storage|bool
      */
-    protected function checkStorageId($path, Storage $storage, StorageRepository $repository)
+    protected function checkStorageId($path, Storage $storage, StorageRepository $rep)
     {
         if (!file_exists($path.StorageListener::ID_FILE)) {
             // path is free. reserve for me
             file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
         } elseif (file_get_contents($path.StorageListener::ID_FILE) == $storage->getId()) {
             // it is my path. do nothing
-        } elseif (!($duplicate = $repository->find(file_get_contents($path.StorageListener::ID_FILE)))) {
+        } elseif (!($duplicate = $rep->find(file_get_contents($path.StorageListener::ID_FILE)))) {
             // this path is reserved storage that was removed and now this path is free
             file_put_contents($path.StorageListener::ID_FILE, $storage->getId());
         } else {
             return $duplicate;
         }
+
         return true;
     }
 
     /**
      * Get progress
      *
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param InputInterface $input
+     * @param OutputInterface $output
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator
+     * @return Decorator
      */
     protected function getProgress(InputInterface $input, OutputInterface $output)
     {

@@ -12,11 +12,10 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
-use AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation;
 
 /**
  * Country
@@ -24,7 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation;
  * @ORM\Entity
  * @ORM\Table(name="country")
  * @Gedmo\TranslationEntity(class="AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation")
- * @IgnoreAnnotation("ORM")
+ * @Annotation\IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -32,20 +31,16 @@ use AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation;
 class Country implements Translatable
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\Column(type="string", length=2)
      * @Assert\NotBlank()
      * @Assert\Country()
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Country name
-     *
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
      * @Gedmo\Translatable
@@ -55,11 +50,9 @@ class Country implements Translatable
     protected $name = '';
 
     /**
-     * Items list
-     *
      * @ORM\OneToMany(targetEntity="Item", mappedBy="country")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $items;
 
@@ -81,9 +74,6 @@ class Country implements Translatable
      */
     protected $translations;
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -91,11 +81,9 @@ class Country implements Translatable
     }
 
     /**
-     * Set id
-     *
      * @param string $id
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function setId($id)
     {
@@ -104,8 +92,6 @@ class Country implements Translatable
     }
 
     /**
-     * Get id
-     *
      * @return string
      */
     public function getId()
@@ -114,11 +100,9 @@ class Country implements Translatable
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function setName($name)
     {
@@ -127,8 +111,6 @@ class Country implements Translatable
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -137,11 +119,9 @@ class Country implements Translatable
     }
 
     /**
-     * Add item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function addItem(Item $item)
     {
@@ -153,11 +133,9 @@ class Country implements Translatable
     }
 
     /**
-     * Remove item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function removeItem(Item $item)
     {
@@ -169,9 +147,7 @@ class Country implements Translatable
     }
 
     /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getItems()
     {
@@ -179,11 +155,9 @@ class Country implements Translatable
     }
 
     /**
-     * Set locale
-     *
      * @param string $locale
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function setTranslatableLocale($locale)
     {
@@ -192,8 +166,6 @@ class Country implements Translatable
     }
 
     /**
-     * Get locale
-     *
      * @return string
      */
     public function getTranslatableLocale()
@@ -202,9 +174,7 @@ class Country implements Translatable
     }
 
     /**
-     * Get translations
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getTranslations()
     {
@@ -212,11 +182,9 @@ class Country implements Translatable
     }
 
     /**
-     * Add translation
+     * @param CountryTranslation $trans
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function addTranslation(CountryTranslation $trans)
     {
@@ -228,11 +196,9 @@ class Country implements Translatable
     }
 
     /**
-     * Remove translation
+     * @param CountryTranslation $trans
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation $trans
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function removeTranslation(CountryTranslation $trans)
     {
@@ -244,8 +210,6 @@ class Country implements Translatable
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

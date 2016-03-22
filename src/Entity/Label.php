@@ -12,7 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="label")
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Label")
- * @IgnoreAnnotation("ORM")
+ * @Annotation\IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -29,19 +29,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Label
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Label name
-     *
      * @ORM\Column(type="string", length=16)
      * @Assert\NotBlank()
      *
@@ -50,26 +46,19 @@ class Label
     protected $name = '';
 
     /**
-     * Items list
-     *
      * @ORM\ManyToMany(targetEntity="Item", mappedBy="labels")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $items;
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->items = new ArrayCollection();
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -77,11 +66,9 @@ class Label
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
+     * @return Label
      */
     public function setName($name)
     {
@@ -90,8 +77,6 @@ class Label
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -100,11 +85,9 @@ class Label
     }
 
     /**
-     * Add items
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
+     * @return Label
      */
     public function addItem(Item $item)
     {
@@ -116,11 +99,9 @@ class Label
     }
 
     /**
-     * Remove items
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Label
+     * @return Label
      */
     public function removeItem(Item $item)
     {
@@ -132,9 +113,7 @@ class Label
     }
 
     /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getItems()
     {
@@ -142,8 +121,6 @@ class Label
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

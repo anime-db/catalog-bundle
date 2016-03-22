@@ -24,31 +24,23 @@ use Symfony\Component\Filesystem\Filesystem;
 class Package
 {
     /**
-     * Kernel
-     *
-     * @var \Symfony\Component\HttpKernel\Kernel
+     * @var Kernel
      */
     protected $kernel;
 
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $fs;
 
     /**
-     * Root dir
-     *
      * @var string
      */
     protected $root_dir;
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\HttpKernel\Kernel $kernel
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
+     * @param Kernel $kernel
+     * @param Filesystem $fs
      * @param string $root_dir
      */
     public function __construct(Kernel $kernel, Filesystem $fs, $root_dir)
@@ -59,9 +51,7 @@ class Package
     }
 
     /**
-     * On update package
-     *
-     * @param \AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated $event
+     * @param Updated $event
      */
     public function onUpdate(Updated $event)
     {
@@ -71,9 +61,7 @@ class Package
     }
 
     /**
-     * On install package
-     *
-     * @param \AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed $event
+     * @param Installed $event
      */
     public function onInstall(Installed $event)
     {
@@ -82,9 +70,6 @@ class Package
         }
     }
 
-    /**
-     * Copy templates
-     */
     protected function copyTemplates()
     {
         $from = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/views/');

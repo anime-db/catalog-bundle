@@ -12,15 +12,14 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use Doctrine\Common\Annotations\Annotation;
 
 /**
  * Item name
  *
  * @ORM\Entity
  * @ORM\Table(name="name")
- * @IgnoreAnnotation("ORM")
+ * @Annotation/IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -28,19 +27,15 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class Name
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Item name
-     *
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      *
@@ -49,19 +44,15 @@ class Name
     protected $name = '';
 
     /**
-     * Items list
-     *
      * @ORM\ManyToOne(targetEntity="Item", inversedBy="names", cascade={"persist"})
      * @ORM\JoinColumn(name="item", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -69,11 +60,9 @@ class Name
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Name
+     * @return Name
      */
     public function setName($name)
     {
@@ -82,8 +71,6 @@ class Name
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -92,11 +79,9 @@ class Name
     }
 
     /**
-     * Set item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Name
+     * @return Name
      */
     public function setItem(Item $item = null)
     {
@@ -117,9 +102,7 @@ class Name
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {
@@ -127,8 +110,6 @@ class Name
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

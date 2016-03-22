@@ -10,7 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Console\Progress;
 
-use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
 use Symfony\Component\Console\Helper\ProgressHelper;
 use Symfony\Component\Console\Output\OutputInterface;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Export as ExportOutput;
@@ -24,10 +23,13 @@ use AnimeDb\Bundle\CatalogBundle\Console\Output\Export as ExportOutput;
 class Export extends PresetOutput
 {
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Console\Helper\ProgressHelper $progress
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @var ExportOutput
+     */
+    protected $output;
+
+    /**
+     * @param ProgressHelper $progress
+     * @param OutputInterface $output
      * @param string $filename
      */
     public function __construct(ProgressHelper $progress, OutputInterface $output, $filename)
@@ -40,12 +42,10 @@ class Export extends PresetOutput
         parent::__construct($progress, $output);
     }
 
-    /**
-     * Destruct
-     */
     public function __destruct()
     {
         // say that scanning is completed
         $this->output->write('100%');
+        $this->output->unlock();
     }
 }

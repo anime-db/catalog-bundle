@@ -24,9 +24,9 @@ abstract class Export extends Plugin
     /**
      * Build menu for plugin
      *
-     * @param \Knp\Menu\ItemInterface $item
+     * @param ItemInterface $item
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     abstract public function buildMenu(ItemInterface $item);
 }

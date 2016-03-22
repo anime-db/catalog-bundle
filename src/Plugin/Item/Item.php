@@ -23,12 +23,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 abstract class Item extends Plugin
 {
     /**
-     * Build menu for plugin
+     * @param ItemInterface $node
+     * @param ItemEntity $item
      *
-     * @param \Knp\Menu\ItemInterface $node
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     abstract public function buildMenu(ItemInterface $node, ItemEntity $item);
 }

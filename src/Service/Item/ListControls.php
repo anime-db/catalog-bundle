@@ -21,23 +21,21 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 class ListControls
 {
     /**
-     * Default limit
-     *
-     * @var integer
+     * @var int
      */
     const DEFAULT_LIMIT = 8;
 
     /**
      * Limit for show all items
      *
-     * @var integer
+     * @var int
      */
     const LIMIT_ALL = 0;
 
     /**
      * Limit name for show all items
      *
-     * @var integer
+     * @var int
      */
     const LIMIT_ALL_NAME = 'All (%total%)';
 
@@ -77,16 +75,12 @@ class ListControls
     ];
 
     /**
-     * Item searcher
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
+     * @var Manager
      */
     protected $searcher;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager $searcher
+     * @param Manager $searcher
      */
     public function __construct(Manager $searcher)
     {
@@ -98,7 +92,7 @@ class ListControls
      *
      * @param array $query
      *
-     * @return integer
+     * @return int
      */
     public function getLimit(array $query = [])
     {
@@ -133,8 +127,6 @@ class ListControls
     }
 
     /**
-     * Get sort column
-     *
      * @param array $query
      *
      * @return string
@@ -145,8 +137,6 @@ class ListControls
     }
 
     /**
-     * Get list sort columns
-     *
      * @param array $query
      *
      * @return array
@@ -171,8 +161,6 @@ class ListControls
     }
 
     /**
-     * Get sort direction
-     *
      * @param array $query
      *
      * @return string
@@ -184,8 +172,6 @@ class ListControls
     }
 
     /**
-     * Get sort direction link
-     *
      * @param array $query
      *
      * @return string

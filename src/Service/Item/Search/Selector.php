@@ -22,16 +22,12 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder;
 class Selector
 {
     /**
-     * Doctrine
-     *
-     * @var \Doctrine\Bundle\DoctrineBundle\Registry
+     * @var Registry
      */
     protected $doctrine;
 
     /**
-     * Construct
-     *
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param Registry $doctrine
      */
     public function __construct(Registry $doctrine)
     {
@@ -39,9 +35,7 @@ class Selector
     }
 
     /**
-     * Create selector builder
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder
+     * @return Builder
      */
     public function create()
     {

@@ -25,23 +25,17 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\EntityInterface;
 class Downloader
 {
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $fs;
 
     /**
-     * Download root dir
-     *
      * @var string
      */
     protected $root = '';
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
+     * @param Filesystem $fs
      * @param string $root
      */
     public function __construct(Filesystem $fs, $root)
@@ -51,9 +45,7 @@ class Downloader
     }
 
     /**
-     * Pre persist
-     *
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param LifecycleEventArgs $args
      */
     public function prePersist(LifecycleEventArgs $args)
     {
@@ -68,7 +60,7 @@ class Downloader
     /**
      * Rename file, if it in the temp folder
      *
-     * @param \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\EntityInterface $entity
+     * @param EntityInterface $entity
      * @param string $target
      */
     protected function renameFile(EntityInterface $entity, $target)

@@ -12,6 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Plugin\Import;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\Form\AbstractType;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
  * Plugin import
@@ -22,9 +24,7 @@ use Knp\Menu\ItemInterface;
 abstract class Import extends Plugin
 {
     /**
-     * Get form
-     *
-     * @return \Symfony\Component\Form\AbstractType
+     * @return AbstractType
      */
     abstract public function getForm();
 
@@ -33,14 +33,14 @@ abstract class Import extends Plugin
      *
      * @param array $data
      *
-     * @return array [ \AnimeDb\Bundle\CatalogBundle\Entity\Item ]
+     * @return Item[]
      */
     abstract public function import(array $data);
 
     /**
      * Build menu for plugin
      *
-     * @param \Knp\Menu\ItemInterface $item
+     * @param ItemInterface $item
      */
     public function buildMenu(ItemInterface $item)
     {

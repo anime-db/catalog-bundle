@@ -21,25 +21,19 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 class Chain
 {
     /**
-     * List debug items
-     *
      * @var array
      */
     protected $debug_items = [];
 
     /**
-     * List public items
-     *
      * @var array
      */
     protected $public_items = [];
 
     /**
-     * Add public item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+     * @return Chain
      */
     public function addPublicItem(Item $item)
     {
@@ -48,11 +42,9 @@ class Chain
     }
 
     /**
-     * Add debug item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+     * @return Chain
      */
     public function addDebugItem(Item $item)
     {
@@ -61,9 +53,7 @@ class Chain
     }
 
     /**
-     * Get public items
-     *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item]
+     * @return Item[]
      */
     public function getPublicItems()
     {
@@ -71,9 +61,7 @@ class Chain
     }
 
     /**
-     * Get debug items
-     *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item]
+     * @return Item[]
      */
     public function getDebugItems()
     {

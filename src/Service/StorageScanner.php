@@ -23,38 +23,28 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 class StorageScanner
 {
     /**
-     * Command
-     *
-     * @var \AnimeDb\Bundle\AppBundle\Service\CommandExecutor
+     * @var CommandExecutor
      */
     protected $command;
 
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $fs;
 
     /**
-     * Output file
-     *
      * @var string
      */
     protected $output = '';
 
     /**
-     * Progress file
-     *
      * @var string
      */
     protected $progress = '';
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\AppBundle\Service\CommandExecutor $command
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
+     * @param CommandExecutor $command
+     * @param Filesystem $fs
      * @param string $output
      * @param string $progress
      */
@@ -69,7 +59,7 @@ class StorageScanner
     /**
      * Scan storage in background and export progress and output
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param StorageEntity $storage
      */
     public function export(StorageEntity $storage)
     {

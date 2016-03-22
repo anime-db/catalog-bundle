@@ -99,8 +99,10 @@ class Export extends Decorator
     }
 
     public function unlock() {
-        flock($this->handle, LOCK_UN);
-        fclose($this->handle);
+        if (is_resource($this->handle)) {
+            flock($this->handle, LOCK_UN);
+            fclose($this->handle);
+        }
     }
 
     public function __destruct()

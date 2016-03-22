@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use Doctrine\Common\Annotations\Annotation;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
 /**
@@ -23,7 +23,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  *         "locale", "object_id", "field"
  *     })}
  * )
- * @IgnoreAnnotation("ORM")
+ * @Annotation\IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -31,18 +31,14 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 class CountryTranslation extends AbstractPersonalTranslation
 {
     /**
-     * Country
-     *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @var Country
      */
     protected $object;
 
     /**
-     * Constructor
-     *
      * @param string $locale
      * @param string $field
      * @param string $value

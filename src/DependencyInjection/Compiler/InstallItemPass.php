@@ -23,9 +23,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class InstallItemPass implements CompilerPassInterface
 {
     /**
-     * Process container builder
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {

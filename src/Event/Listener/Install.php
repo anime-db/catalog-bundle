@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters;
 use AnimeDb\Bundle\AppBundle\Service\CacheClearer;
+use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -31,78 +32,56 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain;
 class Install
 {
     /**
-     * Parameters manipulator
-     *
-     * @var \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters
+     * @var Parameters
      */
     protected $manipulator;
 
     /**
-     * Cache clearer
-     *
-     * @var \AnimeDb\Bundle\AppBundle\Service\CacheClearer
+     * @var CacheClearer
      */
     protected $cache_clearer;
 
     /**
-     * Entity manager
-     *
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var ObjectManager
      */
     protected $em;
 
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $fs;
 
     /**
-     * Kernel
-     *
-     * @var \Symfony\Component\HttpKernel\KernelInterface
+     * @var KernelInterface
      */
     protected $kernel;
 
     /**
-     * Translator
-     *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected $translator;
 
     /**
-     * Item chain
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain
+     * @var Chain
      */
     protected $item_chain;
 
     /**
-     * Origin dir
-     *
      * @var string
      */
     protected $origin_dir = '';
 
     /**
-     * Target dir
-     *
      * @var string
      */
     protected $target_dir = '';
 
     /**
-     * App is installed
-     *
-     * @var boolean
+     * @var bool
      */
     protected $installed = false;
 
     /**
-     * Labels
-     *
      * @var array
      */
     protected $labels = [
@@ -114,17 +93,15 @@ class Install
     ];
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters $manipulator
-     * @param \AnimeDb\Bundle\AppBundle\Service\CacheClearer $cache_clearer
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain $item_chain
-     * @param \Doctrine\Common\Persistence\ObjectManager $em
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
-     * @param \Symfony\Component\HttpKernel\KernelInterface $kernel
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param Parameters $manipulator
+     * @param CacheClearer $cache_clearer
+     * @param Chain $item_chain
+     * @param ObjectManager $em
+     * @param Filesystem $fs
+     * @param KernelInterface $kernel
+     * @param TranslatorInterface $translator
      * @param string $root_dir
-     * @param boolean $installed
+     * @param bool $installed
      */
     public function __construct(
         Parameters $manipulator,
@@ -148,9 +125,6 @@ class Install
         $this->cache_clearer = $cache_clearer;
     }
 
-    /**
-     * On install application
-     */
     public function onInstallApp()
     {
         // update param
@@ -183,9 +157,7 @@ class Install
     }
 
     /**
-     * On install samples
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Install\Samples $event
+     * @param Samples $event
      */
     public function onInstallSamples(SamplesInstall $event)
     {
@@ -218,13 +190,11 @@ class Install
     }
 
     /**
-     * Persist item
+     * @param Item $item
+     * @param Storage $storage
+     * @param Label $label
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
-     *
-     * @return boolean
+     * @return bool
      */
     protected function persist(Item $item, Storage $storage, Label $label)
     {
@@ -241,9 +211,7 @@ class Install
     }
 
     /**
-     * Get origin cover
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
+     * @param Item $item
      *
      * @return string
      */
@@ -256,9 +224,7 @@ class Install
     }
 
     /**
-     * Get target cover
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item $item
+     * @param Item $item
      *
      * @return string
      */

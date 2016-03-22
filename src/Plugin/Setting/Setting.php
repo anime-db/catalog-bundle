@@ -22,11 +22,9 @@ use Knp\Menu\ItemInterface;
 abstract class Setting extends Plugin
 {
     /**
-     * Build menu for plugin
+     * @param ItemInterface $item
      *
-     * @param \Knp\Menu\ItemInterface $item
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     abstract public function buildMenu(ItemInterface $item);
 }

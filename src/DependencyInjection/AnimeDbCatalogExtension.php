@@ -26,8 +26,8 @@ use Symfony\Component\DependencyInjection\Loader;
 class AnimeDbCatalogExtension extends Extension
 {
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\DependencyInjection\Extension\ExtensionInterface::load()
+     * @param array $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
     {

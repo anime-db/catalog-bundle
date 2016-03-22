@@ -11,7 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
  * Plugin refiller
@@ -142,53 +142,47 @@ abstract class Refiller extends Plugin
     ];
 
     /**
-     * Is can refill item
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      * @param string $field
      *
-     * @return boolean
+     * @return bool
      */
-    abstract public function isCanRefill(Item $item, $field);
+    abstract public function isCanRefill(ItemEntity $item, $field);
 
     /**
      * Refill item field
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      * @param string $field
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return ItemEntity
      */
-    abstract public function refill(Item $item, $field);
+    abstract public function refill(ItemEntity $item, $field);
 
     /**
-     * Is can search
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      * @param string $field
      *
-     * @return boolean
+     * @return bool
      */
-    abstract public function isCanSearch(Item $item, $field);
+    abstract public function isCanSearch(ItemEntity $item, $field);
 
     /**
-     * Search items for refill
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      * @param string $field
      *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Item]
+     * @return Item[]
      */
-    abstract public function search(Item $item, $field);
+    abstract public function search(ItemEntity $item, $field);
 
     /**
      * Refill item field from search result
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      * @param string $field
      * @param array $data
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return ItemEntity
      */
-    abstract public function refillFromSearchResult(Item $item, $field, array $data);
+    abstract public function refillFromSearchResult(ItemEntity $item, $field, array $data);
 }

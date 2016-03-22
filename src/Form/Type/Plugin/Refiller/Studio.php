@@ -25,16 +25,12 @@ use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 class Studio extends AbstractType
 {
     /**
-     * View sorter
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
+     * @var ViewSorter
      */
     protected $sorter;
 
     /**
-     * Set view sorter
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter $sorter
+     * @param ViewSorter $sorter
      */
     public function setViewSorter(ViewSorter $sorter)
     {
@@ -42,8 +38,8 @@ class Studio extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -60,8 +56,9 @@ class Studio extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::finishView()
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
@@ -69,8 +66,7 @@ class Studio extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

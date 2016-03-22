@@ -10,6 +10,10 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install;
 
+use AnimeDb\Bundle\CatalogBundle\Entity\Country;
+use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
+use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
+use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Translation\TranslatorInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
@@ -30,31 +34,23 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 abstract class Item
 {
     /**
-     * Entity manager
-     *
-     * @var \Doctrine\Common\Persistence\ObjectManager
+     * @var ObjectManager
      */
     private $em;
 
     /**
-     * Translator
-     *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected $translator;
 
     /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     private $item;
 
     /**
-     * Construct
-     *
-     * @param \Doctrine\Common\Persistence\ObjectManager $em
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param ObjectManager $em
+     * @param TranslatorInterface $translator
      */
     public function __construct(ObjectManager $em, TranslatorInterface $translator)
     {
@@ -63,9 +59,7 @@ abstract class Item
     }
 
     /**
-     * Build item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return ItemEntity
      */
     protected function buildItem()
     {
@@ -77,9 +71,9 @@ abstract class Item
      *
      * Heir sets the path to the item files
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param Storage $storage
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item
+     * @return Item
      */
     public function setStorage(Storage $storage)
     {
@@ -88,9 +82,7 @@ abstract class Item
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return ItemEntity
      */
     public function getItem()
     {
@@ -101,11 +93,9 @@ abstract class Item
     }
 
     /**
-     * Get country
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     protected function getCountry($name)
     {
@@ -113,11 +103,9 @@ abstract class Item
     }
 
     /**
-     * Get type
-     *
      * @param string $id
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     protected function getType($id)
     {
@@ -125,11 +113,9 @@ abstract class Item
     }
 
     /**
-     * Get studio
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     * @return Studio
      */
     protected function getStudio($name)
     {
@@ -137,11 +123,9 @@ abstract class Item
     }
 
     /**
-     * Get genre
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Genre
+     * @return Genre
      */
     protected function getGenre($name)
     {

@@ -24,14 +24,14 @@ class Chain extends ChainPlugin
     /**
      * Get list of plugins that can fill item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param Item $item
      * @param string $field
      *
-     * @return array [ \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller ]
+     * @return Refiller[]
      */
     public function getPluginsThatCanFillItem(Item $item, $field) {
         $plugins = [];
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller */
+        /* @var $plugin Refiller */
         foreach ($this->plugins as $plugin) {
             if ($plugin->isCanRefill($item, $field) || $plugin->isCanSearch($item, $field)) {
                 $plugins[] = $plugin;

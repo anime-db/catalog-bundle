@@ -24,24 +24,18 @@ use Symfony\Component\Console\Helper\HelperSet;
 class PresetOutput implements HelperInterface
 {
     /**
-     * Progress helper
-     *
-     * @var \Symfony\Component\Console\Helper\ProgressHelper
+     * @var ProgressHelper
      */
     protected $progress;
 
     /**
-     * Output
-     *
-     * @var \Symfony\Component\Console\Output\OutputInterface
+     * @var OutputInterface
      */
     protected $output;
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Console\Helper\ProgressHelper $progress
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param ProgressHelper $progress
+     * @param OutputInterface $output
      */
     public function __construct(ProgressHelper $progress, OutputInterface $output)
     {
@@ -52,7 +46,7 @@ class PresetOutput implements HelperInterface
     /**
      * Sets the helper set associated with this helper.
      *
-     * @param \Symfony\Component\Console\Helper\HelperSet $helperSet
+     * @param HelperSet $helperSet
      */
     public function setHelperSet(HelperSet $helperSet = null)
     {
@@ -62,7 +56,7 @@ class PresetOutput implements HelperInterface
     /**
      * Gets the helper set associated with this helper.
      *
-     * @return \Symfony\Component\Console\Helper\HelperSet
+     * @return HelperSet
      */
     public function getHelperSet()
     {
@@ -72,7 +66,7 @@ class PresetOutput implements HelperInterface
     /**
      * Sets the progress bar width.
      *
-     * @param integer $size The progress bar size
+     * @param int $size The progress bar size
      */
     public function setBarWidth($size)
     {
@@ -122,7 +116,7 @@ class PresetOutput implements HelperInterface
     /**
      * Sets the redraw frequency.
      *
-     * @param integer $freq The frequency in steps
+     * @param int $freq The frequency in steps
      */
     public function setRedrawFrequency($freq)
     {
@@ -132,7 +126,7 @@ class PresetOutput implements HelperInterface
     /**
      * Starts the progress output.
      *
-     * @param integer|null $max Maximum steps
+     * @param int|null $max Maximum steps
      */
     public function start($max = null)
     {
@@ -142,8 +136,8 @@ class PresetOutput implements HelperInterface
     /**
      * Advances the progress output X steps.
      *
-     * @param integer $step Number of steps to advance
-     * @param boolean $redraw Whether to redraw or not
+     * @param int $step Number of steps to advance
+     * @param bool $redraw Whether to redraw or not
      *
      * @throws \LogicException
      */
@@ -155,8 +149,8 @@ class PresetOutput implements HelperInterface
     /**
      * Sets the current progress.
      *
-     * @param integer $current The current progress
-     * @param boolean $redraw Whether to redraw or not
+     * @param int $current The current progress
+     * @param bool $redraw Whether to redraw or not
      *
      * @throws \LogicException
      */
@@ -168,7 +162,7 @@ class PresetOutput implements HelperInterface
     /**
      * Outputs the current progress string.
      *
-     * @param boolean $finish Forces the end result
+     * @param bool $finish Forces the end result
      *
      * @throws \LogicException
      */
@@ -186,7 +180,7 @@ class PresetOutput implements HelperInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getName()
     {

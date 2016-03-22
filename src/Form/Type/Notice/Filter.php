@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Notice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Filter notices form
@@ -24,32 +24,26 @@ use Doctrine\ORM\EntityManager;
 class Filter extends AbstractType
 {
     /**
-     * Form name
-     *
      * @var string
      */
     const NAME = 'anime_db_catalog_notices_filter';
 
     /**
-     * Entity manager
-     *
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * Construct
-     *
-     * @param \Doctrine\ORM\EntityManager $em
+     * @param EntityManagerInterface $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -68,7 +62,6 @@ class Filter extends AbstractType
         }
 
         $builder
-            ->setMethod('GET')
             ->add('status', 'choice', [
                 'choices' => [
                     Notice::STATUS_CREATED => 'New',
@@ -80,12 +73,11 @@ class Filter extends AbstractType
             ->add('type', 'choice', [
                 'choices' => $this->getNormalLabels($types),
                 'required' => false
-            ]);
+            ])
+            ->setMethod('GET');
     }
 
     /**
-     * Get normal labels
-     *
      * @param array $labels
      *
      * @return array
@@ -100,8 +92,7 @@ class Filter extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

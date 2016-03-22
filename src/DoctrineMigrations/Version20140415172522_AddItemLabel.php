@@ -19,8 +19,7 @@ use Doctrine\DBAL\Schema\Schema;
 class Version20140415172522_AddItemLabel extends AbstractMigration
 {
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
      */
     public function up(Schema $schema)
     {
@@ -42,8 +41,7 @@ class Version20140415172522_AddItemLabel extends AbstractMigration
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
      */
     public function down(Schema $schema)
     {

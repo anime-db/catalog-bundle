@@ -21,15 +21,11 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Chain as ChainPlugin;
 class Chain extends ChainPlugin
 {
     /**
-     * Name of default search plugin
-     *
      * @var string
      */
     protected $default_search = '';
 
     /**
-     * Construct
-     *
      * @param string $default_search
      */
     public function __construct($default_search = '')
@@ -38,9 +34,7 @@ class Chain extends ChainPlugin
     }
 
     /**
-     * Get default search plugin
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search|null
+     * @return Search|null
      */
     public function getDafeultPlugin()
     {

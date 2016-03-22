@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\DBAL\Schema\Schema;
@@ -24,7 +25,7 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     /**
      * Entity manager
      *
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -48,7 +49,7 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     /**
      * Set container
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -56,12 +57,11 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
      */
     public function up(Schema $schema)
     {
-        $repository = $this->em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+        $rep = $this->em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($this->genres as $en => $ru) {
             $genre = new Genre();
 
@@ -69,20 +69,19 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
             $this->em->persist($genre);
             $this->em->flush($genre);
 
-            $repository->translate($genre, 'name', 'ru', $ru);
+            $rep->translate($genre, 'name', 'ru', $ru);
         }
         $this->em->flush();
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
      */
     public function down(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Genre');
         foreach (array_keys($this->genres) as $en) {
-            $this->em->remove($rep->findOneByName($en));
+            $this->em->remove($rep->findOneBy(['name' => $en]));
         }
     }
 }

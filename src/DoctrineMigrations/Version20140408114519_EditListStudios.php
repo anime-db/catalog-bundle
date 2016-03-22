@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\DBAL\Schema\Schema;
@@ -24,7 +25,7 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
     /**
      * Entity manager
      *
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -70,7 +71,7 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
     /**
      * Set container
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -78,15 +79,14 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
      */
     public function up(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Studio');
 
         // rename studios
-        /* @var $studio \AnimeDb\Bundle\CatalogBundle\Entity\Studio */
+        /* @var $studio Studio */
         foreach ($this->rename as $from => $to) {
             $studio = $rep->findOneByName($from);
             $studio->setName($to);
@@ -103,15 +103,14 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
      */
     public function down(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Studio');
 
         // rename studios
-        /* @var $studio \AnimeDb\Bundle\CatalogBundle\Entity\Studio */
+        /* @var $studio Studio */
         foreach ($this->rename as $from => $to) {
             $studio = $rep->findOneByName($to);
             $studio->setName($from);

@@ -14,6 +14,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use AnimeDb\Bundle\CatalogBundle\Entity\Name;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
  * Install item
@@ -24,8 +25,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 class OnePiece extends Item
 {
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::buildItem()
+     * @return ItemEntity
      */
     protected function buildItem()
     {
@@ -79,6 +79,7 @@ class OnePiece extends Item
         switch (substr($this->translator->getLocale(), 0, 2)) {
             case 'ua':
                 $item->addName((new Name())->setName('Большой куш'));
+                // no break
             case 'ru':
                 $item->addName((new Name())->setName('Ван-Пис'));
         }
@@ -91,8 +92,9 @@ class OnePiece extends Item
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::setStorage()
+     * @param Storage $storage
+     *
+     * @return Item
      */
     public function setStorage(Storage $storage)
     {
