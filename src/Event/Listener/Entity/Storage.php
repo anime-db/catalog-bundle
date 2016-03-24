@@ -30,16 +30,12 @@ class Storage
     const ID_FILE = '.storage';
 
     /**
-     * Filesystem
-     *
-     * @var \Symfony\Component\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $fs;
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Filesystem\Filesystem $fs
+     * @param Filesystem $fs
      */
     public function __construct(Filesystem $fs)
     {
@@ -47,9 +43,7 @@ class Storage
     }
 
     /**
-     * Post persist
-     *
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param LifecycleEventArgs $args
      */
     public function postPersist(LifecycleEventArgs $args)
     {
@@ -63,9 +57,7 @@ class Storage
     }
 
     /**
-     * Post remove
-     *
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param LifecycleEventArgs $args
      */
     public function postRemove(LifecycleEventArgs $args)
     {
@@ -79,9 +71,7 @@ class Storage
     }
 
     /**
-     * Post update
-     *
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param LifecycleEventArgs $args
      */
     public function postUpdate(LifecycleEventArgs $args)
     {

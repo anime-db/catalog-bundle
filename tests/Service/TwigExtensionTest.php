@@ -21,24 +21,15 @@ use AnimeDb\Bundle\CatalogBundle\Service\TwigExtension;
 class TwigExtensionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Extension
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\TwigExtension
      */
     protected $extension;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->extension = new TwigExtension();
     }
 
-    /**
-     * Test get filters
-     */
     public function testGetFilters()
     {
         $this->assertEquals(
@@ -47,17 +38,11 @@ class TwigExtensionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Test dummy
-     */
     public function testDummy()
     {
         $this->assertEquals('my_path', $this->extension->dummy('my_path', 'my_filter'));
     }
 
-    /**
-     * Test dummy apply
-     */
     public function testDummyApply()
     {
         $this->assertEquals(
@@ -66,9 +51,6 @@ class TwigExtensionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Test get name
-     */
     public function testGetName()
     {
         $this->assertEquals('anime_db_catalog_extension', $this->extension->getName());

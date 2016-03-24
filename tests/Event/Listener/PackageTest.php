@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Package;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Test package listener
@@ -21,36 +23,38 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Package;
 class PackageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Get events
-     *
      * @return array
      */
     public function getEvents()
     {
         return [
             [
-                $this->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated')
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onUpdate',
                 'foo'
             ],
             [
-                $this->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed')
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onInstall',
                 'foo'
             ],
             [
-                $this->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Updated')
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onUpdate',
                 'anime-db/catalog-bundle'
             ],
             [
-                $this->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed')
+                $this
+                    ->getMockBuilder('\AnimeDb\Bundle\AnimeDbBundle\Event\Package\Installed')
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onInstall',
@@ -60,8 +64,6 @@ class PackageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test copy templates
-     *
      * @dataProvider getEvents
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $event
@@ -76,14 +78,17 @@ class PackageTest extends \PHPUnit_Framework_TestCase
         $package
             ->expects($this->once())
             ->method('getName')
-            ->willReturn($package_name);
+            ->will($this->returnValue($package_name));
         $event
             ->expects($this->once())
             ->method('getPackage')
-            ->willReturn($package);
+            ->will($this->returnValue($package));
 
+        /* @var $fs \PHPUnit_Framework_MockObject_MockObject|Filesystem */
         $fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
-        $kernel = $this->getMockBuilder('\Symfony\Component\HttpKernel\Kernel')
+        /* @var $kernel \PHPUnit_Framework_MockObject_MockObject|Kernel */
+        $kernel = $this
+            ->getMockBuilder('\Symfony\Component\HttpKernel\Kernel')
             ->disableOriginalConstructor()
             ->getMock();
         if ($package_name == 'anime-db/catalog-bundle') {
@@ -92,7 +97,7 @@ class PackageTest extends \PHPUnit_Framework_TestCase
             $kernel
                 ->expects($this->once())
                 ->method('locateResource')
-                ->willReturn($from)
+                ->will($this->returnValue($from))
                 ->with('@AnimeDbCatalogBundle/Resources/views/');
             $fs
                 ->expects($this->at(0))

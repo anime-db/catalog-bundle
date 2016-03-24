@@ -13,7 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 use Symfony\Component\EventDispatcher\Event;
 use Doctrine\Common\Collections\ArrayCollection;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 
 /**
  * Event thrown when a new item is added
@@ -24,35 +24,27 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler;
 class AddNewItem extends Event
 {
     /**
-     * Fillers
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $fillers;
 
     /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
+     * @param Item $item
+     * @param FillerInterface $filler
      */
-    public function __construct(Item $item, Filler $filler)
+    public function __construct(Item $item, FillerInterface $filler)
     {
         $this->item = $item;
         $this->fillers = new ArrayCollection([$filler]);
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {
@@ -60,9 +52,7 @@ class AddNewItem extends Event
     }
 
     /**
-     * Get fillers
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getFillers()
     {
@@ -70,13 +60,11 @@ class AddNewItem extends Event
     }
 
     /**
-     * Add filler
+     * @param FillerInterface $filler
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler $filler
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem
+     * @return AddNewItem
      */
-    public function addFiller(Filler $filler)
+    public function addFiller(FillerInterface $filler)
     {
         if (!$this->fillers->contains($filler)) {
             $this->fillers->add($filler);

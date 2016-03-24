@@ -13,6 +13,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Image;
+use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Test entity downloader listener
@@ -25,14 +27,12 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     /**
      * LifecycleEventArgs
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|LifecycleEventArgs
      */
     protected $args;
 
     /**
-     * Filesystem
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Filesystem
      */
     protected $fs;
 
@@ -44,16 +44,10 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     protected $root = '/foo/';
 
     /**
-     * Listener
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity
+     * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader
      */
     protected $listener;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
@@ -64,8 +58,6 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get entity
-     *
      * @return array
      */
     public function getEntity()
@@ -84,8 +76,6 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test pre persist
-     *
      * @dataProvider getEntity
      *
      * @param \PHPUnit_Framework_MockObject_MockObject $entity
@@ -96,49 +86,50 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
         $this->args
             ->expects($this->once())
             ->method('getEntity')
-            ->willReturn($entity);
+            ->will($this->returnValue($entity));
         if ($entity instanceof Item || $entity instanceof Image) {
+            /* @var $entity \PHPUnit_Framework_MockObject_MockObject|Item|Image */
             $time = $this->getMock('\DateTime');
             $time
                 ->expects($this->once())
                 ->method('format')
                 ->with('Y/m/d/His/')
-                ->willReturn('some/path');
+                ->will($this->returnValue('some/path'));
             if ($entity instanceof Item) {
                 $entity
                     ->expects($this->once())
                     ->method('getDateAdd')
-                    ->willReturn($time);
+                    ->will($this->returnValue($time));
             } else {
                 $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
                 $entity
                     ->expects($this->once())
                     ->method('getItem')
-                    ->willReturn($item);
+                    ->will($this->returnValue($item));
                 $item
                     ->expects($this->once())
                     ->method('getDateAdd')
-                    ->willReturn($time);
+                    ->will($this->returnValue($time));
             }
             $entity
                 ->expects($this->at(1))
                 ->method('getFilename')
-                ->willReturn($filename);
+                ->will($this->returnValue($filename));
             if ($filename) {
                 $entity
                     ->expects($this->at(2))
                     ->method('getFilename')
-                    ->willReturn($filename);
+                    ->will($this->returnValue($filename));
             }
             if (strpos($filename, 'tmp') !== false) {
                 $entity
                     ->expects($this->at(3))
                     ->method('getFilename')
-                    ->willReturn($filename);
+                    ->will($this->returnValue($filename));
                 $entity
                     ->expects($this->at(6))
                     ->method('getFilename')
-                    ->willReturn('new_filename');
+                    ->will($this->returnValue('new_filename'));
                 $entity
                     ->expects($this->once())
                     ->method('setFilename')
@@ -146,7 +137,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
                 $entity
                     ->expects($this->once())
                     ->method('getDownloadPath')
-                    ->willReturn('web');
+                    ->will($this->returnValue('web'));
                 $this->fs
                     ->expects($this->once())
                     ->method('copy')

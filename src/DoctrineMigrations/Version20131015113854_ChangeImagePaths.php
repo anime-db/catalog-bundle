@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Migrations\SkipMigrationException;
 use Doctrine\DBAL\Schema\Schema;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -31,7 +32,7 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
     /**
      * Set container
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -39,8 +40,9 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
+     *
+     * @throws SkipMigrationException
      */
     public function up(Schema $schema)
     {
@@ -122,8 +124,9 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
+     *
+     * @throws SkipMigrationException
      */
     public function down(Schema $schema)
     {

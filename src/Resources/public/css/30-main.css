@@ -4,7 +4,12 @@ body {
 	/* font-family: "Trebuchet MS",Verdana,sans-serif; */
 	font-size: 12px;
 	line-height: 1.4em;
-	background: #f1c98e url(/bundles/animedbcatalog/images/bg-point.png) repeat 0 0;
+	/* background */
+	background: #f1c98e url(/bundles/animedbcatalog/images/bg.jpg) no-repeat bottom center;
+	-o-background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
 }
 html, body {
 	margin: 0;
@@ -196,21 +201,6 @@ h1.logo a span {
 }
 
 
-
-/**
- * Background
- */
-#bg {
-	position: relative;
-	bottom: 0;
-	margin: -1200px auto 0 auto;
-	height: 1200px;
-	background: url(/bundles/animedbcatalog/images/bg.jpg) no-repeat bottom center;
-	-o-background-size: cover;
-	-moz-background-size: cover;
-	-webkit-background-size: cover;
-	background-size: cover;
-}
 
 #wrapper {
 	position:absolute;
@@ -689,8 +679,8 @@ h1.logo a span {
 .f-image .change-button {
 	cursor: pointer;
 	position: absolute;
-	top: 0px;
-	right: 0px;
+	top: 0;
+	right: 0;
 	padding: 152px 0 0 152px;
 	margin: 0;
 	width: 152px;
@@ -848,7 +838,7 @@ h1.logo a span {
 	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
-	top: 0px;
+	top: 0;
 	animation: show-notice .6s;
 	-webkit-animation: show-notice .6s;
 	z-index: 1;

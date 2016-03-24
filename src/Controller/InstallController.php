@@ -10,15 +10,16 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
-use AnimeDb\Bundle\CatalogBundle\Controller\StorageController;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\App as AppInstall;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples as SamplesInstall;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\StoreEvents;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Installation controller
@@ -26,7 +27,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Install\StoreEvents;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class InstallController extends Controller
+class InstallController extends BaseController
 {
     /**
      * Link to guide, how scan the storage
@@ -45,9 +46,9 @@ class InstallController extends Controller
     /**
      * Home (Stap #1)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -56,7 +57,7 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -83,9 +84,9 @@ class InstallController extends Controller
     /**
      * Add storage (Stap #2)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addStorageAction(Request $request)
     {
@@ -94,19 +95,19 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Storage');
+        $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbCatalogBundle:Storage');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
         // get last storage
-        $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+        $storage = $this->getRepository()->getLast();
         if (!$storage) {
             $storage = new Storage();
             $storage->setPath(Filesystem::getUserHomeDir());
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm(new StorageForm(), $storage)->handleRequest($request);
 
         if ($form->isValid()) {
@@ -127,9 +128,9 @@ class InstallController extends Controller
     /**
      * What you want
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function whatYouWantAction(Request $request)
     {
@@ -138,14 +139,14 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
         if ($request->isMethod('POST')) {
-            $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+            $storage = $this->getRepository()->getLast();
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_SAMPLES, new SamplesInstall($storage));
             return $this->redirect($this->generateUrl('install_end_skip', ['from' => 'install_sample']));
         }
@@ -158,9 +159,9 @@ class InstallController extends Controller
     /**
      * Scan storage (Stap #4)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function scanAction(Request $request)
     {
@@ -169,12 +170,12 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $storage = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage')->getLast();
+        $storage = $this->getRepository()->getLast();
         if (!$storage) {
             return $this->redirect('install_add_storage');
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse($storage->getDateUpdate());
+        $response = $this->getCacheTimeKeeper()->getResponse($storage->getDateUpdate());
 
         // scan storage in background
         $this->get('anime_db.storage_scanner')->export($storage);
@@ -192,10 +193,10 @@ class InstallController extends Controller
     /**
      * End install (Stap #5)
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
      * @param string $from
+     *
+     * @return Response
      */
     public function endAction(Request $request, $from = '')
     {
@@ -204,7 +205,7 @@ class InstallController extends Controller
             return $this->redirect($this->generateUrl('home'));
         }
 
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -219,5 +220,13 @@ class InstallController extends Controller
             'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_START),
             'from' => $from
         ], $response);
+    }
+
+    /**
+     * @return StorageRepository
+     */
+    protected function getRepository()
+    {
+        return $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
     }
 }

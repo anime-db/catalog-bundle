@@ -11,7 +11,6 @@
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
-use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -32,16 +31,14 @@ class Export extends Decorator
     /**
      * Append to end file
      *
-     * @var boolean
+     * @var bool
      */
     protected $append = true;
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param OutputInterface $output
      * @param string $filename
-     * @param boolean $append
+     * @param bool $append
      */
     public function __construct(OutputInterface $output, $filename, $append = true)
     {
@@ -61,8 +58,9 @@ class Export extends Decorator
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::write()
+     * @param array|string $messages
+     * @param bool|false $newline
+     * @param int $type
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
@@ -71,8 +69,8 @@ class Export extends Decorator
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::writeln()
+     * @param array|string $messages
+     * @param int $type
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
@@ -81,10 +79,8 @@ class Export extends Decorator
     }
 
     /**
-     * Write messages to file
-     *
      * @param string|array $messages
-     * @param boolean $newline
+     * @param bool $newline
      */
     protected function writeToFile($messages, $newline)
     {
@@ -102,12 +98,15 @@ class Export extends Decorator
         fwrite($this->handle, implode('', $messages));
     }
 
-    /**
-     * Destruct
-     */
+    public function unlock() {
+        if (is_resource($this->handle)) {
+            flock($this->handle, LOCK_UN);
+            fclose($this->handle);
+        }
+    }
+
     public function __destruct()
     {
-        flock($this->handle, LOCK_UN);
-        fclose($this->handle);
+        $this->unlock();
     }
 }

@@ -35,16 +35,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * List entities
-     *
      * @var array
      */
     protected $entities = [];
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->entities['general'] = new General();
@@ -226,7 +220,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
      * @param string $getter
      * @param string $setter
      * @param mixed $default
-     * @param mixed $new
      */
     public function testGetSetTime($entity, $getter, $setter, $default = null)
     {
@@ -434,13 +427,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $related
             ->expects($this->once())
             ->method($related_add)
-            ->willReturnSelf()
-            ->with($this->get($entity));
+            ->with($this->get($entity))
+            ->will($this->returnSelf());
         $related
             ->expects($this->once())
             ->method($related_remove)
-            ->willReturnSelf()
-            ->with($this->get($entity));
+            ->with($this->get($entity))
+            ->will($this->returnSelf());
         $this->assertEmpty($this->call($entity, $get));
 
         // add
@@ -543,17 +536,17 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method($add)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related1
             ->expects($this->once())
             ->method($remove)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related2
             ->expects($this->once())
             ->method($add)
             ->with($this->get($entity))
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $related2
             ->expects($this->never())
             ->method($remove);

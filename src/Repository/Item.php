@@ -14,17 +14,13 @@ use Doctrine\ORM\EntityRepository;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * Item repository
- *
  * @package AnimeDb\Bundle\CatalogBundle\Repository
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item extends EntityRepository
 {
     /**
-     * Get count items
-     *
-     * @return integer
+     * @return int
      */
     public function count()
     {
@@ -37,12 +33,10 @@ class Item extends EntityRepository
     }
 
     /**
-     * Get items list
+     * @param int|null $limit
+     * @param int|null $offset
      *
-     * @param integer|null $limit
-     * @param integer|null $offset
-     *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Entity\Item]
+     * @return ItemEntity[]
      */
     public function getList($limit = 0, $offset = 0)
     {
@@ -64,9 +58,7 @@ class Item extends EntityRepository
     }
 
     /**
-     * Find duplicate
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param ItemEntity $item
      *
      * @return array
      */
@@ -118,9 +110,7 @@ class Item extends EntityRepository
     }
 
     /**
-     * Get last update
-     *
-     * @param integer|null $id
+     * @param int|null $id
      *
      * @return \DateTime|null
      */

@@ -10,14 +10,20 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Entity\Name;
+use AnimeDb\Bundle\CatalogBundle\Repository\Item as ItemRepository;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\SearchSimple;
-use AnimeDb\Bundle\CatalogBundle\Form\Type\Search as SearchForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\General as GeneralForm;
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General as GeneralEntity;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Main page of the catalog
@@ -25,7 +31,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Search as SearchEntity;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     /**
      * Widget place top
@@ -44,20 +50,20 @@ class HomeController extends Controller
     /**
      * Autocomplete list limit
      *
-     * @var integer
+     * @var int
      */
     const AUTOCOMPLETE_LIMIT = 10;
 
     /**
      * Home
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse('AnimeDbCatalogBundle:Item');
+        $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbCatalogBundle:Item');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -67,9 +73,9 @@ class HomeController extends Controller
         $page = $request->get('page', 1);
         $current_page = $page > 1 ? $page : 1;
 
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
-        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        /* @var $rep ItemRepository */
+        $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        /* @var $controls ListControls */
         $controls = $this->get('anime_db.item.list_controls');
 
         $pagination = null;
@@ -79,7 +85,7 @@ class HomeController extends Controller
             $query = $request->query->all();
             unset($query['page']);
             $pagination = $this->get('anime_db.pagination')
-                ->create(ceil($repository->count()/$limit), $current_page)
+                ->create(ceil($rep->count()/$limit), $current_page)
                 ->setPageLink(function ($page) use ($that, $query) {
                     return $that->generateUrl('home', array_merge($query, ['page' => $page]));
                 })
@@ -88,7 +94,7 @@ class HomeController extends Controller
         }
 
         // get items
-        $items = $repository->getList($limit, ($current_page - 1) * $limit);
+        $items = $rep->getList($limit, ($current_page - 1) * $limit);
 
         return $this->render('AnimeDbCatalogBundle:Home:index.html.twig', [
             'items' => $items,
@@ -101,7 +107,7 @@ class HomeController extends Controller
     /**
      * Search simple form
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchSimpleFormAction()
     {
@@ -114,13 +120,14 @@ class HomeController extends Controller
     /**
      * Autocomplete name
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function autocompleteNameAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')
+        /* @var $response JsonResponse */
+        $response = $this->getCacheTimeKeeper()
             ->getResponse('AnimeDbCatalogBundle:Item', -1, new JsonResponse());
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -128,17 +135,17 @@ class HomeController extends Controller
         }
 
         $term = mb_strtolower($request->get('term'), 'UTF8');
-        /* @var $service \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager */
+        /* @var $service Manager */
         $service = $this->get('anime_db.item.search');
         $result = $service->searchByName($term, self::AUTOCOMPLETE_LIMIT);
 
         $list = [];
-        /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+        /* @var $item Item */
         foreach ($result as $item) {
             if (strpos(mb_strtolower($item->getName(), 'UTF8'), $term) === 0) {
                 $list[] = $item->getName();
             } else {
-                /* @var $name \AnimeDb\Bundle\CatalogBundle\Entity\Name */
+                /* @var $name Name */
                 foreach ($item->getNames() as $name) {
                     if (strpos(mb_strtolower($name->getName(), 'UTF8'), $term) === 0) {
                         $list[] = $name->getName();
@@ -154,26 +161,26 @@ class HomeController extends Controller
     /**
      * Search item
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')
+        $response = $this->getCacheTimeKeeper()
             ->getResponse(['AnimeDbCatalogBundle:Item', 'AnimeDbCatalogBundle:Storage']);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
         }
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm('anime_db_catalog_search_items', new SearchEntity())->handleRequest($request);
         $pagination = null;
         $result = ['list' => [], 'total' => 0];
 
         if ($form->isValid()) {
-            /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+            /* @var $controls ListControls */
             $controls = $this->get('anime_db.item.list_controls');
 
             // current page for paging
@@ -219,13 +226,13 @@ class HomeController extends Controller
     /**
      * General settings
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function settingsAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -236,8 +243,10 @@ class HomeController extends Controller
             ->setDefaultSearch($this->container->getParameter('anime_db.catalog.default_search'))
             ->setLocale($request->getLocale());
 
-        /* @var $form \Symfony\Component\Form\Form */
-        $form = $this->createForm(new GeneralForm($this->get('anime_db.plugin.search_fill')), $entity)
+        /* @var $chain ChainSearch */
+        $chain = $this->get('anime_db.plugin.search_fill');
+        /* @var $form Form */
+        $form = $this->createForm(new GeneralForm($chain), $entity)
             ->handleRequest($request);
 
         if ($form->isValid()) {

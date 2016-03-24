@@ -10,10 +10,15 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Import\ImportInterface;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
+use AnimeDb\Bundle\CatalogBundle\Repository\Item as ItemRepository;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Item
@@ -21,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class ItemController extends Controller
+class ItemController extends BaseController
 {
     /**
      * Name of session to store item to be added
@@ -54,28 +59,28 @@ class ItemController extends Controller
     /**
      * Items per page
      *
-     * @var integer
+     * @var int
      */
     const ITEMS_PER_PAGE = 8;
 
     /**
      * Default limit
      *
-     * @var integer
+     * @var int
      */
     const DEFAULT_LIMIT = 8;
 
     /**
      * Limit for show all items
      *
-     * @var integer
+     * @var int
      */
     const LIMIT_ALL = 0;
 
     /**
      * Limit name for show all items
      *
-     * @var integer
+     * @var int
      */
     const LIMIT_ALL_NAME = 'All (%total%)';
 
@@ -115,12 +120,10 @@ class ItemController extends Controller
     ];
 
     /**
-     * Show item
+     * @param Item $item
+     * @param Request $request
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showAction(Item $item, Request $request)
     {
@@ -129,7 +132,7 @@ class ItemController extends Controller
         if ($item->getStorage() instanceof Storage) {
             $date[] = $item->getStorage()->getDateUpdate();
         }
-        $response = $this->get('cache_time_keeper')->getResponse($date);
+        $response = $this->getCacheTimeKeeper()->getResponse($date);
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -146,13 +149,13 @@ class ItemController extends Controller
     /**
      * Addition form
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addManuallyAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -160,15 +163,15 @@ class ItemController extends Controller
 
         $item = new Item();
 
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm('anime_db_catalog_entity_item', $item)
             ->handleRequest($request);
         if ($form->isValid()) {
-            /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-            $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+            /* @var $rep ItemRepository */
+            $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
 
             // Add a new entry only if no duplicates
-            $duplicate = $repository->findDuplicate($item);
+            $duplicate = $rep->findDuplicate($item);
             if ($duplicate) {
                 $request->getSession()->set(self::NAME_ITEM_ADDED, $item);
                 return $this->redirect($this->generateUrl('item_duplicate'));
@@ -185,14 +188,14 @@ class ItemController extends Controller
     /**
      * Change item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Item $item
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function changeAction(Item $item, Request $request)
     {
-        /* @var $form \Symfony\Component\Form\Form */
+        /* @var $form Form */
         $form = $this->createForm('anime_db_catalog_entity_item', $item)
             ->handleRequest($request);
         if ($form->isValid()) {
@@ -214,9 +217,9 @@ class ItemController extends Controller
     /**
      * Delete item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param Item $item
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteAction(Item $item)
     {
@@ -230,14 +233,15 @@ class ItemController extends Controller
      * Import items
      *
      * @param string $plugin
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function importAction($plugin, Request $request)
     {
-        /* @var $chain \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain */
+        /* @var $chain ChainSearch */
         $chain = $this->get('anime_db.plugin.import');
+        /* @var $import ImportInterface */
         if (!($import = $chain->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -270,13 +274,13 @@ class ItemController extends Controller
     /**
      * Confirm duplicate item
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function duplicateAction(Request $request) {
-        /* @var $repository \AnimeDb\Bundle\CatalogBundle\Repository\Item */
-        $repository = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+        /* @var $rep ItemRepository */
+        $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
 
         // get store item
         $item = $request->getSession()->get(self::NAME_ITEM_ADDED);
@@ -296,7 +300,7 @@ class ItemController extends Controller
         }
 
         // re searching for duplicates
-        $duplicate = $repository->findDuplicate($item);
+        $duplicate = $rep->findDuplicate($item);
         // now there is no duplication
         if (!$duplicate) {
             return $this->addItem($item->freez($this->getDoctrine()));
@@ -310,9 +314,9 @@ class ItemController extends Controller
     /**
      * Add item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param Item $item
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     private function addItem(Item $item)
     {
@@ -328,18 +332,20 @@ class ItemController extends Controller
     /**
      * List items limit control
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string|integer $total
+     * @param Request $request
+     * @param string|int $total
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function limitControlAction(Request $request, $total = '')
     {
-        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        /* @var $controls ListControls */
         $controls = $this->get('anime_db.item.list_controls');
 
         if (!is_numeric($total) || $total < 0) {
-            $total = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item')->count();
+            /* @var $rep ItemRepository */
+            $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
+            $total = $rep->count();
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
@@ -351,13 +357,13 @@ class ItemController extends Controller
     /**
      * List items sort control
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function sortControlAction(Request $request)
     {
-        /* @var $controls \AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls */
+        /* @var $controls ListControls */
         $controls = $this->get('anime_db.item.list_controls');
 
         $direction = $controls->getSortDirection($request->query->all());

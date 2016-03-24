@@ -10,11 +10,17 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Menu;
 
+use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Chain;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain as ChainImport;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain as ChainExport;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain as ChainFiller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Item\ItemInterface as ItemPluginInterface;
 
 /**
  * Menu builder
@@ -32,30 +38,14 @@ class Builder extends ContainerAware
     const GUIDE_LINK = '/guide/';
 
     /**
-     * Default documentation locale
-     * 
-     * @var string
-     */
-    const DEFAULT_DOC_LOCALE = 'en';
-
-    /**
-     * Supported documentation locale
-     *
-     * @var array
-     */
-    protected $support_locales = ['en', 'ru'];
-
-    /**
-     * Builder main menu
-     * 
-     * @param \Knp\Menu\FactoryInterface $factory
+     * @param FactoryInterface $factory
      * @param array $options
      *
-     * @return 
+     * @return ItemInterface
      */
     public function mainMenu(FactoryInterface $factory, array $options)
     {
-        /* @var $menu \Knp\Menu\ItemInterface */
+        /* @var $menu ItemInterface */
         $menu = $factory->createItem('root');
 
         $menu->addChild('Search', ['route' => 'home_search'])
@@ -64,9 +54,9 @@ class Builder extends ContainerAware
             ->setLabelAttribute('class', 'icon-label icon-gray-add');
 
         // synchronization items
-        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Import\Chain */
+        /* @var $import ChainImport */
         $import = $this->container->get('anime_db.plugin.import');
-        /* @var \AnimeDb\Bundle\CatalogBundle\Plugin\Export\Chain */
+        /* @var $export ChainExport */
         $export = $this->container->get('anime_db.plugin.export');
         if ($import->hasPlugins() || $export->hasPlugins()) {
             $sync = $menu->addChild('Synchronization')
@@ -81,6 +71,7 @@ class Builder extends ContainerAware
             ->setLabelAttribute('class', 'icon-label icon-gray-settings');
 
         // add search plugin items
+        /* @var $chain ChainSearch */
         $chain = $this->container->get('anime_db.plugin.search_fill');
         $this->addPluginItems(
             $chain,
@@ -98,8 +89,10 @@ class Builder extends ContainerAware
                 ->setLinkAttribute('class', 'icon-label icon-white-cloud-search');
         }
         // add filler plugin items
+        /* @var $filler ChainFiller */
+        $filler = $this->container->get('anime_db.plugin.filler');
         $this->addPluginItems(
-            $this->container->get('anime_db.plugin.filler'),
+            $filler,
             $add,
             'Fill from source',
             'Fill record from source (example source is URL)',
@@ -129,12 +122,11 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-white-shop');
         // add settings plugin items
         foreach ($this->container->get('anime_db.plugin.setting')->getPlugins() as $plugin) {
+            /* @var $plugin PluginInMenuInterface */
             $plugin->buildMenu($plugins);
         }
 
         // add link to guide
-        $locale = substr($this->container->get('request')->getLocale(), 0, 2);
-        $locale = in_array($locale, $this->support_locales) ? $locale : self::DEFAULT_DOC_LOCALE;
         $settings->addChild('Help', ['uri' => $this->container->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)])
             ->setLinkAttribute('class', 'icon-label icon-white-help');
 
@@ -144,10 +136,11 @@ class Builder extends ContainerAware
     /**
      * Add plugin items in menu
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Plugin\Chain $chain
-     * @param \Knp\Menu\ItemInterface $root
+     * @param Chain $chain
+     * @param ItemInterface $root
      * @param string $label
      * @param string|null $title
+     * @param string|null $class
      */
     private function addPluginItems(Chain $chain, ItemInterface $root, $label, $title = '', $class = '')
     {
@@ -159,37 +152,42 @@ class Builder extends ContainerAware
             if ($class) {
                 $group->setLabelAttribute('class', $class);
             }
-        }
 
-        // add child items
-        foreach ($chain->getPlugins() as $plugin) {
-            $plugin->buildMenu($group);
+            // add child items
+            foreach ($chain->getPlugins() as $plugin) {
+                /* @var $plugin PluginInMenuInterface */
+                $plugin->buildMenu($group);
+            }
         }
     }
 
     /**
-     * Builder main menu
-     * 
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param array $item
+     * @param FactoryInterface $factory
+     * @param array $options
      *
-     * @return 
+     * @return ItemInterface
      */
     public function itemMenu(FactoryInterface $factory, array $options)
     {
         if (empty($options['item']) || !($options['item'] instanceof Item)) {
             throw new \InvalidArgumentException('Item is not found');
         }
-        /* @var $menu \Knp\Menu\ItemInterface */
+        /* @var $item Item */
+        $item = $options['item'];
+
+        /* @var $menu ItemInterface */
         $menu = $factory->createItem('root');
-        $params = ['id' => $options['item']->getId(), 'name' => $options['item']->getUrlName()];
+        $params = [
+            'id' => $item->getId(),
+            'name' => $item->getUrlName()
+        ];
 
         $menu->addChild('Change record', ['route' => 'item_change', 'routeParameters' => $params])
             ->setLinkAttribute('class', 'icon-label icon-edit');
 
         // add settings plugin items
         $chain = $this->container->get('anime_db.plugin.item');
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Item\Item */
+        /* @var $plugin ItemPluginInterface */
         foreach ($chain->getPlugins() as $plugin) {
             $plugin->buildMenu($menu, $options['item']);
         }
@@ -198,7 +196,7 @@ class Builder extends ContainerAware
             ->setLinkAttribute('class', 'icon-label icon-delete')
             ->setLinkAttribute('data-message', $this->container->get('translator')->trans(
                 'Are you sure want to delete %name%?',
-                ['%name%' => $options['item']->getName()]
+                ['%name%' => $item->getName()]
             ));
 
         return $menu;

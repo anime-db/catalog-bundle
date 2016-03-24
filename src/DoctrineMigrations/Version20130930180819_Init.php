@@ -19,23 +19,22 @@ use Doctrine\DBAL\Schema\Schema;
 class Version20130930180819_Init extends AbstractMigration
 {
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
      */
     public function up(Schema $schema)
     {
         // create tables
-        $this->createTableImage($schema);
-        $this->createTableType($schema);
-        $this->createTableName($schema);
-        $this->createTableItemsGenres($schema);
-        $this->createTableSource($schema);
-        $this->createTableCountry($schema);
-        $this->createTableGenre($schema);
-        $this->createTableExtTranslations($schema);
-        $this->createTableCountryTranslation($schema);
-        $this->createTableStorage($schema);
-        $this->createTableItem($schema);
+        $this->createTableImage();
+        $this->createTableType();
+        $this->createTableName();
+        $this->createTableItemsGenres();
+        $this->createTableSource();
+        $this->createTableCountry();
+        $this->createTableGenre();
+        $this->createTableExtTranslations();
+        $this->createTableCountryTranslation();
+        $this->createTableStorage();
+        $this->createTableItem();
 
         // clear sqlite sequence
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
@@ -51,8 +50,7 @@ class Version20130930180819_Init extends AbstractMigration
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
      */
     public function down(Schema $schema)
     {
@@ -73,7 +71,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('DELETE FROM sqlite_sequence WHERE name IN ("image", "name", "source", "genre", "storage", "item")');
     }
 
-    protected function createTableImage(Schema $schema)
+    protected function createTableImage()
     {
         $this->addSql('CREATE TABLE image (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -84,7 +82,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE INDEX image_item_idx ON image (item)');
     }
 
-    protected function createTableType(Schema $schema)
+    protected function createTableType()
     {
         $this->addSql('CREATE TABLE type (
             id VARCHAR(16) PRIMARY KEY NOT NULL,
@@ -92,7 +90,7 @@ class Version20130930180819_Init extends AbstractMigration
         )');
     }
 
-    protected function createTableName(Schema $schema)
+    protected function createTableName()
     {
         $this->addSql('CREATE TABLE name (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -103,7 +101,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE INDEX name_item_idx ON name (item)');
     }
 
-    protected function createTableItemsGenres(Schema $schema)
+    protected function createTableItemsGenres()
     {
         $this->addSql('CREATE TABLE items_genres (
             item_id INTEGER NOT NULL,
@@ -115,7 +113,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE INDEX item_genres_genre_id_idx ON items_genres (genre_id)');
     }
 
-    protected function createTableSource(Schema $schema)
+    protected function createTableSource()
     {
         $this->addSql('CREATE TABLE source (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -126,7 +124,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE INDEX source_item_idx ON source (item)');
     }
 
-    protected function createTableCountry(Schema $schema)
+    protected function createTableCountry()
     {
         $this->addSql('CREATE TABLE country (
             id VARCHAR(2) PRIMARY KEY NOT NULL,
@@ -134,7 +132,7 @@ class Version20130930180819_Init extends AbstractMigration
         )');
     }
 
-    protected function createTableGenre(Schema $schema)
+    protected function createTableGenre()
     {
         $this->addSql('CREATE TABLE genre (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -142,7 +140,7 @@ class Version20130930180819_Init extends AbstractMigration
         )');
     }
 
-    protected function createTableExtTranslations(Schema $schema)
+    protected function createTableExtTranslations()
     {
         $this->addSql('CREATE TABLE ext_translations (
             id INTEGER NOT NULL,
@@ -158,7 +156,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX lookup_unique_idx ON ext_translations (locale, object_class, field, foreign_key)');
     }
 
-    protected function createTableCountryTranslation(Schema $schema)
+    protected function createTableCountryTranslation()
     {
         $this->addSql('CREATE TABLE country_translation (
             id INTEGER NOT NULL,
@@ -173,7 +171,7 @@ class Version20130930180819_Init extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX country_translation_idx ON country_translation (locale, object_id, field)');
     }
 
-    protected function createTableStorage(Schema $schema)
+    protected function createTableStorage()
     {
         $this->addSql('CREATE TABLE "storage" (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -184,7 +182,7 @@ class Version20130930180819_Init extends AbstractMigration
         )');
     }
 
-    protected function createTableItem(Schema $schema)
+    protected function createTableItem()
     {
         $this->addSql('CREATE TABLE "item"  (
             id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

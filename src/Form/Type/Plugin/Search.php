@@ -30,24 +30,23 @@ class Search extends AbstractType
     const FORM_NAME = 'anime_db_catalog_plugin_search';
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('GET')
             ->add('name', 'search', [
                 'label' => 'Name',
                 'attr' => [
                     'placeholder' => 'One Piece',
                 ],
-            ]);
+            ])
+            ->setMethod('GET');
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
+     * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -57,8 +56,7 @@ class Search extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {

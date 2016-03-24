@@ -10,7 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search;
 
-use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
@@ -22,29 +21,21 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 class Manager
 {
     /**
-     * Deafult sort column
-     *
      * @var string
      */
     const DEFAULT_SORT_COLUMN = 'date_update';
 
     /**
-     * Deafult sort direction
-     *
      * @var string
      */
     const DEFAULT_SORT_DIRECTION = 'DESC';
 
     /**
-     * Search driver
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface
+     * @var DriverInterface
      */
     protected $driver;
 
     /**
-     * Sort columns
-     *
      * @var array
      */
     public static $sort_columns = [
@@ -56,8 +47,6 @@ class Manager
     ];
 
     /**
-     * Sort direction
-     *
      * @var array
      */
     public static $sort_direction = [
@@ -66,9 +55,7 @@ class Manager
     ];
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface $driver
+     * @param DriverInterface $driver
      */
     public function __construct(DriverInterface $driver)
     {
@@ -76,11 +63,9 @@ class Manager
     }
 
     /**
-     * Search items
-     * 
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $data
-     * @param integer|null $limit
-     * @param integer|null $offset
+     * @param Search $data
+     * @param int|null $limit
+     * @param int|null $offset
      * @param string|null $sort_column
      * @param string|null $sort_direction
      *
@@ -103,10 +88,8 @@ class Manager
     }
 
     /**
-     * Search items by name
-     * 
      * @param string $name
-     * @param integer $limit
+     * @param int $limit
      *
      * @return array
      */
@@ -116,8 +99,6 @@ class Manager
     }
 
     /**
-     * Get valid sort column
-     *
      * @param string|null $column
      *
      * @return string
@@ -128,8 +109,6 @@ class Manager
     }
 
     /**
-     * Get valid sort direction
-     *
      * @param string|null $direction
      *
      * @return string

@@ -22,16 +22,12 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 class Samples extends Event
 {
     /**
-     * Storage
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @var Storage
      */
     protected $storage;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
+     * @param Storage $storage
      */
     public function __construct(Storage $storage)
     {
@@ -39,9 +35,7 @@ class Samples extends Event
     }
 
     /**
-     * Get storage
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function getStorage()
     {

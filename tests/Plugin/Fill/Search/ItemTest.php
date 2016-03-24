@@ -20,9 +20,6 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item;
  */
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test
-     */
     public function test()
     {
         $item = new Item('my_name', 'my_link', 'my_image', 'my_description', 'my_source');

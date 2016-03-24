@@ -13,6 +13,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
  * Test output decorator
@@ -23,30 +24,20 @@ use Symfony\Component\Filesystem\Filesystem;
 class ExportTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Output
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
     /**
-     * Root dir
-     *
      * @var string
      */
     protected $root;
 
     /**
-     * Filename
-     *
      * @var string
      */
     protected $file;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->root = sys_get_temp_dir().'/test/';
@@ -54,18 +45,18 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         $this->output = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
     protected function tearDown()
     {
-        (new Filesystem())->remove($this->root);
+        $fs = new Filesystem();
+        try {
+            $fs->chmod([$this->root, $this->file], 0755);
+        } catch (IOException $e) {
+            // ignore exception
+        }
+        $fs->remove($this->root);
     }
 
     /**
-     * Test construct bad dir
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructBadDir()
@@ -74,8 +65,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test construct bad file
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructBadFile()
@@ -88,8 +77,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test construct fail lock
-     *
      * @expectedException \Symfony\Component\Filesystem\Exception\IOException
      */
     public function testConstructFailLock()
@@ -103,8 +90,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get messages
-     *
      * @return array
      */
     public function getMessages()
@@ -144,8 +129,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add appends
-     *
      * @param array $params
      *
      * @return array
@@ -165,8 +148,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add messages 1
-     *
      * @param array $params
      *
      * @return array
@@ -186,8 +167,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add messages 2
-     *
      * @param array $params
      *
      * @return array
@@ -207,8 +186,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add newlines
-     *
      * @param array $params
      *
      * @return array
@@ -228,8 +205,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Add types
-     *
      * @param array $params
      *
      * @return array
@@ -253,16 +228,14 @@ class ExportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write
-     *
      * @dataProvider getMessages
      *
      * @param string $method
-     * @param boolean $append
+     * @param bool $append
      * @param string|array $messages1
      * @param string|array $messages2
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWrite($method, $append, $messages1, $messages2, $newline, $type)
     {
@@ -300,6 +273,8 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         foreach ((array)$messages2 as $message) {
             $expected .= strip_tags($message).($newline ? PHP_EOL : '');
         }
+        $export->unlock();
+
         $this->assertEquals($expected, file_get_contents($this->file));
     }
 }

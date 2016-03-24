@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 
 /**
  * Test AddNewItem event
@@ -20,14 +22,14 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
  */
 class AddNewItemTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test event
-     */
     public function testEvent()
     {
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|Item */
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item');
-        $filler1 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
-        $filler2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler');
+        /* @var $filler1 \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler1 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface');
+        /* @var $filler2 \PHPUnit_Framework_MockObject_MockObject|FillerInterface */
+        $filler2 = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface');
 
         $event = new AddNewItem($item, $filler1);
         $this->assertEquals($item, $event->getItem());

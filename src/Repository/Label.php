@@ -11,21 +11,18 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Repository;
 
+use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Label repository
- *
  * @package AnimeDb\Bundle\CatalogBundle\Repository
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Label extends EntityRepository
 {
     /**
-     * Update list labels
-     *
-     * @param \Doctrine\Common\Collections\ArrayCollection $new_labels
+     * @param ArrayCollection $new_labels
      */
     public function updateListLabels(ArrayCollection $new_labels)
     {
@@ -33,7 +30,7 @@ class Label extends EntityRepository
         // remove labals
         foreach ($old_label as $label) {
             if (!$new_labels->contains($label)) {
-                /* @var $item \AnimeDb\Bundle\CatalogBundle\Entity\Item */
+                /* @var $item ItemEntity */
                 foreach ($label->getItems() as $item) {
                     $item->removeLabel($label);
                 }

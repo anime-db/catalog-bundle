@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class General
 {
     /**
-     * Task scheduler
-     *
      * @Assert\Type(type="bool", message="The value {{ value }} is not a valid {{ type }}.")
      *
      * @var string
@@ -46,8 +44,6 @@ class General
     protected $default_search = '';
 
     /**
-     * Get task scheduler
-     * 
      * @return string
      */
     public function getTaskScheduler()
@@ -56,11 +52,9 @@ class General
     }
 
     /**
-     * Set task scheduler
-     *
      * @param string $task_scheduler
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Settings\General
+     * @return General
      */
     public function setTaskScheduler($task_scheduler)
     {
@@ -69,8 +63,6 @@ class General
     }
 
     /**
-     * Get locale
-     * 
      * @return string
      */
     public function getLocale()
@@ -79,11 +71,9 @@ class General
     }
 
     /**
-     * Set locale
-     *
      * @param string $locale
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Settings\General
+     * @return General
      */
     public function setLocale($locale)
     {
@@ -92,8 +82,6 @@ class General
     }
 
     /**
-     * Get plugin default search to fill
-     * 
      * @return string
      */
     public function getDefaultSearch()
@@ -102,11 +90,9 @@ class General
     }
 
     /**
-     * Set plugin default search to fill
-     *
      * @param string $default_search
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Settings\General
+     * @return General
      */
     public function setDefaultSearch($default_search)
     {

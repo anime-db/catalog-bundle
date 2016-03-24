@@ -10,8 +10,8 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * System update
@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
     /**
      * Message identifies the end of the update
@@ -38,13 +38,13 @@ class UpdateController extends Controller
     /**
      * Update page
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request)
     {
-        $response = $this->get('cache_time_keeper')->getResponse();
+        $response = $this->getCacheTimeKeeper()->getResponse();
         // response was not modified for this request
         if ($response->isNotModified($request)) {
             return $response;
@@ -117,7 +117,7 @@ class UpdateController extends Controller
     /**
      * Execute update application
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function executeAction()
     {
@@ -128,7 +128,8 @@ class UpdateController extends Controller
 
         // execute update
         file_put_contents($this->container->getParameter('kernel.root_dir').'/../web/update.log', '');
-        $this->get('anime_db.command')->send('php app/console animedb:update --env=prod >web/update.log 2>&1');
+        $this->get('anime_db.command')
+            ->send('php app/console animedb:update --env=prod --no-ansi >web/update.log 2>&1');
 
         return $this->render('AnimeDbCatalogBundle:Update:execute.html.twig', [
             'log_file' => '/update.log',

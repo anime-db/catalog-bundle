@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\DBAL\Schema\Schema;
@@ -22,9 +23,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 class Version20140407162508_RenameItemGenres extends AbstractMigration implements ContainerAwareInterface
 {
     /**
-     * Entity manager
-     *
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
@@ -73,7 +72,7 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
     /**
      * Set container
      *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container = null)
     {
@@ -81,16 +80,15 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::up()
+     * @param Schema $schema
      */
     public function up(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Genre');
 
-        /* @var $genre \AnimeDb\Bundle\CatalogBundle\Entity\Genre */
+        /* @var $genre Genre */
         foreach ($this->rename as $from => $to) {
-            $genre = $rep->findOneByName($from);
+            $genre = $rep->findOneBy(['name' => $from]);
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
@@ -101,15 +99,15 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
             $this->em->persist($genre);
         }
         // remove
-        $genre = $rep->findOneByName('Mystery play');
+        $genre = $rep->findOneBy(['name' => 'Mystery play']);
         $this->em->remove($genre);
 
         // rename russian
-        $genre = $rep->findOneByName('History');
+        $genre = $rep->findOneBy(['name' => 'History']);
         $genre->setName('Исторический')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
-        $genre = $rep->findOneByName('War');
+        $genre = $rep->findOneBy(['name' => 'War']);
         $genre->setName('Военное')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
@@ -117,16 +115,15 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Doctrine\DBAL\Migrations\AbstractMigration::down()
+     * @param Schema $schema
      */
     public function down(Schema $schema)
     {
         $rep = $this->em->getRepository('AnimeDbCatalogBundle:Genre');
 
-        /* @var $genre \AnimeDb\Bundle\CatalogBundle\Entity\Genre */
+        /* @var $genre Genre */
         foreach ($this->restore as $from => $to) {
-            $genre = $rep->findOneByName($from);
+            $genre = $rep->findOneBy(['name' => $from]);
             if (is_array($to)) {
                 $genre->setName($to[1])->setTranslatableLocale('ru');
                 $this->em->persist($genre);
@@ -145,11 +142,11 @@ class Version20140407162508_RenameItemGenres extends AbstractMigration implement
         $this->em->persist($genre);
 
         // rename russian
-        $genre = $rep->findOneByName('History');
+        $genre = $rep->findOneBy(['name' => 'History']);
         $genre->setName('История')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 
-        $genre = $rep->findOneByName('War');
+        $genre = $rep->findOneBy(['name' => 'War']);
         $genre->setName('Война')->setTranslatableLocale('ru');
         $this->em->persist($genre);
 

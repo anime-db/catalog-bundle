@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Progress;
 
 use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
+use Symfony\Component\Console\Helper\ProgressHelper;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Test progress preset output
@@ -21,30 +23,20 @@ use AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput;
 class PresetOutputTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Progress helper
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|ProgressHelper
      */
     protected $progress;
 
     /**
-     * Output
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
     /**
-     * Preset output
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Console\Progress\PresetOutput
      */
     protected $preset_output;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->progress = $this->getMock('\Symfony\Component\Console\Helper\ProgressHelper');
@@ -53,8 +45,6 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get get methods
-     *
      * @return array
      */
     public function getGetMethods()
@@ -66,8 +56,6 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get
-     *
      * @dataProvider getGetMethods
      *
      * @param string $method
@@ -78,13 +66,11 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
         $this->progress
             ->expects($this->once())
             ->method($method)
-            ->willReturn($data);
+            ->will($this->returnValue($data));
         $this->assertEquals($data, call_user_func([$this->preset_output, $method]));
     }
 
     /**
-     * Get set methods
-     *
      * @return array
      */
     public function getSetMethods()
@@ -109,8 +95,6 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test set
-     *
      * @dataProvider getSetMethods
      *
      * @param string $method
@@ -125,9 +109,6 @@ class PresetOutputTest extends \PHPUnit_Framework_TestCase
         call_user_func_array([$this->preset_output, $method], $params);
     }
 
-    /**
-     * Test start
-     */
     public function testStart()
     {
         $this->progress

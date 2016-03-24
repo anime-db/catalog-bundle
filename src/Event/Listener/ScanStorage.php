@@ -16,17 +16,17 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\StoreEvents;
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as SearchChain;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Search as SearchPluginForm;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Form\FormFactory;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
- * Storages scan listener
+ * Storage scan listener
  *
  * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -34,37 +34,27 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class ScanStorage
 {
     /**
-     * Entity manager
-     *
-     * @var \Doctrine\ORM\EntityManager
+     * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * Templating
-     *
-     * @var \Symfony\Bundle\TwigBundle\TwigEngine
+     * @var TwigEngine
      */
     protected $templating;
 
     /**
-     * Search chain
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain
+     * @var SearchChain
      */
     protected $search;
 
     /**
-     * Router
-     *
-     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @var Router
      */
     protected $router;
 
     /**
-     * Form factory
-     *
-     * @var \Symfony\Component\Form\FormFactory
+     * @var FormFactory
      */
     protected $form_factory;
 
@@ -99,14 +89,14 @@ class ScanStorage
     /**
      * Construct
      *
-     * @param \Doctrine\ORM\EntityManager $em
-     * @param \Symfony\Bundle\TwigBundle\TwigEngine $templating
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain $search
-     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
-     * @param \Symfony\Component\Form\FormFactory $form_factory
+     * @param EntityManagerInterface $em
+     * @param TwigEngine $templating
+     * @param SearchChain $search
+     * @param Router $router
+     * @param FormFactory $form_factory
      */
     public function __construct(
-        EntityManager $em,
+        EntityManagerInterface $em,
         TwigEngine $templating,
         SearchChain $search,
         Router $router,
@@ -120,9 +110,7 @@ class ScanStorage
     }
 
     /**
-     * On delete item files
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles $event
+     * @param DeleteItemFiles $event
      */
     public function onDeleteItemFiles(DeleteItemFiles $event)
     {
@@ -130,9 +118,7 @@ class ScanStorage
     }
 
     /**
-     * On detected new files send notice
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
+     * @param DetectedNewFiles $event
      */
     public function onDetectedNewFilesSendNotice(DetectedNewFiles $event)
     {
@@ -154,9 +140,7 @@ class ScanStorage
     }
 
     /**
-     * On update item files
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\UpdateItemFiles $event
+     * @param UpdateItemFiles $event
      */
     public function onUpdateItemFiles(UpdateItemFiles $event)
     {
@@ -164,9 +148,9 @@ class ScanStorage
     }
 
     /**
-     * On detected new files try add it
+     * @param DetectedNewFiles $event
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
+     * @return bool
      */
     public function onDetectedNewFilesTryAdd(DetectedNewFiles $event)
     {
@@ -178,21 +162,22 @@ class ScanStorage
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
+            /* @var $plugin SearchInterface */
             if ($plugin !== $dafeult_plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
-     * Try to add item
+     * @param SearchInterface $search
+     * @param DetectedNewFiles $event
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search $search
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles $event
-     *
-     * @return boolean
+     * @return bool
      */
-    protected function tryAddItem(Search $search, DetectedNewFiles $event)
+    protected function tryAddItem(SearchInterface $search, DetectedNewFiles $event)
     {
         $item = $search->getCatalogItem($event->getName());
 
@@ -217,9 +202,7 @@ class ScanStorage
     }
 
     /**
-     * On added new item send notice
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem $event
+     * @param AddNewItem $event
      */
     public function onAddNewItemSendNotice(AddNewItem $event)
     {
@@ -230,9 +213,7 @@ class ScanStorage
     }
 
     /**
-     * On added new item persist it
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem $event
+     * @param AddNewItem $event
      */
     public function onAddNewItemPersistIt(AddNewItem $event)
     {
@@ -241,8 +222,6 @@ class ScanStorage
     }
 
     /**
-     * Send notice
-     *
      * @param string $type
      * @param array $params
      */

@@ -22,16 +22,12 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class UpdateItemFiles extends Event
 {
     /**
-     * Item
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
+     * @param Item $item
      */
     public function __construct(Item $item)
     {
@@ -39,9 +35,7 @@ class UpdateItemFiles extends Event
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {

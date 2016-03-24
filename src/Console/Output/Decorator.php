@@ -22,16 +22,12 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 abstract class Decorator implements OutputInterface
 {
     /**
-     * Output
-     *
-     * @var \Symfony\Component\Console\Output\OutputInterface
+     * @var OutputInterface
      */
     protected $output;
 
     /**
-     * Construct
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @param OutputInterface $output
      */
     public function __construct(OutputInterface $output)
     {
@@ -39,8 +35,9 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::write()
+     * @param array|string $messages
+     * @param bool|false $newline
+     * @param int $type
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
@@ -48,8 +45,8 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::writeln()
+     * @param array|string $messages
+     * @param int $type
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
@@ -57,8 +54,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::setVerbosity()
+     * @param int $level
      */
     public function setVerbosity($level)
     {
@@ -66,8 +62,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::getVerbosity()
+     * @return int
      */
     public function getVerbosity()
     {
@@ -75,8 +70,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::setDecorated()
+     * @param bool $decorated
      */
     public function setDecorated($decorated)
     {
@@ -84,8 +78,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::isDecorated()
+     * @return bool
      */
     public function isDecorated()
     {
@@ -93,8 +86,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::setFormatter()
+     * @param OutputFormatterInterface $formatter
      */
     public function setFormatter(OutputFormatterInterface $formatter)
     {
@@ -102,8 +94,7 @@ abstract class Decorator implements OutputInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::getFormatter()
+     * @return OutputFormatterInterface
      */
     public function getFormatter()
     {

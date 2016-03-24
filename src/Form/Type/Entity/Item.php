@@ -13,15 +13,12 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Image;
-use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Name;
-use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Source;
 use AnimeDb\Bundle\AppBundle\Form\Type\Field\Image as ImageField;
 use AnimeDb\Bundle\AppBundle\Form\Type\Field\LocalPath as LocalPathField;
 use AnimeDb\Bundle\AppBundle\Form\Type\Field\Rating as RatingField;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 use Symfony\Component\Templating\EngineInterface as TemplatingInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -40,35 +37,29 @@ class Item extends AbstractType
     /**
      * Refiller chain
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain
+     * @var Chain
      */
     protected $chain;
 
     /**
-     * Templating
-     *
-     * @var \Symfony\Component\Templating\EngineInterface
+     * @var TemplatingInterface
      */
     protected $templating;
 
     /**
      * View sorter
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
+     * @var ViewSorter
      */
     protected $sorter;
 
     /**
-     * Router
-     *
-     * @var \Symfony\Bundle\FrameworkBundle\Routing\Router
+     * @var Router
      */
     protected $router;
 
     /**
-     * Set refiller chain
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain $chain
+     * @param Chain $chain
      */
     public function setRefillerChain(Chain $chain)
     {
@@ -76,9 +67,7 @@ class Item extends AbstractType
     }
 
     /**
-     * Set templating
-     *
-     * @param \Symfony\Component\Templating\EngineInterface $templating
+     * @param TemplatingInterface $templating
      */
     public function setTemplating(TemplatingInterface $templating)
     {
@@ -86,9 +75,7 @@ class Item extends AbstractType
     }
 
     /**
-     * Set view sorter
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Form\ViewSorter $sorter
+     * @param ViewSorter $sorter
      */
     public function setViewSorter(ViewSorter $sorter)
     {
@@ -96,9 +83,7 @@ class Item extends AbstractType
     }
 
     /**
-     * Set router
-     *
-     * @param \Symfony\Bundle\FrameworkBundle\Routing\Router $router
+     * @param Router $router
      */
     public function setRouter(Router $router)
     {
@@ -106,8 +91,8 @@ class Item extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::buildForm()
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -125,7 +110,7 @@ class Item extends AbstractType
                 'options'      => [
                     'required' => false
                 ],
-                'attr' => $this->getRefillAttr(Refiller::FIELD_NAMES, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_NAMES, $options['data'])
             ])
             ->add('cover', new ImageField(), [
                 'required' => false
@@ -135,23 +120,23 @@ class Item extends AbstractType
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_PREMIERE, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_DATE_PREMIERE, $options['data'])
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DATE_END, $options['data']),
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_DATE_END, $options['data']),
                 'help' => 'Specify for completed series'
             ])
             ->add('episodes_number', null, [
                 'required' => false,
                 'label'    => 'Number of episodes',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES_NUMBER, $options['data']),
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_EPISODES_NUMBER, $options['data']),
                 'help' => 'For releasing the series, you can specify the actual number of episodes with a plus at the end. Example: 123+'
             ])
             ->add('duration', null, [
-                'attr' => $this->getRefillAttr(Refiller::FIELD_DURATION, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_DURATION, $options['data'])
             ])
             ->add('type', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Type',
@@ -163,7 +148,7 @@ class Item extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_GENRES, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_GENRES, $options['data'])
             ])
             ->add('labels', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Label',
@@ -177,13 +162,13 @@ class Item extends AbstractType
                 'property' => 'name',
                 'required' => false,
                 'label' => 'Animation studio',
-                'attr' => $this->getRefillAttr(Refiller::FIELD_STUDIO, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_STUDIO, $options['data'])
             ])
             ->add('country', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_COUNTRY, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_COUNTRY, $options['data'])
             ])
             ->add('storage', 'entity', [
                 'class'    => 'AnimeDbCatalogBundle:Storage',
@@ -203,20 +188,20 @@ class Item extends AbstractType
             ])
             ->add('translate', 'textarea', [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_TRANSLATE, $options['data']) + ['rows' => 2],
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_TRANSLATE, $options['data']) + ['rows' => 2],
                 'help' => 'Description language soundtracks and subtitles in free form'
             ])
             ->add('summary', null, [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_SUMMARY, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_SUMMARY, $options['data'])
             ])
             ->add('episodes', null, [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_EPISODES, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_EPISODES, $options['data'])
             ])
             ->add('file_info', null, [
                 'required' => false,
-                'attr' => $this->getRefillAttr(Refiller::FIELD_FILE_INFO, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_FILE_INFO, $options['data'])
             ])
             ->add('sources', 'collection', [
                 'type'         => new Source(),
@@ -228,7 +213,7 @@ class Item extends AbstractType
                 'options'      => [
                     'required' => false
                 ],
-                'attr' => $this->getRefillAttr(Refiller::FIELD_SOURCES, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_SOURCES, $options['data'])
             ])
             ->add('images', 'collection', [
                 'type'         => new Image(),
@@ -240,14 +225,13 @@ class Item extends AbstractType
                 'options'      => [
                     'required' => false
                 ],
-                'attr' => $this->getRefillAttr(Refiller::FIELD_IMAGES, $options['data'])
+                'attr' => $this->getRefillAttr(RefillerInterface::FIELD_IMAGES, $options['data'])
             ])
         ;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.AbstractType::setDefaultOptions()
+     * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -257,8 +241,7 @@ class Item extends AbstractType
     }
 
     /**
-     * (non-PHPdoc)
-     * @see Symfony\Component\Form.FormTypeInterface::getName()
+     * @return string
      */
     public function getName()
     {
@@ -269,7 +252,7 @@ class Item extends AbstractType
      * Get the field refill attributes
      *
      * @param string $field
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item|null $item
+     * @param ItemEntity|null $item
      *
      * @return array
      */
@@ -279,7 +262,7 @@ class Item extends AbstractType
         if ($item instanceof ItemEntity && $item->getName() &&
             ($plugins = $this->chain->getPluginsThatCanFillItem($item, $field))
         ) {
-            /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller */
+            /* @var $plugin RefillerInterface */
             foreach ($plugins as $key => $plugin) {
                 $plugins[$key] = [
                     'name' => $plugin->getName(),
@@ -290,19 +273,23 @@ class Item extends AbstractType
 
             return [
                 'data-type' => 'refill',
-                'data-plugins' => $this->templating->render('AnimeDbCatalogBundle:Form:refillers.html.twig', [
-                    'item' => $item,
-                    'field' => $field,
-                    'plugins' => $plugins
-                ])
+                'data-plugins' => $this->templating->render(
+                    'AnimeDbCatalogBundle:Form:refillers.html.twig',
+                    [
+                        'item' => $item,
+                        'field' => $field,
+                        'plugins' => $plugins
+                    ]
+                )
             ];
         }
         return [];
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::finishView()
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {

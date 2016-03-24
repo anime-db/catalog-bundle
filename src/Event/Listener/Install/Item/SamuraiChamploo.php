@@ -14,6 +14,7 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Source;
 use AnimeDb\Bundle\CatalogBundle\Entity\Name;
+use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
  * Install item
@@ -24,8 +25,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 class SamuraiChamploo extends Item
 {
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::buildItem()
+     * @return ItemEntity
      */
     protected function buildItem()
     {
@@ -106,8 +106,9 @@ class SamuraiChamploo extends Item
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\CatalogBundle\Service\Install\Item::setStorage()
+     * @param Storage $storage
+     *
+     * @return Item
      */
     public function setStorage(Storage $storage)
     {

@@ -27,23 +27,17 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 class Builder
 {
     /**
-     * Query select
-     *
-     * @var \Doctrine\ORM\QueryBuilder
+     * @var QueryBuilder
      */
     protected $select;
 
     /**
-     * Query total
-     *
-     * @var \Doctrine\ORM\QueryBuilder
+     * @var QueryBuilder
      */
     protected $total;
 
     /**
-     * Construct
-     *
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param Registry $doctrine
      */
     public function __construct(Registry $doctrine)
     {
@@ -56,9 +50,7 @@ class Builder
     }
 
     /**
-     * Get query select
-     *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     public function getQuerySelect()
     {
@@ -66,9 +58,7 @@ class Builder
     }
 
     /**
-     * Get query total
-     *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     public function getQueryTotal()
     {
@@ -76,11 +66,9 @@ class Builder
     }
 
     /**
-     * Add main name
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addName(Search $entity)
     {
@@ -97,11 +85,9 @@ class Builder
     }
 
     /**
-     * Add date add
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addDateAdd(Search $entity)
     {
@@ -116,11 +102,9 @@ class Builder
     }
 
     /**
-     * Add date premiere
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addDatePremiere(Search $entity)
     {
@@ -135,11 +119,9 @@ class Builder
     }
 
     /**
-     * Add date end
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addDateEnd(Search $entity)
     {
@@ -154,11 +136,9 @@ class Builder
     }
 
     /**
-     * Add country
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addCountry(Search $entity)
     {
@@ -173,11 +153,9 @@ class Builder
     }
 
     /**
-     * Add storage
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addStorage(Search $entity)
     {
@@ -192,11 +170,9 @@ class Builder
     }
 
     /**
-     * Add type
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addType(Search $entity)
     {
@@ -211,11 +187,9 @@ class Builder
     }
 
     /**
-     * Add genres
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addGenres(Search $entity)
     {
@@ -237,9 +211,9 @@ class Builder
     /**
      * Add labels
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
+     * @param Search $entity
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addLabels(Search $entity)
     {
@@ -259,11 +233,9 @@ class Builder
     }
 
     /**
-     * Add studio
+     * @param Search $entity
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Search $entity
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function addStudio(Search $entity)
     {
@@ -289,11 +261,9 @@ class Builder
     }
 
     /**
-     * Set limit
+     * @param int $limit
      *
-     * @param integer $limit
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function limit($limit)
     {
@@ -304,11 +274,9 @@ class Builder
     }
 
     /**
-     * Set offset
+     * @param int $offset
      *
-     * @param integer $offset
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function offset($offset)
     {
@@ -319,12 +287,10 @@ class Builder
     }
 
     /**
-     * Sort
-     *
      * @param string $column
      * @param string $direction
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
+     * @return Builder
      */
     public function sort($column, $direction)
     {

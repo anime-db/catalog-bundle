@@ -12,8 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
-use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
@@ -22,7 +20,6 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
  *
  * @ORM\Entity
  * @ORM\Table(name="image")
- * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -30,19 +27,15 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 class Image extends BaseEntity implements ImageInterface
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Source
-     *
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      *
@@ -51,19 +44,15 @@ class Image extends BaseEntity implements ImageInterface
     protected $source = '';
 
     /**
-     * Items list
-     *
      * @ORM\ManyToOne(targetEntity="Item", inversedBy="images", cascade={"persist"})
      * @ORM\JoinColumn(name="item", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @var Item
      */
     protected $item;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -71,11 +60,9 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set source
-     *
      * @param string $source
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Image
+     * @return Image
      */
     public function setSource($source)
     {
@@ -84,9 +71,7 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get source
-     *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -94,8 +79,7 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::getFilename()
+     * @return string
      */
     public function getFilename()
     {
@@ -103,8 +87,9 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::setFilename()
+     * @param string $filename
+     *
+     * @return Image
      */
     public function setFilename($filename)
     {
@@ -114,11 +99,9 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Image
+     * @return Image
      */
     public function setItem(Item $item = null)
     {
@@ -139,9 +122,7 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function getItem()
     {
@@ -149,8 +130,6 @@ class Image extends BaseEntity implements ImageInterface
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

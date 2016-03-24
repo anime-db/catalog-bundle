@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests;
 
 use AnimeDb\Bundle\CatalogBundle\AnimeDbCatalogBundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Test bundle
@@ -20,27 +21,27 @@ use AnimeDb\Bundle\CatalogBundle\AnimeDbCatalogBundle;
  */
 class AnimeDbCatalogBundleTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test build
-     */
     public function testBuild()
     {
         $that = $this;
-        $container = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerBuilder')
+        /* @var $container \PHPUnit_Framework_MockObject_MockObject|ContainerBuilder */
+        $container = $this
+            ->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerBuilder')
             ->disableOriginalConstructor()
             ->getMock();
         $container
             ->expects($this->at(0))
             ->method('addCompilerPass')
-            ->willReturnCallback(function ($pass) use ($that) {
+            ->will($this->returnCallback(function ($pass) use ($that) {
                 $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass', $pass);
-            });
+            }));
         $container
             ->expects($this->at(1))
             ->method('addCompilerPass')
-            ->willReturnCallback(function ($pass) use ($that) {
+            ->will($this->returnCallback(function ($pass) use ($that) {
                 $that->assertInstanceOf('\AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\InstallItemPass', $pass);
-            });
+            }));
+
         $bundle = new AnimeDbCatalogBundle();
         $bundle->build($container);
     }

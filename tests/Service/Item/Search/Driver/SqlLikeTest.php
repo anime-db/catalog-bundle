@@ -11,6 +11,9 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
+use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Test SqlLike
@@ -21,64 +24,56 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike;
 class SqlLikeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Driver
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
      */
     protected $driver;
 
     /**
-     * Repository
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $repository;
 
     /**
-     * Selector
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Selector
      */
     protected $selector;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $driver = $this->getMock('\Doctrine\DBAL\Driver\Connection');
-        $conn = $this->getMockBuilder('\Doctrine\DBAL\Connection')
+        $conn = $this
+            ->getMockBuilder('\Doctrine\DBAL\Connection')
             ->disableOriginalConstructor()
             ->getMock();
         $conn
             ->expects($this->once())
             ->method('getWrappedConnection')
-            ->willReturn($driver);
-        $this->repository = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Repository\Item')
+            ->will($this->returnValue($driver));
+        $this->repository = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Repository\Item')
             ->disableOriginalConstructor()
             ->getMock();
-        $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
+        $doctrine = $this
+            ->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine
             ->expects($this->once())
             ->method('getRepository')
-            ->willReturn($this->repository)
+            ->will($this->returnValue($this->repository))
             ->with('AnimeDbCatalogBundle:Item');
         $doctrine
             ->expects($this->once())
             ->method('getConnection')
-            ->willReturn($conn);
-        $this->selector = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector')
+            ->will($this->returnValue($conn));
+        $this->selector = $this
+            ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector')
             ->disableOriginalConstructor()
             ->getMock();
         $this->driver = new SqlLike($doctrine, $this->selector);
     }
 
-    /**
-     * Test search
-     */
     public function testSearch()
     {
         $result = ['list' => ['foo', 'bar'], 'total' => 123];
@@ -92,12 +87,13 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
         $select
             ->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->getQuery($result['list']));
+            ->will($this->returnValue($this->getQuery($result['list'])));
         $total
             ->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->getQuery($result['total'], true));
+            ->will($this->returnValue($this->getQuery($result['total'], true)));
 
+        /* @var $entity \PHPUnit_Framework_MockObject_MockObject|Search */
         $entity = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Search');
         // build query selector
         $builder = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder')
@@ -119,43 +115,40 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             $builder
                 ->expects($this->once())
                 ->method($method)
-                ->willReturnSelf()
-                ->with($entity);
+                ->with($entity)
+                ->will($this->returnSelf());
         }
         $builder
             ->expects($this->once())
             ->method('sort')
-            ->willReturnSelf()
-            ->with('my_column', 'my_direction');
+            ->with('my_column', 'my_direction')
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('limit')
-            ->willReturnSelf()
-            ->with(111);
+            ->with(111)
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('offset')
-            ->willReturnSelf()
-            ->with(222);
+            ->with(222)
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('getQuerySelect')
-            ->willReturn($select);
+            ->will($this->returnValue($select));
         $builder
             ->expects($this->once())
             ->method('getQueryTotal')
-            ->willReturn($total);
+            ->will($this->returnValue($total));
         $this->selector
             ->expects($this->once())
             ->method('create')
-            ->willReturn($builder);
+            ->will($this->returnValue($builder));
         // TODO add mocks
         $this->assertEquals($result, $this->driver->search($entity, 111, 222, 'my_column', 'my_direction'));
     }
 
-    /**
-     * Test search by name fail
-     */
     public function testSearchByNameFail()
     {
         $this->repository
@@ -165,8 +158,6 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get names
-     *
      * @return array
      */
     public function getNames()
@@ -181,13 +172,11 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test search by name
-     *
      * @dataProvider getNames
      *
      * @param string $name
      * @param string $expected
-     * @param integer $limit
+     * @param int $limit
      */
     public function testSearchByName($name, $expected, $limit)
     {
@@ -198,47 +187,45 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
         $builder
             ->expects($this->once())
             ->method('innerJoin')
-            ->willReturnSelf()
-            ->with('i.names', 'n');
+            ->with('i.names', 'n')
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('andWhere')
-            ->willReturnSelf()
-            ->with('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name');
+            ->with('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('setParameter')
-            ->willReturnSelf()
-            ->with('name', $expected);
+            ->with('name', $expected)
+            ->will($this->returnSelf());
         $builder
             ->expects($this->once())
             ->method('groupBy')
-            ->willReturnSelf()
-            ->with('i');
+            ->with('i')
+            ->will($this->returnSelf());
         if ($limit > 0) {
             $builder
                 ->expects($this->once())
                 ->method('setMaxResults')
-                ->willReturnSelf()
-                ->with($limit);
+                ->with($limit)
+                ->will($this->returnSelf());
         }
         $builder
             ->expects($this->once())
             ->method('getQuery')
-            ->willReturn($this->getQuery($result));
+            ->will($this->returnValue($this->getQuery($result)));
         $this->repository
             ->expects($this->once())
             ->method('createQueryBuilder')
-            ->willReturn($builder)
+            ->will($this->returnValue($builder))
             ->with('i');
         $this->assertEquals($result, $this->driver->searchByName($name, $limit));
     }
 
     /**
-     * Get query
-     *
      * @param mixed $result
-     * @param boolean $single
+     * @param bool $single
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
@@ -251,7 +238,7 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
         $query
             ->expects($this->once())
             ->method($single ? 'getSingleScalarResult' : 'getResult')
-            ->willReturn($result);
+            ->will($this->returnValue($result));
         return $query;
     }
 }

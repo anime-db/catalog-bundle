@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Genre;
+use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
 
 /**
  * Test genre widget
@@ -28,12 +29,13 @@ class GenreTest extends \PHPUnit_Framework_TestCase
         $genre = new Genre();
         $this->assertNull($genre->getItem());
 
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|Item */
         $item = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item');
         $item
             ->expects($this->once())
             ->method('addGenre')
-            ->willReturnSelf()
-            ->with($genre);
+            ->with($genre)
+            ->will($this->returnSelf());
         $this->assertEquals($genre, $genre->setItem($item));
         $this->assertEquals($genre, $genre->setItem($item));
         $this->assertEquals($item, $genre->getItem());

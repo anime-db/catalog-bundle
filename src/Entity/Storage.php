@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
@@ -24,7 +23,6 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @Assert\Callback(methods={"isPathValid"})
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Storage")
- * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -60,19 +58,15 @@ class Storage
     const TYPE_VIDEO = 'video';
 
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Storage name
-     *
      * @ORM\Column(type="string", length=128)
      * @Assert\NotBlank()
      *
@@ -81,8 +75,6 @@ class Storage
     protected $name = '';
 
     /**
-     * Storage description
-     *
      * @ORM\Column(type="text", nullable=true)
      *
      * @var string
@@ -90,8 +82,6 @@ class Storage
     protected $description = '';
 
     /**
-     * Type
-     *
      * @ORM\Column(type="string", length=16)
      * @Assert\Choice(callback = "getTypes")
      *
@@ -127,11 +117,9 @@ class Storage
     protected $file_modified;
 
     /**
-     * Items list
-     *
      * @ORM\OneToMany(targetEntity="Item", mappedBy="storage")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $items;
 
@@ -143,8 +131,6 @@ class Storage
     protected $old_paths = [];
 
     /**
-     * Type names
-     *
      * @var array
      */
     protected static $type_names = [
@@ -155,8 +141,6 @@ class Storage
     ];
 
     /**
-     * Type titles
-     *
      * @var array
      */
     protected static $type_titles = [
@@ -166,9 +150,6 @@ class Storage
         self::TYPE_VIDEO => 'Video storage (DVD/BD/VHS)'
     ];
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -176,9 +157,7 @@ class Storage
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -186,11 +165,9 @@ class Storage
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setName($name)
     {
@@ -199,8 +176,6 @@ class Storage
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -209,11 +184,9 @@ class Storage
     }
 
     /**
-     * Set description
-     *
      * @param string $description
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setDescription($description)
     {
@@ -222,8 +195,6 @@ class Storage
     }
 
     /**
-     * Get description
-     *
      * @return string
      */
     public function getDescription()
@@ -232,11 +203,9 @@ class Storage
     }
 
     /**
-     * Set path
-     *
      * @param string $path
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setPath($path)
     {
@@ -248,8 +217,6 @@ class Storage
     }
 
     /**
-     * Get path
-     *
      * @return string
      */
     public function getPath()
@@ -258,8 +225,6 @@ class Storage
     }
 
     /**
-     * Get old paths
-     *
      * @return array
      */
     public function getOldPaths()
@@ -268,11 +233,9 @@ class Storage
     }
 
     /**
-     * Add item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function addItem(Item $item)
     {
@@ -284,11 +247,9 @@ class Storage
     }
 
     /**
-     * Remove item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function removeItem(Item $item)
     {
@@ -300,9 +261,7 @@ class Storage
     }
 
     /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getItems()
     {
@@ -310,11 +269,9 @@ class Storage
     }
 
     /**
-     * Set type
-     *
      * @param string $type
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setType($type)
     {
@@ -323,8 +280,6 @@ class Storage
     }
 
     /**
-     * Get type
-     *
      * @return string
      */
     public function getType()
@@ -333,8 +288,6 @@ class Storage
     }
 
     /**
-     * Get supported types
-     *
      * @return array
      */
     public static function getTypes()
@@ -343,8 +296,6 @@ class Storage
     }
 
     /**
-     * Get type titles
-     *
      * @return array
      */
     public static function getTypeTitles()
@@ -385,7 +336,7 @@ class Storage
     /**
      * Is path required to fill for current type of storage
      *
-     * @return boolean
+     * @return bool
      */
     public function isPathRequired()
     {
@@ -393,9 +344,7 @@ class Storage
     }
 
     /**
-     * Storage is writable
-     *
-     * @return boolean
+     * @return bool
      */
     public function isWritable()
     {
@@ -403,9 +352,7 @@ class Storage
     }
 
     /**
-     * Storage is readable
-     *
-     * @return boolean
+     * @return bool
      */
     public function isReadable()
     {
@@ -415,7 +362,7 @@ class Storage
     /**
      * Is valid path for current type
      *
-     * @param \Symfony\Component\Validator\ExecutionContextInterface $context
+     * @param ExecutionContextInterface $context
      */
     public function isPathValid(ExecutionContextInterface $context)
     {
@@ -425,11 +372,9 @@ class Storage
     }
 
     /**
-     * Set date last update storage
-     *
      * @param \DateTime $date_update
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setDateUpdate(\DateTime $date_update)
     {
@@ -438,8 +383,6 @@ class Storage
     }
 
     /**
-     * Get date last update storage
-     *
      * @return \DateTime
      */
     public function getDateUpdate()
@@ -448,11 +391,9 @@ class Storage
     }
 
     /**
-     * Set date of file last modified
-     *
      * @param \DateTime $file_modified
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function setFileModified(\DateTime $file_modified)
     {
@@ -461,8 +402,6 @@ class Storage
     }
 
     /**
-     * Get date of file last modified
-     *
      * @return \DateTime
      */
     public function getFileModified()
@@ -471,8 +410,6 @@ class Storage
     }
 
     /**
-     * Change date update
-     *
      * @ORM\PreUpdate
      */
     public function doChangeDateUpdate()
@@ -481,8 +418,6 @@ class Storage
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

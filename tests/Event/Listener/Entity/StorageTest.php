@@ -12,6 +12,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage;
 use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Test storage entity listener
@@ -29,30 +30,20 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     protected $root;
 
     /**
-     * Filesystem
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Filesystem
      */
     protected $fs;
 
     /**
-     * Real filesystem
-     *
      * @var \Symfony\Component\Filesystem\Filesystem
      */
     protected $real_fs;
 
     /**
-     * Storage
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage
      */
     protected $storage;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->root = sys_get_temp_dir().'/test/';
@@ -61,18 +52,12 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->real_fs = new Filesystem();
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::tearDown()
-     */
     protected function tearDown()
     {
         $this->real_fs->remove($this->root);
     }
 
     /**
-     * Get event listeners
-     *
      * @return array
      */
     public function getEventListeners()
@@ -85,8 +70,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test entity is not a storage
-     *
      * @dataProvider getEventListeners
      *
      * @param string $method
@@ -99,20 +82,17 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         call_user_func([$this->storage, $method], $this->getArgs(new \stdClass()));
     }
 
-    /**
-     * Test post persist no path
-     */
     public function testPostPersistNoPath()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->once())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo');
         $this->fs
             ->expects($this->never())
@@ -120,25 +100,22 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post persist file exists
-     */
     public function testPostPersistFileExists()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo');
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -146,29 +123,26 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post persist
-     */
     public function testPostPersist()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('foo');
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->once())
@@ -177,20 +151,17 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postPersist($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove no path
-     */
     public function testPostRemoveNoPath()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -198,24 +169,21 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postRemove($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove bad file
-     */
     public function testPostRemoveBadFile()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn($this->root);
+            ->will($this->returnValue($this->root));
         $storage
             ->expects($this->once())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($this->root.Storage::ID_FILE);
         $this->fs
             ->expects($this->never())
@@ -226,24 +194,21 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postRemove($this->getArgs($storage));
     }
 
-    /**
-     * Test post remove
-     */
     public function testPostRemove()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn($this->root);
+            ->will($this->returnValue($this->root));
         $storage
             ->expects($this->once())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($this->root.Storage::ID_FILE);
         $this->fs
             ->expects($this->once())
@@ -256,11 +221,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get args
-     *
      * @param object $storage
      *
-     * @return PHPUnit_Framework_MockObject_MockObject
+     * @return \PHPUnit_Framework_MockObject_MockObject|LifecycleEventArgs
      */
     protected function getArgs($storage)
     {
@@ -270,38 +233,35 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $args
             ->expects($this->atLeastOnce())
             ->method('getEntity')
-            ->willReturn($storage);
+            ->will($this->returnValue($storage));
         return $args;
     }
 
-    /**
-     * Test post update no file
-     */
     public function testPostUpdateNoFile()
     {
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn(['foo', 'bar']);
+            ->will($this->returnValue(['foo', 'bar']));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('foo'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(1))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('bar'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(2))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('baz');
         $this->fs
             ->expects($this->never())
@@ -310,9 +270,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postUpdate($this->getArgs($storage));
     }
 
-    /**
-     * Test post update bad id
-     */
     public function testPostUpdateBadId()
     {
         $file1 = $this->root.'foo/'.Storage::ID_FILE;
@@ -322,19 +279,19 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn([dirname($file1).'/', dirname($file2).'/']);
+            ->will($this->returnValue([dirname($file1).'/', dirname($file2).'/']));
         $this->fs
             ->expects($this->atLeastOnce())
             ->method('exists')
-            ->willReturn(true);
+            ->will($this->returnValue(true));
         $this->fs
             ->expects($this->never())
             ->method('remove');
@@ -345,9 +302,6 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->storage->postUpdate($this->getArgs($storage));
     }
 
-    /**
-     * Test post update
-     */
     public function testPostUpdate()
     {
         $file1 = $this->root.'foo/'.Storage::ID_FILE;
@@ -357,34 +311,34 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(123);
+            ->will($this->returnValue(123));
         $storage
             ->expects($this->atLeastOnce())
             ->method('getPath')
-            ->willReturn('baz');
+            ->will($this->returnValue('baz'));
         $storage
             ->expects($this->once())
             ->method('getOldPaths')
-            ->willReturn([dirname($file1).'/', dirname($file2).'/']);
+            ->will($this->returnValue([dirname($file1).'/', dirname($file2).'/']));
         $this->fs
             ->expects($this->at(0))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($file1);
         $this->fs
             ->expects($this->at(2))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with($file2);
         $this->fs
             ->expects($this->at(4))
             ->method('exists')
-            ->willReturn(true)
+            ->will($this->returnValue(true))
             ->with('baz');
         $this->fs
             ->expects($this->at(5))
             ->method('exists')
-            ->willReturn(false)
+            ->will($this->returnValue(false))
             ->with('baz'.Storage::ID_FILE);
         $this->fs
             ->expects($this->at(1))

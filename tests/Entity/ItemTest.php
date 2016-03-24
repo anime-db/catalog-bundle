@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
+use Symfony\Component\Validator\ExecutionContextInterface;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
  * Test item
@@ -21,24 +23,15 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Item
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Item
      */
     protected $item;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->item = new Item();
     }
 
-    /**
-     * Test do change date update
-     */
     public function testDoChangeDateUpdate()
     {
         $date = (new \DateTime())->modify('+100 seconds');
@@ -50,8 +43,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get required paths
-     *
      * @return array
      */
     public function getRequiredPaths()
@@ -65,12 +56,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test is path valid
-     *
      * @dataProvider getRequiredPaths
      *
-     * @param boolean $storage
-     * @param boolean $required
+     * @param bool $storage
+     * @param bool $required
      * @param string $path
      */
     public function testIsPathValid($storage, $required, $path)
@@ -80,9 +69,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             $storage
                 ->expects($this->once())
                 ->method('isPathRequired')
-                ->willReturn($required);
+                ->will($this->returnValue($required));
             $this->item->setStorage($storage);
         }
+        /* @var $context \PHPUnit_Framework_MockObject_MockObject|ExecutionContextInterface */
         $context = $this->getMock('\Symfony\Component\Validator\ExecutionContextInterface');
         $context
             ->expects($storage && $required && !$path ? $this->once() : $this->never())
@@ -92,9 +82,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $this->item->isPathValid($context);
     }
 
-    /**
-     * Test freez
-     */
     public function testFreez()
     {
         $em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
@@ -103,19 +90,20 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $em
             ->expects($this->atLeastOnce())
             ->method('getReference')
-            ->willReturnCallback(function ($class_name, $id) {
+            ->will($this->returnCallback(function ($class_name, $id) {
                 $ref = new \stdClass();
                 $ref->class = $class_name;
                 $ref->id = $id;
                 return $ref;
-            });
+            }));
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
         $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
         $doctrine
             ->expects($this->once())
             ->method('getManager')
-            ->willReturn($em);
+            ->will($this->returnValue($em));
 
         // set related entities
         $country = $this->getRef('\AnimeDb\Bundle\CatalogBundle\Entity\Country', 'setCountry');
@@ -148,7 +136,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $mock
             ->expects($this->once())
             ->method('getId')
-            ->willReturn($id = rand());
+            ->will($this->returnValue($id = rand()));
         call_user_func([$this->item, $set], $mock);
 
         $ref = new \stdClass();
@@ -158,8 +146,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get cleared paths
-     *
      * @return array
      */
     public function getClearedPaths()
@@ -173,8 +159,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test do clear path
-     *
      * @dataProvider getClearedPaths
      *
      * @param string $path
@@ -188,7 +172,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             $storage
                 ->expects($this->atLeastOnce())
                 ->method('getPath')
-                ->willReturn($storage_path);
+                ->will($this->returnValue($storage_path));
             $this->item->setStorage($storage);
         }
         $this->item->setPath($path);
@@ -197,8 +181,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get url names
-     *
      * @return array
      */
     public function getUrlNames()
@@ -211,8 +193,6 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get url name
-     *
      * @dataProvider getUrlNames
      *
      * @param string $name

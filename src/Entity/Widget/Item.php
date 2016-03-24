@@ -22,15 +22,11 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 class Item
 {
     /**
-     * Cover
-     *
      * @var string
      */
     protected $cover = '';
 
     /**
-     * Name
-     *
      * @var string
      */
     protected $name = '';
@@ -43,8 +39,6 @@ class Item
     protected $link = '';
 
     /**
-     * Link for fill item
-     *
      * @var string
      */
     protected $link_for_fill = '';
@@ -52,37 +46,28 @@ class Item
     /**
      * Item in local catalog if have
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     * @return Item|null
      */
     protected $item;
 
     /**
-     * Type
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type
+     * @var Type
      */
     protected $type;
 
     /**
-     * Genre list
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $genres;
 
-    /**
-     * Construct
-     */
     public function __construct() {
         $this->genres  = new ArrayCollection();
     }
 
     /**
-     * Set cover
-     *
      * @param string $cover
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setCover($cover)
     {
@@ -91,8 +76,6 @@ class Item
     }
 
     /**
-     * Get cover
-     *
      * @return string
      */
     public function getCover()
@@ -101,11 +84,9 @@ class Item
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setName($name)
     {
@@ -114,8 +95,6 @@ class Item
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -124,11 +103,9 @@ class Item
     }
 
     /**
-     * Set link
-     *
      * @param string $link
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setLink($link)
     {
@@ -137,8 +114,6 @@ class Item
     }
 
     /**
-     * Get link
-     *
      * @return string
      */
     public function getLink()
@@ -147,11 +122,9 @@ class Item
     }
 
     /**
-     * Set link for fill item
-     *
      * @param string $link
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setLinkForFill($link)
     {
@@ -160,8 +133,6 @@ class Item
     }
 
     /**
-     * Get link for fill item
-     *
      * @return string
      */
     public function getLinkForFill()
@@ -170,11 +141,9 @@ class Item
     }
 
     /**
-     * Set item
+     * @param ItemEntity|null $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item|null $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setItem(ItemEntity $item = null)
     {
@@ -185,7 +154,7 @@ class Item
     /**
      * Get item
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item|null
+     * @return ItemEntity|null
      */
     public function getItem()
     {
@@ -195,9 +164,9 @@ class Item
     /**
      * Set type
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type $type
+     * @param Type $type
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function setType(Type $type)
     {
@@ -209,9 +178,7 @@ class Item
     }
 
     /**
-     * Get type
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type
+     * @return Type
      */
     public function getType()
     {
@@ -219,11 +186,9 @@ class Item
     }
 
     /**
-     * Add genres
+     * @param Genre $genre
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Genre $genre
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
+     * @return Item
      */
     public function addGenre(Genre $genre)
     {
@@ -235,9 +200,7 @@ class Item
     }
 
     /**
-     * Get genres
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getGenres()
     {

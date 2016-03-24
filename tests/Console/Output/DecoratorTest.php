@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 
 /**
  * Test output decorator
@@ -21,32 +22,25 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DecoratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Output
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|OutputInterface
      */
     protected $output;
 
     /**
-     * Decorator
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Decorator
      */
     protected $decorator;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->output = $this->getMock('\Symfony\Component\Console\Output\OutputInterface');
-        $this->decorator = $this->getMockForAbstractClass('AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator', [$this->output]);
+        $this->decorator = $this->getMockForAbstractClass(
+            'AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator',
+            [$this->output]
+        );
     }
 
     /**
-     * Get newline types
-     *
      * @return array
      */
     public function getNewlineTypes()
@@ -60,12 +54,10 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write
-     *
      * @dataProvider getNewlineTypes
      *
-     * @param boolean $newline
-     * @param integer $type
+     * @param bool $newline
+     * @param int $type
      */
     public function testWrite($newline, $type)
     {
@@ -77,8 +69,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get types
-     *
      * @return array
      */
     public function getTypes()
@@ -91,11 +81,9 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test write ln
-     *
      * @dataProvider getTypes
      *
-     * @param integer $type
+     * @param int $type
      */
     public function testWriteLn($type)
     {
@@ -107,8 +95,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get set methods
-     *
      * @return array
      */
     public function getSetMethods()
@@ -122,8 +108,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test setters
-     *
      * @dataProvider getSetMethods
      * 
      * @param string $method
@@ -139,8 +123,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get get methods
-     *
      * @return array
      */
     public function getGetMethods()
@@ -154,8 +136,6 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getters
-     *
      * @dataProvider getGetMethods
      * 
      * @param string $method
@@ -166,7 +146,7 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
         $this->output
             ->expects($this->once())
             ->method($method)
-            ->willReturn($data);
+            ->will($this->returnValue($data));
         $this->assertEquals($data, call_user_func([$this->decorator, $method]));
     }
 }

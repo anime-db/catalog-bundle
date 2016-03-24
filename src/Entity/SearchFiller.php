@@ -10,6 +10,7 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -25,8 +26,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class SearchFiller
 {
     /**
-     * URL
-     *
      * @Assert\NotBlank()
      * @Assert\Url()
      *
@@ -35,23 +34,17 @@ class SearchFiller
     protected $url = '';
 
     /**
-     * Filler
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler|null
+     * @var FillerInterface|null
      */
     protected $filler;
 
     /**
-     * Chain
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain
+     * @var Chain
      */
     protected $chain;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain $chain
+     * @param Chain $chain
      */
     public function __construct(Chain $chain)
     {
@@ -59,8 +52,6 @@ class SearchFiller
     }
 
     /**
-     * Get URL
-     *
      * @return string
      */
     public function getUrl()
@@ -69,11 +60,9 @@ class SearchFiller
     }
 
     /**
-     * Set URL
-     *
      * @param string $url
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller
+     * @return SearchFiller
      */
     public function setUrl($url)
     {
@@ -82,9 +71,7 @@ class SearchFiller
     }
 
     /**
-     * Get filler
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler|null
+     * @return FillerInterface|null
      */
     public function getFiller()
     {
@@ -92,21 +79,20 @@ class SearchFiller
     }
 
     /**
-     * Is URL supported
-     *
-     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param ExecutionContextInterface $context
      */
     public function isUrlSupported(ExecutionContextInterface $context)
     {
-        /* @var $plugin \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Filler */
         foreach ($this->chain->getPlugins() as $plugin) {
+            /* @var $plugin FillerInterface */
             if ($plugin->isSupportedUrl($this->url)) {
                 $this->filler = $plugin;
                 return;
             }
         }
 
-        $context->buildViolation('No fillers that would support this URL')
+        $context
+            ->buildViolation('No fillers that would support this URL')
             ->atPath('url')
             ->addViolation();
     }

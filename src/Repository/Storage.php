@@ -14,17 +14,13 @@ use Doctrine\ORM\EntityRepository;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 
 /**
- * Storage repository
- *
  * @package AnimeDb\Bundle\CatalogBundle\Repository
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Storage extends EntityRepository
 {
     /**
-     * Get count storages
-     *
-     * @return integer
+     * @return int
      */
     public function count()
     {
@@ -37,11 +33,9 @@ class Storage extends EntityRepository
     }
 
     /**
-     * Get storage list for types
-     *
      * @param array $types
      *
-     * @return array [\AnimeDb\Bundle\CatalogBundle\Entity\Storage]
+     * @return StorageEntity[]
      */
     public function getList(array $types = [])
     {
@@ -71,9 +65,7 @@ class Storage extends EntityRepository
     }
 
     /**
-     * Get last update
-     *
-     * @param integer|null $id
+     * @param int|null $id
      *
      * @return \DateTime|null
      */
@@ -107,13 +99,12 @@ class Storage extends EntityRepository
     }
 
     /**
-     * Get last storage
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage|null
+     * @return StorageEntity|null
      */
     public function getLast()
     {
-        return $this->createQueryBuilder('s')
+        return $this
+            ->createQueryBuilder('s')
             ->addOrderBy('s.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()

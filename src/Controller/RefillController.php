@@ -10,9 +10,9 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller;
+use AnimeDb\Bundle\CatalogBundle\Entity\Source;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\DateEnd as DateEndForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\DatePremiere as DatePremiereForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Duration as DurationForm;
@@ -24,7 +24,10 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Names as NamesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Sources as SourcesForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Summary as SummaryForm;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller\Translate as TranslateForm;
+use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Item as ItemRefiller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Refill
@@ -32,20 +35,20 @@ use Symfony\Component\HttpFoundation\Request;
  * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class RefillController extends Controller
+class RefillController extends BaseController
 {
     /**
      * Refill item
      *
      * @param string $plugin
      * @param string $field
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function refillAction($plugin, $field, Request $request)
     {
-        /* @var $refiller \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller */
+        /* @var $refiller RefillerInterface */
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -66,13 +69,13 @@ class RefillController extends Controller
      *
      * @param string $plugin
      * @param string $field
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function searchAction($plugin, $field, Request $request)
     {
-        /* @var $refiller \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller */
+        /* @var $refiller RefillerInterface */
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -83,7 +86,7 @@ class RefillController extends Controller
         $result = [];
         if ($refiller->isCanSearch($item, $field)) {
             $result = $refiller->search($item, $field);
-            /* @var $search_item \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Item */
+            /* @var $search_item ItemRefiller */
             foreach ($result as $key => $search_item) {
                 $result[$key] = [
                     'name' => $search_item->getName(),
@@ -111,13 +114,13 @@ class RefillController extends Controller
      *
      * @param string $plugin
      * @param string $field
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function fillFromSearchAction($plugin, $field, Request $request)
     {
-        /* @var $refiller \AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Refiller */
+        /* @var $refiller RefillerInterface */
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
@@ -137,67 +140,67 @@ class RefillController extends Controller
      * Get form for field
      *
      * @param string $field
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item_origin
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item_fill
+     * @param Item $item_origin
+     * @param Item $item_fill
      *
-     * @return \Symfony\Component\Form\Form
+     * @return Form
      */
     protected function getForm($field, Item $item_origin, Item $item_fill)
     {
         switch ($field) {
-            case Refiller::FIELD_DATE_END:
+            case RefillerInterface::FIELD_DATE_END:
                 $form = new DateEndForm();
                 $data = ['date_end' => $item_fill->getDateEnd()];
                 break;
-            case Refiller::FIELD_DATE_PREMIERE:
+            case RefillerInterface::FIELD_DATE_PREMIERE:
                 $form = new DatePremiereForm();
                 $data = ['date_premiere' => $item_fill->getDatePremiere()];
                 break;
-            case Refiller::FIELD_DURATION:
+            case RefillerInterface::FIELD_DURATION:
                 $form = new DurationForm();
                 $data = ['duration' => $item_fill->getDuration()];
                 break;
-            case Refiller::FIELD_EPISODES:
+            case RefillerInterface::FIELD_EPISODES:
                 $form = new EpisodesForm();
                 $data = ['episodes' => $item_fill->getEpisodes()];
                 break;
-            case Refiller::FIELD_EPISODES_NUMBER:
+            case RefillerInterface::FIELD_EPISODES_NUMBER:
                 $form = new EpisodesNumberForm();
                 $data = ['episodes_number' => $item_fill->getEpisodesNumber()];
                 break;
-            case Refiller::FIELD_FILE_INFO:
+            case RefillerInterface::FIELD_FILE_INFO:
                 $form = new FileInfoForm();
                 $data = ['file_info' => $item_fill->getFileInfo()];
                 break;
-            case Refiller::FIELD_GENRES:
+            case RefillerInterface::FIELD_GENRES:
                 $form = $this->get('anime_db.form.type.refill.gengres');
                 $data = ['genres' => $item_fill->getGenres()];
                 break;
-            case Refiller::FIELD_IMAGES:
+            case RefillerInterface::FIELD_IMAGES:
                 $form = new ImagesForm();
                 $data = ['images' => $item_fill->getImages()];
                 break;
-            case Refiller::FIELD_COUNTRY:
+            case RefillerInterface::FIELD_COUNTRY:
                 $form = $this->get('anime_db.form.type.refill.country');
                 $data = ['country' => $item_fill->getCountry()];
                 break;
-            case Refiller::FIELD_NAMES:
+            case RefillerInterface::FIELD_NAMES:
                 $form = new NamesForm();
                 $data = ['names' => $item_fill->getNames()];
                 break;
-            case Refiller::FIELD_SOURCES:
+            case RefillerInterface::FIELD_SOURCES:
                 $form = new SourcesForm();
                 $data = ['sources' => $item_fill->getSources()];
                 break;
-            case Refiller::FIELD_SUMMARY:
+            case RefillerInterface::FIELD_SUMMARY:
                 $form = new SummaryForm();
                 $data = ['summary' => $item_fill->getSummary()];
                 break;
-            case Refiller::FIELD_TRANSLATE:
+            case RefillerInterface::FIELD_TRANSLATE:
                 $form = new TranslateForm();
                 $data = ['translate' => $item_fill->getTranslate()];
                 break;
-            case Refiller::FIELD_STUDIO:
+            case RefillerInterface::FIELD_STUDIO:
                 $form = $this->get('anime_db.form.type.refill.studio');
                 $data = ['studio' => $item_fill->getStudio()];
                 break;
@@ -205,7 +208,9 @@ class RefillController extends Controller
                 throw $this->createNotFoundException('Field \''.$field.'\' is not supported');
         }
         // search new source link
+        /* @var $sources_origin Source[] */
         $sources_origin = array_reverse($item_origin->getSources()->toArray());
+        /* @var $sources_fill Source[] */
         $sources_fill = array_reverse($item_fill->getSources()->toArray());
         foreach ($sources_fill as $source_fill) {
             // sources is already added
@@ -214,7 +219,7 @@ class RefillController extends Controller
                     continue 2;
                 }
             }
-            $data['source'] = $source->getUrl();
+            $data['source'] = $source_fill->getUrl();
             break;
         }
 

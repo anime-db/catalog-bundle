@@ -12,15 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
-use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
-use AnimeDb\Bundle\CatalogBundle\Entity\Country;
-use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
-use AnimeDb\Bundle\CatalogBundle\Entity\Type;
-use AnimeDb\Bundle\CatalogBundle\Entity\Label;
 use Symfony\Component\Validator\ExecutionContextInterface;
-use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
@@ -33,7 +26,6 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Item")
  * @Assert\Callback(methods={"isPathValid"})
- * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -41,19 +33,15 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 class Item extends BaseEntity implements ImageInterface
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @var integer
+     * @var int
      */
     protected $id = 0;
 
     /**
-     * Main name
-     *
      * @ORM\Column(type="string", length=256)
      * @Assert\NotBlank()
      *
@@ -62,27 +50,21 @@ class Item extends BaseEntity implements ImageInterface
     protected $name = '';
 
     /**
-     * Main name
-     *
      * @ORM\OneToMany(targetEntity="Name", mappedBy="item", cascade={"persist", "remove"}, orphanRemoval=true)
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $names;
 
     /**
-     * Type
-     *
      * @ORM\ManyToOne(targetEntity="Type", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @var Type
      */
     protected $type;
 
     /**
-     * Date premiere
-     *
      * @ORM\Column(type="date")
      * @Assert\Date()
      *
@@ -91,8 +73,6 @@ class Item extends BaseEntity implements ImageInterface
     protected $date_premiere;
 
     /**
-     * Date end release
-     *
      * @ORM\Column(type="date", nullable=true)
      * @Assert\Date()
      *
@@ -101,48 +81,38 @@ class Item extends BaseEntity implements ImageInterface
     protected $date_end;
 
     /**
-     * Genre list
-     *
      * @ORM\ManyToMany(targetEntity="Genre", inversedBy="items", cascade={"persist"})
      * @ORM\JoinTable(name="items_genres")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $genres;
 
     /**
-     * Label list
-     *
      * @ORM\ManyToMany(targetEntity="Label", inversedBy="items", cascade={"persist"})
      * @ORM\JoinTable(name="items_labels")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $labels;
 
     /**
-     * Country
-     *
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="country", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @var Country
      */
     protected $country;
 
     /**
-     * Duration
-     *
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
      *
-     * @var integer
+     * @var int
      */
     protected $duration = 0;
 
     /**
-     * Summary
-     *
      * @ORM\Column(type="text", nullable=true)
      *
      * @var string
@@ -150,8 +120,6 @@ class Item extends BaseEntity implements ImageInterface
     protected $summary = '';
 
     /**
-     * Disk path
-     *
      * @ORM\Column(type="string", length=256, nullable=true)
      *
      * @var string
@@ -159,18 +127,14 @@ class Item extends BaseEntity implements ImageInterface
     protected $path = '';
 
     /**
-     * Storage
-     *
      * @ORM\ManyToOne(targetEntity="Storage", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="storage", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @var Storage
      */
     protected $storage;
 
     /**
-     * Episodes list
-     *
      * @ORM\Column(type="text", nullable=true)
      *
      * @var string
@@ -187,8 +151,6 @@ class Item extends BaseEntity implements ImageInterface
     protected $translate = '';
 
     /**
-     * File info
-     *
      * @ORM\Column(type="text", nullable=true)
      *
      * @var string
@@ -196,17 +158,13 @@ class Item extends BaseEntity implements ImageInterface
     protected $file_info = '';
 
     /**
-     * Source list
-     *
      * @ORM\OneToMany(targetEntity="Source", mappedBy="item", cascade={"persist", "remove"}, orphanRemoval=true)
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $sources;
 
     /**
-     * Cover
-     *
      * @ORM\Column(type="string", length=256, nullable=true)
      *
      * @var string
@@ -227,8 +185,6 @@ class Item extends BaseEntity implements ImageInterface
     protected $episodes_number = '';
 
     /**
-     * Date add item
-     *
      * @ORM\Column(type="datetime")
      *
      * @var \DateTime
@@ -236,8 +192,6 @@ class Item extends BaseEntity implements ImageInterface
     protected $date_add;
 
     /**
-     * Date last update item
-     *
      * @ORM\Column(type="datetime")
      *
      * @var \DateTime
@@ -245,44 +199,33 @@ class Item extends BaseEntity implements ImageInterface
     protected $date_update;
 
     /**
-     * Image list
-     *
      * @ORM\OneToMany(targetEntity="Image", mappedBy="item", cascade={"persist", "remove"}, orphanRemoval=true)
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $images;
 
     /**
-     * Rating
-     *
      * @ORM\Column(type="integer", nullable=true)
      * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
      *
-     * @var integer
+     * @var int
      */
     protected $rating = 0;
 
     /**
-     * Studio
-     *
      * @ORM\ManyToOne(targetEntity="Studio", inversedBy="items", cascade={"persist"})
      * @ORM\JoinColumn(name="studio", referencedColumnName="id")
      *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     * @var Studio
      */
     protected $studio;
 
     /**
-     * Not cleared path
-     *
      * @var string
      */
     protected $not_cleared_path = '';
 
-    /**
-     * Construct
-     */
     public function __construct() {
         $this->genres = new ArrayCollection();
         $this->labels = new ArrayCollection();
@@ -294,9 +237,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -304,11 +245,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setName($name)
     {
@@ -317,8 +256,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -327,11 +264,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set date premiere
-     *
      * @param \DateTime|null $date_premiere
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setDatePremiere(\DateTime $date_premiere = null)
     {
@@ -340,8 +275,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get date premiere
-     *
      * @return \DateTime
      */
     public function getDatePremiere()
@@ -350,11 +283,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set date end
-     *
      * @param \DateTime|null $date_end
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setDateEnd(\DateTime $date_end = null)
     {
@@ -363,8 +294,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get date end
-     *
      * @return \DateTime|null
      */
     public function getDateEnd()
@@ -373,11 +302,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set duration
+     * @param int $duration
      *
-     * @param integer $duration
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setDuration($duration)
     {
@@ -386,9 +313,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get duration
-     *
-     * @return integer
+     * @return int
      */
     public function getDuration()
     {
@@ -396,11 +321,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set summary
-     *
      * @param string $summary
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setSummary($summary)
     {
@@ -409,8 +332,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get summary
-     *
      * @return string
      */
     public function getSummary()
@@ -419,11 +340,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set path
-     *
      * @param string $path
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setPath($path)
     {
@@ -437,8 +356,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get path
-     *
      * @return string
      */
     public function getPath()
@@ -467,11 +384,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set episodes
-     *
      * @param string $episodes
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setEpisodes($episodes)
     {
@@ -480,8 +395,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get episodes
-     *
      * @return string
      */
     public function getEpisodes()
@@ -490,11 +403,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set translate
-     *
      * @param string $translate
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setTranslate($translate)
     {
@@ -503,8 +414,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get translate
-     *
      * @return string
      */
     public function getTranslate()
@@ -513,11 +422,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set file info
-     *
      * @param string $fileInfo
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setFileInfo($fileInfo)
     {
@@ -526,8 +433,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get file_info
-     *
      * @return string
      */
     public function getFileInfo()
@@ -536,11 +441,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Add name
+     * @param Name $name
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Name $name
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function addName(Name $name)
     {
@@ -553,11 +456,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Remove name
+     * @param Name $name
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Name $name
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function removeName(Name $name)
     {
@@ -569,9 +470,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get names
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getNames()
     {
@@ -579,11 +478,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set type
+     * @param Type $type
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Type $type
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setType(Type $type = null)
     {
@@ -604,9 +501,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get type
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function getType()
     {
@@ -614,11 +509,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Add genre
+     * @param Genre $genre
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function addGenre(Genre $genre)
     {
@@ -630,11 +523,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Remove genre
+     * @param Genre $genre
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Genre $genre
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function removeGenre(Genre $genre)
     {
@@ -646,9 +537,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get genres
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getGenres()
     {
@@ -656,11 +545,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Add label
+     * @param Label $label
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function addLabel(Label $label)
     {
@@ -672,11 +559,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Remove label
+     * @param Label $label
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Label $label
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function removeLabel(Label $label)
     {
@@ -688,9 +573,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get labels
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getLabels()
     {
@@ -698,11 +581,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set country
+     * @param Country $country
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Country $country
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setCountry(Country $country = null)
     {
@@ -723,9 +604,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get country
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Country
+     * @return Country
      */
     public function getCountry()
     {
@@ -733,11 +612,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set storage
+     * @param Storage $storage
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setStorage(Storage $storage = null)
     {
@@ -759,9 +636,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get storage
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function getStorage()
     {
@@ -769,11 +644,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set cover
-     *
      * @param string $cover
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setCover($cover)
     {
@@ -782,8 +655,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get cover
-     *
      * @return string
      */
     public function getCover()
@@ -792,8 +663,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::getFilename()
+     * @return string
      */
     public function getFilename()
     {
@@ -801,8 +671,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity::setFilename()
+     * @param string $filename
+     *
+     * @return Item
      */
     public function setFilename($filename)
     {
@@ -812,11 +683,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Add source
+     * @param Source $source
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Source $source
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function addSource(Source $source)
     {
@@ -829,11 +698,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Remove source
+     * @param Source $source
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Source $source
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function removeSource(Source $source)
     {
@@ -845,9 +712,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get sources
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
     public function getSources()
     {
@@ -855,11 +720,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Add image
+     * @param Image $image
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Image $image
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function addImage(Image $image)
     {
@@ -872,11 +735,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Remove image
+     * @param Image $image
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Image $image
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function removeImage(Image $image)
     {
@@ -888,9 +749,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return ArrayCollection
      */
     public function getImages()
     {
@@ -898,11 +757,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set number of episodes
-     *
      * @param string $episodes_number
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setEpisodesNumber($episodes_number)
     {
@@ -911,9 +768,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get number of episodes
-     *
-     * @return string 
+     * @return string
      */
     public function getEpisodesNumber()
     {
@@ -921,11 +776,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set date add item
-     *
      * @param \DateTime $date_add
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setDateAdd(\DateTime $date_add)
     {
@@ -934,8 +787,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get date add item
-     *
      * @return \DateTime
      */
     public function getDateAdd()
@@ -944,11 +795,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set date last update item
-     *
      * @param \DateTime $date_update
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setDateUpdate(\DateTime $date_update)
     {
@@ -957,8 +806,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get date last update item
-     *
      * @return \DateTime
      */
     public function getDateUpdate()
@@ -967,11 +814,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set rating
+     * @param int $rating
      *
-     * @param integer $rating
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setRating($rating)
     {
@@ -980,9 +825,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get rating
-     *
-     * @return integer
+     * @return int
      */
     public function getRating()
     {
@@ -990,11 +833,9 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Set studio
+     * @param Studio $studio
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Studio $studio
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function setStudio(Studio $studio = null)
     {
@@ -1015,9 +856,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get studio
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Studio
+     * @return Studio
      */
     public function getStudio()
     {
@@ -1025,8 +864,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Change item date update
-     *
      * @ORM\PreUpdate
      */
     public function doChangeDateUpdate()
@@ -1037,7 +874,7 @@ class Item extends BaseEntity implements ImageInterface
     /**
      * Is valid path for current type
      *
-     * @param \Symfony\Component\Validator\ExecutionContextInterface $context
+     * @param ExecutionContextInterface $context
      */
     public function isPathValid(ExecutionContextInterface $context)
     {
@@ -1049,9 +886,9 @@ class Item extends BaseEntity implements ImageInterface
     /**
      * Freeze item
      *
-     * @param \Doctrine\Bundle\DoctrineBundle\Registry $doctrine
+     * @param Registry $doctrine
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Item
+     * @return Item
      */
     public function freez(Registry $doctrine)
     {
@@ -1100,8 +937,6 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

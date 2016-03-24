@@ -11,22 +11,13 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Setting;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
-use Knp\Menu\ItemInterface;
 
 /**
- * Plugin setting interface
- * 
+ * @deprecated use SettingInterface
+ *
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Setting
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Setting extends Plugin
+abstract class Setting extends Plugin implements SettingInterface
 {
-    /**
-     * Build menu for plugin
-     *
-     * @param \Knp\Menu\ItemInterface $item
-     *
-     * @return \Knp\Menu\ItemInterface
-     */
-    abstract public function buildMenu(ItemInterface $item);
 }

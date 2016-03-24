@@ -12,6 +12,8 @@ namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Selector;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
  * Test selector builder
@@ -36,23 +38,15 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     protected $total;
 
     /**
-     * Builder
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder
      */
     protected $builder;
 
     /**
-     * Entity
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Search
      */
     protected $entity;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->select = $this->getMockBuilder('\Doctrine\ORM\QueryBuilder')
@@ -62,7 +56,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('groupBy')
             ->with('i')
-            ->willReturnSelf();
+            ->will($this->returnSelf());
         $this->total = $this->getMockBuilder('\Doctrine\ORM\QueryBuilder')
             ->disableOriginalConstructor()
             ->getMock();
@@ -70,7 +64,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('select')
             ->with('COUNT(DISTINCT i)')
-            ->willReturnSelf();
+            ->will($this->returnSelf());
 
         $repository = $this->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Repository\Item')
             ->disableOriginalConstructor()
@@ -79,13 +73,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('createQueryBuilder')
             ->with('i')
-            ->willReturn($this->select);
+            ->will($this->returnValue($this->select));
         $repository
             ->expects($this->at(1))
             ->method('createQueryBuilder')
             ->with('i')
-            ->willReturn($this->total);
+            ->will($this->returnValue($this->total));
 
+        /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
         $doctrine = $this->getMockBuilder('\Doctrine\Bundle\DoctrineBundle\Registry')
             ->disableOriginalConstructor()
             ->getMock();
@@ -93,31 +88,23 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($this->atLeastOnce())
             ->method('getRepository')
             ->with('AnimeDbCatalogBundle:Item')
-            ->willReturn($repository);
+            ->will($this->returnValue($repository));
         $this->entity = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Search');
 
         $this->builder = new Builder($doctrine);
     }
 
-    /**
-     * Test get query select
-     */
     public function testGetQuerySelect()
     {
         $this->assertEquals($this->select, $this->builder->getQuerySelect());
     }
 
-    /**
-     * Test get query total
-     */
     public function testGetQueryTotal()
     {
         $this->assertEquals($this->total, $this->builder->getQueryTotal());
     }
 
     /**
-     * Get names
-     *
      * @return array
      */
     public function getNames()
@@ -133,8 +120,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add name
-     *
      * @dataProvider getNames
      *
      * @param string $name
@@ -145,25 +130,25 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getName')
-            ->willReturn($name);
+            ->will($this->returnValue($name));
         if ($name) {
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $expected) {
                 $query
                     ->expects($that->once())
                     ->method('innerJoin')
-                    ->willReturnSelf()
-                    ->with('i.names', 'n');
+                    ->with('i.names', 'n')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name'); 
+                    ->with('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('name', $expected);
+                    ->with('name', $expected)
+                    ->will($this->returnSelf());
             });
         }
 
@@ -171,8 +156,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get dates
-     *
      * @return array
      */
     public function getDates()
@@ -184,8 +167,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date add
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -195,20 +176,20 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getDateAdd')
-            ->willReturn($date);
+            ->will($this->returnValue($date));
         if ($date) {
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $date) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.date_add >= :date_add');
+                    ->with('i.date_add >= :date_add')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('date_add', $date->format('Y-m-d'));
+                    ->with('date_add', $date->format('Y-m-d'))
+                    ->will($this->returnSelf());
             });
         }
 
@@ -216,8 +197,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date premiere
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -227,20 +206,20 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getDatePremiere')
-            ->willReturn($date);
+            ->will($this->returnValue($date));
         if ($date) {
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $date) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.date_premiere >= :date_premiere');
+                    ->with('i.date_premiere >= :date_premiere')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('date_premiere', $date->format('Y-m-d'));
+                    ->with('date_premiere', $date->format('Y-m-d'))
+                    ->will($this->returnSelf());
             });
         }
 
@@ -248,8 +227,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add date end
-     *
      * @dataProvider getDates
      *
      * @param \DateTime|null $date
@@ -259,20 +236,20 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getDateEnd')
-            ->willReturn($date);
+            ->will($this->returnValue($date));
         if ($date) {
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $date) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.date_end <= :date_end');
+                    ->with('i.date_end <= :date_end')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('date_end', $date->format('Y-m-d'));
+                    ->with('date_end', $date->format('Y-m-d'))
+                    ->will($this->returnSelf());
             });
         }
 
@@ -280,8 +257,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get ids
-     *
      * @return array
      */
     public function getIds()
@@ -293,11 +268,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add country
-     *
      * @dataProvider getIds
      *
-     * @param integer $id
+     * @param int $id
      */
     public function testAddCountry($id)
     {
@@ -306,40 +279,38 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             $entity
                 ->expects($this->atLeastOnce())
                 ->method('getId')
-                ->willReturn($id);
+                ->will($this->returnValue($id));
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $id) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.country = :country');
+                    ->with('i.country = :country')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('country', $id);
+                    ->with('country', $id)
+                    ->will($this->returnSelf());
             });
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getCountry')
-                ->willReturn($entity);
+                ->will($this->returnValue($entity));
         } else {
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getCountry')
-                ->willReturn(null);
+                ->will($this->returnValue(null));
         }
 
         $this->builder->addCountry($this->entity);
     }
 
     /**
-     * Test add storage
-     *
      * @dataProvider getIds
      *
-     * @param integer $id
+     * @param int $id
      */
     public function testAddStorage($id)
     {
@@ -348,40 +319,38 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             $entity
                 ->expects($this->atLeastOnce())
                 ->method('getId')
-                ->willReturn($id);
+                ->will($this->returnValue($id));
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $id) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.storage = :storage');
+                    ->with('i.storage = :storage')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('storage', $id);
+                    ->with('storage', $id)
+                    ->will($this->returnSelf());
             });
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getStorage')
-                ->willReturn($entity);
+                ->will($this->returnValue($entity));
         } else {
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getStorage')
-                ->willReturn(null);
+                ->will($this->returnValue(null));
         }
 
         $this->builder->addStorage($this->entity);
     }
 
     /**
-     * Test add type
-     *
      * @dataProvider getIds
      *
-     * @param integer $id
+     * @param int $id
      */
     public function testAddType($id)
     {
@@ -390,40 +359,38 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             $entity
                 ->expects($this->atLeastOnce())
                 ->method('getId')
-                ->willReturn($id);
+                ->will($this->returnValue($id));
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $id) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.type = :type');
+                    ->with('i.type = :type')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('type', $id);
+                    ->with('type', $id)
+                    ->will($this->returnSelf());
             });
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getType')
-                ->willReturn($entity);
+                ->will($this->returnValue($entity));
         } else {
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getType')
-                ->willReturn(null);
+                ->will($this->returnValue(null));
         }
 
         $this->builder->addType($this->entity);
     }
 
     /**
-     * Test add studio
-     *
      * @dataProvider getIds
      *
-     * @param integer $id
+     * @param int $id
      */
     public function testAddStudio($id)
     {
@@ -432,37 +399,35 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             $entity
                 ->expects($this->atLeastOnce())
                 ->method('getId')
-                ->willReturn($id);
+                ->will($this->returnValue($id));
             $that = $this;
             $this->add(function (\PHPUnit_Framework_MockObject_MockObject $query) use ($that, $id) {
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('i.studio = :studio');
+                    ->with('i.studio = :studio')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('setParameter')
-                    ->willReturnSelf()
-                    ->with('studio', $id);
+                    ->with('studio', $id)
+                    ->will($this->returnSelf());
             });
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getStudio')
-                ->willReturn($entity);
+                ->will($this->returnValue($entity));
         } else {
             $this->entity
                 ->expects($this->atLeastOnce())
                 ->method('getStudio')
-                ->willReturn(null);
+                ->will($this->returnValue(null));
         }
 
         $this->builder->addStudio($this->entity);
     }
 
     /**
-     * Get ids lists
-     *
      * @return array
      */
     public function getIdsLists()
@@ -474,8 +439,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test add genres
-     *
      * @dataProvider getIdsLists
      *
      * @param array $ids
@@ -486,14 +449,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getGenres')
-            ->willReturn($genres);
+            ->will($this->returnValue($genres));
         if ($ids) {
             foreach ($ids as $id) {
                 $genre = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Genre');
                 $genre
                     ->expects($this->atLeastOnce())
                     ->method('getId')
-                    ->willReturn($id);
+                    ->will($this->returnValue($id));
                 $genres->add($genre);
             }
             $that = $this;
@@ -501,21 +464,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                 $query
                     ->expects($that->once())
                     ->method('innerJoin')
-                    ->willReturnSelf()
-                    ->with('i.genres', 'g');
+                    ->with('i.genres', 'g')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('g.id IN ('.implode(',', $ids).')');
+                    ->with('g.id IN ('.implode(',', $ids).')')
+                    ->will($this->returnSelf());
             });
         }
         $this->builder->addGenres($this->entity);
     }
 
     /**
-     * Test add labels
-     *
      * @dataProvider getIdsLists
      *
      * @param array $ids
@@ -526,14 +487,14 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->entity
             ->expects($this->atLeastOnce())
             ->method('getLabels')
-            ->willReturn($labels);
+            ->will($this->returnValue($labels));
         if ($ids) {
             foreach ($ids as $id) {
                 $label = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Label');
                 $label
                     ->expects($this->atLeastOnce())
                     ->method('getId')
-                    ->willReturn($id);
+                    ->will($this->returnValue($id));
                 $labels->add($label);
             }
             $that = $this;
@@ -541,21 +502,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                 $query
                     ->expects($that->once())
                     ->method('innerJoin')
-                    ->willReturnSelf()
-                    ->with('i.labels', 'l');
+                    ->with('i.labels', 'l')
+                    ->will($this->returnSelf());
                 $query
                     ->expects($that->once())
                     ->method('andWhere')
-                    ->willReturnSelf()
-                    ->with('l.id IN ('.implode(',', $ids).')');
+                    ->with('l.id IN ('.implode(',', $ids).')')
+                    ->will($this->returnSelf());
             });
         }
         $this->builder->addLabels($this->entity);
     }
 
     /**
-     * Test add data to queries
-     *
      * @param \Closure $adder
      */
     protected function add(\Closure $adder)
@@ -565,8 +524,6 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get numbers
-     *
      * @return array
      */
     public function getNumbers()
@@ -579,11 +536,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test limit
-     *
      * @dataProvider getNumbers
      *
-     * @param integer $number
+     * @param int $number
      */
     public function testLimit($number)
     {
@@ -591,17 +546,15 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($number > 0 ? $this->once() : $this->never())
             ->method('setMaxResults')
             ->with($number)
-            ->willReturnSelf();
+            ->will($this->returnSelf());
 
         $this->builder->limit($number);
     }
 
     /**
-     * Test offset
-     *
      * @dataProvider getNumbers
      *
-     * @param integer $number
+     * @param int $number
      */
     public function testOffset($number)
     {
@@ -609,21 +562,18 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ->expects($number > 0 ? $this->once() : $this->never())
             ->method('setFirstResult')
             ->with($number)
-            ->willReturnSelf();
+            ->will($this->returnSelf());
 
         $this->builder->offset($number);
     }
 
-    /**
-     * Test sort
-     */
     public function testSort()
     {
         $this->select
             ->expects($this->once())
             ->method('orderBy')
             ->with('i.my_column', 'my_direction')
-            ->willReturnSelf();
+            ->will($this->returnSelf());
 
         $this->builder->sort('my_column', 'my_direction');
     }

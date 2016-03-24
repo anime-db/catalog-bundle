@@ -12,7 +12,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
@@ -22,7 +21,6 @@ use Gedmo\Translatable\Translatable;
  *
  * @ORM\Entity
  * @ORM\Table(name="type")
- * @IgnoreAnnotation("ORM")
  *
  * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
@@ -30,8 +28,6 @@ use Gedmo\Translatable\Translatable;
 class Type implements Translatable
 {
     /**
-     * Id
-     *
      * @ORM\Id
      * @ORM\Column(type="string", length=16)
      *
@@ -40,8 +36,6 @@ class Type implements Translatable
     protected $id = '';
 
     /**
-     * Type name
-     *
      * @ORM\Column(type="string", length=32)
      * @Assert\NotBlank()
      * @Gedmo\Translatable
@@ -51,11 +45,9 @@ class Type implements Translatable
     protected $name = '';
 
     /**
-     * Items list
-     *
      * @ORM\OneToMany(targetEntity="Item", mappedBy="type")
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $items;
 
@@ -68,20 +60,15 @@ class Type implements Translatable
      */
     protected $locale = '';
 
-    /**
-     * Construct
-     */
     public function __construct()
     {
         $this->items = new ArrayCollection();
     }
 
     /**
-     * Set id
-     *
      * @param string $id
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function setId($id)
     {
@@ -90,8 +77,6 @@ class Type implements Translatable
     }
 
     /**
-     * Get id
-     *
      * @return string
      */
     public function getId()
@@ -100,11 +85,9 @@ class Type implements Translatable
     }
 
     /**
-     * Set name
-     *
      * @param string $name
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function setName($name)
     {
@@ -113,8 +96,6 @@ class Type implements Translatable
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()
@@ -123,11 +104,9 @@ class Type implements Translatable
     }
 
     /**
-     * Add item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function addItem(Item $item)
     {
@@ -139,11 +118,9 @@ class Type implements Translatable
     }
 
     /**
-     * Remove item
+     * @param Item $item
      *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Item $item
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function removeItem(Item $item)
     {
@@ -155,9 +132,7 @@ class Type implements Translatable
     }
 
     /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getItems()
     {
@@ -165,11 +140,9 @@ class Type implements Translatable
     }
 
     /**
-     * Set locale
-     *
      * @param string $locale
      *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Type
+     * @return Type
      */
     public function setTranslatableLocale($locale)
     {
@@ -178,8 +151,6 @@ class Type implements Translatable
     }
 
     /**
-     * Get locale
-     *
      * @return string
      */
     public function getTranslatableLocale()
@@ -188,8 +159,6 @@ class Type implements Translatable
     }
 
     /**
-     * To string
-     *
      * @return string
      */
     public function __toString()

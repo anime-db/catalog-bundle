@@ -11,6 +11,9 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service;
 
 use AnimeDb\Bundle\CatalogBundle\Service\StorageScanner;
+use AnimeDb\Bundle\AppBundle\Service\CommandExecutor;
+use Symfony\Component\Filesystem\Filesystem;
+use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 
 /**
  * Test storage scanner
@@ -25,10 +28,14 @@ class StorageScannerTest extends \PHPUnit_Framework_TestCase
      */
     public function testExport()
     {
-        $command = $this->getMockBuilder('\AnimeDb\Bundle\AppBundle\Service\CommandExecutor')
+        /* @var $command \PHPUnit_Framework_MockObject_MockObject|CommandExecutor */
+        $command = $this
+            ->getMockBuilder('\AnimeDb\Bundle\AppBundle\Service\CommandExecutor')
             ->disableOriginalConstructor()
             ->getMock();
+        /* @var $fs \PHPUnit_Framework_MockObject_MockObject|Filesystem */
         $fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
+        /* @var $storage \PHPUnit_Framework_MockObject_MockObject|Storage */
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $output = '/output/%s.log';
         $progress = '/progress/%s.log';
@@ -37,7 +44,7 @@ class StorageScannerTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->willReturn(5);
+            ->will($this->returnValue(5));
         $fs
             ->expects($this->once())
             ->method('mkdir')

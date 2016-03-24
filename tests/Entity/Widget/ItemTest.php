@@ -11,6 +11,8 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
+use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type;
+use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Genre;
 
 /**
  * Test item widget
@@ -21,16 +23,10 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
 class ItemTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Item
-     *
      * @var \AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item
      */
     protected $item;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->item = new Item();
@@ -43,12 +39,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertNull($this->item->getType());
 
+        /* @var $type \PHPUnit_Framework_MockObject_MockObject|Type */
         $type = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type');
         $type
             ->expects($this->once())
             ->method('setItem')
-            ->willReturnSelf()
-            ->with($this->item);
+            ->with($this->item)
+            ->will($this->returnSelf());
         $this->assertEquals($this->item, $this->item->setType($type));
         $this->assertEquals($this->item, $this->item->setType($type));
         $this->assertEquals($type, $this->item->getType());
@@ -61,12 +58,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEmpty($this->item->getGenres());
 
+        /* @var $genre \PHPUnit_Framework_MockObject_MockObject|Genre */
         $genre = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Widget\Genre');
         $genre
             ->expects($this->once())
             ->method('setItem')
-            ->willReturnSelf()
-            ->with($this->item);
+            ->with($this->item)
+            ->will($this->returnSelf());
         $this->assertEquals($this->item, $this->item->addGenre($genre));
         $this->assertEquals($this->item, $this->item->addGenre($genre));
         /* @var $coll \Doctrine\Common\Collections\Collection */

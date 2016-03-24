@@ -10,8 +10,6 @@
 
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
-use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
-
 /**
  * Lazy write output
  *
@@ -30,13 +28,14 @@ class LazyWrite extends Decorator
     /**
      * Save messages in stack
      *
-     * @var boolean
+     * @var bool
      */
     protected $lazy_write = true;
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::write()
+     * @param array|string $messages
+     * @param bool|false $newline
+     * @param int $type
      */
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
@@ -51,8 +50,8 @@ class LazyWrite extends Decorator
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Console\Output\OutputInterface::writeln()
+     * @param array|string $messages
+     * @param int $type
      */
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
@@ -77,9 +76,7 @@ class LazyWrite extends Decorator
     }
 
     /**
-     * Is lazy write
-     *
-     * @return boolean
+     * @return bool
      */
     public function isLazyWrite()
     {
@@ -87,9 +84,7 @@ class LazyWrite extends Decorator
     }
 
     /**
-     * Set lazy write
-     *
-     * @param boolean $lazy_write
+     * @param bool $lazy_write
      */
     public function setLazyWrite($lazy_write)
     {

@@ -11,6 +11,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import;
+use Knp\Menu\ItemInterface;
 
 /**
  * Test plugin import
@@ -21,26 +22,18 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import;
 class ImportTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Plugin
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit_Framework_MockObject_MockObject|Import
      */
     protected $plugin;
 
-    /**
-     * (non-PHPdoc)
-     * @see PHPUnit_Framework_TestCase::setUp()
-     */
     protected function setUp()
     {
         $this->plugin = $this->getMockForAbstractClass('\AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import');
     }
 
-    /**
-     * Test build menu
-     */
     public function testBuildMenu()
     {
+        /* @var $item \PHPUnit_Framework_MockObject_MockObject|ItemInterface */
         $item = $this->getMock('\Knp\Menu\ItemInterface');
         $item
             ->expects($this->once())
@@ -55,11 +48,11 @@ class ImportTest extends \PHPUnit_Framework_TestCase
         $this->plugin
             ->expects($this->once())
             ->method('getTitle')
-            ->willReturn('foo');
+            ->will($this->returnValue('foo'));
         $this->plugin
             ->expects($this->once())
             ->method('getName')
-            ->willReturn('bar');
+            ->will($this->returnValue('bar'));
 
         $this->plugin->buildMenu($item);
     }

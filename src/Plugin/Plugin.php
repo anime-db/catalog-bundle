@@ -11,24 +11,11 @@
 namespace AnimeDb\Bundle\CatalogBundle\Plugin;
 
 /**
- * Plugin
- * 
+ * @deprecated use PluginInterface
+ *
  * @package AnimeDb\Bundle\CatalogBundle\Plugin
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Plugin
+abstract class Plugin implements PluginInterface
 {
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    abstract public function getName();
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    abstract public function getTitle();
 }

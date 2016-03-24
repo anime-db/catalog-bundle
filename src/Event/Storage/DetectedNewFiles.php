@@ -23,31 +23,23 @@ use Symfony\Component\Finder\SplFileInfo;
 class DetectedNewFiles extends Event
 {
     /**
-     * Storage
-     *
-     * @var \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @var Storage
      */
     protected $storage;
 
     /**
-     * File
-     *
-     * @var \Symfony\Component\Finder\SplFileInfo
+     * @var SplFileInfo
      */
     protected $file;
 
     /**
-     * Name
-     *
      * @var string
      */
     protected $name;
 
     /**
-     * Construct
-     *
-     * @param \AnimeDb\Bundle\CatalogBundle\Entity\Storage $storage
-     * @param \Symfony\Component\Finder\SplFileInfo $file
+     * @param Storage $storage
+     * @param SplFileInfo $file
      */
     public function __construct(Storage $storage, SplFileInfo $file)
     {
@@ -63,9 +55,7 @@ class DetectedNewFiles extends Event
     }
 
     /**
-     * Get storage
-     *
-     * @return \AnimeDb\Bundle\CatalogBundle\Entity\Storage
+     * @return Storage
      */
     public function getStorage()
     {
@@ -73,9 +63,7 @@ class DetectedNewFiles extends Event
     }
 
     /**
-     * Get file
-     *
-     * @return \Symfony\Component\Finder\SplFileInfo
+     * @return SplFileInfo
      */
     public function getFile()
     {
@@ -83,8 +71,6 @@ class DetectedNewFiles extends Event
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
     public function getName()

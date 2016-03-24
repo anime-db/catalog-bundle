@@ -176,22 +176,15 @@
 	(
 		(-webkit-perspective: 600px) or
 		(-moz-perspective: 600px) or
-		(-ms-perspective: 600px) or
-		(-o-perspective: 600px) or
 		(perspective: 600px)
 	) and
 	(
 		(-webkit-backface-visibility: hidden) or
 		(-moz-backface-visibility: hidden) or
-		(-ms-backface-visibility: hidden) or
-		(-o-backface-visibility: hidden) or
 		(backface-visibility: hidden)
 	) and
 	(
 		(-webkit-transform-style: preserve-3d) or
-		(-moz-transform-style: preserve-3d) or
-		(-ms-transform-style: preserve-3d) or
-		(-o-transform-style: preserve-3d) or
 		(transform-style: preserve-3d)
 	) and
 	(
@@ -212,21 +205,15 @@
 	.list-items .item-container {
 		-webkit-perspective: 600px;
 		-moz-perspective: 600px;
-		-ms-perspective: 600px;
-		-o-perspective: 600px;
 		perspective: 600px;
 	}
 	.list-items .item {
 		-webkit-transition: -webkit-transform 0.5s ease-in-out;
 		-moz-transition: -moz-transform 0.5s ease-in-out;
-		-ms-transition: -moz-transform 0.5s ease-in-out;
 		-o-transition: -o-transform 0.5s ease-in-out;
 		transition: transform 0.5s ease-in-out;
 		-webkit-transform-style: preserve-3d;
-		-moz-transform-style: preserve-3d;
-		-ms-transform-style: preserve-3d;
-		-o-transform-style: preserve-3d;
-		transform-style: preserve-3d; 
+		transform-style: preserve-3d;
 	}
 	.list-items .item-container:hover .item {
 		-webkit-transform: rotateY(-180deg);
@@ -238,8 +225,6 @@
 	.list-items figure {
 		-webkit-backface-visibility: hidden;
 		-moz-backface-visibility: hidden;
-		-ms-backface-visibility: hidden;
-		-o-backface-visibility: hidden;
 		backface-visibility: hidden;
 	}
 	.list-items .back {

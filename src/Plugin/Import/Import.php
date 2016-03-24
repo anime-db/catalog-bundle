@@ -19,32 +19,16 @@ use Knp\Menu\ItemInterface;
  * @package AnimeDb\Bundle\CatalogBundle\Plugin\Import
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-abstract class Import extends Plugin
+abstract class Import extends Plugin implements ImportInterface
 {
     /**
-     * Get form
+     * @param ItemInterface $item
      *
-     * @return \Symfony\Component\Form\AbstractType
-     */
-    abstract public function getForm();
-
-    /**
-     * Import items from source data
-     *
-     * @param array $data
-     *
-     * @return array [ \AnimeDb\Bundle\CatalogBundle\Entity\Item ]
-     */
-    abstract public function import(array $data);
-
-    /**
-     * Build menu for plugin
-     *
-     * @param \Knp\Menu\ItemInterface $item
+     * @return ItemInterface
      */
     public function buildMenu(ItemInterface $item)
     {
-        $item->addChild($this->getTitle(), [
+        return $item->addChild($this->getTitle(), [
             'route' => 'item_import',
             'routeParameters' => ['plugin' => $this->getName()]
         ]);
