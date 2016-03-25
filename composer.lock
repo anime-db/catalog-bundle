@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f04b836e81c22829e70cbf2ed02d70c",
-    "content-hash": "ed8a91406975da30badf8215003837bf",
+    "hash": "823b32d81b425a26797cda858248a8ba",
+    "content-hash": "6b2175acd3e01bc234ab7756a6fb8657",
     "packages": [
         {
             "name": "anime-db/ani-db-browser-bundle",
@@ -223,12 +223,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/app-bundle.git",
-                "reference": "25b23b9aec626ff877d000eb3e4eeed2857477c0"
+                "reference": "4988172987eba30e7f7c6b8f36a3ece290bb261b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/25b23b9aec626ff877d000eb3e4eeed2857477c0",
-                "reference": "25b23b9aec626ff877d000eb3e4eeed2857477c0",
+                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/4988172987eba30e7f7c6b8f36a3ece290bb261b",
+                "reference": "4988172987eba30e7f7c6b8f36a3ece290bb261b",
                 "shasum": ""
             },
             "require": {
@@ -242,12 +242,6 @@
                 "ext-com_dotnet": "Allows to switch between drives in Windows"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4.x-dev",
-                    "dev-develop": "0.4.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "AnimeDb\\Bundle\\AppBundle\\": "src/"
@@ -273,7 +267,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2016-03-25 09:16:06"
+            "time": "2016-03-25 09:43:39"
         },
         {
             "name": "anime-db/cache-time-keeper-bundle",
