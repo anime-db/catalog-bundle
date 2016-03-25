@@ -40,5 +40,10 @@
 		"anime-db/ani-db-filler-bundle" : "Allows import data from a site AniDB.net",
 		"ext-intl" : "Allows correct sort form view"
 	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.4.x-dev"
+		}
+	},
 	"minimum-stability" : "dev"
 }
