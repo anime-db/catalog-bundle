@@ -89,7 +89,7 @@ class HomeController extends BaseController
                 ->setPageLink(function ($page) use ($that, $query) {
                     return $that->generateUrl('home', array_merge($query, ['page' => $page]));
                 })
-                ->setFerstPageLink($this->generateUrl('home', $query))
+                ->setFirstPageLink($this->generateUrl('home', $query))
                 ->getView();
         }
 
@@ -209,7 +209,7 @@ class HomeController extends BaseController
                     ->setPageLink(function ($page) use ($that, $query) {
                         return $that->generateUrl('home_search', array_merge($query, ['page' => $page]));
                     })
-                    ->setFerstPageLink($this->generateUrl('home_search', $query))
+                    ->setFirstPageLink($this->generateUrl('home_search', $query))
                     ->getView();
             }
         }

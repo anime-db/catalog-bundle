@@ -107,7 +107,7 @@ class NoticeController extends BaseController
             ->setPageLink(function ($page) use ($that, $request_query) {
                 return $that->generateUrl('notice_list', array_merge($request_query, ['page' => $page]));
             })
-            ->setFerstPageLink($this->generateUrl('notice_list', $request_query))
+            ->setFirstPageLink($this->generateUrl('notice_list', $request_query))
             ->getView();
 
         return $this->render('AnimeDbCatalogBundle:Notice:list.html.twig', [
