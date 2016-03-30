@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/anime-db.git",
-                "reference": "2cd70f9e3d23caf502e1e6905b2b5611db7f0deb"
+                "reference": "14af41cc0eea4e2ef4c36ab782e71d1ec5f3e829"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/2cd70f9e3d23caf502e1e6905b2b5611db7f0deb",
-                "reference": "2cd70f9e3d23caf502e1e6905b2b5611db7f0deb",
+                "url": "https://api.github.com/repos/anime-db/anime-db/zipball/14af41cc0eea4e2ef4c36ab782e71d1ec5f3e829",
+                "reference": "14af41cc0eea4e2ef4c36ab782e71d1ec5f3e829",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2016-03-23 15:04:23"
+            "time": "2016-03-25 14:21:06"
         },
         {
             "name": "anime-db/api-client-bundle",
@@ -219,16 +219,16 @@
         },
         {
             "name": "anime-db/app-bundle",
-            "version": "v0.4.3",
+            "version": "v0.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/app-bundle.git",
-                "reference": "4988172987eba30e7f7c6b8f36a3ece290bb261b"
+                "reference": "1c775ca15143ec1ea62810b761d71d05348b0fc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/4988172987eba30e7f7c6b8f36a3ece290bb261b",
-                "reference": "4988172987eba30e7f7c6b8f36a3ece290bb261b",
+                "url": "https://api.github.com/repos/anime-db/app-bundle/zipball/1c775ca15143ec1ea62810b761d71d05348b0fc6",
+                "reference": "1c775ca15143ec1ea62810b761d71d05348b0fc6",
                 "shasum": ""
             },
             "require": {
@@ -242,6 +242,11 @@
                 "ext-com_dotnet": "Allows to switch between drives in Windows"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "AnimeDb\\Bundle\\AppBundle\\": "src/"
@@ -267,20 +272,20 @@
             ],
             "description": "The application for making home collection anime",
             "homepage": "http://anime-db.org",
-            "time": "2016-03-25 09:43:39"
+            "time": "2016-03-25 11:02:26"
         },
         {
             "name": "anime-db/cache-time-keeper-bundle",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/cache-time-keeper-bundle.git",
-                "reference": "95d76d865f227299edf5c711478e2f9f6e9a1aca"
+                "reference": "a7780210c85db9c4d80775c827e69cf607872b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/cache-time-keeper-bundle/zipball/95d76d865f227299edf5c711478e2f9f6e9a1aca",
-                "reference": "95d76d865f227299edf5c711478e2f9f6e9a1aca",
+                "url": "https://api.github.com/repos/anime-db/cache-time-keeper-bundle/zipball/a7780210c85db9c4d80775c827e69cf607872b26",
+                "reference": "a7780210c85db9c4d80775c827e69cf607872b26",
                 "shasum": ""
             },
             "require": {
@@ -288,11 +293,12 @@
             },
             "require-dev": {
                 "anime-db/shmop": "1.0.*",
-                "doctrine/orm": ">=2.2.3,<2.4-dev",
-                "symfony/config": "2.6.*",
-                "symfony/console": "2.6.*",
-                "symfony/dependency-injection": "2.3.*",
-                "symfony/http-kernel": "2.6.*"
+                "doctrine/orm": "2.5.*",
+                "symfony/config": "2.8.*",
+                "symfony/console": "2.8.*",
+                "symfony/dependency-injection": "2.8.*",
+                "symfony/expression-language": "2.8.*",
+                "symfony/http-kernel": "2.8.*"
             },
             "suggest": {
                 "anime-db/shmop": "Allows use a shmop cache driver"
@@ -314,7 +320,7 @@
                 "php",
                 "shmop"
             ],
-            "time": "2015-01-16 08:29:04"
+            "time": "2016-03-29 15:17:09"
         },
         {
             "name": "anime-db/shikimori-browser-bundle",
@@ -526,12 +532,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/composer.git",
-                "reference": "0a8528c5c7de43eca15237add666b4f8219aedc4"
+                "reference": "e8b1a5f35772e39ca21ab855a278bd84a0a534b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/composer/zipball/0a8528c5c7de43eca15237add666b4f8219aedc4",
-                "reference": "0a8528c5c7de43eca15237add666b4f8219aedc4",
+                "url": "https://api.github.com/repos/composer/composer/zipball/e8b1a5f35772e39ca21ab855a278bd84a0a534b2",
+                "reference": "e8b1a5f35772e39ca21ab855a278bd84a0a534b2",
                 "shasum": ""
             },
             "require": {
@@ -593,7 +599,7 @@
                 "dependency",
                 "package"
             ],
-            "time": "2016-03-24 16:41:06"
+            "time": "2016-03-29 07:53:57"
         },
         {
             "name": "composer/semver",
@@ -601,12 +607,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "df4463baa9f44fe6cf0a6da4fde2934d4c0a2747"
+                "reference": "84c47f3d8901440403217afc120683c7385aecb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/df4463baa9f44fe6cf0a6da4fde2934d4c0a2747",
-                "reference": "df4463baa9f44fe6cf0a6da4fde2934d4c0a2747",
+                "url": "https://api.github.com/repos/composer/semver/zipball/84c47f3d8901440403217afc120683c7385aecb8",
+                "reference": "84c47f3d8901440403217afc120683c7385aecb8",
                 "shasum": ""
             },
             "require": {
@@ -655,7 +661,7 @@
                 "validation",
                 "versioning"
             ],
-            "time": "2016-02-25 22:23:39"
+            "time": "2016-03-30 13:16:03"
         },
         {
             "name": "composer/spdx-licenses",
@@ -663,12 +669,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/spdx-licenses.git",
-                "reference": "022fc25ca664f612b1e7007e0d87642ef489f000"
+                "reference": "3d981dc81786b761976fdd16f14e99837667d31a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/spdx-licenses/zipball/022fc25ca664f612b1e7007e0d87642ef489f000",
-                "reference": "022fc25ca664f612b1e7007e0d87642ef489f000",
+                "url": "https://api.github.com/repos/composer/spdx-licenses/zipball/3d981dc81786b761976fdd16f14e99837667d31a",
+                "reference": "3d981dc81786b761976fdd16f14e99837667d31a",
                 "shasum": ""
             },
             "require": {
@@ -716,7 +722,7 @@
                 "spdx",
                 "validator"
             ],
-            "time": "2015-11-04 10:29:55"
+            "time": "2016-03-25 11:03:12"
         },
         {
             "name": "doctrine/annotations",
@@ -862,12 +868,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "382cc2c8e1bae7453e8598b5c52c951a9c97d53d"
+                "reference": "392b8dd9e04c073e832fcda99270ec5a8f5e30cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/382cc2c8e1bae7453e8598b5c52c951a9c97d53d",
-                "reference": "382cc2c8e1bae7453e8598b5c52c951a9c97d53d",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/392b8dd9e04c073e832fcda99270ec5a8f5e30cd",
+                "reference": "392b8dd9e04c073e832fcda99270ec5a8f5e30cd",
                 "shasum": ""
             },
             "require": {
@@ -920,7 +926,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2016-03-25 08:33:42"
+            "time": "2016-03-27 19:22:52"
         },
         {
             "name": "doctrine/common",
@@ -2199,12 +2205,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "a9ccae25cbb5c0af6f2a549e4cc3ee6628c253ab"
+                "reference": "dec4e574c2efcbbd4b6441ef64334daa79edf8f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/a9ccae25cbb5c0af6f2a549e4cc3ee6628c253ab",
-                "reference": "a9ccae25cbb5c0af6f2a549e4cc3ee6628c253ab",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/dec4e574c2efcbbd4b6441ef64334daa79edf8f2",
+                "reference": "dec4e574c2efcbbd4b6441ef64334daa79edf8f2",
                 "shasum": ""
             },
             "require": {
@@ -2269,7 +2275,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-03-13 16:20:24"
+            "time": "2016-03-26 08:27:31"
         },
         {
             "name": "paragonie/random_compat",
@@ -2629,12 +2635,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "40431d338da7ab4ef5f9edc1ba4551ea1d4d0782"
+                "reference": "507a15f56fa7699f6cc8c2c7de4080b19ce22546"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/40431d338da7ab4ef5f9edc1ba4551ea1d4d0782",
-                "reference": "40431d338da7ab4ef5f9edc1ba4551ea1d4d0782",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/507a15f56fa7699f6cc8c2c7de4080b19ce22546",
+                "reference": "507a15f56fa7699f6cc8c2c7de4080b19ce22546",
                 "shasum": ""
             },
             "require": {
@@ -2683,7 +2689,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2016-03-22 12:39:08"
+            "time": "2016-03-25 17:08:27"
         },
         {
             "name": "sensio/generator-bundle",
@@ -3016,6 +3022,65 @@
             "time": "2016-03-03 16:49:40"
         },
         {
+            "name": "symfony/polyfill-mbstring",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "1289d16209491b584839022f29257ad859b8532d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
+                "reference": "1289d16209491b584839022f29257ad859b8532d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2016-01-20 09:13:37"
+        },
+        {
             "name": "symfony/swiftmailer-bundle",
             "version": "dev-master",
             "source": {
@@ -3074,16 +3139,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.7.10",
+            "version": "v2.7.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "9a3b6bf6ebee49370aaf15abc1bdeb4b1986a67d"
+                "reference": "66c99826ce3d4392aa1fd08564946cb4277e3897"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/9a3b6bf6ebee49370aaf15abc1bdeb4b1986a67d",
-                "reference": "9a3b6bf6ebee49370aaf15abc1bdeb4b1986a67d",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/66c99826ce3d4392aa1fd08564946cb4277e3897",
+                "reference": "66c99826ce3d4392aa1fd08564946cb4277e3897",
                 "shasum": ""
             },
             "require": {
@@ -3092,6 +3157,7 @@
                 "php": ">=5.3.9",
                 "psr/log": "~1.0",
                 "symfony/polyfill-apcu": "~1.1",
+                "symfony/polyfill-mbstring": "~1.1",
                 "twig/twig": "~1.23|~2.0"
             },
             "replace": {
@@ -3158,11 +3224,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
-                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
-                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-                    "Symfony\\Bridge\\Swiftmailer\\": "src/Symfony/Bridge/Swiftmailer/",
-                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
+                    "Symfony\\Bridge\\": "src/Symfony/Bridge/",
                     "Symfony\\Bundle\\": "src/Symfony/Bundle/",
                     "Symfony\\Component\\": "src/Symfony/Component/"
                 },
@@ -3196,7 +3258,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-02-28 20:37:19"
+            "time": "2016-03-25 18:14:23"
         },
         {
             "name": "twig/extensions",
