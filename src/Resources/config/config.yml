@@ -2,13 +2,13 @@
 avalanche_imagine:
     filters:
         catalog:
-            type:    thumbnail
+            type: thumbnail
             options: { size: [200, 250], mode: outbound }
         frame:
-            type:    thumbnail
+            type: thumbnail
             options: { size: [190, 142], mode: outbound } # 12:9
         plugin:
-            type:    thumbnail
+            type: thumbnail
             options: { size: [120, 120], mode: outbound }
 
 twig:
@@ -21,7 +21,7 @@ assetic:
     assets:
         stylesheets:
             inputs:
-                - @AnimeDbCatalogBundle/Resources/public/css/*.css
+                - '@AnimeDbCatalogBundle/Resources/public/css/*.css'
         javascripts:
             inputs:
-                - @AnimeDbCatalogBundle/Resources/public/js/*.js
+                - '@AnimeDbCatalogBundle/Resources/public/js/*.js'
