@@ -72,7 +72,7 @@
 }
 .b-dropdown-menu .icon-label {
 	background-position: 10px 12px;
-	padding: 0;
+	padding: 0 10px 0 30px;
 }
 #navigation .selected a,
 #navigation .selected span {
