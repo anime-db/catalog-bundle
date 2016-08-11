@@ -1,0 +1,21 @@
+{
+  "name": "anime-db-catalog-bundle",
+  "license": "GPL-3.0",
+  "homepage": "http://anime-db.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anime-db/catalog-bundle.git"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-uglify": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-cssmin": "^0.12.0"
+  },
+  "dependencies": {
+    "jquery": "^1.12.0",
+    "jquery-form": "^3.37.0",
+    "Hinclude": "^1.0.1"
+  }
+}
