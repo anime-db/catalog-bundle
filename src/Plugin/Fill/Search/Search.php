@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
@@ -19,9 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as EntityItem;
 
 /**
- * Plugin search
+ * Plugin search.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Search extends Plugin implements SearchInterface
@@ -37,7 +34,7 @@ abstract class Search extends Plugin implements SearchInterface
     protected $filler;
 
     /**
-     * Build menu for plugin
+     * Build menu for plugin.
      *
      * @param ItemInterface $item
      *
@@ -47,7 +44,7 @@ abstract class Search extends Plugin implements SearchInterface
     {
         return $item->addChild($this->getTitle(), [
             'route' => 'fill_search',
-            'routeParameters' => ['plugin' => $this->getName()]
+            'routeParameters' => ['plugin' => $this->getName()],
         ]);
     }
 
@@ -97,7 +94,7 @@ abstract class Search extends Plugin implements SearchInterface
                 'fill_filler',
                 [
                     'plugin' => $this->getName(),
-                    FillerForm::FORM_NAME => ['url' => $data]
+                    FillerForm::FORM_NAME => ['url' => $data],
                 ]
             );
         }
@@ -112,12 +109,12 @@ abstract class Search extends Plugin implements SearchInterface
     {
         return $this->router->generate('fill_search', [
             'plugin' => $this->getName(),
-            $this->getForm()->getName() => ['name' => $name]
+            $this->getForm()->getName() => ['name' => $name],
         ]);
     }
 
     /**
-     * Try search item by name and fill it if can
+     * Try search item by name and fill it if can.
      *
      * @param string $name
      *
@@ -126,7 +123,7 @@ abstract class Search extends Plugin implements SearchInterface
     public function getCatalogItem($name)
     {
         if (!($this->getFiller() instanceof FillerInterface)) {
-            return null;
+            return;
         }
 
         try {
@@ -134,8 +131,9 @@ abstract class Search extends Plugin implements SearchInterface
             if (count($list) == 1) {
                 return $this->getFiller()->fillFromSearchResult(array_pop($list));
             }
-        } catch (\Exception $e) {} // is not a critical error
+        } catch (\Exception $e) {
+        } // is not a critical error
 
-        return null;
+        return;
     }
 }

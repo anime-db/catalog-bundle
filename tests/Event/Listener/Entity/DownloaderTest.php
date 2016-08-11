@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Downloader;
@@ -17,15 +15,14 @@ use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
- * Test entity downloader listener
+ * Test entity downloader listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class DownloaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * LifecycleEventArgs
+     * LifecycleEventArgs.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|LifecycleEventArgs
      */
@@ -37,7 +34,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
     protected $fs;
 
     /**
-     * Download root dir
+     * Download root dir.
      *
      * @var string
      */
@@ -71,7 +68,7 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
             [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Image'), '/tmp/test'],
             [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Item'), '/tmp/test.log'],
             [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Image'), '/tmp/test.log'],
-            [$this->getMock('\stdClass'), '']
+            [$this->getMock('\stdClass'), ''],
         ];
     }
 
@@ -151,5 +148,4 @@ class DownloaderTest extends \PHPUnit_Framework_TestCase
 
         $this->listener->prePersist($this->args);
     }
-
 }

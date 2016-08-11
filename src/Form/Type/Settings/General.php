@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Settings;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,9 +14,8 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 
 /**
- * General settings form
+ * General settings form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Settings
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class General extends AbstractType
@@ -50,13 +47,13 @@ class General extends AbstractType
 
         $builder
             ->add('locale', 'locale', [
-                'label' => 'Language'
+                'label' => 'Language',
             ])
             ->add('task_scheduler', 'checkbox', [
                 'required' => false,
                 'label' => 'Task scheduler',
                 'help' => 'A separate process to perform various tasks in the background, such as checks for system '.
-                    'updates'
+                    'updates',
             ])
             ->add('default_search', 'choice', [
                 'required' => false,
@@ -64,7 +61,7 @@ class General extends AbstractType
                 'label' => 'Default search plugin',
                 'help' => 'When detects a new item, the application will try to add it using the selected plugin in '.
                     'the first place. If you leave the field blank then the selection of plugins will be carried out '.
-                    'in alphabetical order.'
+                    'in alphabetical order.',
             ]);
     }
 

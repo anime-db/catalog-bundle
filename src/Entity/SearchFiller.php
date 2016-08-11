@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
@@ -16,11 +14,10 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\Chain;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * Search filler
+ * Search filler.
  *
  * @Assert\Callback(methods={"isUrlSupported"})
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SearchFiller
@@ -67,6 +64,7 @@ class SearchFiller
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -87,6 +85,7 @@ class SearchFiller
             /* @var $plugin FillerInterface */
             if ($plugin->isSupportedUrl($this->url)) {
                 $this->filler = $plugin;
+
                 return;
             }
         }

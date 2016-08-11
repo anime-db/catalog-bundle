@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
@@ -30,15 +28,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Refill
+ * Refill.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class RefillController extends BaseController
 {
     /**
-     * Refill item
+     * Refill item.
      *
      * @param string $plugin
      * @param string $field
@@ -65,7 +62,7 @@ class RefillController extends BaseController
     }
 
     /**
-     * Search for refill
+     * Search for refill.
      *
      * @param string $plugin
      * @param string $field
@@ -99,18 +96,18 @@ class RefillController extends BaseController
                         'id' => $item->getId(),
                         'data' => $search_item->getData(),
                         'source' => $search_item->getSource(),
-                    ])
+                    ]),
                 ];
             }
         }
 
         return $this->render('AnimeDbCatalogBundle:Refill:search.html.twig', [
-            'result' => $result
+            'result' => $result,
         ]);
     }
 
     /**
-     * Refill item from search result
+     * Refill item from search result.
      *
      * @param string $plugin
      * @param string $field
@@ -137,7 +134,7 @@ class RefillController extends BaseController
     }
 
     /**
-     * Get form for field
+     * Get form for field.
      *
      * @param string $field
      * @param Item $item_origin

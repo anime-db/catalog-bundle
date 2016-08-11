@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 
 use AnimeDb\Bundle\CatalogBundle\Console\Output\LazyWrite;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Test output decorator
+ * Test output decorator.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class LazyWriteTest extends \PHPUnit_Framework_TestCase
@@ -47,6 +44,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
             $params[] = [true, $type[0]];
             $params[] = [false, $type[0]];
         }
+
         return $params;
     }
 
@@ -103,6 +101,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
             $params[] = [$type[0], true, $type[1]];
             $params[] = [$type[0], false, $type[1]];
         }
+
         return $params;
     }
 
@@ -130,7 +129,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      */
     public function testWriteLazy($messages, $newline, $type)
     {
-        $_m = (array)$messages;
+        $_m = (array) $messages;
         foreach ($_m as $index => $message) {
             $this->output
                 ->expects($this->at($index))
@@ -151,6 +150,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
             $params[] = ['foo', $type[0]];
             $params[] = [['foo', 'bar'], $type[0]];
         }
+
         return $params;
     }
 
@@ -176,7 +176,7 @@ class LazyWriteTest extends \PHPUnit_Framework_TestCase
      */
     public function testWriteLnLazy($messages, $type)
     {
-        $_m = (array)$messages;
+        $_m = (array) $messages;
         foreach ($_m as $index => $message) {
             $this->output
                 ->expects($this->at($index))

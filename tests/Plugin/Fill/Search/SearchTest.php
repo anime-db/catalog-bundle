@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search;
@@ -18,9 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Knp\Menu\ItemInterface;
 
 /**
- * Test search plugin
+ * Test search plugin.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SearchTest extends \PHPUnit_Framework_TestCase
@@ -46,7 +43,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($child))
             ->with('foo', [
                 'route' => 'fill_search',
-                'routeParameters' => ['plugin' => 'bar']
+                'routeParameters' => ['plugin' => 'bar'],
             ]);
         $this->search
             ->expects($this->once())
@@ -65,7 +62,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test set/get Filler
+     * Test set/get Filler.
      */
     public function testFiller()
     {
@@ -110,7 +107,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 'fill_filler',
                 [
                     'plugin' => 'foo',
-                    FillerForm::FORM_NAME => ['url' => ['my_data']]
+                    FillerForm::FORM_NAME => ['url' => ['my_data']],
                 ]
             );
         $this->search->setRouter($router);
@@ -136,7 +133,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 'fill_search',
                 [
                     'plugin' => 'foo',
-                    SearchForm::FORM_NAME => ['name' => 'bar']
+                    SearchForm::FORM_NAME => ['name' => 'bar'],
                 ]
             );
         $this->search->setRouter($router);
@@ -208,8 +205,8 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 $this
                     ->getMockBuilder('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item')
                     ->disableOriginalConstructor()
-                    ->getMock()
-            ]]
+                    ->getMock(),
+            ]],
         ];
     }
 

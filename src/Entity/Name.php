@@ -1,25 +1,22 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Item name
+ * Item name.
  *
  * @ORM\Entity
  * @ORM\Table(name="name")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Name
@@ -65,6 +62,7 @@ class Name
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -96,6 +94,7 @@ class Name
                 $this->item->addName($this);
             }
         }
+
         return $this;
     }
 

@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Command;
 
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
@@ -33,15 +31,14 @@ use Symfony\Component\Console\Output\NullOutput;
 use Patchwork\Utf8;
 
 /**
- * Scan storages for new items
+ * Scan storages for new items.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Command
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ScanStoragesCommand extends ContainerAwareCommand
 {
     /**
-     * Allowable extension
+     * Allowable extension.
      *
      * @var array
      */
@@ -74,7 +71,7 @@ class ScanStoragesCommand extends ContainerAwareCommand
         'mod',
         'vob',
         'f4v',
-        'ismv'
+        'ismv',
     ];
 
     protected function configure()
@@ -105,7 +102,7 @@ class ScanStoragesCommand extends ContainerAwareCommand
                 InputOption::VALUE_REQUIRED,
                 'Export progress to file (disables progress as --no-progress)'
             )
-            ->setHelp(<<<EOT
+            ->setHelp(<<<'EOT'
 Example scan all storages:
 
 <info>php app/console animedb:scan-storage</info>
@@ -123,7 +120,8 @@ EOT
      *
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $start = time();
 
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
@@ -181,7 +179,7 @@ EOT
             $files = $this->getFilesByPath($path);
             $total = $files->count();
             // total files +1% for check of delete files
-            $progress->start(ceil($total+($total*0.01)));
+            $progress->start(ceil($total + ($total * 0.01)));
             $progress->display();
 
             /* @var $file SplFileInfo */
@@ -227,11 +225,11 @@ EOT
         }
         $em->flush();
 
-        $output->writeln('Time: <info>'.(time()-$start).'</info> s.');
+        $output->writeln('Time: <info>'.(time() - $start).'</info> s.');
     }
 
     /**
-     * Get items of deleted files
+     * Get items of deleted files.
      *
      * @param Storage $storage
      * @param Finder $finder
@@ -250,11 +248,12 @@ EOT
             }
             $items[] = $item;
         }
+
         return $items;
     }
 
     /**
-     * Get item from files
+     * Get item from files.
      *
      * @param Storage $storage
      * @param SplFileInfo $file
@@ -269,11 +268,12 @@ EOT
                 return $item;
             }
         }
+
         return false;
     }
 
     /**
-     * Get files by path
+     * Get files by path.
      *
      * @param string $path
      *
@@ -289,7 +289,7 @@ EOT
     }
 
     /**
-     * Is allow file
+     * Is allow file.
      *
      * @param SplFileInfo $file
      *
@@ -301,7 +301,7 @@ EOT
     }
 
     /**
-     * Update storage id
+     * Update storage id.
      *
      * @param string $path
      * @param Storage $storage
@@ -327,7 +327,7 @@ EOT
     }
 
     /**
-     * Get progress
+     * Get progress.
      *
      * @param InputInterface $input
      * @param OutputInterface $output

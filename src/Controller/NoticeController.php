@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\AppBundle\Entity\Notice;
@@ -17,22 +15,21 @@ use AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Change as ChangeNotice;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Notice
+ * Notice.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class NoticeController extends BaseController
 {
     /**
-     * Number of notices per page
+     * Number of notices per page.
      *
      * @var int
      */
     const NOTICE_PER_PAGE = 30;
 
     /**
-     * Edit list notices
+     * Edit list notices.
      *
      * @param Request $request
      *
@@ -59,15 +56,17 @@ class NoticeController extends BaseController
                 case ChangeNotice::ACTION_REMOVE:
                     $rep->remove($notices->toArray());
             }
+
             return $this->redirect($this->generateUrl('notice_list'));
         }
+
         return $this->render('AnimeDbCatalogBundle:Notice:index.html.twig', [
-            'has_notices' => $rep->count()
+            'has_notices' => $rep->count(),
         ], $response);
     }
 
     /**
-     * Get notice list
+     * Get notice list.
      *
      * @param Request $request
      *
@@ -103,7 +102,7 @@ class NoticeController extends BaseController
         $request_query = $request->query->all();
         unset($request_query['page']);
         $pagination = $this->get('anime_db.pagination')
-            ->create(ceil($count/self::NOTICE_PER_PAGE), $current_page)
+            ->create(ceil($count / self::NOTICE_PER_PAGE), $current_page)
             ->setPageLink(function ($page) use ($that, $request_query) {
                 return $that->generateUrl('notice_list', array_merge($request_query, ['page' => $page]));
             })
@@ -115,7 +114,7 @@ class NoticeController extends BaseController
             'pagination' => $pagination,
             'change_form' => $this->createForm(new ChangeNotice())->createView(),
             'filter' => $filter->createView(),
-            'action_remove' => ChangeNotice::ACTION_REMOVE
+            'action_remove' => ChangeNotice::ACTION_REMOVE,
         ]);
     }
 

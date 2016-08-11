@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Selector;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector\Builder;
@@ -16,22 +14,21 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Test selector builder
+ * Test selector builder.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Selector
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Select query builder
+     * Select query builder.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $select;
 
     /**
-     * Total query builder
+     * Total query builder.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -115,7 +112,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
             ['BAR', 'bar%'],
             ['ПрИвЕт', 'привет%'],
             ['foo%', 'foo%%%'],
-            ['foo%%', 'foo%%%']
+            ['foo%%', 'foo%%%'],
         ];
     }
 
@@ -162,7 +159,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [null],
-            [new \DateTime()]
+            [new \DateTime()],
         ];
     }
 
@@ -263,7 +260,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [0],
-            [33]
+            [33],
         ];
     }
 
@@ -434,7 +431,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [[]],
-            [[1, 2, 3]]
+            [[1, 2, 3]],
         ];
     }
 

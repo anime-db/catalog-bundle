@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service;
 
 use AnimeDb\Bundle\CatalogBundle\Service\StorageScanner;
@@ -16,15 +14,14 @@ use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 
 /**
- * Test storage scanner
+ * Test storage scanner.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class StorageScannerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test export
+     * Test export.
      */
     public function testExport()
     {

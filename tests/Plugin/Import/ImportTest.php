@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Import\Import;
 use Knp\Menu\ItemInterface;
 
 /**
- * Test plugin import
+ * Test plugin import.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Plugin
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ImportTest extends \PHPUnit_Framework_TestCase
@@ -42,7 +39,7 @@ class ImportTest extends \PHPUnit_Framework_TestCase
                 'foo',
                 [
                     'route' => 'item_import',
-                    'routeParameters' => ['plugin' => 'bar']
+                    'routeParameters' => ['plugin' => 'bar'],
                 ]
             );
         $this->plugin

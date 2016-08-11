@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Filler as FillerForm;
@@ -17,9 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Knp\Menu\ItemInterface;
 
 /**
- * Test filler plugin
+ * Test filler plugin.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Filler
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class FillerTest extends \PHPUnit_Framework_TestCase
@@ -45,7 +42,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($child))
             ->with('foo', [
                 'route' => 'fill_filler',
-                'routeParameters' => ['plugin' => 'bar']
+                'routeParameters' => ['plugin' => 'bar'],
             ]);
         $this->filler
             ->expects($this->once())
@@ -83,7 +80,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('my_url'))
             ->with('fill_filler', [
                 'plugin' => 'foo',
-                FillerForm::FORM_NAME => ['url' => ['my_data']]
+                FillerForm::FORM_NAME => ['url' => ['my_data']],
             ]);
         $this->filler
             ->expects($this->once())
@@ -101,7 +98,7 @@ class FillerTest extends \PHPUnit_Framework_TestCase
         return [
             ['http://example.com', []],
             ['http://example.com/?foo=bar', []],
-            ['http://example.com/?'.http_build_query([FillerForm::FORM_NAME => []]), []]
+            ['http://example.com/?'.http_build_query([FillerForm::FORM_NAME => []]), []],
         ];
     }
 

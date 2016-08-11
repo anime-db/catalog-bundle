@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -23,14 +21,14 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 class Version20140408114519_EditListStudios extends AbstractMigration implements ContainerAwareInterface
 {
     /**
-     * Entity manager
+     * Entity manager.
      *
      * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * Add studios
+     * Add studios.
      *
      * @var array
      */
@@ -48,11 +46,11 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
         'Cammot',
         'Fifth Avenue',
         'NAZ',
-        'Pierrot Plus'
+        'Pierrot Plus',
     ];
 
     /**
-     * Rename studios
+     * Rename studios.
      *
      * @var array
      */
@@ -65,11 +63,11 @@ class Version20140408114519_EditListStudios extends AbstractMigration implements
         'Feel' => 'feel.',
         'Animax Entertainment' => 'Animax',
         'A.C.G.T' => 'A.C.G.T.',
-        'Zexcs' => 'ZEXCS'
+        'Zexcs' => 'ZEXCS',
     ];
 
     /**
-     * Set container
+     * Set container.
      *
      * @param ContainerInterface $container
      */

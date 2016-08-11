@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Component\Form\Form;
@@ -22,29 +20,28 @@ use AnimeDb\Bundle\CatalogBundle\Event\Install\StoreEvents;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Installation controller
+ * Installation controller.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class InstallController extends BaseController
 {
     /**
-     * Link to guide, how scan the storage
+     * Link to guide, how scan the storage.
      *
      * @var string
      */
     const GUIDE_LINK_SCAN = '/guide/storage/scan.html';
 
     /**
-     * Link to guide, how to start work
+     * Link to guide, how to start work.
      *
      * @var string
      */
     const GUIDE_LINK_START = '/guide/start.html';
 
     /**
-     * Home (Stap #1)
+     * Home (Stap #1).
      *
      * @param Request $request
      *
@@ -82,7 +79,7 @@ class InstallController extends BaseController
     }
 
     /**
-     * Add storage (Stap #2)
+     * Add storage (Stap #2).
      *
      * @param Request $request
      *
@@ -121,12 +118,12 @@ class InstallController extends BaseController
         return $this->render('AnimeDbCatalogBundle:Install:add_storage.html.twig', [
             'form' => $form->createView(),
             'is_new' => !$storage->getId(),
-            'guide' => $this->get('anime_db.api.client')->getSiteUrl(StorageController::GUIDE_LINK)
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(StorageController::GUIDE_LINK),
         ], $response);
     }
 
     /**
-     * What you want
+     * What you want.
      *
      * @param Request $request
      *
@@ -148,16 +145,17 @@ class InstallController extends BaseController
         if ($request->isMethod('POST')) {
             $storage = $this->getRepository()->getLast();
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_SAMPLES, new SamplesInstall($storage));
+
             return $this->redirect($this->generateUrl('install_end_skip', ['from' => 'install_sample']));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:what_you_want.html.twig', [
-            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_SCAN)
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_SCAN),
         ], $response);
     }
 
     /**
-     * Scan storage (Stap #4)
+     * Scan storage (Stap #4).
      *
      * @param Request $request
      *
@@ -186,12 +184,12 @@ class InstallController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:scan.html.twig', [
-            'storage' => $storage
+            'storage' => $storage,
         ], $response);
     }
 
     /**
-     * End install (Stap #5)
+     * End install (Stap #5).
      *
      * @param Request $request
      * @param string $from
@@ -213,12 +211,13 @@ class InstallController extends BaseController
 
         if ($request->isMethod('POST')) {
             $this->get('event_dispatcher')->dispatch(StoreEvents::INSTALL_APP, new AppInstall());
+
             return $this->redirect($this->generateUrl('home'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Install:end.html.twig', [
             'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK_START),
-            'from' => $from
+            'from' => $from,
         ], $response);
     }
 

@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
@@ -20,22 +18,21 @@ use Doctrine\ORM\EntityRepository;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Search items form
+ * Search items form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Search extends AbstractType
 {
     /**
-     * Autocomplete source
+     * Autocomplete source.
      *
      * @var string|null
      */
     protected $source;
 
     /**
-     * View sorter
+     * View sorter.
      *
      * @var ViewSorter
      */
@@ -67,37 +64,37 @@ class Search extends AbstractType
             ->add('name', 'search', [
                 'label' => 'Name',
                 'required' => false,
-                'attr' => $this->source ? ['data-source' => $this->source] : []
+                'attr' => $this->source ? ['data-source' => $this->source] : [],
             ])
             ->add('date_add', 'date', [
                 'label' => 'Date added',
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'help' => 'Will select all records added with the specified date'
+                'help' => 'Will select all records added with the specified date',
             ])
             ->add('date_premiere', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'help' => 'Will select all records starting with the specified date'
+                'help' => 'Will select all records starting with the specified date',
             ])
             ->add('date_end', 'date', [
                 'format' => 'yyyy-MM-dd',
                 'widget' => 'single_text',
                 'required' => false,
-                'help' => 'Will select all records ending in the specified date'
+                'help' => 'Will select all records ending in the specified date',
             ])
             ->add('type', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Type',
+                'class' => 'AnimeDbCatalogBundle:Type',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('t')->innerJoin('t.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
             ])
             ->add('genres', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Genre',
+                'class' => 'AnimeDbCatalogBundle:Genre',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('g')->innerJoin('g.items', 'i');
                 },
@@ -105,10 +102,10 @@ class Search extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
-                'help' => 'Select multiple genres to narrow your search'
+                'help' => 'Select multiple genres to narrow your search',
             ])
             ->add('labels', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Label',
+                'class' => 'AnimeDbCatalogBundle:Label',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('l')->innerJoin('l.items', 'i');
                 },
@@ -116,31 +113,31 @@ class Search extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
-                'help' => 'Select multiple labels to narrow your search'
+                'help' => 'Select multiple labels to narrow your search',
             ])
             ->add('studio', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Studio',
+                'class' => 'AnimeDbCatalogBundle:Studio',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
             ])
             ->add('country', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Country',
+                'class' => 'AnimeDbCatalogBundle:Country',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('c')->innerJoin('c.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
             ])
             ->add('storage', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Storage',
+                'class' => 'AnimeDbCatalogBundle:Storage',
                 'query_builder' => function (EntityRepository $rep) {
                     return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
                 },
                 'property' => 'name',
-                'required' => false
+                'required' => false,
             ])
             ->setMethod('GET');
     }
@@ -152,7 +149,7 @@ class Search extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Search',
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ]);
     }
 

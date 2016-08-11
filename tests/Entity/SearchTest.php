@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Test search
+ * Test search.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SearchTest extends \PHPUnit_Framework_TestCase
@@ -40,13 +37,13 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Genre'),
                 'getGenres',
                 'addGenre',
-                'removeGenre'
+                'removeGenre',
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Label'),
                 'getLabels',
                 'addLabel',
-                'removeLabel'
+                'removeLabel',
             ],
         ];
     }
@@ -85,22 +82,22 @@ class SearchTest extends \PHPUnit_Framework_TestCase
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Country'),
                 'getCountry',
-                'setCountry'
+                'setCountry',
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage'),
                 'getStorage',
-                'setStorage'
+                'setStorage',
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Type'),
                 'getType',
-                'setType'
+                'setType',
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Studio'),
                 'getStudio',
-                'setStudio'
+                'setStudio',
             ],
         ];
     }

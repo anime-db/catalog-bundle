@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity\Settings;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * General Settings
+ * General Settings.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity\Settings
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class General
@@ -28,7 +25,7 @@ class General
     protected $task_scheduler = true;
 
     /**
-     * Locale
+     * Locale.
      *
      * @Assert\Locale
      *
@@ -37,7 +34,7 @@ class General
     protected $locale = '';
 
     /**
-     * Plugin default search to fill
+     * Plugin default search to fill.
      *
      * @var string
      */
@@ -59,6 +56,7 @@ class General
     public function setTaskScheduler($task_scheduler)
     {
         $this->task_scheduler = $task_scheduler;
+
         return $this;
     }
 
@@ -78,6 +76,7 @@ class General
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -97,6 +96,7 @@ class General
     public function setDefaultSearch($default_search)
     {
         $this->default_search = $default_search;
+
         return $this;
     }
 }

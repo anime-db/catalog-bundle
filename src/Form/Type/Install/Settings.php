@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Install;
 
 use Symfony\Component\Form\AbstractType;
@@ -17,9 +15,8 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 
 /**
- * Settings for installation page
+ * Settings for installation page.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Settings extends AbstractType
@@ -67,12 +64,12 @@ class Settings extends AbstractType
         $builder
             ->add('locale', 'locale', [
                 'label' => 'Language',
-                'data' => $this->request ? $this->request->getLocale() : ''
+                'data' => $this->request ? $this->request->getLocale() : '',
             ])
             ->add('default_search', 'choice', [
                 'required' => false,
                 'choices' => $search_choices,
-                'label' => 'Default search plugin'
+                'label' => 'Default search plugin',
             ]);
     }
 

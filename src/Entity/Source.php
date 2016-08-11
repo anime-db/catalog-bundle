@@ -1,27 +1,24 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Source for item fill
+ * Source for item fill.
  *
  * @ORM\Entity
  * @ORM\Table(name="source", indexes={
  *   @ORM\Index(name="source_url_idx", columns={"url"})
  * })
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Source
@@ -68,6 +65,7 @@ class Source
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
@@ -99,6 +97,7 @@ class Source
                 $this->item->addSource($this);
             }
         }
+
         return $this;
     }
 

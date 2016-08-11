@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
@@ -15,9 +13,8 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
- * Test item
+ * Test item.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ItemTest extends \PHPUnit_Framework_TestCase
@@ -51,7 +48,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
             [false, false, ''],
             [true, false, ''],
             [true, true, ''],
-            [true, true, 'foo']
+            [true, true, 'foo'],
         ];
     }
 
@@ -94,6 +91,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
                 $ref = new \stdClass();
                 $ref->class = $class_name;
                 $ref->id = $id;
+
                 return $ref;
             }));
         /* @var $doctrine \PHPUnit_Framework_MockObject_MockObject|Registry */
@@ -123,7 +121,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get reference
+     * Get reference.
      *
      * @param string $entity
      * @param string $set
@@ -142,6 +140,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $ref = new \stdClass();
         $ref->class = get_class($mock);
         $ref->id = $id;
+
         return $ref;
     }
 

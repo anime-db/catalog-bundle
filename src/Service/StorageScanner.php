@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\AppBundle\Service\CommandExecutor;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 
 /**
- * Storage scanner service
+ * Storage scanner service.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class StorageScanner
@@ -57,7 +54,7 @@ class StorageScanner
     }
 
     /**
-     * Scan storage in background and export progress and output
+     * Scan storage in background and export progress and output.
      *
      * @param StorageEntity $storage
      */

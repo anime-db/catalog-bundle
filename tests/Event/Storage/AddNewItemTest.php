@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 
 /**
- * Test AddNewItem event
+ * Test AddNewItem event.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class AddNewItemTest extends \PHPUnit_Framework_TestCase

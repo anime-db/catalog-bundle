@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\RefillerInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
- * Test refiller plugin
+ * Test refiller plugin.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ChainTest extends \PHPUnit_Framework_TestCase
@@ -31,7 +28,7 @@ class ChainTest extends \PHPUnit_Framework_TestCase
             [false, false],
             [true, false],
             [false, true],
-            [true, true]
+            [true, true],
         ];
     }
 

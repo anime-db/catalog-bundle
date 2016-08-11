@@ -1,19 +1,16 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service;
 
 /**
- * Twig extension
+ * Twig extension.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class TwigExtension extends \Twig_Extension
@@ -24,12 +21,12 @@ class TwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            'dummy' => new \Twig_Filter_Method($this, 'dummy')
+            'dummy' => new \Twig_Filter_Method($this, 'dummy'),
         ];
     }
 
     /**
-     * Dummy for images
+     * Dummy for images.
      *
      * @param string $path
      * @param string $filter

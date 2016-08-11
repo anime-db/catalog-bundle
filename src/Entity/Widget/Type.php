@@ -1,19 +1,16 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity\Widget;
 
 /**
- * Widget item type
+ * Widget item type.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity\Widget
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Type
@@ -24,7 +21,7 @@ class Type
     protected $name = '';
 
     /**
-     * Link on external catalog
+     * Link on external catalog.
      *
      * @var string
      */
@@ -43,6 +40,7 @@ class Type
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -62,6 +60,7 @@ class Type
     public function setLink($link)
     {
         $this->link = $link;
+
         return $this;
     }
 
@@ -83,6 +82,7 @@ class Type
         if ($this->item !== $item) {
             $this->item = $item->setType($this);
         }
+
         return $this;
     }
 

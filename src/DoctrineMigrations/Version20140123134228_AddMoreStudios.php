@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -19,7 +17,7 @@ use Doctrine\DBAL\Schema\Schema;
 class Version20140123134228_AddMoreStudios extends AbstractMigration
 {
     /**
-     * List studios
+     * List studios.
      *
      * @var array
      */
@@ -34,7 +32,7 @@ class Version20140123134228_AddMoreStudios extends AbstractMigration
         'CoMix Wave Inc.',
         'Hal Film Maker',
         'Green Bunny',
-        'Pink Pineapple'
+        'Pink Pineapple',
     ];
 
     public function up(Schema $schema)

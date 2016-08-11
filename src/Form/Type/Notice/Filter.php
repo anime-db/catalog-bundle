@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Notice;
 
 use Symfony\Component\Form\AbstractType;
@@ -16,9 +14,8 @@ use AnimeDb\Bundle\AppBundle\Entity\Notice;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Filter notices form
+ * Filter notices form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Notice
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Filter extends AbstractType
@@ -66,13 +63,13 @@ class Filter extends AbstractType
                 'choices' => [
                     Notice::STATUS_CREATED => 'New',
                     Notice::STATUS_SHOWN => 'Shown',
-                    Notice::STATUS_CLOSED => 'Closed'
+                    Notice::STATUS_CLOSED => 'Closed',
                 ],
-                'required' => false
+                'required' => false,
             ])
             ->add('type', 'choice', [
                 'choices' => $this->getNormalLabels($types),
-                'required' => false
+                'required' => false,
             ])
             ->setMethod('GET');
     }
@@ -88,6 +85,7 @@ class Filter extends AbstractType
         foreach ($labels as $label) {
             $choices[$label] = ucfirst(str_replace(['-', '_'], ' ', $label));
         }
+
         return $choices;
     }
 

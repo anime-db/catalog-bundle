@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Item search
+ * Item search.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Search
@@ -77,7 +74,8 @@ class Search
      */
     protected $studio;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->genres = new ArrayCollection();
         $this->labels = new ArrayCollection();
     }
@@ -90,6 +88,7 @@ class Search
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -109,6 +108,7 @@ class Search
     public function setDateAdd(\DateTime $date_add = null)
     {
         $this->date_add = $date_add ? clone $date_add : $date_add;
+
         return $this;
     }
 
@@ -128,6 +128,7 @@ class Search
     public function setDatePremiere(\DateTime $date_premiere = null)
     {
         $this->date_premiere = $date_premiere ? clone $date_premiere : $date_premiere;
+
         return $this;
     }
 
@@ -147,6 +148,7 @@ class Search
     public function setDateEnd(\DateTime $date_end = null)
     {
         $this->date_end = $date_end ? clone $date_end : null;
+
         return $this;
     }
 
@@ -168,6 +170,7 @@ class Search
         if (!$this->genres->contains($genre)) {
             $this->genres->add($genre);
         }
+
         return $this;
     }
 
@@ -179,6 +182,7 @@ class Search
     public function removeGenre(Genre $genre)
     {
         $this->genres->removeElement($genre);
+
         return $this;
     }
 
@@ -200,6 +204,7 @@ class Search
         if (!$this->labels->contains($label)) {
             $this->labels->add($label);
         }
+
         return $this;
     }
 
@@ -211,6 +216,7 @@ class Search
     public function removeLabel(Label $label)
     {
         $this->labels->removeElement($label);
+
         return $this;
     }
 
@@ -240,6 +246,7 @@ class Search
         if ($this->country !== $country) {
             $this->country = $country;
         }
+
         return $this;
     }
 
@@ -253,6 +260,7 @@ class Search
         if ($this->storage !== $storage) {
             $this->storage = $storage;
         }
+
         return $this;
     }
 
@@ -274,6 +282,7 @@ class Search
         if ($this->type !== $type) {
             $this->type = $type;
         }
+
         return $this;
     }
 
@@ -295,6 +304,7 @@ class Search
         if ($this->studio !== $studio) {
             $this->studio = $studio;
         }
+
         return $this;
     }
 

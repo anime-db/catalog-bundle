@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +17,7 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
 /**
- * Item
+ * Item.
  *
  * @ORM\Entity
  * @ORM\Table(name="item")
@@ -27,7 +25,6 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Item")
  * @Assert\Callback(methods={"isPathValid"})
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item extends BaseEntity implements ImageInterface
@@ -142,7 +139,7 @@ class Item extends BaseEntity implements ImageInterface
     protected $episodes = '';
 
     /**
-     * Translate (subtitles and voice)
+     * Translate (subtitles and voice).
      *
      * @ORM\Column(type="string", length=256, nullable=true)
      *
@@ -172,7 +169,7 @@ class Item extends BaseEntity implements ImageInterface
     protected $cover = '';
 
     /**
-     * Number of episodes
+     * Number of episodes.
      *
      * @ORM\Column(type="string", length=5, nullable=true)
      * @Assert\Regex(
@@ -226,7 +223,8 @@ class Item extends BaseEntity implements ImageInterface
      */
     protected $not_cleared_path = '';
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->genres = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->names = new ArrayCollection();
@@ -252,6 +250,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -271,6 +270,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setDatePremiere(\DateTime $date_premiere = null)
     {
         $this->date_premiere = $date_premiere ? clone $date_premiere : $date_premiere;
+
         return $this;
     }
 
@@ -290,6 +290,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setDateEnd(\DateTime $date_end = null)
     {
         $this->date_end = $date_end ? clone $date_end : null;
+
         return $this;
     }
 
@@ -309,6 +310,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setDuration($duration)
     {
         $this->duration = $duration;
+
         return $this;
     }
 
@@ -328,6 +330,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setSummary($summary)
     {
         $this->summary = $summary;
+
         return $this;
     }
 
@@ -352,6 +355,7 @@ class Item extends BaseEntity implements ImageInterface
         } else {
             $this->path = '';
         }
+
         return $this;
     }
 
@@ -368,11 +372,12 @@ class Item extends BaseEntity implements ImageInterface
         if ($this->getStorage() instanceof Storage && $this->getStorage()->getPath()) {
             return $this->getStorage()->getPath().$this->path;
         }
+
         return $this->path;
     }
 
     /**
-     * Get real path
+     * Get real path.
      *
      * Need for tests
      *
@@ -391,6 +396,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setEpisodes($episodes)
     {
         $this->episodes = $episodes;
+
         return $this;
     }
 
@@ -410,6 +416,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setTranslate($translate)
     {
         $this->translate = $translate;
+
         return $this;
     }
 
@@ -429,6 +436,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setFileInfo($fileInfo)
     {
         $this->file_info = $fileInfo;
+
         return $this;
     }
 
@@ -452,6 +460,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->names->add($name);
             $name->setItem($this);
         }
+
         return $this;
     }
 
@@ -466,6 +475,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->names->removeElement($name);
             $name->setItem(null);
         }
+
         return $this;
     }
 
@@ -497,6 +507,7 @@ class Item extends BaseEntity implements ImageInterface
                 $this->type->addItem($this);
             }
         }
+
         return $this;
     }
 
@@ -519,6 +530,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->genres->add($genre);
             $genre->addItem($this);
         }
+
         return $this;
     }
 
@@ -533,6 +545,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->genres->removeElement($genre);
             $genre->removeItem($this);
         }
+
         return $this;
     }
 
@@ -555,6 +568,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->labels->add($label);
             $label->addItem($this);
         }
+
         return $this;
     }
 
@@ -569,6 +583,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->labels->removeElement($label);
             $label->removeItem($this);
         }
+
         return $this;
     }
 
@@ -600,6 +615,7 @@ class Item extends BaseEntity implements ImageInterface
                 $this->country->addItem($this);
             }
         }
+
         return $this;
     }
 
@@ -632,6 +648,7 @@ class Item extends BaseEntity implements ImageInterface
             }
         }
         $this->doClearPath();
+
         return $this;
     }
 
@@ -651,6 +668,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setCover($cover)
     {
         $this->setFilename($cover);
+
         return $this;
     }
 
@@ -679,6 +697,7 @@ class Item extends BaseEntity implements ImageInterface
     {
         $this->cover = $filename;
         parent::setFilename($filename);
+
         return $this;
     }
 
@@ -694,6 +713,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->sources->add($source);
             $source->setItem($this);
         }
+
         return $this;
     }
 
@@ -708,6 +728,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->sources->removeElement($source);
             $source->setItem(null);
         }
+
         return $this;
     }
 
@@ -731,6 +752,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->images->add($image);
             $image->setItem($this);
         }
+
         return $this;
     }
 
@@ -745,6 +767,7 @@ class Item extends BaseEntity implements ImageInterface
             $this->images->removeElement($image);
             $image->setItem(null);
         }
+
         return $this;
     }
 
@@ -764,6 +787,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setEpisodesNumber($episodes_number)
     {
         $this->episodes_number = $episodes_number;
+
         return $this;
     }
 
@@ -783,6 +807,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setDateAdd(\DateTime $date_add)
     {
         $this->date_add = clone $date_add;
+
         return $this;
     }
 
@@ -802,6 +827,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setDateUpdate(\DateTime $date_update)
     {
         $this->date_update = clone $date_update;
+
         return $this;
     }
 
@@ -821,6 +847,7 @@ class Item extends BaseEntity implements ImageInterface
     public function setRating($rating)
     {
         $this->rating = $rating;
+
         return $this;
     }
 
@@ -852,6 +879,7 @@ class Item extends BaseEntity implements ImageInterface
                 $this->studio->addItem($this);
             }
         }
+
         return $this;
     }
 
@@ -872,7 +900,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Is valid path for current type
+     * Is valid path for current type.
      *
      * @param ExecutionContextInterface $context
      */
@@ -884,7 +912,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Freeze item
+     * Freeze item.
      *
      * @param Registry $doctrine
      *
@@ -904,11 +932,12 @@ class Item extends BaseEntity implements ImageInterface
         foreach ($this->genres as $key => $genre) {
             $this->genres[$key] = $em->getReference(get_class($genre), $genre->getId());
         }
+
         return $this;
     }
 
     /**
-     * Remove storage path in item path
+     * Remove storage path in item path.
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -927,7 +956,7 @@ class Item extends BaseEntity implements ImageInterface
     }
 
     /**
-     * Get item name for url
+     * Get item name for url.
      *
      * @return string
      */

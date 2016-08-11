@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
@@ -17,9 +15,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Name;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * Install item
+ * Install item.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SamuraiXTrustBetrayal extends Item
@@ -92,6 +89,7 @@ class SamuraiXTrustBetrayal extends Item
     public function setStorage(Storage $storage)
     {
         $this->getItem()->setPath($storage->getPath().'Samurai X - Trust Betrayal (1999) [OVA]'.DIRECTORY_SEPARATOR);
+
         return parent::setStorage($storage);
     }
 }

@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\ScanStorage;
@@ -22,50 +20,49 @@ use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\AddNewItem;
 
 /**
- * Test ScanStorage listener
+ * Test ScanStorage listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ScanStorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Listener
+     * Listener.
      *
      * @var ScanStorage
      */
     protected $listener;
 
     /**
-     * Entity manager
+     * Entity manager.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|EntityManager
      */
     protected $em;
 
     /**
-     * Templating
+     * Templating.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|TwigEngine
      */
     protected $templating;
 
     /**
-     * Search chain
+     * Search chain.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|Chain
      */
     protected $search;
 
     /**
-     * Router
+     * Router.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|Router
      */
     protected $router;
 
     /**
-     * Form factory
+     * Form factory.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|FormFactory
      */
@@ -110,7 +107,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get notices
+     * Get notices.
      *
      * @return array
      */
@@ -156,25 +153,25 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 $dif,
                 ['item' => $dif_item],
                 'onDeleteItemFiles',
-                ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND
+                ScanStorage::NOTICE_TYPE_ITEM_FILES_NOT_FOUND,
             ],
             [
                 $uif,
                 ['item' => $uif_item],
                 'onUpdateItemFiles',
-                ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES
+                ScanStorage::NOTICE_TYPE_UPDATE_ITEM_FILES,
             ],
             [
                 $ani,
                 ['storage' => $ani_storage, 'item' => $ani_item],
                 'onAddNewItemSendNotice',
-                ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM
-            ]
+                ScanStorage::NOTICE_TYPE_ADDED_NEW_ITEM,
+            ],
         ];
     }
 
     /**
-     * Test send notices
+     * Test send notices.
      *
      * @dataProvider getNotices
      *
@@ -196,6 +193,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function ($received_tpl, $received_params) use ($that, $type, $params) {
                 $that->assertEquals('AnimeDbCatalogBundle:Notice:messages/'.$type.'.html.twig', $received_tpl);
                 $that->assertEquals($params, $received_params);
+
                 return 'foo';
             }));
         $this->em
@@ -212,7 +210,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get search plugins
+     * Get search plugins.
      *
      * @return array
      */
@@ -222,12 +220,12 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
             [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'), false],
             [$this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'), true],
             [null, false],
-            [null, true]
+            [null, true],
         ];
     }
 
     /**
-     * Test on detected new files send notice
+     * Test on detected new files send notice.
      *
      * @dataProvider getSearchPlugins
      *
@@ -288,7 +286,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get plugins
+     * Get plugins.
      *
      * @return array
      */
@@ -301,7 +299,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 true,
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
                 false,
-                false
+                false,
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
@@ -309,7 +307,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 false,
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
                 false,
-                false
+                false,
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
@@ -317,7 +315,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 false,
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
                 true,
-                true
+                true,
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
@@ -325,7 +323,7 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 false,
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
                 true,
-                false
+                false,
             ],
             [
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
@@ -333,8 +331,8 @@ class ScanStorageTest extends \PHPUnit_Framework_TestCase
                 false,
                 $this->getMock('\AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Search'),
                 false,
-                false
-            ]
+                false,
+            ],
         ];
     }
 

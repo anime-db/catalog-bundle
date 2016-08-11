@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
@@ -19,22 +17,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Storages
+ * Storages.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class StorageController extends BaseController
 {
     /**
-     * Link to guide, how add a new storage
+     * Link to guide, how add a new storage.
      *
      * @var string
      */
     const GUIDE_LINK = '/guide/storage/add.html';
 
     /**
-     * Storage list
+     * Storage list.
      *
      * @param Request $request
      *
@@ -50,13 +47,14 @@ class StorageController extends BaseController
 
         /* @var $rep StorageRepository */
         $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Storage');
+
         return $this->render('AnimeDbCatalogBundle:Storage:list.html.twig', [
-            'storages' => $rep->getList()
+            'storages' => $rep->getList(),
         ], $response);
     }
 
     /**
-     * Change storage
+     * Change storage.
      *
      * @param Storage $storage
      * @param Request $request
@@ -80,18 +78,19 @@ class StorageController extends BaseController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
+
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }
 
         return $this->render('AnimeDbCatalogBundle:Storage:change.html.twig', [
             'storage' => $storage,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 
     /**
-     * Add storage
+     * Add storage.
      *
      * @param Request $request
      *
@@ -116,18 +115,19 @@ class StorageController extends BaseController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($storage);
                 $em->flush();
+
                 return $this->redirect($this->generateUrl('storage_list'));
             }
         }
 
         return $this->render('AnimeDbCatalogBundle:Storage:add.html.twig', [
             'form' => $form->createView(),
-            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK)
+            'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK),
         ], $response);
     }
 
     /**
-     * Delete storage
+     * Delete storage.
      *
      * @param Storage $storage
      *
@@ -138,11 +138,12 @@ class StorageController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($storage);
         $em->flush();
+
         return $this->redirect($this->generateUrl('storage_list'));
     }
 
     /**
-     * Get storage path
+     * Get storage path.
      *
      * @param Request $request
      *
@@ -164,12 +165,12 @@ class StorageController extends BaseController
 
         return $response->setData([
             'required' => $storage->isPathRequired(),
-            'path' => $storage->getPath()
+            'path' => $storage->getPath(),
         ]);
     }
 
     /**
-     * Scan storage
+     * Scan storage.
      *
      * @param Storage $storage
      * @param Request $request
@@ -188,12 +189,12 @@ class StorageController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Storage:scan.html.twig', [
-            'storage' => $storage
+            'storage' => $storage,
         ], $response);
     }
 
     /**
-     * Get storage scan output
+     * Get storage scan output.
      *
      * @param Storage $storage
      * @param Request $request
@@ -212,14 +213,14 @@ class StorageController extends BaseController
         $is_end = preg_match('/\nTime: \d+ s./', $log);
 
         if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
-            $log = (string)mb_substr($log, $offset, mb_strlen($log, 'UTF-8')-$offset, 'UTF-8');
+            $log = (string) mb_substr($log, $offset, mb_strlen($log, 'UTF-8') - $offset, 'UTF-8');
         }
 
         return new JsonResponse(['content' => $log, 'end' => $is_end]);
     }
 
     /**
-     * Get storage scan progress
+     * Get storage scan progress.
      *
      * @param Storage $storage
      *
@@ -234,6 +235,7 @@ class StorageController extends BaseController
         }
 
         $log = trim(file_get_contents($filename), " \r\n%");
+
         return new JsonResponse(['status' => ($log != '' ? intval($log) : 100)]);
     }
 }

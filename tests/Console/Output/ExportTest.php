@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Export;
@@ -16,9 +14,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
- * Test output decorator
+ * Test output decorator.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ExportTest extends \PHPUnit_Framework_TestCase
@@ -84,7 +81,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         mkdir(dirname($this->file), 0755, true);
         touch($this->file);
         $handle = fopen($this->file, 'w');
-        flock($handle, LOCK_EX|LOCK_NB);
+        flock($handle, LOCK_EX | LOCK_NB);
 
         new Export($this->output, $this->file);
     }
@@ -101,8 +98,8 @@ class ExportTest extends \PHPUnit_Framework_TestCase
                 'foo',
                 'bar',
                 true,
-                OutputInterface::OUTPUT_NORMAL
-            ]
+                OutputInterface::OUTPUT_NORMAL,
+            ],
         ];
         $write = $this->addAppends($write);
         $write = $this->addMessages1($write);
@@ -117,8 +114,8 @@ class ExportTest extends \PHPUnit_Framework_TestCase
                 'foo',
                 'bar',
                 true,
-                OutputInterface::OUTPUT_NORMAL
-            ]
+                OutputInterface::OUTPUT_NORMAL,
+            ],
         ];
         $write_ln = $this->addAppends($write_ln);
         $write_ln = $this->addMessages1($write_ln);
@@ -144,6 +141,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             $param[1] = false;
             $result[] = $param;
         }
+
         return $result;
     }
 
@@ -163,6 +161,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             $param[2] = ['foo', 'bar'];
             $result[] = $param;
         }
+
         return $result;
     }
 
@@ -182,6 +181,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             $param[3] = ['baz', 'cor'];
             $result[] = $param;
         }
+
         return $result;
     }
 
@@ -201,6 +201,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             $param[4] = false;
             $result[] = $param;
         }
+
         return $result;
     }
 
@@ -224,6 +225,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             $param[5] = OutputInterface::OUTPUT_RAW;
             $result[] = $param;
         }
+
         return $result;
     }
 
@@ -266,11 +268,11 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         }
         $expected = '';
         if ($append) {
-            foreach ((array)$messages1 as $message) {
+            foreach ((array) $messages1 as $message) {
                 $expected .= strip_tags($message).($newline ? PHP_EOL : '');
             }
         }
-        foreach ((array)$messages2 as $message) {
+        foreach ((array) $messages2 as $message) {
             $expected .= strip_tags($message).($newline ? PHP_EOL : '');
         }
         $export->unlock();

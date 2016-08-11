@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -48,7 +46,7 @@ class Version20140211104719_RemoveItemPathPrefix extends AbstractMigration
                             `id` = ?',
                         [
                             substr($item['item_path'], strlen($item['storage_path'])),
-                            $item['id']
+                            $item['id'],
                         ]
                     );
                 }
@@ -85,7 +83,7 @@ class Version20140211104719_RemoveItemPathPrefix extends AbstractMigration
                         `id` = ?',
                     [
                         $item['storage_path'].$item['item_path'],
-                        $item['id']
+                        $item['id'],
                     ]
                 );
             }

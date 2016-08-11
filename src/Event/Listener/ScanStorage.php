@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DeleteItemFiles;
@@ -26,9 +24,8 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 
 /**
- * Storage scan listener
+ * Storage scan listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ScanStorage
@@ -59,35 +56,35 @@ class ScanStorage
     protected $form_factory;
 
     /**
-     * Notice type: files for item is not found
+     * Notice type: files for item is not found.
      *
      * @var string
      */
     const NOTICE_TYPE_ITEM_FILES_NOT_FOUND = 'item_files_not_found';
 
     /**
-     * Notice type: Detected files for new item
+     * Notice type: Detected files for new item.
      *
      * @var string
      */
     const NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM = 'detected_files_for_new_item';
 
     /**
-     * Notice type: Changes are detected in files of item
+     * Notice type: Changes are detected in files of item.
      *
      * @var string
      */
     const NOTICE_TYPE_UPDATE_ITEM_FILES = 'update_item_files';
 
     /**
-     * Notice type: Detected and added new item
+     * Notice type: Detected and added new item.
      *
      * @var string
      */
     const NOTICE_TYPE_ADDED_NEW_ITEM = 'added_new_item';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param EntityManagerInterface $em
      * @param TwigEngine $templating
@@ -195,6 +192,7 @@ class ScanStorage
                 StoreEvents::ADD_NEW_ITEM,
                 new AddNewItem($item, $search->getFiller())
             );
+
             return true;
         }
 

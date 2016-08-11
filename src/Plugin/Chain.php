@@ -1,19 +1,16 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin;
 
 /**
- * Chain plugins
- * 
- * @package AnimeDb\Bundle\CatalogBundle\Plugin
+ * Chain plugins.
+ *
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Chain
@@ -31,7 +28,8 @@ abstract class Chain
     /**
      * @param PluginInterface $plugin
      */
-    public function addPlugin(PluginInterface $plugin) {
+    public function addPlugin(PluginInterface $plugin)
+    {
         $this->plugins[$plugin->getName()] = $plugin;
         $this->titles[$plugin->getName()] = $plugin->getTitle();
         ksort($this->plugins);
@@ -43,11 +41,13 @@ abstract class Chain
      *
      * @return PluginInterface|null
      */
-    public function getPlugin($name) {
+    public function getPlugin($name)
+    {
         if (array_key_exists($name, $this->plugins)) {
             return $this->plugins[$name];
         }
-        return null;
+
+        return;
     }
 
     /**
@@ -61,21 +61,24 @@ abstract class Chain
     /**
      * @return PluginInterface[]
      */
-    public function getPlugins() {
+    public function getPlugins()
+    {
         return $this->plugins;
     }
 
     /**
      * @return string[]
      */
-    public function getNames() {
+    public function getNames()
+    {
         return array_keys($this->plugins);
     }
 
     /**
      * @return string[]
      */
-    public function getTitles() {
+    public function getTitles()
+    {
         return $this->titles;
     }
 }

@@ -1,28 +1,25 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Item search driver interface
+ * Item search driver interface.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 interface DriverInterface
 {
     /**
-     * Search items
-     * 
+     * Search items.
+     *
      * @param Search $data
      * @param int $limit
      * @param int $offset
@@ -34,8 +31,8 @@ interface DriverInterface
     public function search(Search $data, $limit, $offset, $sort_column, $sort_direction);
 
     /**
-     * Search items by name
-     * 
+     * Search items by name.
+     *
      * @param string $name
      * @param int $limit
      *

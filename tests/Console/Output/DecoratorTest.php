@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use AnimeDb\Bundle\CatalogBundle\Console\Output\Decorator;
 
 /**
- * Test output decorator
+ * Test output decorator.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class DecoratorTest extends \PHPUnit_Framework_TestCase
@@ -50,6 +47,7 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
             $params[] = [true, $type[0]];
             $params[] = [false, $type[0]];
         }
+
         return $params;
     }
 
@@ -103,13 +101,13 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
             ['setVerbosity', 123],
             ['setDecorated', true],
             ['setDecorated', false],
-            ['setFormatter', $this->getMock('\Symfony\Component\Console\Formatter\OutputFormatterInterface')]
+            ['setFormatter', $this->getMock('\Symfony\Component\Console\Formatter\OutputFormatterInterface')],
         ];
     }
 
     /**
      * @dataProvider getSetMethods
-     * 
+     *
      * @param string $method
      * @param string $data
      */
@@ -131,13 +129,13 @@ class DecoratorTest extends \PHPUnit_Framework_TestCase
             ['getVerbosity', 123],
             ['isDecorated', true],
             ['isDecorated', false],
-            ['getFormatter', $this->getMock('\Symfony\Component\Console\Formatter\OutputFormatterInterface')]
+            ['getFormatter', $this->getMock('\Symfony\Component\Console\Formatter\OutputFormatterInterface')],
         ];
     }
 
     /**
      * @dataProvider getGetMethods
-     * 
+     *
      * @param string $method
      * @param string $data
      */

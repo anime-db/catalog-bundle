@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
@@ -17,15 +15,14 @@ use Symfony\Component\Form\FormView;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Refill item field country
+ * Refill item field country.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Country extends AbstractType
 {
     /**
-     * View sorter
+     * View sorter.
      *
      * @var ViewSorter
      */
@@ -47,13 +44,13 @@ class Country extends AbstractType
     {
         $builder
             ->add('country', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Country',
+                'class' => 'AnimeDbCatalogBundle:Country',
                 'property' => 'name',
-                'label'    => false
+                'label' => false,
             ])
             ->add('source', 'hidden', [
                 'required' => false,
-                'label'    => false
+                'label' => false,
             ]);
     }
 

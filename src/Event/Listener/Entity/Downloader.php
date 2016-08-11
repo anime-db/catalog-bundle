@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,9 +15,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Image;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\EntityInterface;
 
 /**
- * Entity downloader listener
+ * Entity downloader listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Downloader
@@ -58,7 +55,7 @@ class Downloader
     }
 
     /**
-     * Rename file, if it in the temp folder
+     * Rename file, if it in the temp folder.
      *
      * @param EntityInterface $entity
      * @param string $target

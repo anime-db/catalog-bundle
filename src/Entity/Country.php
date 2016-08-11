@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,13 +15,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 /**
- * Country
+ * Country.
  *
  * @ORM\Entity
  * @ORM\Table(name="country")
  * @Gedmo\TranslationEntity(class="AnimeDb\Bundle\CatalogBundle\Entity\CountryTranslation")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Country implements Translatable
@@ -55,7 +52,7 @@ class Country implements Translatable
     protected $items;
 
     /**
-     * Entity locale
+     * Entity locale.
      *
      * @Gedmo\Locale
      *
@@ -86,6 +83,7 @@ class Country implements Translatable
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -105,6 +103,7 @@ class Country implements Translatable
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -127,6 +126,7 @@ class Country implements Translatable
             $this->items->add($item);
             $item->setCountry($this);
         }
+
         return $this;
     }
 
@@ -141,6 +141,7 @@ class Country implements Translatable
             $this->items->removeElement($item);
             $item->setCountry(null);
         }
+
         return $this;
     }
 
@@ -160,6 +161,7 @@ class Country implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -190,6 +192,7 @@ class Country implements Translatable
             $this->translations->add($trans);
             $trans->setObject($this);
         }
+
         return $this;
     }
 
@@ -204,6 +207,7 @@ class Country implements Translatable
             $this->translations->removeElement($trans);
             $trans->setObject(null);
         }
+
         return $this;
     }
 

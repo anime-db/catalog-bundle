@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
@@ -16,13 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
 
 /**
- * Interface FillerInterface
- * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler
+ * Interface FillerInterface.
  */
 interface FillerInterface extends PluginInMenuInterface
 {
     /**
-     * Fill item from source
+     * Fill item from source.
      *
      * @param array $data
      *
@@ -50,7 +47,7 @@ interface FillerInterface extends PluginInMenuInterface
     public function getLinkForFill($data);
 
     /**
-     * Fill from search result
+     * Fill from search result.
      *
      * @param ItemSearch $item
      *

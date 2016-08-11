@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,12 +15,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 /**
- * Anime type
+ * Anime type.
  *
  * @ORM\Entity
  * @ORM\Table(name="type")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Type implements Translatable
@@ -52,7 +49,7 @@ class Type implements Translatable
     protected $items;
 
     /**
-     * Entity locale
+     * Entity locale.
      *
      * @Gedmo\Locale
      *
@@ -73,6 +70,7 @@ class Type implements Translatable
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -92,6 +90,7 @@ class Type implements Translatable
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -114,6 +113,7 @@ class Type implements Translatable
             $this->items->add($item);
             $item->setType($this);
         }
+
         return $this;
     }
 
@@ -128,6 +128,7 @@ class Type implements Translatable
             $this->items->removeElement($item);
             $item->setType(null);
         }
+
         return $this;
     }
 
@@ -147,6 +148,7 @@ class Type implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 

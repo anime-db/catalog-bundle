@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +16,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="studio")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Studio
@@ -68,6 +65,7 @@ class Studio
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -90,6 +88,7 @@ class Studio
             $this->items->add($item);
             $item->setStudio($this);
         }
+
         return $this;
     }
 
@@ -104,6 +103,7 @@ class Studio
             $this->items->removeElement($item);
             $item->setStudio(null);
         }
+
         return $this;
     }
 

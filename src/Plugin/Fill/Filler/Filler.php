@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
@@ -18,9 +16,8 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Item as ItemSearch;
 
 /**
- * Plugin filler
+ * Plugin filler.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Filler extends Plugin implements FillerInterface
@@ -39,7 +36,7 @@ abstract class Filler extends Plugin implements FillerInterface
     {
         return $item->addChild($this->getTitle(), [
             'route' => 'fill_filler',
-            'routeParameters' => ['plugin' => $this->getName()]
+            'routeParameters' => ['plugin' => $this->getName()],
         ]);
     }
 
@@ -76,13 +73,13 @@ abstract class Filler extends Plugin implements FillerInterface
             'fill_filler',
             [
                 'plugin' => $this->getName(),
-                $this->getForm()->getName() => ['url' => $data]
+                $this->getForm()->getName() => ['url' => $data],
             ]
         );
     }
 
     /**
-     * Fill from search result
+     * Fill from search result.
      *
      * @param ItemSearch $item
      *
@@ -93,8 +90,9 @@ abstract class Filler extends Plugin implements FillerInterface
         $query = parse_url($item->getLink(), PHP_URL_QUERY);
         parse_str($query, $query);
         if (empty($query[$this->getForm()->getName()])) {
-            return null;
+            return;
         }
+
         return $this->fill($query[$this->getForm()->getName()]);
     }
 

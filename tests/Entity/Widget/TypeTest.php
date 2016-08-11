@@ -1,28 +1,25 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
 
 /**
- * Test type widget
+ * Test type widget.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class TypeTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test get/set item
+     * Test get/set item.
      */
     public function testItem()
     {

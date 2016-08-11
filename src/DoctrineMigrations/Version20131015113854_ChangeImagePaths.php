@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -23,14 +21,14 @@ use Symfony\Component\HttpFoundation\File\File;
 class Version20131015113854_ChangeImagePaths extends AbstractMigration implements ContainerAwareInterface
 {
     /**
-     * Media dir
+     * Media dir.
      *
      * @var string
      */
     protected $media_dir;
 
     /**
-     * Set container
+     * Set container.
      *
      * @param ContainerInterface $container
      */
@@ -46,7 +44,7 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
      */
     public function up(Schema $schema)
     {
-        /**
+        /*
          * Migration is not critical
          * Old format for storing image files to the new format
          *
@@ -83,7 +81,7 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
                     `id` = ?',
                 [
                     $path.$file->getBasename(),
-                    $item['id']
+                    $item['id'],
                 ]
             );
         }
@@ -114,7 +112,7 @@ class Version20131015113854_ChangeImagePaths extends AbstractMigration implement
                     `id` = ?',
                 [
                     $path.$file->getBasename(),
-                    $image['id']
+                    $image['id'],
                 ]
             );
         }
