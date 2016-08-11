@@ -92,10 +92,6 @@ $('.icon-delete, .b-notice-table button[type=submit]').each(function() {
 	new ConfirmDeleteNotice($(this));
 });
 
-$('.bt-toggle-block').each(function() {
-	new ToggleBlock($(this));
-});
-
 $('.b-update-container code').each(function() {
 	new UpdateLogBlock($(this));
 });
@@ -111,17 +107,18 @@ var refills = $('[data-type=refill]');
 var form = refills.closest('form');
 refills.each(function() {
 	var field = $(this);
+	var controller;
 	if (field.data('prototype')) {
-		var controller = new FormRefillCollection(
+		controller = new FormRefillCollection(
 			field,
 			CollectionContainer.get(field.attr('id')),
 			CollectionContainer
 		);
 	} else {
 		if (field.find('input').size() > 1) {
-			var controller = new FormRefillMulti(field);
+			controller = new FormRefillMulti(field);
 		} else {
-			var controller = new FormRefillSimple(field);
+			controller = new FormRefillSimple(field);
 		}
 	}
 
@@ -151,6 +148,8 @@ if (jQuery().fancybox) {
 }
 
 $('.bt-toggle-block').each(function() {
+	new ToggleBlock($(this));
+
 	var block = $(this);
 	var icon = block.find('.bt-toggle-block-icon');
 	if (icon.size()) {
