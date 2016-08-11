@@ -5,15 +5,43 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         project: {
             dist: {
+                css: 'src/Resources/public/css/',
                 js: 'src/Resources/public/js/dist/'
             },
             src: {
                 node: 'node_modules/',
                 js: 'src/Resources/public/js/src/',
-                vendor: 'src/Resources/public/js/vendor/'
+                vendor: 'src/Resources/public/js/vendor/',
+                scss: 'src/Resources/public/sass/'
+            }
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'expanded',
+                    trace: true,
+                    compass: false,
+                    sourcemap: 'none'
+                },
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= project.src.scss %>',
+                        src: 'main.scss',
+                        dest: '<%= project.dist.css %>',
+                        ext: '.css'
+                    }
+                ]
             }
         },
         concat: {
+            css: {
+                src: [
+                    '<%= project.dist.css %>vendor/*',
+                    '<%= project.dist.css %>main.css'
+                ],
+                dest: '<%= project.dist.css %>main.css'
+            },
             js: {
                 src: [
                     '<%= project.src.node %>jquery/dist/jquery.min.js',
@@ -25,6 +53,13 @@ module.exports = function(grunt) {
                     '<%= project.src.js %>main.js'
                 ],
                 dest: '<%= project.dist.js %>main.js'
+            }
+        },
+        cssmin: {
+            dist: {
+                files: {
+                    '<%= project.dist.css %>main.min.css': '<%= project.dist.css %>main.css'
+                }
             }
         },
         uglify: {
@@ -42,11 +77,15 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
     grunt.registerTask('default', [
+        'sass',
         'concat',
+        'cssmin',
         'uglify'
     ]);
 };
