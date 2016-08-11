@@ -21,7 +21,7 @@ assetic:
     assets:
         stylesheets:
             inputs:
-                - '@AnimeDbCatalogBundle/Resources/public/css/*.css'
+                - '@AnimeDbCatalogBundle/Resources/public/css/main.min.css'
         javascripts:
             inputs:
-                - '@AnimeDbCatalogBundle/Resources/public/js/*.js'
+                - '@AnimeDbCatalogBundle/Resources/public/js/dist/main.min.js'
