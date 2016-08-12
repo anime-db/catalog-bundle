@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -23,14 +21,14 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Genre;
 class Version20140408113030_AddItemGenres extends AbstractMigration implements ContainerAwareInterface
 {
     /**
-     * Entity manager
+     * Entity manager.
      *
      * @var EntityManagerInterface
      */
     protected $em;
 
     /**
-     * Add genres
+     * Add genres.
      *
      * @var array
      */
@@ -43,11 +41,11 @@ class Version20140408113030_AddItemGenres extends AbstractMigration implements C
         'Super Power' => 'Супер сила',
         'Harem' => 'Гарем',
         'Supernatural' => 'Сверхъестественное',
-        'Gender Bender' => 'Смена пола'
+        'Gender Bender' => 'Смена пола',
     ];
 
     /**
-     * Set container
+     * Set container.
      *
      * @param ContainerInterface $container
      */

@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Settings\General;
@@ -27,9 +25,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 use AnimeDb\Bundle\CatalogBundle\Entity\Type;
 
 /**
- * Test entity
+ * Test entity.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class EntityTest extends \PHPUnit_Framework_TestCase
@@ -59,7 +56,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get entity
+     * Get entity.
      *
      * @param string $entity
      *
@@ -71,7 +68,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get entity mock
+     * Get entity mock.
      *
      * @param string $entity
      *
@@ -85,7 +82,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Call entity method
+     * Call entity method.
      *
      * @param string $entity
      * @param string $method
@@ -98,11 +95,12 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $params = func_get_args();
         $entity = array_shift($params);
         $method = array_shift($params);
+
         return call_user_func_array([$this->get($entity), $method], $params);
     }
 
     /**
-     * Get methods
+     * Get methods.
      *
      * @return array
      */
@@ -170,10 +168,10 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getters and setters
+     * Test getters and setters.
      *
      * @dataProvider getMethods
-     * 
+     *
      * @param string $entity
      * @param string $getter
      * @param string $setter
@@ -188,13 +186,14 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods DateTime
+     * Get methods DateTime.
      *
      * @return array
      */
     public function getMethodsTime()
     {
         $now = new \DateTime();
+
         return [
             // Item
             ['item', 'getDateAdd', 'setDateAdd', $now],
@@ -212,10 +211,10 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test getters and setters DateTime
+     * Test getters and setters DateTime.
      *
      * @dataProvider getMethodsTime
-     * 
+     *
      * @param string $entity
      * @param string $getter
      * @param string $setter
@@ -234,7 +233,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods to string
+     * Get methods to string.
      *
      * @return array
      */
@@ -255,7 +254,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test to string
+     * Test to string.
      *
      * @dataProvider getMethodsToString
      *
@@ -269,7 +268,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods generated id
+     * Get methods generated id.
      *
      * @return array
      */
@@ -288,7 +287,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test generated id
+     * Test generated id.
      *
      * @dataProvider getMethodsGeneratedId
      *
@@ -300,7 +299,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods one to many
+     * Get methods one to many.
      *
      * @return array
      */
@@ -311,12 +310,12 @@ class EntityTest extends \PHPUnit_Framework_TestCase
             ['country', 'CountryTranslation', 'getTranslations', 'addTranslation', 'removeTranslation', 'setObject'],
             ['storage', 'Item', 'getItems', 'addItem', 'removeItem', 'setStorage'],
             ['studio', 'Item', 'getItems', 'addItem', 'removeItem', 'setStudio'],
-            ['type', 'Item', 'getItems', 'addItem', 'removeItem', 'setType']
+            ['type', 'Item', 'getItems', 'addItem', 'removeItem', 'setType'],
         ];
     }
 
     /**
-     * Test one to many
+     * Test one to many.
      *
      * @dataProvider getMethodsOneToMany
      *
@@ -356,7 +355,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods many to many
+     * Get methods many to many.
      *
      * @return array
      */
@@ -370,7 +369,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'addItem',
                 'removeItem',
                 'addGenre',
-                'removeGenre'
+                'removeGenre',
             ],
             [
                 'item',
@@ -379,7 +378,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'addGenre',
                 'removeGenre',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'item',
@@ -388,7 +387,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'addLabel',
                 'removeLabel',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'label',
@@ -397,13 +396,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'addItem',
                 'removeItem',
                 'addLabel',
-                'removeLabel'
+                'removeLabel',
             ],
         ];
     }
 
     /**
-     * Test many to many
+     * Test many to many.
      *
      * @dataProvider getMethodsManyToMany
      *
@@ -450,7 +449,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get methods many to one
+     * Get methods many to one.
      *
      * @return array
      */
@@ -463,7 +462,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getItem',
                 'setItem',
                 'addImage',
-                'removeImage'
+                'removeImage',
             ],
             [
                 'item',
@@ -471,7 +470,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getType',
                 'setType',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'item',
@@ -479,7 +478,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getCountry',
                 'setCountry',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'item',
@@ -487,7 +486,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getStorage',
                 'setStorage',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'item',
@@ -495,7 +494,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getStudio',
                 'setStudio',
                 'addItem',
-                'removeItem'
+                'removeItem',
             ],
             [
                 'name',
@@ -503,7 +502,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getItem',
                 'setItem',
                 'addName',
-                'removeName'
+                'removeName',
             ],
             [
                 'source',
@@ -511,13 +510,13 @@ class EntityTest extends \PHPUnit_Framework_TestCase
                 'getItem',
                 'setItem',
                 'addSource',
-                'removeSource'
+                'removeSource',
             ],
         ];
     }
 
     /**
-     * Test many to one
+     * Test many to one.
      *
      * @dataProvider getMethodsManyToOne
      *

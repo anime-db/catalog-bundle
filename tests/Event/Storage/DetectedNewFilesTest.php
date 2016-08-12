@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Storage\DetectedNewFiles;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Test event DetectedNewFiles
+ * Test event DetectedNewFiles.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
@@ -28,7 +25,7 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
     protected $storage;
 
     /**
-     * SplFileInfo
+     * SplFileInfo.
      *
      * @var \PHPUnit_Framework_MockObject_MockObject|SplFileInfo
      */
@@ -71,7 +68,7 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
             ['test', 'test (123).log', true],
             ['test', 'test (123)', false],
             ['test', ' test ()[].log', true],
-            ['test', ' test ()[]', false]
+            ['test', ' test ()[]', false],
         ];
     }
 

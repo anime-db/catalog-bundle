@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Event thrown when a new item files is detected
+ * Event thrown when a new item files is detected.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class DetectedNewFiles extends Event

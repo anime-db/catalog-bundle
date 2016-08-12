@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item;
@@ -26,36 +24,35 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Main page of the catalog
+ * Main page of the catalog.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class HomeController extends BaseController
 {
     /**
-     * Widget place top
+     * Widget place top.
      *
      * @var string
      */
     const WIDGET_PALCE_TOP = 'home.top';
 
     /**
-     * Widget place bottom
+     * Widget place bottom.
      *
      * @var string
      */
     const WIDGET_PALCE_BOTTOM = 'home.bottom';
 
     /**
-     * Autocomplete list limit
+     * Autocomplete list limit.
      *
      * @var int
      */
     const AUTOCOMPLETE_LIMIT = 10;
 
     /**
-     * Home
+     * Home.
      *
      * @param Request $request
      *
@@ -85,7 +82,7 @@ class HomeController extends BaseController
             $query = $request->query->all();
             unset($query['page']);
             $pagination = $this->get('anime_db.pagination')
-                ->create(ceil($rep->count()/$limit), $current_page)
+                ->create(ceil($rep->count() / $limit), $current_page)
                 ->setPageLink(function ($page) use ($that, $query) {
                     return $that->generateUrl('home', array_merge($query, ['page' => $page]));
                 })
@@ -100,25 +97,26 @@ class HomeController extends BaseController
             'items' => $items,
             'pagination' => $pagination,
             'widget_top' => self::WIDGET_PALCE_TOP,
-            'widget_bottom' => self::WIDGET_PALCE_BOTTOM
+            'widget_bottom' => self::WIDGET_PALCE_BOTTOM,
         ], $response);
     }
 
     /**
-     * Search simple form
+     * Search simple form.
      *
      * @return Response
      */
     public function searchSimpleFormAction()
     {
         $form = new SearchSimple($this->generateUrl('home_autocomplete_name'));
+
         return $this->render('AnimeDbCatalogBundle:Home:searchSimpleForm.html.twig', [
             'form' => $this->createForm($form)->createView(),
         ]);
     }
 
     /**
-     * Autocomplete name
+     * Autocomplete name.
      *
      * @param Request $request
      *
@@ -159,7 +157,7 @@ class HomeController extends BaseController
     }
 
     /**
-     * Search item
+     * Search item.
      *
      * @param Request $request
      *
@@ -205,7 +203,7 @@ class HomeController extends BaseController
                 $query = $request->query->all();
                 unset($query['page']);
                 $pagination = $this->get('anime_db.pagination')
-                    ->create(ceil($result['total']/$limit), $current_page)
+                    ->create(ceil($result['total'] / $limit), $current_page)
                     ->setPageLink(function ($page) use ($that, $query) {
                         return $that->generateUrl('home_search', array_merge($query, ['page' => $page]));
                     })
@@ -215,16 +213,16 @@ class HomeController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Home:search.html.twig', [
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
             'items' => $result['list'],
             'total' => $result['total'],
             'pagination' => $pagination,
-            'searched' => !!$request->query->count()
+            'searched' => (bool) $request->query->count(),
         ], $response);
     }
 
     /**
-     * General settings
+     * General settings.
      *
      * @param Request $request
      *
@@ -264,7 +262,7 @@ class HomeController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Home:settings.html.twig', [
-            'form'  => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 }

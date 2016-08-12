@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -19,9 +17,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Studio;
 
 /**
- * Search selector builder
+ * Search selector builder.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Builder
@@ -81,6 +78,7 @@ class Builder
                     ->setParameter('name', preg_replace('/%+/', '%%', $name).'%');
             });
         }
+
         return $this;
     }
 
@@ -98,6 +96,7 @@ class Builder
                     ->setParameter('date_add', $entity->getDateAdd()->format('Y-m-d'));
             });
         }
+
         return $this;
     }
 
@@ -115,6 +114,7 @@ class Builder
                     ->setParameter('date_premiere', $entity->getDatePremiere()->format('Y-m-d'));
             });
         }
+
         return $this;
     }
 
@@ -132,6 +132,7 @@ class Builder
                     ->setParameter('date_end', $entity->getDateEnd()->format('Y-m-d'));
             });
         }
+
         return $this;
     }
 
@@ -149,6 +150,7 @@ class Builder
                     ->setParameter('country', $entity->getCountry()->getId());
             });
         }
+
         return $this;
     }
 
@@ -166,6 +168,7 @@ class Builder
                     ->setParameter('storage', $entity->getStorage()->getId());
             });
         }
+
         return $this;
     }
 
@@ -183,6 +186,7 @@ class Builder
                     ->setParameter('type', $entity->getType()->getId());
             });
         }
+
         return $this;
     }
 
@@ -197,7 +201,7 @@ class Builder
             $this->add(function (QueryBuilder $query) use ($entity) {
                 $ids = [];
                 foreach ($entity->getGenres() as $genre) {
-                    $ids[] = (int)$genre->getId();
+                    $ids[] = (int) $genre->getId();
                 }
                 $query
                     ->innerJoin('i.genres', 'g')
@@ -205,11 +209,12 @@ class Builder
             });
             $this->select->andHaving('COUNT(i.id) = '.$entity->getGenres()->count());
         }
+
         return $this;
     }
 
     /**
-     * Add labels
+     * Add labels.
      *
      * @param Search $entity
      *
@@ -221,7 +226,7 @@ class Builder
             $this->add(function (QueryBuilder $query) use ($entity) {
                 $ids = [];
                 foreach ($entity->getLabels() as $label) {
-                    $ids[] = (int)$label->getId();
+                    $ids[] = (int) $label->getId();
                 }
                 $query
                     ->innerJoin('i.labels', 'l')
@@ -229,6 +234,7 @@ class Builder
             });
             $this->select->andHaving('COUNT(i.id) = '.$entity->getLabels()->count());
         }
+
         return $this;
     }
 
@@ -246,11 +252,12 @@ class Builder
                     ->setParameter('studio', $entity->getStudio()->getId());
             });
         }
+
         return $this;
     }
 
     /**
-     * Do add data to queries
+     * Do add data to queries.
      *
      * @param \Closure $adder
      */
@@ -270,6 +277,7 @@ class Builder
         if ($limit > 0) {
             $this->select->setMaxResults($limit);
         }
+
         return $this;
     }
 
@@ -283,6 +291,7 @@ class Builder
         if ($offset > 0) {
             $this->select->setFirstResult($offset);
         }
+
         return $this;
     }
 
@@ -295,6 +304,7 @@ class Builder
     public function sort($column, $direction)
     {
         $this->select->orderBy('i.'.$column, $direction);
+
         return $this;
     }
 }

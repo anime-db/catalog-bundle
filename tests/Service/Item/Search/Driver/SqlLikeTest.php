@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike;
@@ -16,9 +14,8 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Test SqlLike
+ * Test SqlLike.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search\Driver\SqlLike
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SqlLikeTest extends \PHPUnit_Framework_TestCase
@@ -109,7 +106,7 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             'addName',
             'addStorage',
             'addStudio',
-            'addType'
+            'addType',
         ];
         foreach ($methods as $method) {
             $builder
@@ -167,7 +164,7 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             ['BAR', 'bar%', 0],
             ['ПрИвЕт', 'привет%', 1],
             ['foo%', 'foo%%%', 1],
-            ['foo%%', 'foo%%%', 1]
+            ['foo%%', 'foo%%%', 1],
         ];
     }
 
@@ -239,6 +236,7 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method($single ? 'getSingleScalarResult' : 'getResult')
             ->will($this->returnValue($result));
+
         return $query;
     }
 }

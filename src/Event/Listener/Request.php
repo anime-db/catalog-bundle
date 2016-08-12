@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -16,9 +14,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
- * Request listener
+ * Request listener.
  *
- * @package AnimeDb\Bundle\AppBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Request

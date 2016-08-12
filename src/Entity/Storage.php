@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * Storage of item files
+ * Storage of item files.
  *
  * @ORM\Entity
  * @ORM\Table(name="storage")
@@ -24,34 +22,33 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Storage")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Storage
 {
     /**
-     * Type folder on computer (local/network)
+     * Type folder on computer (local/network).
      *
      * @var string
      */
     const TYPE_FOLDER = 'folder';
 
     /**
-     * Type external storage (HDD/Flash/SD)
+     * Type external storage (HDD/Flash/SD).
      *
      * @var string
      */
     const TYPE_EXTERNAL = 'external';
 
     /**
-     * Type external storage read-only (CD/DVD)
+     * Type external storage read-only (CD/DVD).
      *
      * @var string
      */
     const TYPE_EXTERNAL_R = 'external-r';
 
     /**
-     * Type video storage (DVD/BD/VHS)
+     * Type video storage (DVD/BD/VHS).
      *
      * @var string
      */
@@ -90,7 +87,7 @@ class Storage
     protected $type = '';
 
     /**
-     * Path on computer
+     * Path on computer.
      *
      * @ORM\Column(type="text", nullable=true)
      *
@@ -99,7 +96,7 @@ class Storage
     protected $path = '';
 
     /**
-     * Date last update storage
+     * Date last update storage.
      *
      * @ORM\Column(type="datetime")
      *
@@ -108,7 +105,7 @@ class Storage
     protected $date_update;
 
     /**
-     * Date of files last modified
+     * Date of files last modified.
      *
      * @ORM\Column(type="datetime")
      *
@@ -124,7 +121,7 @@ class Storage
     protected $items;
 
     /**
-     * List old paths
+     * List old paths.
      *
      * @var array
      */
@@ -137,7 +134,7 @@ class Storage
         self::TYPE_FOLDER,
         self::TYPE_EXTERNAL,
         self::TYPE_EXTERNAL_R,
-        self::TYPE_VIDEO
+        self::TYPE_VIDEO,
     ];
 
     /**
@@ -147,7 +144,7 @@ class Storage
         self::TYPE_FOLDER => 'Folder on computer (local/network)',
         self::TYPE_EXTERNAL => 'External storage (HDD/Flash/SD)',
         self::TYPE_EXTERNAL_R => 'External storage read-only (CD/DVD)',
-        self::TYPE_VIDEO => 'Video storage (DVD/BD/VHS)'
+        self::TYPE_VIDEO => 'Video storage (DVD/BD/VHS)',
     ];
 
     public function __construct()
@@ -172,6 +169,7 @@ class Storage
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -191,6 +189,7 @@ class Storage
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -213,6 +212,7 @@ class Storage
             $this->old_paths[] = $this->path;
         }
         $this->path = $path;
+
         return $this;
     }
 
@@ -243,6 +243,7 @@ class Storage
             $this->items->add($item);
             $item->setStorage($this);
         }
+
         return $this;
     }
 
@@ -257,6 +258,7 @@ class Storage
             $this->items->removeElement($item);
             $item->setStorage(null);
         }
+
         return $this;
     }
 
@@ -276,6 +278,7 @@ class Storage
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -304,7 +307,7 @@ class Storage
     }
 
     /**
-     * Get title for current type
+     * Get title for current type.
      *
      * @return string
      */
@@ -314,7 +317,7 @@ class Storage
     }
 
     /**
-     * Get types storage allow write
+     * Get types storage allow write.
      *
      * @return array
      */
@@ -324,7 +327,7 @@ class Storage
     }
 
     /**
-     * Get types storage allow read
+     * Get types storage allow read.
      *
      * @return array
      */
@@ -334,7 +337,7 @@ class Storage
     }
 
     /**
-     * Is path required to fill for current type of storage
+     * Is path required to fill for current type of storage.
      *
      * @return bool
      */
@@ -360,7 +363,7 @@ class Storage
     }
 
     /**
-     * Is valid path for current type
+     * Is valid path for current type.
      *
      * @param ExecutionContextInterface $context
      */
@@ -379,6 +382,7 @@ class Storage
     public function setDateUpdate(\DateTime $date_update)
     {
         $this->date_update = clone $date_update;
+
         return $this;
     }
 
@@ -398,6 +402,7 @@ class Storage
     public function setFileModified(\DateTime $file_modified)
     {
         $this->file_modified = clone $file_modified;
+
         return $this;
     }
 

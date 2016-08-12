@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Repository\Label;
@@ -16,21 +14,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Label
+ * Label.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class LabelController extends BaseController
 {
     /**
-     * Edit labels
+     * Edit labels.
      *
      * @param Request $request
      *
      * @return Response
      */
-    public function indexAction(Request $request) {
+    public function indexAction(Request $request)
+    {
         $response = $this->getCacheTimeKeeper()->getResponse('AnimeDbCatalogBundle:Label');
         // response was not modified for this request
         if ($response->isNotModified($request)) {
@@ -44,11 +42,12 @@ class LabelController extends BaseController
             ->handleRequest($request);
         if ($form->isValid()) {
             $rep->updateListLabels(new ArrayCollection($form->getData()['labels']));
+
             return $this->redirect($this->generateUrl('label'));
         }
 
         return $this->render('AnimeDbCatalogBundle:Label:index.html.twig', [
-            'form'  => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 }

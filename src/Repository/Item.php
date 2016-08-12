@@ -1,20 +1,17 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * @package AnimeDb\Bundle\CatalogBundle\Repository
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item extends EntityRepository
@@ -54,6 +51,7 @@ class Item extends EntityRepository
                 ->setFirstResult($offset)
                 ->setMaxResults($limit);
         }
+
         return $query->getResult();
     }
 

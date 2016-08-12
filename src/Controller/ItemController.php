@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Import\ImportInterface;
@@ -21,102 +19,101 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Item
+ * Item.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ItemController extends BaseController
 {
     /**
-     * Name of session to store item to be added
+     * Name of session to store item to be added.
      *
      * @var string
      */
     const NAME_ITEM_ADDED = '_item_added';
 
     /**
-     * Widget place in content
+     * Widget place in content.
      *
      * @var string
      */
     const WIDGET_PALCE_IN_CONTENT = 'item.in_content';
 
     /**
-     * Widget place right
+     * Widget place right.
      *
      * @var string
      */
     const WIDGET_PALCE_RIGHT = 'item.right';
 
     /**
-     * Widget place bottom
+     * Widget place bottom.
      *
      * @var string
      */
     const WIDGET_PALCE_BOTTOM = 'item.bottom';
 
     /**
-     * Items per page
+     * Items per page.
      *
      * @var int
      */
     const ITEMS_PER_PAGE = 8;
 
     /**
-     * Default limit
+     * Default limit.
      *
      * @var int
      */
     const DEFAULT_LIMIT = 8;
 
     /**
-     * Limit for show all items
+     * Limit for show all items.
      *
      * @var int
      */
     const LIMIT_ALL = 0;
 
     /**
-     * Limit name for show all items
+     * Limit name for show all items.
      *
      * @var int
      */
     const LIMIT_ALL_NAME = 'All (%total%)';
 
     /**
-     * Limits on the number of items per page
+     * Limits on the number of items per page.
      *
      * @var array
      */
     public static $limits = [8, 16, 32, self::LIMIT_ALL];
 
     /**
-     * Sort items by field
+     * Sort items by field.
      *
      * @var array
      */
     public static $sort_by_field = [
-        'name'        => [
+        'name' => [
             'title' => 'Item name',
-            'name'  => 'Name'
+            'name' => 'Name',
         ],
         'date_update' => [
             'title' => 'Last updated item',
-            'name'  => 'Update'
+            'name' => 'Update',
         ],
         'rating' => [
             'title' => 'Item rating',
-            'name'  => 'Rating'
+            'name' => 'Rating',
         ],
-        'date_premiere'  => [
+        'date_premiere' => [
             'title' => 'Date premiere',
-            'name'  => 'Date premiere'
+            'name' => 'Date premiere',
         ],
-        'date_end'    => [
+        'date_end' => [
             'title' => 'End date of issue',
-            'name'  => 'Date end'
-        ]
+            'name' => 'Date end',
+        ],
     ];
 
     /**
@@ -142,12 +139,12 @@ class ItemController extends BaseController
             'item' => $item,
             'widget_bottom' => self::WIDGET_PALCE_BOTTOM,
             'widget_in_content' => self::WIDGET_PALCE_IN_CONTENT,
-            'widget_right' => self::WIDGET_PALCE_RIGHT
+            'widget_right' => self::WIDGET_PALCE_RIGHT,
         ], $response);
     }
 
     /**
-     * Addition form
+     * Addition form.
      *
      * @param Request $request
      *
@@ -174,6 +171,7 @@ class ItemController extends BaseController
             $duplicate = $rep->findDuplicate($item);
             if ($duplicate) {
                 $request->getSession()->set(self::NAME_ITEM_ADDED, $item);
+
                 return $this->redirect($this->generateUrl('item_duplicate'));
             } else {
                 return $this->addItem($item);
@@ -181,12 +179,12 @@ class ItemController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:add-manually.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 
     /**
-     * Change item
+     * Change item.
      *
      * @param Item $item
      * @param Request $request
@@ -202,6 +200,7 @@ class ItemController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+
             return $this->redirect($this->generateUrl(
                 'item_show',
                 ['id' => $item->getId(), 'name' => $item->getName()]
@@ -210,12 +209,12 @@ class ItemController extends BaseController
 
         return $this->render('AnimeDbCatalogBundle:Item:change.html.twig', [
             'item' => $item,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * Delete item
+     * Delete item.
      *
      * @param Item $item
      *
@@ -226,11 +225,12 @@ class ItemController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->remove($item);
         $em->flush();
+
         return $this->redirect($this->generateUrl('home'));
     }
 
     /**
-     * Import items
+     * Import items.
      *
      * @param string $plugin
      * @param Request $request
@@ -251,7 +251,7 @@ class ItemController extends BaseController
         $list = [];
         if ($form->isValid()) {
             // import items
-            $list = (array)$import->import($form->getData());
+            $list = (array) $import->import($form->getData());
 
             // persist entity
             $em = $this->getDoctrine()->getManager();
@@ -266,19 +266,20 @@ class ItemController extends BaseController
 
         return $this->render('AnimeDbCatalogBundle:Item:import.html.twig', [
             'plugin' => $plugin,
-            'items'  => $list,
-            'form'   => $form->createView()
+            'items' => $list,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * Confirm duplicate item
+     * Confirm duplicate item.
      *
      * @param Request $request
      *
      * @return Response
      */
-    public function duplicateAction(Request $request) {
+    public function duplicateAction(Request $request)
+    {
         /* @var $rep ItemRepository */
         $rep = $this->getDoctrine()->getRepository('AnimeDbCatalogBundle:Item');
 
@@ -307,12 +308,12 @@ class ItemController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Item:duplicate.html.twig', [
-            'items' => $duplicate
+            'items' => $duplicate,
         ]);
     }
 
     /**
-     * Add item
+     * Add item.
      *
      * @param Item $item
      *
@@ -323,6 +324,7 @@ class ItemController extends BaseController
         $em = $this->getDoctrine()->getManager();
         $em->persist($item);
         $em->flush();
+
         return $this->redirect($this->generateUrl(
             'item_show',
             ['id' => $item->getId(), 'name' => $item->getName()]
@@ -330,7 +332,7 @@ class ItemController extends BaseController
     }
 
     /**
-     * List items limit control
+     * List items limit control.
      *
      * @param Request $request
      * @param string|int $total
@@ -350,12 +352,12 @@ class ItemController extends BaseController
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/limit.html.twig', [
             'limits' => $controls->getLimits($request->query->all()),
-            'total' => $total
+            'total' => $total,
         ]);
     }
 
     /**
-     * List items sort control
+     * List items sort control.
      *
      * @param Request $request
      *
@@ -369,12 +371,12 @@ class ItemController extends BaseController
         $direction = $controls->getSortDirection($request->query->all());
         $sort_direction = [
             'type' => $direction == 'ASC' ? 'DESC' : 'ASC',
-            'link' => $controls->getSortDirectionLink($request->query->all())
+            'link' => $controls->getSortDirectionLink($request->query->all()),
         ];
 
         return $this->render('AnimeDbCatalogBundle:Item:list_controls/sort.html.twig', [
             'sort_by' => $controls->getSortColumns($request->query->all()),
-            'sort_direction' => $sort_direction
+            'sort_direction' => $sort_direction,
         ]);
     }
 }

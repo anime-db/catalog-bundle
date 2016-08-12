@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\AppBundle\Entity\Plugin;
@@ -16,22 +14,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Plugin
+ * Plugin.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class PluginController extends BaseController
 {
     /**
-     * Cache lifetime 1 day
+     * Cache lifetime 1 day.
      *
      * @var int
      */
     const CACHE_LIFETIME = 86400;
 
     /**
-     * Installed plugins
+     * Installed plugins.
      *
      * @param Request $request
      *
@@ -47,13 +44,14 @@ class PluginController extends BaseController
 
         /* @var $rep EntityRepository */
         $rep = $this->getDoctrine()->getRepository('AnimeDbAppBundle:Plugin');
+
         return $this->render('AnimeDbCatalogBundle:Plugin:installed.html.twig', [
-            'plugins' => $rep->findAll()
+            'plugins' => $rep->findAll(),
         ], $response);
     }
 
     /**
-     * Store of plugins
+     * Store of plugins.
      *
      * @param Request $request
      *
@@ -82,7 +80,7 @@ class PluginController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Plugin:store.html.twig', [
-            'plugins' => $plugins
+            'plugins' => $plugins,
         ], $response);
     }
 }

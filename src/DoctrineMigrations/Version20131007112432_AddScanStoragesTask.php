@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -34,7 +32,7 @@ class Version20131007112432_AddScanStoragesTask extends AbstractMigration
             VALUES
                 (
                     "animedb:scan-storage",
-                    "'.date('Y-m-d 01:00:00', time()+86400).'",
+                    "'.date('Y-m-d 01:00:00', time() + 86400).'",
                     "+1 day",
                     '.Task::STATUS_ENABLED.'
                 )');

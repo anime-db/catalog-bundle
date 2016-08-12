@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -15,13 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Label
+ * Label.
  *
  * @ORM\Entity
  * @ORM\Table(name="label")
  * @ORM\Entity(repositoryClass="AnimeDb\Bundle\CatalogBundle\Repository\Label")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Label
@@ -71,6 +68,7 @@ class Label
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -93,6 +91,7 @@ class Label
             $this->items->add($item);
             $item->addLabel($this);
         }
+
         return $this;
     }
 
@@ -107,6 +106,7 @@ class Label
             $this->items->removeElement($item);
             $item->removeLabel($this);
         }
+
         return $this;
     }
 

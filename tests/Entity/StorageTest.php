@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * Test storage
+ * Test storage.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class StorageTest extends \PHPUnit_Framework_TestCase
@@ -37,7 +34,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             Storage::TYPE_FOLDER,
             Storage::TYPE_EXTERNAL,
             Storage::TYPE_EXTERNAL_R,
-            Storage::TYPE_VIDEO
+            Storage::TYPE_VIDEO,
         ], Storage::getTypes());
     }
 
@@ -47,7 +44,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             Storage::TYPE_FOLDER => 'Folder on computer (local/network)',
             Storage::TYPE_EXTERNAL => 'External storage (HDD/Flash/SD)',
             Storage::TYPE_EXTERNAL_R => 'External storage read-only (CD/DVD)',
-            Storage::TYPE_VIDEO => 'Video storage (DVD/BD/VHS)'
+            Storage::TYPE_VIDEO => 'Video storage (DVD/BD/VHS)',
         ], Storage::getTypeTitles());
     }
 
@@ -55,7 +52,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals([
             Storage::TYPE_FOLDER,
-            Storage::TYPE_EXTERNAL
+            Storage::TYPE_EXTERNAL,
         ], Storage::getTypesWritable());
     }
 
@@ -64,7 +61,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([
             Storage::TYPE_FOLDER,
             Storage::TYPE_EXTERNAL,
-            Storage::TYPE_EXTERNAL_R
+            Storage::TYPE_EXTERNAL_R,
         ], Storage::getTypesReadable());
     }
 
@@ -78,7 +75,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             [Storage::TYPE_FOLDER],
             [Storage::TYPE_EXTERNAL],
             [Storage::TYPE_EXTERNAL_R],
-            [Storage::TYPE_VIDEO]
+            [Storage::TYPE_VIDEO],
         ];
     }
 
@@ -113,6 +110,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         foreach ($this->getTypes() as $type) {
             $params[] = ['isReadable', Storage::getTypesReadable(), $type[0]];
         }
+
         return $params;
     }
 
@@ -141,6 +139,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
         foreach ($this->getTypes() as $type) {
             $params[] = [$type[0], 'foo'];
         }
+
         return $params;
     }
 

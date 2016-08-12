@@ -1,39 +1,36 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller;
 
 /**
- * Element search results
- * 
- * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller
+ * Element search results.
+ *
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item
 {
     /**
-     * Name
+     * Name.
      *
      * @var string
      */
     protected $name = '';
 
     /**
-     * Data for refill item
+     * Data for refill item.
      *
      * @var array
      */
     protected $data = [];
 
     /**
-     * Source
+     * Source.
      *
      * Can set the source to source item to avoid the next search for this item
      *
@@ -42,21 +39,21 @@ class Item
     protected $source = '';
 
     /**
-     * Image
+     * Image.
      *
      * @var string
      */
     protected $image = '';
 
     /**
-     * Description
+     * Description.
      *
      * @var string
      */
     protected $description = '';
 
     /**
-     * Construct
+     * Construct.
      *
      * @param string $name
      * @param array $data
@@ -74,7 +71,7 @@ class Item
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -84,7 +81,7 @@ class Item
     }
 
     /**
-     * Get data for refill item
+     * Get data for refill item.
      *
      * @return array
      */
@@ -94,7 +91,7 @@ class Item
     }
 
     /**
-     * Get source
+     * Get source.
      *
      * @return string
      */
@@ -104,7 +101,7 @@ class Item
     }
 
     /**
-     * Get image
+     * Get image.
      *
      * @return string
      */
@@ -114,7 +111,7 @@ class Item
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */

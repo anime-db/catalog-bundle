@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
@@ -18,9 +16,8 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Search driver use a SQL LIKE for select name
+ * Search driver use a SQL LIKE for select name.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SqlLike implements DriverInterface
@@ -88,7 +85,7 @@ class SqlLike implements DriverInterface
             'total' => $selector
                 ->getQueryTotal()
                 ->getQuery()
-                ->getSingleScalarResult()
+                ->getSingleScalarResult(),
         ];
     }
 

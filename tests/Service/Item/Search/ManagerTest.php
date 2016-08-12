@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Test search manager
+ * Test search manager.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -46,7 +43,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         return [
             [10, 20, 'name', 'ASC'],
             [-10, -20, 'date_update', 'DESC'],
-            [10, -20, 'undefined', 'undefined']
+            [10, -20, 'undefined', 'undefined'],
         ];
     }
 
@@ -69,8 +66,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($expected))
             ->with(
                 $data,
-                $limit > 0 ? (int)$limit : 0,
-                $offset > 0 ? (int)$offset : 0,
+                $limit > 0 ? (int) $limit : 0,
+                $offset > 0 ? (int) $offset : 0,
                 $this->manager->getValidSortColumn($sort_column),
                 $this->manager->getValidSortDirection($sort_direction)
             );

@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
@@ -17,15 +15,14 @@ use Symfony\Component\Form\FormView;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Refill item field gengres
+ * Refill item field gengres.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Gengres extends AbstractType
 {
     /**
-     * View sorter
+     * View sorter.
      *
      * @var ViewSorter
      */
@@ -47,15 +44,15 @@ class Gengres extends AbstractType
     {
         $builder
             ->add('genres', 'entity', [
-                'class'    => 'AnimeDbCatalogBundle:Genre',
+                'class' => 'AnimeDbCatalogBundle:Genre',
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'label'    => false
+                'label' => false,
             ])
             ->add('source', 'hidden', [
                 'required' => false,
-                'label'    => false
+                'label' => false,
             ]);
     }
 

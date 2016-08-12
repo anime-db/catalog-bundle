@@ -1,32 +1,29 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 /**
- * Lazy write output
+ * Lazy write output.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class LazyWrite extends Decorator
 {
     /**
-     * Write stack
+     * Write stack.
      *
      * @var array
      */
     protected $stack = [];
 
     /**
-     * Save messages in stack
+     * Save messages in stack.
      *
      * @var bool
      */
@@ -40,7 +37,7 @@ class LazyWrite extends Decorator
     public function write($messages, $newline = false, $type = self::OUTPUT_NORMAL)
     {
         if ($this->lazy_write) {
-            $messages = (array)$messages;
+            $messages = (array) $messages;
             foreach ($messages as $message) {
                 $this->stack[] = [$message.($newline ? PHP_EOL : ''), $type];
             }
@@ -56,7 +53,7 @@ class LazyWrite extends Decorator
     public function writeln($messages, $type = self::OUTPUT_NORMAL)
     {
         if ($this->lazy_write) {
-            $messages = (array)$messages;
+            $messages = (array) $messages;
             foreach ($messages as $message) {
                 $this->stack[] = [$message, $type];
             }
@@ -66,7 +63,7 @@ class LazyWrite extends Decorator
     }
 
     /**
-     * Write all messages from stack
+     * Write all messages from stack.
      */
     public function writeAll()
     {

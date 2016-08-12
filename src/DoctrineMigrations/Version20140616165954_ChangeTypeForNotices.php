@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -55,21 +53,21 @@ class Version20140616165954_ChangeTypeForNotices extends AbstractMigration
     }
 
     /**
-     * Get notice types
+     * Get notice types.
      *
      * @return array
      */
     public function getNoticeTypes()
     {
         return [
-            'Detected and added new item '           => 'added_new_item',
-            'Files for item '                        => 'item_files_not_found',
-            'Detected files for new item '           => 'detected_files_for_new_item',
+            'Detected and added new item ' => 'added_new_item',
+            'Files for item ' => 'item_files_not_found',
+            'Detected files for new item ' => 'detected_files_for_new_item',
             'Changes are detected in files of item ' => 'updated_item_files',
-            'Обнаружена и добавлена новая запись '   => 'added_new_item',
-            'Файлы для записи '                      => 'item_files_not_found',
-            'Обнаружены файлы для новой записи '     => 'detected_files_for_new_item',
-            'Обнаружены изменения файлов записи '    => 'updated_item_files'
+            'Обнаружена и добавлена новая запись ' => 'added_new_item',
+            'Файлы для записи ' => 'item_files_not_found',
+            'Обнаружены файлы для новой записи ' => 'detected_files_for_new_item',
+            'Обнаружены изменения файлов записи ' => 'updated_item_files',
         ];
     }
 }

@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 
 /**
- * Chain items
+ * Chain items.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Chain
@@ -38,6 +35,7 @@ class Chain
     public function addPublicItem(Item $item)
     {
         $this->public_items[] = $item;
+
         return $this;
     }
 
@@ -49,6 +47,7 @@ class Chain
     public function addDebugItem(Item $item)
     {
         $this->debug_items[] = $item;
+
         return $this;
     }
 

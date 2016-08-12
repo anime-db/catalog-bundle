@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener\Entity;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Entity\Storage;
@@ -15,15 +13,14 @@ use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
- * Test storage entity listener
+ * Test storage entity listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Console\Progress
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class StorageTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Root dir
+     * Root dir.
      *
      * @var string
      */
@@ -234,6 +231,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase
             ->expects($this->atLeastOnce())
             ->method('getEntity')
             ->will($this->returnValue($storage));
+
         return $args;
     }
 

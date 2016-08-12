@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
@@ -15,7 +13,6 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Plugin;
 /**
  * @deprecated use RefillerInterface
  *
- * @package AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Refiller extends Plugin implements RefillerInterface
@@ -37,6 +34,6 @@ abstract class Refiller extends Plugin implements RefillerInterface
         self::FIELD_SOURCES,
         self::FIELD_STUDIO,
         self::FIELD_SUMMARY,
-        self::FIELD_TRANSLATE
+        self::FIELD_TRANSLATE,
     ];
 }

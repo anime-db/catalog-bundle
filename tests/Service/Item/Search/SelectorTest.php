@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
 /**
- * Test selector
+ * Test selector.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service\Item\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SelectorTest extends \PHPUnit_Framework_TestCase

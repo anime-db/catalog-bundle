@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Item;
@@ -15,9 +13,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Type;
 use AnimeDb\Bundle\CatalogBundle\Entity\Widget\Genre;
 
 /**
- * Test item widget
+ * Test item widget.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Entity\Widget
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ItemTest extends \PHPUnit_Framework_TestCase
@@ -33,7 +30,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get/set type
+     * Test get/set type.
      */
     public function testType()
     {
@@ -52,7 +49,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get/set genre
+     * Test get/set genre.
      */
     public function testGenre()
     {

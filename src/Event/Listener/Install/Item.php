@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener\Install;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Country;
@@ -20,7 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * Install item
+ * Install item.
  *
  * <code>
  * $item = (new Item($em))
@@ -28,7 +26,6 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
  *     ->getItem();
  * </code>
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener\Install
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 abstract class Item
@@ -67,7 +64,7 @@ abstract class Item
     }
 
     /**
-     * Set storage
+     * Set storage.
      *
      * Heir sets the path to the item files
      *
@@ -78,6 +75,7 @@ abstract class Item
     public function setStorage(Storage $storage)
     {
         $this->getItem()->setStorage($storage);
+
         return $this;
     }
 
@@ -89,6 +87,7 @@ abstract class Item
         if (!$this->item) {
             $this->item = $this->buildItem();
         }
+
         return $this->item;
     }
 

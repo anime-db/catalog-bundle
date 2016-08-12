@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item\Search;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Search;
 
 /**
- * Item search
+ * Item search.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Item\Search
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Manager
@@ -43,7 +40,7 @@ class Manager
         'date_update',
         'rating',
         'date_premiere',
-        'date_end'
+        'date_end',
     ];
 
     /**
@@ -51,7 +48,7 @@ class Manager
      */
     public static $sort_direction = [
         'DESC',
-        'ASC'
+        'ASC',
     ];
 
     /**
@@ -80,8 +77,8 @@ class Manager
     ) {
         return $this->driver->search(
             $data,
-            ($limit > 0 ? (int)$limit : 0),
-            ($offset > 0 ? (int)$offset : 0),
+            ($limit > 0 ? (int) $limit : 0),
+            ($offset > 0 ? (int) $offset : 0),
             $this->getValidSortColumn($sort_column),
             $this->getValidSortDirection($sort_direction)
         );

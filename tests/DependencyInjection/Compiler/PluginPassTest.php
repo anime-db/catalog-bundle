@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\DependencyInjection\Compiler;
 
 use AnimeDb\Bundle\CatalogBundle\DependencyInjection\Compiler\PluginPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Test plugin pass
+ * Test plugin pass.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\DependencyInjection\Compiler
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class PluginPassTest extends \PHPUnit_Framework_TestCase
@@ -32,7 +29,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
     protected $compiler;
 
     /**
-     * Chains
+     * Chains.
      *
      * @var array
      */
@@ -43,7 +40,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         'anime_db.plugin.import' => 'anime_db.import',
         'anime_db.plugin.export' => 'anime_db.export',
         'anime_db.plugin.item' => 'anime_db.item',
-        'anime_db.plugin.setting' => 'anime_db.setting'
+        'anime_db.plugin.setting' => 'anime_db.setting',
     ];
 
     protected function setUp()
@@ -71,22 +68,22 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
         $that = $this;
         foreach (array_keys($this->chains) as $i => $chain_name) {
             $services = [
-                $i+1 => [],
-                $i+2 => [],
+                $i + 1 => [],
+                $i + 2 => [],
             ];
             $definition = $this->getMock('\Symfony\Component\DependencyInjection\Definition');
             $this->container
-                ->expects($this->at($i*3))
+                ->expects($this->at($i * 3))
                 ->method('has')
                 ->with($chain_name)
                 ->will($this->returnValue(true));
             $this->container
-                ->expects($this->at(($i*3)+1))
+                ->expects($this->at(($i * 3) + 1))
                 ->method('findDefinition')
                 ->with($chain_name)
                 ->will($this->returnValue($definition));
             $this->container
-                ->expects($this->at(($i*3)+2))
+                ->expects($this->at(($i * 3) + 2))
                 ->method('findTaggedServiceIds')
                 ->will($this->returnValue($services))
                 ->with($this->chains[$chain_name]);
@@ -97,7 +94,7 @@ class PluginPassTest extends \PHPUnit_Framework_TestCase
                     ->will($this->returnCallback(function ($method, $reference) use ($that, $id) {
                         $that->assertInternalType('array', $reference);
                         $that->assertInstanceOf('\Symfony\Component\DependencyInjection\Reference', $reference[0]);
-                        $that->assertEquals($id, (string)$reference[0]);
+                        $that->assertEquals($id, (string) $reference[0]);
                     }))
                     ->with('addPlugin');
             }

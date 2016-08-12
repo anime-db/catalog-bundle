@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Component\Form\Form;
@@ -26,15 +24,14 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Fill
+ * Fill.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class FillController extends BaseController
 {
     /**
-     * Create new item from source fill
+     * Create new item from source fill.
      *
      * @param string $plugin
      * @param Request $request
@@ -80,7 +77,7 @@ class FillController extends BaseController
     }
 
     /**
-     * Search source fill for item
+     * Search source fill for item.
      *
      * @param string $plugin
      * @param Request $request
@@ -120,12 +117,12 @@ class FillController extends BaseController
             'plugin' => $plugin,
             'plugin_name' => $search->getTitle(),
             'list' => $list,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 
     /**
-     * Search source fill for item
+     * Search source fill for item.
      *
      * @param Request $request
      *
@@ -148,12 +145,12 @@ class FillController extends BaseController
 
         return $this->render('AnimeDbCatalogBundle:Fill:search_in_all.html.twig', [
             'plugins' => $chain->getPlugins(),
-            'form'   => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 
     /**
-     * Search filler by URL for fill item
+     * Search filler by URL for fill item.
      *
      * @param Request $request
      *
@@ -178,12 +175,12 @@ class FillController extends BaseController
         }
 
         return $this->render('AnimeDbCatalogBundle:Fill:search_filler.html.twig', [
-            'form'   => $form->createView()
+            'form' => $form->createView(),
         ], $response);
     }
 
     /**
-     * Get response from plugins chain
+     * Get response from plugins chain.
      *
      * @param Chain $chain
      *

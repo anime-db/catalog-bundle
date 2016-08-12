@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters;
@@ -24,9 +22,8 @@ use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item;
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Install\Item\Chain;
 
 /**
- * Install listener
+ * Install listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Install
@@ -89,7 +86,7 @@ class Install
         'Watching',
         'Views',
         'Postponed',
-        'Dropped'
+        'Dropped',
     ];
 
     /**
@@ -205,8 +202,10 @@ class Install
                 ->addLabel($label)
             );
             $this->fs->copy($this->getOriginCover($item), $this->getTargetCover($item));
+
             return true;
         }
+
         return false;
     }
 
@@ -220,6 +219,7 @@ class Install
         if (!$this->origin_dir) {
             $this->origin_dir = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/private/images/');
         }
+
         return $this->origin_dir.$item->getItem()->getCover();
     }
 

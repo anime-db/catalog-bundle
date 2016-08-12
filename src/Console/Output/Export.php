@@ -1,35 +1,32 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Console\Output;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
- * Export output to file
+ * Export output to file.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Console\Output
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Export extends Decorator
 {
     /**
-     * File handle
+     * File handle.
      *
      * @var resource
      */
     protected $handle;
 
     /**
-     * Append to end file
+     * Append to end file.
      *
      * @var bool
      */
@@ -52,7 +49,7 @@ class Export extends Decorator
         if (!($this->handle = @fopen($filename, 'w'))) {
             throw new IOException('Failed to open the export file: '.$filename);
         }
-        if (!flock($this->handle, LOCK_EX|LOCK_NB)) {
+        if (!flock($this->handle, LOCK_EX | LOCK_NB)) {
             throw new IOException('Failed to lock the export file: '.$filename);
         }
     }
@@ -84,7 +81,7 @@ class Export extends Decorator
      */
     protected function writeToFile($messages, $newline)
     {
-        $messages = (array)$messages;
+        $messages = (array) $messages;
         foreach ($messages as $key => $message) {
             $messages[$key] = strip_tags($message).($newline ? PHP_EOL : '');
         }
@@ -98,7 +95,8 @@ class Export extends Decorator
         fwrite($this->handle, implode('', $messages));
     }
 
-    public function unlock() {
+    public function unlock()
+    {
         if (is_resource($this->handle)) {
             flock($this->handle, LOCK_UN);
             fclose($this->handle);

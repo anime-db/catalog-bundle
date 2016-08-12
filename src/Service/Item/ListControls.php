@@ -1,21 +1,18 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Service\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 
 /**
- * Item list controls service
+ * Item list controls service.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Service\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ListControls
@@ -26,52 +23,52 @@ class ListControls
     const DEFAULT_LIMIT = 8;
 
     /**
-     * Limit for show all items
+     * Limit for show all items.
      *
      * @var int
      */
     const LIMIT_ALL = 0;
 
     /**
-     * Limit name for show all items
+     * Limit name for show all items.
      *
      * @var int
      */
     const LIMIT_ALL_NAME = 'All (%total%)';
 
     /**
-     * Limits on the number of items per page
+     * Limits on the number of items per page.
      *
      * @var array
      */
     public static $limits = [8, 16, 32, self::LIMIT_ALL];
 
     /**
-     * Sort items by column
+     * Sort items by column.
      *
      * @var array
      */
     public static $sort_by_column = [
-        'name'        => [
+        'name' => [
             'title' => 'Item name',
-            'name'  => 'Name'
+            'name' => 'Name',
         ],
         'date_update' => [
             'title' => 'Last updated item',
-            'name'  => 'Update'
+            'name' => 'Update',
         ],
         'rating' => [
             'title' => 'Item rating',
-            'name'  => 'Rating'
+            'name' => 'Rating',
         ],
-        'date_premiere'  => [
+        'date_premiere' => [
             'title' => 'Date premiere',
-            'name'  => 'Date premiere'
+            'name' => 'Date premiere',
         ],
-        'date_end'    => [
+        'date_end' => [
             'title' => 'End date of issue',
-            'name'  => 'Date end'
-        ]
+            'name' => 'Date end',
+        ],
     ];
 
     /**
@@ -88,7 +85,7 @@ class ListControls
     }
 
     /**
-     * Get limit list items
+     * Get limit list items.
      *
      * @param array $query
      *
@@ -97,13 +94,14 @@ class ListControls
     public function getLimit(array $query = [])
     {
         if (isset($query['limit']) && is_numeric($query['limit']) && in_array($query['limit'], self::$limits)) {
-            return (int)$query['limit'];
+            return (int) $query['limit'];
         }
+
         return self::DEFAULT_LIMIT;
     }
 
     /**
-     * Get list limits
+     * Get list limits.
      *
      * @param array $query
      *
@@ -119,7 +117,7 @@ class ListControls
                 'link' => '?'.http_build_query(array_merge($query, ['limit' => $limit])),
                 'name' => $limit ? $limit : self::LIMIT_ALL_NAME,
                 'count' => $limit,
-                'current' => $current_limit == $limit
+                'current' => $current_limit == $limit,
             ];
         }
 
@@ -154,9 +152,10 @@ class ListControls
                 'current' => $current_sort_by == $column,
                 'link' => '?'.http_build_query(
                     array_merge($query, ['sort_by' => $column])
-                )
+                ),
             ];
         }
+
         return $sort_by;
     }
 
@@ -168,6 +167,7 @@ class ListControls
     public function getSortDirection(array $query = [])
     {
         $sort_direction = isset($query['sort_direction']) ? $query['sort_direction'] : null;
+
         return $this->searcher->getValidSortDirection($sort_direction);
     }
 
@@ -179,6 +179,7 @@ class ListControls
     public function getSortDirectionLink(array $query = [])
     {
         $direction = $this->getSortDirection($query) == 'ASC' ? 'DESC' : 'ASC';
+
         return '?'.http_build_query(
             array_merge($query, ['sort_direction' => $direction])
         );

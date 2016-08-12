@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -17,12 +15,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Translatable;
 
 /**
- * Genre
+ * Genre.
  *
  * @ORM\Entity
  * @ORM\Table(name="genre")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Genre implements Translatable
@@ -53,7 +50,7 @@ class Genre implements Translatable
     protected $items;
 
     /**
-     * Entity locale
+     * Entity locale.
      *
      * @Gedmo\Locale
      *
@@ -82,6 +79,7 @@ class Genre implements Translatable
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -104,6 +102,7 @@ class Genre implements Translatable
             $this->items->add($item);
             $item->addGenre($this);
         }
+
         return $this;
     }
 
@@ -118,6 +117,7 @@ class Genre implements Translatable
             $this->items->removeElement($item);
             $item->removeGenre($this);
         }
+
         return $this;
     }
 
@@ -137,6 +137,7 @@ class Genre implements Translatable
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 

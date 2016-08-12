@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity\Widget;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
 
 /**
- * Widget item
+ * Widget item.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity\Widget
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Item
@@ -32,7 +29,7 @@ class Item
     protected $name = '';
 
     /**
-     * Link to a item in an external catalog
+     * Link to a item in an external catalog.
      *
      * @var string
      */
@@ -44,7 +41,7 @@ class Item
     protected $link_for_fill = '';
 
     /**
-     * Item in local catalog if have
+     * Item in local catalog if have.
      *
      * @return Item|null
      */
@@ -60,8 +57,9 @@ class Item
      */
     protected $genres;
 
-    public function __construct() {
-        $this->genres  = new ArrayCollection();
+    public function __construct()
+    {
+        $this->genres = new ArrayCollection();
     }
 
     /**
@@ -72,6 +70,7 @@ class Item
     public function setCover($cover)
     {
         $this->cover = $cover;
+
         return $this;
     }
 
@@ -91,6 +90,7 @@ class Item
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -110,6 +110,7 @@ class Item
     public function setLink($link)
     {
         $this->link = $link;
+
         return $this;
     }
 
@@ -129,6 +130,7 @@ class Item
     public function setLinkForFill($link)
     {
         $this->link_for_fill = $link;
+
         return $this;
     }
 
@@ -148,11 +150,12 @@ class Item
     public function setItem(ItemEntity $item = null)
     {
         $this->item = $item;
+
         return $this;
     }
 
     /**
-     * Get item
+     * Get item.
      *
      * @return ItemEntity|null
      */
@@ -162,7 +165,7 @@ class Item
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param Type $type
      *
@@ -174,6 +177,7 @@ class Item
             $this->type = $type;
             $type->setItem($this);
         }
+
         return $this;
     }
 
@@ -196,6 +200,7 @@ class Item
             $this->genres->add($genre);
             $genre->setItem($this);
         }
+
         return $this;
     }
 

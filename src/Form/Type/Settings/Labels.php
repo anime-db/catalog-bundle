@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Settings;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,9 +16,8 @@ use Symfony\Component\Form\FormInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\ViewSorter;
 
 /**
- * Labels form
+ * Labels form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Settings
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Labels extends AbstractType
@@ -46,15 +43,15 @@ class Labels extends AbstractType
     {
         $builder
             ->add('labels', 'collection', [
-                'type'         => new Label(),
-                'allow_add'    => true,
+                'type' => new Label(),
+                'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'required'     => false,
-                'label'        => false,
-                'options'      => [
-                    'required' => false
-                ]
+                'required' => false,
+                'label' => false,
+                'options' => [
+                    'required' => false,
+                ],
             ]);
     }
 

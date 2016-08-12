@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
 use Symfony\Component\Form\AbstractType;
@@ -15,9 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Image;
 
 /**
- * Refill item field images
+ * Refill item field images.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Images extends AbstractType
@@ -30,18 +27,18 @@ class Images extends AbstractType
     {
         $builder
             ->add('images', 'collection', [
-                'type'         => new Image(),
-                'allow_add'    => false,
+                'type' => new Image(),
+                'allow_add' => false,
                 'by_reference' => false,
                 'allow_delete' => true,
-                'label'        => false,
-                'options'      => [
-                    'required' => false
-                ]
+                'label' => false,
+                'options' => [
+                    'required' => false,
+                ],
             ])
             ->add('source', 'hidden', [
                 'required' => false,
-                'label'    => false
+                'label' => false,
             ]);
     }
 

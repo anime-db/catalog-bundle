@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 
 use Symfony\Component\Form\AbstractType;
@@ -18,9 +16,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
 use AnimeDb\Bundle\AppBundle\Util\Filesystem;
 
 /**
- * Storage form
+ * Storage form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Storage extends AbstractType
@@ -33,21 +30,21 @@ class Storage extends AbstractType
     {
         $builder
             ->add('name', null, [
-                'label' => 'Name'
+                'label' => 'Name',
             ])
             ->add('path', new LocalPathField(), [
                 'label' => 'Path',
                 'required' => false,
                 'attr' => [
-                    'placeholder' => Filesystem::getUserHomeDir()
-                ]
+                    'placeholder' => Filesystem::getUserHomeDir(),
+                ],
             ])
             ->add('type', 'choice', [
                 'choices' => StorageEntity::getTypeTitles(),
-                'label' => 'Type'
+                'label' => 'Type',
             ])
             ->add('description', null, [
-                'label' => 'Description'
+                'label' => 'Description',
             ]);
     }
 
@@ -57,7 +54,7 @@ class Storage extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Storage'
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Storage',
         ]);
     }
 

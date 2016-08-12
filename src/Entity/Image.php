@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -16,12 +14,11 @@ use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\BaseEntity;
 use AnimeDb\Bundle\AppBundle\Service\Downloader\Entity\ImageInterface;
 
 /**
- * Item images
+ * Item images.
  *
  * @ORM\Entity
  * @ORM\Table(name="image")
  *
- * @package AnimeDb\Bundle\CatalogBundle\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Image extends BaseEntity implements ImageInterface
@@ -67,6 +64,7 @@ class Image extends BaseEntity implements ImageInterface
     public function setSource($source)
     {
         $this->setFilename($source);
+
         return $this;
     }
 
@@ -95,6 +93,7 @@ class Image extends BaseEntity implements ImageInterface
     {
         $this->source = $filename;
         parent::setFilename($filename);
+
         return $this;
     }
 
@@ -118,6 +117,7 @@ class Image extends BaseEntity implements ImageInterface
                 $this->item->addImage($this);
             }
         }
+
         return $this;
     }
 

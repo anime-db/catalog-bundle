@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Event\Storage;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -16,9 +14,8 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Item;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Filler\FillerInterface;
 
 /**
- * Event thrown when a new item is added
+ * Event thrown when a new item is added.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Event\Storage
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class AddNewItem extends Event
@@ -69,6 +66,7 @@ class AddNewItem extends Event
         if (!$this->fillers->contains($filler)) {
             $this->fillers->add($filler);
         }
+
         return $this;
     }
 }

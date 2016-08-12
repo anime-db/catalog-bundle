@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener;
 
 use AnimeDb\Bundle\CatalogBundle\Event\Listener\Package;
@@ -15,9 +13,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
- * Test package listener
+ * Test package listener.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Event\Listener
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class PackageTest extends \PHPUnit_Framework_TestCase
@@ -34,7 +31,7 @@ class PackageTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onUpdate',
-                'foo'
+                'foo',
             ],
             [
                 $this
@@ -42,7 +39,7 @@ class PackageTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onInstall',
-                'foo'
+                'foo',
             ],
             [
                 $this
@@ -50,7 +47,7 @@ class PackageTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onUpdate',
-                'anime-db/catalog-bundle'
+                'anime-db/catalog-bundle',
             ],
             [
                 $this
@@ -58,8 +55,8 @@ class PackageTest extends \PHPUnit_Framework_TestCase
                     ->disableOriginalConstructor()
                     ->getMock(),
                 'onInstall',
-                'anime-db/catalog-bundle'
-            ]
+                'anime-db/catalog-bundle',
+            ],
         ];
     }
 

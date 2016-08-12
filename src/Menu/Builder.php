@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Menu;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\PluginInMenuInterface;
@@ -23,16 +21,15 @@ use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain as ChainSearch;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Item\ItemInterface as ItemPluginInterface;
 
 /**
- * Menu builder
+ * Menu builder.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Menu
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Builder extends ContainerAware
 {
     /**
-     * Link to guide by update the application on Windows XP
-     * 
+     * Link to guide by update the application on Windows XP.
+     *
      * @var string
      */
     const GUIDE_LINK = '/guide/';
@@ -134,7 +131,7 @@ class Builder extends ContainerAware
     }
 
     /**
-     * Add plugin items in menu
+     * Add plugin items in menu.
      *
      * @param Chain $chain
      * @param ItemInterface $root
@@ -179,7 +176,7 @@ class Builder extends ContainerAware
         $menu = $factory->createItem('root');
         $params = [
             'id' => $item->getId(),
-            'name' => $item->getUrlName()
+            'name' => $item->getUrlName(),
         ];
 
         $menu->addChild('Change record', ['route' => 'item_change', 'routeParameters' => $params])

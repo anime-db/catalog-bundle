@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Entity;
 
 use Symfony\Component\Form\AbstractType;
@@ -15,9 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Source form
+ * Source form.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Entity
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class Source extends AbstractType
@@ -37,7 +34,7 @@ class Source extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Source'
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\Source',
         ]);
     }
 

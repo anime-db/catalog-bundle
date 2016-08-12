@@ -1,13 +1,11 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin;
 
 use Symfony\Component\Form\AbstractType;
@@ -15,15 +13,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Search filler by URL
+ * Search filler by URL.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class SearchFiller extends AbstractType
 {
     /**
-     * Form name
+     * Form name.
      *
      * @var string
      */
@@ -52,7 +49,7 @@ class SearchFiller extends AbstractType
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
-            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller'
+            'data_class' => 'AnimeDb\Bundle\CatalogBundle\Entity\SearchFiller',
         ]);
     }
 

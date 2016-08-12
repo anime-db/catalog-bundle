@@ -1,22 +1,19 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service\Item;
 
 use AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager;
 
 /**
- * Test list controls
+ * Test list controls.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Tests\Service\Item
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class ListControlsTest extends \PHPUnit_Framework_TestCase
@@ -52,7 +49,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
             [['my_key' => 'my_var', 'limit' => ListControls::LIMIT_ALL], ListControls::LIMIT_ALL],
             [['my_key' => 'my_var', 'limit' => 100], ListControls::DEFAULT_LIMIT],
             [['my_key' => 'my_var', 'limit' => 'undefined'], ListControls::DEFAULT_LIMIT],
-            [['my_key' => 'my_var'], ListControls::DEFAULT_LIMIT]
+            [['my_key' => 'my_var'], ListControls::DEFAULT_LIMIT],
         ];
     }
 
@@ -81,7 +78,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
                 'link' => '?'.http_build_query(array_merge($query, ['limit' => $limit])),
                 'name' => $limit ? $limit : ListControls::LIMIT_ALL_NAME,
                 'count' => $limit,
-                'current' => $expected == $limit
+                'current' => $expected == $limit,
             ];
         }
         $this->assertEquals($limits, $this->controls->getLimits($query));
@@ -137,7 +134,7 @@ class ListControlsTest extends \PHPUnit_Framework_TestCase
                 'current' => $expected == $column,
                 'link' => '?'.http_build_query(
                     array_merge($query, ['sort_by' => $column])
-                )
+                ),
             ];
         }
 

@@ -1,42 +1,39 @@
 <?php
 /**
- * AnimeDb package
+ * AnimeDb package.
  *
- * @package   AnimeDb
  * @author    Peter Gribanov <info@peter-gribanov.ru>
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * System update
+ * System update.
  *
- * @package AnimeDb\Bundle\CatalogBundle\Controller
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
 class UpdateController extends BaseController
 {
     /**
-     * Message identifies the end of the update
+     * Message identifies the end of the update.
      *
      * @var string
      */
     const END_MESSAGE = 'Updating the application has been completed';
 
     /**
-     * Link to guide by update the application on Windows XP
-     * 
+     * Link to guide by update the application on Windows XP.
+     *
      * @var string
      */
     const GUIDE_LINK = '/guide/general/update.html#update-win-xp';
 
     /**
-     * Update page
+     * Update page.
      *
      * @param Request $request
      *
@@ -74,12 +71,12 @@ class UpdateController extends BaseController
             'doc' => !$can_update ? $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK) : '',
             'referer' => $request->headers->get('referer'),
             'plugin' => $action ? $plugin : [],
-            'action' => $action
+            'action' => $action,
         ], $response);
     }
 
     /**
-     * Get action
+     * Get action.
      *
      * @param array $plugin
      *
@@ -94,11 +91,12 @@ class UpdateController extends BaseController
         } elseif (!empty($plugin['install'])) {
             return 'install';
         }
+
         return '';
     }
 
     /**
-     * Get plugin
+     * Get plugin.
      *
      * @param string $plugin
      *
@@ -108,14 +106,15 @@ class UpdateController extends BaseController
     {
         try {
             list($vendor, $package) = explode('/', $plugin);
+
             return $this->get('anime_db.api.client')->getPlugin($vendor, $package);
         } catch (\RuntimeException $e) {
-            return null;
+            return;
         }
     }
 
     /**
-     * Execute update application
+     * Execute update application.
      *
      * @return Response
      */
@@ -133,7 +132,7 @@ class UpdateController extends BaseController
 
         return $this->render('AnimeDbCatalogBundle:Update:execute.html.twig', [
             'log_file' => '/update.log',
-            'end_message' => self::END_MESSAGE
+            'end_message' => self::END_MESSAGE,
         ]);
     }
 }
