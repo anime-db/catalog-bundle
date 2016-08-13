@@ -13,7 +13,6 @@ use AnimeDb\Bundle\CatalogBundle\Repository\Item;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\DriverInterface;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Search driver use a SQL LIKE for select name.
@@ -101,12 +100,14 @@ class SqlLike implements DriverInterface
             return [];
         }
 
-        /* @var $selector QueryBuilder */
-        $selector = $this->repository->createQueryBuilder('i');
-        $selector
+        $selector = $this
+            ->repository
+            ->createQueryBuilder('i')
             ->innerJoin('i.names', 'n')
-            ->andWhere('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
-            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF8')).'%');
+            ->where('LOWER(i.name) LIKE :name')
+            ->orWhere('LOWER(n.name) LIKE :name')
+            ->setParameter('name', preg_replace('/%+/', '%%', mb_strtolower($name, 'UTF-8')).'%')
+            ->groupBy('i');
 
         if ($limit > 0) {
             $selector->setMaxResults($limit);
@@ -114,7 +115,6 @@ class SqlLike implements DriverInterface
 
         // get items
         return $selector
-            ->groupBy('i')
             ->getQuery()
             ->getResult();
     }
