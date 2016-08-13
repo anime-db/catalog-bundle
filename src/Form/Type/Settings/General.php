@@ -11,7 +11,6 @@ namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Settings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\Chain;
-use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Search\SearchInterface;
 
 /**
  * General settings form.
@@ -40,7 +39,6 @@ class General extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $search_choices = ['' => 'No'];
-        /* @var $plugin SearchInterface */
         foreach ($this->chain->getPlugins() as $plugin) {
             $search_choices[$plugin->getName()] = $plugin->getTitle();
         }

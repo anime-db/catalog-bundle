@@ -24,11 +24,11 @@ class Label extends EntityRepository
     public function updateListLabels(ArrayCollection $new_labels)
     {
         $old_label = new ArrayCollection($this->findAll());
-        // remove labals
+        // remove labels
         foreach ($old_label as $label) {
             if (!$new_labels->contains($label)) {
-                /* @var $item ItemEntity */
                 foreach ($label->getItems() as $item) {
+                    /* @var $item ItemEntity */
                     $item->removeLabel($label);
                 }
                 $this->getEntityManager()->remove($label);
@@ -41,6 +41,7 @@ class Label extends EntityRepository
                 $this->getEntityManager()->persist($label);
             }
         }
+
         $this->getEntityManager()->flush();
     }
 }
