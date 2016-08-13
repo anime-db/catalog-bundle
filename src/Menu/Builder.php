@@ -29,7 +29,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class Builde
+class Builder
 {
     /**
      * Link to guide by update the application on Windows XP.
