@@ -48,8 +48,8 @@ module.exports = function(grunt) {
                     '<%= project.src.node %>Hinclude/hinclude.js',
                     '<%= project.src.node %>jquery-form/jquery.form.js',
                     '<%= project.src.vendor %>*',
-                    '<%= project.src.js %>form.js',
-                    '<%= project.src.js %>lib.js',
+                    '<%= project.src.js %>form/*',
+                    '<%= project.src.js %>lib/*',
                     '<%= project.src.js %>main.js'
                 ],
                 dest: '<%= project.dist.js %>main.js'

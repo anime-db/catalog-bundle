@@ -58,7 +58,7 @@ class Item extends EntityRepository
     /**
      * @param ItemEntity $item
      *
-     * @return array
+     * @return ItemEntity[]
      */
     public function findDuplicate(ItemEntity $item)
     {

@@ -1561,1083 +1561,1188 @@ b.current,e=d.title,c=a.type;f.isFunction(e)&&(e=e.call(d.element,d));if(q(e)&&"
 e=f(this),c=this.selector||"",k=function(g){var h=f(this).blur(),j=d,k,l;!g.ctrlKey&&(!g.altKey&&!g.shiftKey&&!g.metaKey)&&!h.is(".fancybox-wrap")&&(k=a.groupAttr||"data-fancybox-group",l=h.attr(k),l||(k="rel",l=h.get(0)[k]),l&&(""!==l&&"nofollow"!==l)&&(h=c.length?f(c):e,h=h.filter("["+k+'="'+l+'"]'),j=h.index(this)),a.index=j,!1!==b.open(h,a)&&g.preventDefault())};a=a||{};d=a.index||0;!c||!1===a.live?e.unbind("click.fb-start").bind("click.fb-start",k):p.undelegate(c,"click.fb-start").delegate(c+
 ":not('.fancybox-item, .fancybox-nav')","click.fb-start",k);this.filter("[data-fancybox-start=1]").trigger("click");return this};p.ready(function(){var a,d;f.scrollbarWidth===v&&(f.scrollbarWidth=function(){var a=f('<div style="width:50px;height:50px;overflow:auto"><div/></div>').appendTo("body"),b=a.children(),b=b.innerWidth()-b.height(99).innerWidth();a.remove();return b});if(f.support.fixedPosition===v){a=f.support;d=f('<div style="position:fixed;top:20px;"></div>').appendTo("body");var e=20===
 d[0].offsetTop||15===d[0].offsetTop;d.remove();a.fixedPosition=e}f.extend(b.defaults,{scrollbarWidth:f.scrollbarWidth(),fixed:f.support.fixedPosition,parent:f("body")});a=f(r).width();J.addClass("fancybox-lock-test");d=f(r).width();J.removeClass("fancybox-lock-test");f("<style type='text/css'>.fancybox-margin{margin-right:"+(d-a)+"px;}</style>").appendTo("head")})})(window,document,jQuery);
-/**
- * Form collection
- */
+var CheckAllToggle = function(checker, list) {
+    this.checker = checker;
+    this.list = list;
+    var that = this;
+    this.checker.click(function(){
+        that.change();
+    });
+    for (var i in this.list) {
+        this.list[i].setToggle(this);
+    }
+};
+CheckAllToggle.prototype = {
+    change: function() {
+        if (this.checker.is(':checked')) {
+            this.all();
+        } else {
+            this.neither();
+        }
+    },
+    all: function() {
+        for (var i in this.list) {
+            this.list[i].check();
+        }
+    },
+    neither: function() {
+        for (var i in this.list) {
+            this.list[i].uncheck();
+        }
+    }
+};
+// Check all node
+var CheckAllNode = function(checkbox) {
+    this.checkbox = checkbox;
+    this.toggle = null;
+    var that = this;
+    this.checkbox.click(function(){
+        that.change();
+    });
+};
+CheckAllNode.prototype = {
+    change: function() {
+        if (!this.checkbox.is(':checked') && this.toggle) {
+            this.toggle.checker.prop('checked', false);
+        }
+    },
+    check: function() {
+        this.checkbox.prop('checked', true);
+    },
+    uncheck: function() {
+        this.checkbox.prop('checked', false);
+    },
+    setToggle: function(toggle) {
+        this.toggle = toggle;
+    }
+};
+// Check all in table
+var TableCheckAllController = function(checker) {
+    var checkboxes = checker.parents('table').find('.'+checker.data('target'));
+    var list = [];
+    for (var i = 0; i < checkboxes.length; i++) {
+        list.push(new CheckAllNode($(checkboxes[i])));
+    }
+    new CheckAllToggle(checker, list);
+};
+
 //Model collection
 var FormCollection = function(collection, button_add, rows, remove_selector, handler) {
-	var that = this;
-	this.collection = collection;
-	this.index = rows.length;
-	this.rows = [];
-	this.remove_selector = remove_selector;
-	this.button_add = button_add.click(function() {
-		that.add();
-	});
-	this.row_prototype = collection.data('prototype');
-	this.handler = handler;
-	for (var i = 0; i < rows.length; i++) {
-		var row = new FormCollectionRow($(rows[i]));
-		row.setCollection(this);
-		this.rows.push(row);
-	}
+    var that = this;
+    this.collection = collection;
+    this.index = rows.length;
+    this.rows = [];
+    this.remove_selector = remove_selector;
+    this.button_add = button_add.click(function() {
+        that.add();
+    });
+    this.row_prototype = collection.data('prototype');
+    this.handler = handler;
+    for (var i = 0; i < rows.length; i++) {
+        var row = new FormCollectionRow($(rows[i]));
+        row.setCollection(this);
+        this.rows.push(row);
+    }
 };
 FormCollection.prototype = {
-	add: function() {
-		var row = new FormCollectionRow($(this.row_prototype.replace(/__name__(label__)?/g, this.index + 1)));
-		this.addRowObject(row);
-		return row;
-	},
-	addRowObject: function(row) {
-		row.setCollection(this);
-		// notify observers
-		this.handler.notify(row.row);
-		// add row
-		this.rows.push(row);
-		this.button_add.parent().before(row.row);
-		// increment index
-		this.index++;
-	}
+    add: function() {
+        var row = new FormCollectionRow($(this.row_prototype.replace(/__name__(label__)?/g, this.index + 1)));
+        this.addRowObject(row);
+        return row;
+    },
+    addRowObject: function(row) {
+        row.setCollection(this);
+        // notify observers
+        this.handler.notify(row.row);
+        // add row
+        this.rows.push(row);
+        this.button_add.parent().before(row.row);
+        // increment index
+        this.index++;
+    }
 };
 // Model collection row
 var FormCollectionRow = function(row) {
-	this.row = row;
-	this.collection = null;
+    this.row = row;
+    this.collection = null;
 };
 FormCollectionRow.prototype = {
-	remove: function() {
-		this.row.remove();
-		var rows = [];
-		// remove row in collection
-		for (var i = 0; i < this.collection.rows.length; i++) {
-			if (this.collection.rows[i] !== this) {
-				rows.push(this.collection.rows[i]);
-			}
-		}
-		this.collection.rows = rows;
-	},
-	setCollection: function(collection) {
-		this.collection = collection;
-		// add handler for remove button
-		var that = this;
-		this.row.find(collection.remove_selector).click(function() {
-			that.remove();
-		});
-	}
+    remove: function() {
+        this.row.remove();
+        var rows = [];
+        // remove row in collection
+        for (var i = 0; i < this.collection.rows.length; i++) {
+            if (this.collection.rows[i] !== this) {
+                rows.push(this.collection.rows[i]);
+            }
+        }
+        this.collection.rows = rows;
+    },
+    setCollection: function(collection) {
+        this.collection = collection;
+        // add handler for remove button
+        var that = this;
+        this.row.find(collection.remove_selector).click(function() {
+            that.remove();
+        });
+    }
 };
 
 var FormCollectionContainer = function() {
-	this.collections = [];
+    this.collections = [];
 };
 FormCollectionContainer.prototype = {
-	add: function(collection) {
-		this.collections[collection.collection.attr('id')] = collection;
-	},
-	get: function(name) {
-		return this.collections[name];
-	},
-	remove: function(name) {
-		delete this.collections[name];
-	}
+    add: function(collection) {
+        this.collections[collection.collection.attr('id')] = collection;
+    },
+    get: function(name) {
+        return this.collections[name];
+    },
+    remove: function(name) {
+        delete this.collections[name];
+    }
 };
 
-/**
- * Form image
- */
 // Model Field
 var FormImageModelField = function(field, image, button, controller) {
-	this.field = field;
-	this.image = image;
-	this.popup = null;
-	var that = this;
-	this.button = button.click(function() {
-		if (that.popup) {
-			that.change();
-		} else {
-			controller.getPopup(that, function(popup) {
-				that.popup = popup;
-				that.change();
-			});
-		}
-	});
+    this.field = field;
+    this.image = image;
+    this.popup = null;
+    var that = this;
+    this.button = button.click(function() {
+        if (that.popup) {
+            that.change();
+        } else {
+            controller.getPopup(that, function(popup) {
+                that.popup = popup;
+                that.change();
+            });
+        }
+    });
 };
 FormImageModelField.prototype = {
-	change: function() {
-		this.popup.show();
-	},
-	// update field data
-	update: function(data) {
-		this.field.val(data.path);
-		this.image.attr('src', data.image);
-	}
+    change: function() {
+        this.popup.show();
+    },
+    // update field data
+    update: function(data) {
+        this.field.val(data.path);
+        this.image.attr('src', data.image);
+    }
 };
 // Model Popup
 var FormImageModelPopup = function(popup, remote, local, field) {
-	this.remote = remote;
-	this.local = local;
-	this.popup = popup;
-	this.field = field;
-	this.form = popup.body.find('form');
-	this.popup.hide();
+    this.remote = remote;
+    this.local = local;
+    this.popup = popup;
+    this.field = field;
+    this.form = popup.body.find('form');
+    this.popup.hide();
 };
 FormImageModelPopup.prototype = {
-	show: function() {
-		// unbund old hendlers and bind new
-		var that = this;
-		this.form.unbind('submit').bind('submit', function() {
-			that.upload();
-			return false;
-		});
-		// show popup
-		this.popup.show();
-	},
-	upload: function() {
-		var that = this;
-		// send form as ajax and call onUpload handler
-		this.form.ajaxSubmit({
-			dataType: 'json',
-			success: function(data) {
-				that.field.update(data);
-				that.popup.hide();
-				that.form.resetForm();
-			},
-			error: function(data, error, message) {
-				// for normal error
-				if (data.status == 404) {
-					data = JSON.parse(data.responseText);
-					if (typeof(data.error) !== 'undefined' && data.error) {
-						message = data.error;
-					}
-				}
-				alert(message);
-			}
-		});
-	}
+    show: function() {
+        // unbund old hendlers and bind new
+        var that = this;
+        this.form.unbind('submit').bind('submit', function() {
+            that.upload();
+            return false;
+        });
+        // show popup
+        this.popup.show();
+    },
+    upload: function() {
+        var that = this;
+        // send form as ajax and call onUpload handler
+        this.form.ajaxSubmit({
+            dataType: 'json',
+            success: function(data) {
+                that.field.update(data);
+                that.popup.hide();
+                that.form.resetForm();
+            },
+            error: function(data, error, message) {
+                // for normal error
+                if (data.status == 404) {
+                    data = JSON.parse(data.responseText);
+                    if (typeof(data.error) !== 'undefined' && data.error) {
+                        message = data.error;
+                    }
+                }
+                alert(message);
+            }
+        });
+    }
 };
 // Image controller
 var FormImageController = function(image) {
-	new FormImageModelField(
-		image.find('input'),
-		image.find('img'),
-		image.find('.change-button'),
-		this
-	);
+    new FormImageModelField(
+        image.find('input'),
+        image.find('img'),
+        image.find('.change-button'),
+        this
+    );
 };
 FormImageController.prototype = {
-	getPopup: function(field, init) {
-		init = init || function() {};
-		// on load popup
-		var init_popup = function (popup) {
-			// create model
-			popup = new FormImageModelPopup(
-				popup,
-				$('#image-popup-remote'),
-				$('#image-popup-local'),
-				field
-			);
-			init(popup);
-		};
+    getPopup: function(field, init) {
+        init = init || function() {};
+        // on load popup
+        var init_popup = function (popup) {
+            // create model
+            popup = new FormImageModelPopup(
+                popup,
+                $('#image-popup-remote'),
+                $('#image-popup-local'),
+                field
+            );
+            init(popup);
+        };
 
-		// create popup
-		if (popup = PopupContainer.get('image')) {
-			init_popup(popup);
-		} else {
-			PopupContainer.load('image', {
-				url: field.field.closest('.f-image').data('popup'),
-				success: init_popup
-			});
-		}
-	}
+        // create popup
+        if (popup = PopupContainer.get('image')) {
+            init_popup(popup);
+        } else {
+            PopupContainer.load('image', {
+                url: field.field.closest('.f-image').data('popup'),
+                success: init_popup
+            });
+        }
+    }
 };
 
-
-
-/**
- * Form local path
- */
 // model field
 var FormLocalPathModelField = function(path, button, controller) {
-	this.path = path;
-	this.button = button;
-	this.popup = null;
+    this.path = path;
+    this.button = button;
+    this.popup = null;
 
-	var that = this;
-	this.button.click(function() {
-		if (that.popup) {
-			that.change();
-		} else {
-			controller.getPopup(that, function(popup) {
-				that.popup = popup;
-				that.change();
-			})
-		}
-	});
-	this.path.change(function() {
-		that.correctPath();
-	}).change();
+    var that = this;
+    this.button.click(function() {
+        if (that.popup) {
+            that.change();
+        } else {
+            controller.getPopup(that, function(popup) {
+                that.popup = popup;
+                that.change();
+            })
+        }
+    });
+    this.path.change(function() {
+        that.correctPath();
+    }).change();
 };
 FormLocalPathModelField.prototype = {
-	change: function() {
-		this.correctPath();
-		this.popup.change(this.path.val());
-		this.popup.show();
-	},
-	// correct the end symbol of path
-	correctPath: function() {
-		var value = this.path.val();
-		if (value.length && !(/[\\\/]$/.test(value))) {
-			if (value[0] == '/') {
-				this.path.val(value += '/');
-			} else {
-				this.path.val(value += '\\');
-			}
-		}
-		// if the root folder is set then the path must always start with him
-		var root = this.path.attr('data-root');
-		if (root) {
-			if (!value.length || value.indexOf(root) !== 0) {
-				this.path.val(root);
-			}
-		}
-	}
+    change: function() {
+        this.correctPath();
+        this.popup.change(this.path.val());
+        this.popup.show();
+    },
+    // correct the end symbol of path
+    correctPath: function() {
+        var value = this.path.val();
+        if (value.length && !(/[\\\/]$/.test(value))) {
+            if (value[0] == '/') {
+                this.path.val(value += '/');
+            } else {
+                this.path.val(value += '\\');
+            }
+        }
+        // if the root folder is set then the path must always start with him
+        var root = this.path.attr('data-root');
+        if (root) {
+            if (!value.length || value.indexOf(root) !== 0) {
+                this.path.val(root);
+            }
+        }
+    }
 };
 
 // model folder
 var FormLocalPathModelFolder = function(folder, path) {
-	this.path = path;
-	this.popup = null;
+    this.path = path;
+    this.popup = null;
 
-	var that = this;
-	this.folder = folder.click(function() {
-		that.select();
-		return false;
-	});
+    var that = this;
+    this.folder = folder.click(function() {
+        that.select();
+        return false;
+    });
 };
 FormLocalPathModelFolder.prototype = {
-	select: function() {
-		this.popup.change(this.folder.attr('href'));
-	},
-	setPopup: function(popup) {
-		this.popup = popup;
-	}
+    select: function() {
+        this.popup.change(this.folder.attr('href'));
+    },
+    setPopup: function(popup) {
+        this.popup = popup;
+    }
 };
 
 // model pop-up
 var FormLocalPathModelPopup = function(popup, path, letter, button, folders, prototype, field) {
-	this.popup = popup;
-	this.path = path;
-	this.letter = letter;
-	this.button = button;
-	this.field = field;
-	this.form = popup.body.find('form');
-	this.folders = folders;
-	this.folder_prototype = prototype;
-	this.folder_models = [];
+    this.popup = popup;
+    this.path = path;
+    this.letter = letter;
+    this.button = button;
+    this.field = field;
+    this.form = popup.body.find('form');
+    this.folders = folders;
+    this.folder_prototype = prototype;
+    this.folder_models = [];
 
-	var that = this;
-	this.popup.hide();
-	// apply chenges
-	this.button.click(function() {
-		that.apply();
-		return false;
-	});
-	if (this.letter) {
-		this.letter.change(function() {
-			that.change(that.letter.val()+':\\');
-		});
-	}
+    var that = this;
+    this.popup.hide();
+    // apply chenges
+    this.button.click(function() {
+        that.apply();
+        return false;
+    });
+    if (this.letter) {
+        this.letter.change(function() {
+            that.change(that.letter.val()+':\\');
+        });
+    }
 };
 FormLocalPathModelPopup.prototype = {
-	show: function() {
-		// unbund old hendlers and bind new
-		var that = this;
-		this.form.unbind('submit').bind('submit', function() {
-			that.change();
-			return false;
-		});
-		this.path.unbind('change keyup').bind('change keyup', function() {
-			that.change();
-			return false;
-		});
-		// show popup
-		this.popup.show();
-	},
-	change: function(value) {
-		if (typeof(value) !== 'undefined') {
-			this.path.val(value);
-		}
-		// return if not full path
-		if (this.path.val()) {
-			// if the root folder is set then the path must always start with him
-			var root = this.field.path.attr('data-root');
-			if (root) {
-				if (this.path.val().indexOf(root) !== 0) {
-					this.path.val(root);
-				}
-			}
-			if (!(/[\\\/]$/.test(this.path.val()))) {
-				return false;
-			}
-		}
+    show: function() {
+        // unbund old hendlers and bind new
+        var that = this;
+        this.form.unbind('submit').bind('submit', function() {
+            that.change();
+            return false;
+        });
+        this.path.unbind('change keyup').bind('change keyup', function() {
+            that.change();
+            return false;
+        });
+        // show popup
+        this.popup.show();
+    },
+    change: function(value) {
+        if (typeof(value) !== 'undefined') {
+            this.path.val(value);
+        }
+        // return if not full path
+        if (this.path.val()) {
+            // if the root folder is set then the path must always start with him
+            var root = this.field.path.attr('data-root');
+            if (root) {
+                if (this.path.val().indexOf(root) !== 0) {
+                    this.path.val(root);
+                }
+            }
+            if (!(/[\\\/]$/.test(this.path.val()))) {
+                return false;
+            }
+        }
 
-		// start updating
-		this.popup.body.addClass('updating');
+        // start updating
+        this.popup.body.addClass('updating');
 
-		var that = this;
-		// send form as ajax
-		this.form.ajaxSubmit({
-			dataType: 'json',
-			data: {'root': that.field.path.attr('data-root')},
-			success: function(data) {
-				that.path.val(data.path);
-				// remove old folders
-				that.clearFoldersList();
+        var that = this;
+        // send form as ajax
+        this.form.ajaxSubmit({
+            dataType: 'json',
+            data: {'root': that.field.path.attr('data-root')},
+            success: function(data) {
+                that.path.val(data.path);
+                // remove old folders
+                that.clearFoldersList();
 
-				// create folders
-				for (var i in data.folders) {
-					// prototype of new item
-					var new_item = that.folder_prototype
-						.replace('__name__', data.folders[i].name)
-						.replace('__link__', data.folders[i].path);
-					that.addFolder(new FormLocalPathModelFolder($(new_item), that.path));
-				}
-			},
-			error: function(data, error, message) {
-				alert(message);
-			},
-			complete: function() {
-				that.popup.body.removeClass('updating');
-			}
-		});
-	},
-	clearFoldersList: function() {
-		this.folder_models = [];
-		this.folders.text('');
-	},
-	addFolder: function(folder) {
-		folder.setPopup(this);
-		this.folder_models.push(folder);
-		this.folders.append(folder.folder);
-	},
-	apply: function() {
-		this.field.path.val(this.path.val());
-		this.popup.hide();
-	}
+                // create folders
+                for (var i in data.folders) {
+                    // prototype of new item
+                    var new_item = that.folder_prototype
+                        .replace('__name__', data.folders[i].name)
+                        .replace('__link__', data.folders[i].path);
+                    that.addFolder(new FormLocalPathModelFolder($(new_item), that.path));
+                }
+            },
+            error: function(data, error, message) {
+                alert(message);
+            },
+            complete: function() {
+                that.popup.body.removeClass('updating');
+            }
+        });
+    },
+    clearFoldersList: function() {
+        this.folder_models = [];
+        this.folders.text('');
+    },
+    addFolder: function(folder) {
+        folder.setPopup(this);
+        this.folder_models.push(folder);
+        this.folders.append(folder.folder);
+    },
+    apply: function() {
+        this.field.path.val(this.path.val());
+        this.popup.hide();
+    }
 };
 // Form local path controller
 var FormLocalPathController = function(path) {
-	// create field model
-	new FormLocalPathModelField(
-		path.find('input'),
-		path.find('.change-path'),
-		this
-	);
+    // create field model
+    new FormLocalPathModelField(
+        path.find('input'),
+        path.find('.change-path'),
+        this
+    );
 };
 FormLocalPathController.prototype = {
-	getPopup: function(field, init) {
-		init = init || function() {};
-		// on load popup
-		var init_popup = function (popup) {
-			var folders = popup.body.find('.folders');
-			// create model
-			popup = new FormLocalPathModelPopup(
-				popup,
-				popup.body.find('#local_path_popup_path'),
-				popup.body.find('#local_path_popup_letter'),
-				popup.body.find('.change-path'),
-				folders,
-				folders.data('prototype'),
-				field
-			);
-			init(popup);
-		};
+    getPopup: function(field, init) {
+        init = init || function() {};
+        // on load popup
+        var init_popup = function (popup) {
+            var folders = popup.body.find('.folders');
+            // create model
+            popup = new FormLocalPathModelPopup(
+                popup,
+                popup.body.find('#local_path_popup_path'),
+                popup.body.find('#local_path_popup_letter'),
+                popup.body.find('.change-path'),
+                folders,
+                folders.data('prototype'),
+                field
+            );
+            init(popup);
+        };
 
-		// create popup
-		if (popup = PopupContainer.get('local-path')) {
-			init_popup(popup);
-		} else {
-			PopupContainer.load('local-path', {
-				url: field.path.closest('.f-local-path').data('popup'),
-				success: init_popup
-			});
-		}
-	}
+        // create popup
+        if (popup = PopupContainer.get('local-path')) {
+            init_popup(popup);
+        } else {
+            PopupContainer.load('local-path', {
+                url: field.path.closest('.f-local-path').data('popup'),
+                success: init_popup
+            });
+        }
+    }
 };
 
-
-
-/**
- * Notice
- */
 var NoticeModel = function(
-	container,
-	block,
-	close_url,
-	see_later_url,
-	close,
-	see_later,
-	offset,
-	message,
-	scroll_left,
-	scroll_right
+    container,
+    block,
+    close_url,
+    see_later_url,
+    close,
+    see_later,
+    offset,
+    message,
+    scroll_left,
+    scroll_right
 ) {
-	this.container = container;
-	this.block = block;
-	this.close_url = close_url;
-	this.see_later_url = see_later_url;
-	this.close_button = close;
-	this.see_later_button = see_later;
-	this.offset = offset;
-	this.message = message;
-	this.scroll_left = scroll_left;
-	this.scroll_right = scroll_right;
+    this.container = container;
+    this.block = block;
+    this.close_url = close_url;
+    this.see_later_url = see_later_url;
+    this.close_button = close;
+    this.see_later_button = see_later;
+    this.offset = offset;
+    this.message = message;
+    this.scroll_left = scroll_left;
+    this.scroll_right = scroll_right;
 
-	var that = this;
-	this.close_button.click(function(){
-		that.close();
-	});
-	this.see_later_button.click(function(){
-		that.seeLater();
-	});
-	// scroll buttons
-	if (offset > 0) {
-		this.scroll_left.hover(function() {
-			that.scrollLeft();
-		}, function() {
-			that.stopScroll();
-		}).show();
-		this.scroll_right.hover(function() {
-			that.scrollRight();
-		}, function() {
-			that.stopScroll();
-		}).show();
-	}
+    var that = this;
+    this.close_button.click(function(){
+        that.close();
+    });
+    this.see_later_button.click(function(){
+        that.seeLater();
+    });
+    // scroll buttons
+    if (offset > 0) {
+        this.scroll_left.hover(function() {
+            that.scrollLeft();
+        }, function() {
+            that.stopScroll();
+        }).show();
+        this.scroll_right.hover(function() {
+            that.scrollRight();
+        }, function() {
+            that.stopScroll();
+        }).show();
+    }
 };
 NoticeModel.prototype = {
-	close: function() {
-		var that = this;
-		this.block.animate({opacity: 0}, 400, function() {
-			// report to backend
-			$.ajax({
-				type: 'POST',
-				url: that.close_url,
-				success: function() {
-					// remove this
-					that.block.remove();
-					delete that.container.notice;
-					// load new notice
-					that.container.load();
-				}
-			});
-		});
-	},
-	seeLater: function() {
-		var that = this;
-		this.block.animate({opacity: 0}, 400, function() {
-			// report to backend
-			$.ajax({
-				type: 'POST',
-				url: that.see_later_url,
-				success: function() {
-					// remove this
-					that.block.remove();
-					delete that.container.notice;
-				}
-			});
-		});
-	},
-	scrollLeft: function() {
-		this.message.stop().animate({
-			'margin-left': 0
-		}, 1500);
-	},
-	scrollRight: function() {
-		this.message.stop().animate({
-			'margin-left': -(this.offset)
-		}, 1500);
-	},
-	stopScroll: function() {
-		this.message.stop();
-	}
+    close: function() {
+        var that = this;
+        this.block.animate({opacity: 0}, 400, function() {
+            // report to backend
+            $.ajax({
+                type: 'POST',
+                url: that.close_url,
+                success: function() {
+                    // remove this
+                    that.block.remove();
+                    delete that.container.notice;
+                    // load new notice
+                    that.container.load();
+                }
+            });
+        });
+    },
+    seeLater: function() {
+        var that = this;
+        this.block.animate({opacity: 0}, 400, function() {
+            // report to backend
+            $.ajax({
+                type: 'POST',
+                url: that.see_later_url,
+                success: function() {
+                    // remove this
+                    that.block.remove();
+                    delete that.container.notice;
+                }
+            });
+        });
+    },
+    scrollLeft: function() {
+        this.message.stop().animate({
+            'margin-left': 0
+        }, 1500);
+    },
+    scrollRight: function() {
+        this.message.stop().animate({
+            'margin-left': -(this.offset)
+        }, 1500);
+    },
+    stopScroll: function() {
+        this.message.stop();
+    }
 };
 
-
-/**
- * Check all
- */
-var CheckAllToggle = function(checker, list) {
-	this.checker = checker;
-	this.list = list;
-	var that = this;
-	this.checker.click(function(){
-		that.change();
-	});
-	for (var i in this.list) {
-		this.list[i].setToggle(this);
-	}
-};
-CheckAllToggle.prototype = {
-	change: function() {
-		if (this.checker.is(':checked')) {
-			this.all();
-		} else {
-			this.neither();
-		}
-	},
-	all: function() {
-		for (var i in this.list) {
-			this.list[i].check();
-		}
-	},
-	neither: function() {
-		for (var i in this.list) {
-			this.list[i].uncheck();
-		}
-	}
-};
-// Check all node
-var CheckAllNode = function(checkbox) {
-	this.checkbox = checkbox;
-	this.toggle = null;
-	var that = this;
-	this.checkbox.click(function(){
-		that.change();
-	});
-};
-CheckAllNode.prototype = {
-	change: function() {
-		if (!this.checkbox.is(':checked') && this.toggle) {
-			this.toggle.checker.prop('checked', false);
-		}
-	},
-	check: function() {
-		this.checkbox.prop('checked', true);
-	},
-	uncheck: function() {
-		this.checkbox.prop('checked', false);
-	},
-	setToggle: function(toggle) {
-		this.toggle = toggle;
-	}
-};
-// Check all in table
-var TableCheckAllController = function(checker) {
-	var checkboxes = checker.parents('table').find('.'+checker.data('target'));
-	var list = [];
-	for (var i = 0; i < checkboxes.length; i++) {
-		list.push(new CheckAllNode($(checkboxes[i])));
-	}
-	new CheckAllToggle(checker, list);
-};
-
-
-/**
- * Form refill field
- */
 var FormRefill = function(form, button, controller, handler, sources) {
-	this.form = form;
-	this.button = button;
-	this.controller = controller;
-	this.handler = handler;
-	this.sources = sources;
+    this.form = form;
+    this.button = button;
+    this.controller = controller;
+    this.handler = handler;
+    this.sources = sources;
 
-	var that = this;
-	this.button.click(function() {
-		if (that.button.data('can-refill') == 1) {
-			that.refill();
-		} else {
-			that.search();
-		}
-		return false;
-	});
+    var that = this;
+    this.button.click(function() {
+        if (that.button.data('can-refill') == 1) {
+            that.refill();
+        } else {
+            that.search();
+        }
+        return false;
+    });
 };
 FormRefill.prototype = {
-	refill: function() {
-		var that = this;
-		this.showPopup(
-			'refill-form-' + this.controller.field.attr('id'),
-			this.button.attr('href'),
-			function (popup) {
-				popup.body.find('form').submit(function() {
-					that.update(popup);
-					return false;
-				});
-			}
-		);
-	},
-	search: function() {
-		var that = this;
-		this.showPopup(
-			'refill-search',
-			this.button.attr('href'),
-			function (popup) {
-				popup.body.find('a:not(.external)').each(function() {
-					new FormRefillSearchItem(that, popup, $(this));
-				});
-			}
-		);
-	},
-	refillFromSearch: function(url) {
-		var that = this;
-		this.showPopup(
-			'refill-form-' + this.controller.field.attr('id'),
-			url,
-			function (popup) {
-				popup.body.find('form').submit(function() {
-					that.update(popup);
-					return false;
-				});
-			}
-		);
-	},
-	showPopup: function(name, url, handler) {
-		var group = name;
-		name +=  '-plugin-' + this.button.data('plugin');
-		handler = handler || function() {};
-		var that = this;
+    refill: function() {
+        var that = this;
+        this.showPopup(
+            'refill-form-' + this.controller.field.attr('id'),
+            this.button.attr('href'),
+            function (popup) {
+                popup.body.find('form').submit(function() {
+                    that.update(popup);
+                    return false;
+                });
+            }
+        );
+    },
+    search: function() {
+        var that = this;
+        this.showPopup(
+            'refill-search',
+            this.button.attr('href'),
+            function (popup) {
+                popup.body.find('a:not(.external)').each(function() {
+                    new FormRefillSearchItem(that, popup, $(this));
+                });
+            }
+        );
+    },
+    refillFromSearch: function(url) {
+        var that = this;
+        this.showPopup(
+            'refill-form-' + this.controller.field.attr('id'),
+            url,
+            function (popup) {
+                popup.body.find('form').submit(function() {
+                    that.update(popup);
+                    return false;
+                });
+            }
+        );
+    },
+    showPopup: function(name, url, handler) {
+        var group = name;
+        name +=  '-plugin-' + this.button.data('plugin');
+        handler = handler || function() {};
+        var that = this;
 
-		if (popup = PopupContainer.get(name)) {
-			handler(popup);
-			popup.show();
-		} else {
-			PopupContainer.lazyload(name, {
-				url: url,
-				method: 'POST', // request is too large for GET
-				data: this.form.serialize(),
-				success: function(popup) {
-					that.handler.notify(popup.body);
-					popup.body.addClass(group);
-					handler(popup);
-				}
-			});
-		}
-	},
-	update: function(popup) {
-		this.controller.update(popup);
-		// add source link
-		var source = popup.body.find('input[type=hidden]');
-		if (source && (value = source.val())) {
-			this.canRefill();
-			this.sources.add().row.find('input').val(value);
-		}
-		popup.hide();
-	},
-	canRefill: function() {
-		this.form.find('a[data-plugin='+this.button.data('plugin')+']').each(function() {
-			var button = $(this);
-			button.attr('href', button.data('link-refill')).data('can-refill', 1);
-		});
-	}
+        if (popup = PopupContainer.get(name)) {
+            handler(popup);
+            popup.show();
+        } else {
+            PopupContainer.lazyload(name, {
+                url: url,
+                method: 'POST', // request is too large for GET
+                data: this.form.serialize(),
+                success: function(popup) {
+                    that.handler.notify(popup.body);
+                    popup.body.addClass(group);
+                    handler(popup);
+                }
+            });
+        }
+    },
+    update: function(popup) {
+        this.controller.update(popup);
+        // add source link
+        var source = popup.body.find('input[type=hidden]');
+        if (source && (value = source.val())) {
+            this.canRefill();
+            this.sources.add().row.find('input').val(value);
+        }
+        popup.hide();
+    },
+    canRefill: function() {
+        this.form.find('a[data-plugin='+this.button.data('plugin')+']').each(function() {
+            var button = $(this);
+            button.attr('href', button.data('link-refill')).data('can-refill', 1);
+        });
+    }
 };
 var FormRefillSimple = function(field) {
-	this.field = field;
+    this.field = field;
 };
 FormRefillSimple.prototype = {
-	update: function(popup) {
-		this.field.val(popup.body.find('#'+this.field.attr('id')).val());
-	}
+    update: function(popup) {
+        this.field.val(popup.body.find('#'+this.field.attr('id')).val());
+    }
 };
 var FormRefillCollection = function(field, collection, container) {
-	this.field = field;
-	this.collection = collection; // FormCollection
-	this.container = container; // FormCollectionContainer
+    this.field = field;
+    this.collection = collection; // FormCollection
+    this.container = container; // FormCollectionContainer
 };
 FormRefillCollection.prototype = {
-	update: function(popup) {
-		// remove old rows
-		while (this.collection.rows.length) {
-			this.collection.rows[0].remove();
-		}
-		// add new rows
-		var collection = this.container.get(this.field.attr('id'));
-		for (var i = 0; i < collection.rows.length; i++) {
-			this.collection.addRowObject(new FormCollectionRow(collection.rows[i].row.clone()));
-		}
-	}
+    update: function(popup) {
+        // remove old rows
+        while (this.collection.rows.length) {
+            this.collection.rows[0].remove();
+        }
+        // add new rows
+        var collection = this.container.get(this.field.attr('id'));
+        for (var i = 0; i < collection.rows.length; i++) {
+            this.collection.addRowObject(new FormCollectionRow(collection.rows[i].row.clone()));
+        }
+    }
 };
 var FormRefillMulti = function(field) {
-	this.field = field;
+    this.field = field;
 };
 FormRefillMulti.prototype = {
-	update: function(popup) {
-		var that = this;
-		popup.body.find('input:checked').each(function() {
-			that.field.find('#'+$(this).attr('id')).prop('checked', true);
-		});
-	}
+    update: function(popup) {
+        var that = this;
+        popup.body.find('input:checked').each(function() {
+            that.field.find('#'+$(this).attr('id')).prop('checked', true);
+        });
+    }
 };
 var FormRefillSearchItem = function(form, popup, link) {
-	var that = this;
-	this.form = form;
-	this.popup = popup;
-	this.link = link.click(function() {
-		that.refill();
-		return false;
-	});
-	
+    var that = this;
+    this.form = form;
+    this.popup = popup;
+    this.link = link.click(function() {
+        that.refill();
+        return false;
+    });
+
 };
 FormRefillSearchItem.prototype = {
-	refill: function() {
-		this.popup.hide();
-		var source = decodeURIComponent(this.link.attr('href')).replace(/^.*(?:\?|&)source=(.*)$/, '$1');
-		if (source) {
-			this.form.canRefill();
-			this.form.sources.add().row.find('input').val(source);
-			this.form.refill();
-		} else {
-			this.form.refillFromSearch(this.link.attr('href'));
-		}
-	}
+    refill: function() {
+        this.popup.hide();
+        var source = decodeURIComponent(this.link.attr('href')).replace(/^.*(?:\?|&)source=(.*)$/, '$1');
+        if (source) {
+            this.form.canRefill();
+            this.form.sources.add().row.find('input').val(source);
+            this.form.refill();
+        } else {
+            this.form.refillFromSearch(this.link.attr('href'));
+        }
+    }
 };
 
-/**
- * Form storage model
- */
 var FormStorage = function(storage, source, target) {
-	this.storage = storage;
-	this.source = source;
-	this.target = target;
+    this.storage = storage;
+    this.source = source;
+    this.target = target;
 
-	var that = this;
-	this.storage.change(function() {
-		that.change();
-	}).change();
+    var that = this;
+    this.storage.change(function() {
+        that.change();
+    }).change();
 };
 FormStorage.prototype = {
-	change: function() {
-		if (this.storage.val()) {
-			var that = this;
-			$.ajax({
-				url: this.source,
-				data: {'id': this.storage.val()},
-				success: function(data) {
-					if (data.required) {
-						that.require(data.path);
-					} else {
-						that.unrequire();
-					}
-				}
-			});
-		} else {
-			this.unrequire();
-		}
-	},
-	unrequire: function() {
-		this.target.removeAttr('required').removeAttr('data-root').val('').change();
-	},
-	require: function(path) {
-		this.target.attr({'required': 'required', 'data-root': path}).change();
-	}
+    change: function() {
+        if (this.storage.val()) {
+            var that = this;
+            $.ajax({
+                url: this.source,
+                data: {'id': this.storage.val()},
+                success: function(data) {
+                    if (data.required) {
+                        that.require(data.path);
+                    } else {
+                        that.unrequire();
+                    }
+                }
+            });
+        } else {
+            this.unrequire();
+        }
+    },
+    unrequire: function() {
+        this.target.removeAttr('required').removeAttr('data-root').val('').change();
+    },
+    require: function(path) {
+        this.target.attr({'required': 'required', 'data-root': path}).change();
+    }
 };
-/**
- * Translate message
- */
-function trans(message) {
-	if (typeof(translations[message]) != 'undefined') {
-		return translations[message];
-	} else {
-		return message;
-	}
-}
-
 
 /**
  * Notifies all observers of change
  */
 var BlockLoadHandler = function() {
-	this.observers = [];
+    this.observers = [];
 };
 BlockLoadHandler.prototype = {
-	registr: function(observer) {
-		if (typeof(observer.update) == 'function') {
-			this.observers.push(observer);
-		} else if (typeof(observer) == 'function') {
-			this.observers.push({update:observer});
-		}
-	},
-	unregistr: function(observer) {
-		for (var i in this.observers) {
-			if (this.observers[i] === observer) {
-				this.observers.splice(i, 1);
-			}
-		}
-	},
-	notify: function(block) {
-		for (var i in this.observers) {
-			this.observers[i].update(block);
-		}
-	}
+    registr: function(observer) {
+        if (typeof(observer.update) == 'function') {
+            this.observers.push(observer);
+        } else if (typeof(observer) == 'function') {
+            this.observers.push({update:observer});
+        }
+    },
+    unregistr: function(observer) {
+        for (var i in this.observers) {
+            if (this.observers[i] === observer) {
+                this.observers.splice(i, 1);
+            }
+        }
+    },
+    notify: function(block) {
+        for (var i in this.observers) {
+            this.observers[i].update(block);
+        }
+    }
 };
-
 
 /**
  * Cap for block site
  */
 var Cap = {
-	element: null,
-	button: null,
-	observers: [],
-	html: null,
-	setElement: function(element) {
-		Cap.element = element;
-		if (!Cap.button) {
-			Cap.setButton(element);
-		}
-	},
-	setButton: function(button) {
-		if (Cap.button) {
-			Cap.button.off('click.cap');
-		}
-		Cap.button = button.on('click.cap', function() {
-			Cap.hide();
-		});
-	},
-	getHtml: function() {
-		if (Cap.html === null) {
-			Cap.html = $('html');
-		}
-		return Cap.html;
-	},
-	// hide cup and observers
-	hide: function(observer) {
-		if (typeof(observer) !== 'undefined') {
-			observer.hide();
-		} else {
-			for (var i in Cap.observers) {
-				Cap.observers[i].hide();
-			}
-		}
-		Cap.element.hide();
-		Cap.getHtml().removeClass('scroll-lock');
-	},
-	// show cup and observers
-	show: function(observer) {
-		Cap.element.show();
-		observer.show();
-		Cap.getHtml().addClass('scroll-lock');
-	},
-	// need methods 'show' and 'hide'
-	registr: function(observer) {
-		Cap.observers.push($.extend({
-			show: function() {},
-			hide: function() {}
-		}, observer));
-	},
-	unregistr: function(observer) {
-		for (var i in Cap.observers) {
-			if (Cap.observers[i] === observer) {
-				Cap.observers.splice(i, 1);
-			}
-		}
-	}
+    element: null,
+    button: null,
+    observers: [],
+    html: null,
+    setElement: function(element) {
+        Cap.element = element;
+        if (!Cap.button) {
+            Cap.setButton(element);
+        }
+    },
+    setButton: function(button) {
+        if (Cap.button) {
+            Cap.button.off('click.cap');
+        }
+        Cap.button = button.on('click.cap', function() {
+            Cap.hide();
+        });
+    },
+    getHtml: function() {
+        if (Cap.html === null) {
+            Cap.html = $('html');
+        }
+        return Cap.html;
+    },
+    // hide cup and observers
+    hide: function(observer) {
+        if (typeof(observer) !== 'undefined') {
+            observer.hide();
+        } else {
+            for (var i in Cap.observers) {
+                Cap.observers[i].hide();
+            }
+        }
+        Cap.element.hide();
+        Cap.getHtml().removeClass('scroll-lock');
+    },
+    // show cup and observers
+    show: function(observer) {
+        Cap.element.show();
+        observer.show();
+        Cap.getHtml().addClass('scroll-lock');
+    },
+    // need methods 'show' and 'hide'
+    registr: function(observer) {
+        Cap.observers.push($.extend({
+            show: function() {},
+            hide: function() {}
+        }, observer));
+    },
+    unregistr: function(observer) {
+        for (var i in Cap.observers) {
+            if (Cap.observers[i] === observer) {
+                Cap.observers.splice(i, 1);
+            }
+        }
+    }
 };
-
-
-/**
- * Popup
- */
-var Popup = function(body) {
-	var that = this;
-	this.body = body;
-	this.close = body.find('.bt-popup-close').click(function() {
-		that.hide();
-	});
-	Cap.registr(this);
-};
-Popup.prototype = {
-	show: function() {
-		Cap.show(this.body);
-	},
-	hide: function() {
-		Cap.hide(this.body);
-	}
-};
-
-var PopupContainer = {
-	popup_loader: null,
-	xhr: null,
-	list: [],
-	container: null,
-	getContainer: function() {
-		if (PopupContainer.container === null) {
-			PopupContainer.container = $('body');
-		}
-		return PopupContainer.container;
-	},
-	load: function(name, options) {
-		options = $.extend({
-			success: function() {},
-			error: function(xhr, status) {
-				if (status != 'abort' && confirm(trans('Failed to get the data. Want to try again?'))) {
-					$.ajax(options);
-				}
-			}
-		}, options||{});
-
-		if (typeof(PopupContainer.list[name]) != 'undefined') {
-			options.success(PopupContainer.list[name]);
-		} else {
-			// init popup on success load popup content
-			var success = options.success;
-			options.success = function(data) {
-				PopupContainer.list[name] = new Popup($(data));
-				success(PopupContainer.list[name]);
-				PopupContainer.getContainer().append(PopupContainer.list[name].body);
-			};
-
-			PopupContainer.sendRequest(options);
-		}
-	},
-	get: function(name) {
-		if (typeof(PopupContainer.list[name]) != 'undefined') {
-			return PopupContainer.list[name];
-		} else {
-			return null;
-		}
-	},
-	setPopupLoader: function(el) {
-		PopupContainer.popup_loader = new Popup(el);
-	},
-	sendRequest: function(options) {
-		if (PopupContainer.xhr === null) {
-			Cap.registr({
-				show:function(){},
-				hide:function(){
-					PopupContainer.xhr.abort();
-				}
-			});
-		} else {
-			PopupContainer.xhr.abort();
-		}
-		PopupContainer.xhr = $.ajax(options);
-	},
-	/**
-	 * Lazy loading body of popup
-	 */
-	lazyload: function(name, options) {
-		options = $.extend({
-			success: function() {},
-			error: function(xhr, status) {
-				if (status != 'abort' && confirm(trans('Failed to get the data. Want to try again?'))) {
-					$.ajax(options);
-				} else {
-					PopupContainer.popup_loader.hide();
-				}
-			}
-		}, options||{});
-
-		if (typeof(PopupContainer.list[name]) != 'undefined') {
-			options.success(PopupContainer.list[name]);
-		} else {
-			PopupContainer.popup_loader.show();
-
-			// init popup on success load popup content
-			var success = options.success;
-			options.success = function(data) {
-				var popup = new Popup(PopupContainer.popup_loader.body.clone().hide());
-				popup.body.attr('id', name).find('.content').append(data);
-				PopupContainer.getContainer().append(popup.body);
-
-				PopupContainer.list[name] = popup;
-				success(popup);
-
-				// animate show popup
-				var width = popup.body.width();
-				var height = popup.body.height();
-				PopupContainer.popup_loader.body.find();
-				PopupContainer.popup_loader.body.addClass('resize').animate({
-					'width': width,
-					'height': height
-				}, 400, function() {
-					popup.show();
-					// reset style
-					PopupContainer.popup_loader.body.removeClass('resize').removeAttr('style').hide();
-				});
-			};
-
-			PopupContainer.sendRequest(options);
-		}
-	}
-};
-
-
-/**
- * Notice container
- */
-var NoticeContainerModel = function(container, from) {
-	this.container = container;
-	this.from = from;
-	this.notice = null;
-	this.load();
-};
-NoticeContainerModel.prototype = {
-	load: function() {
-		var that = this;
-		this.notice = null;
-		$.ajax({
-			url: this.from,
-			ifModified: true,
-			complete: function(jqXHR, textStatus) {
-				var data;
-				if (
-					(textStatus == 'success' || textStatus == 'notmodified') &&
-					(data = $.parseJSON(jqXHR.responseText))
-				) {
-					that.show(data)
-				}
-			}
-		});
-	},
-	show: function(data) {
-		//data.notice;
-		var block = $(data.content);
-		var message = block.find('.b-message');
-		this.container.append(block);
-		this.notice = new NoticeModel(
-			this,
-			block,
-			data.close,
-			data.see_later,
-			block.find('.bt-close'),
-			block.find('.bt-see-later'),
-			message.width() - block.find('.b-message-wrapper').width(),
-			message,
-			block.find('.bt-notice-scroll-left'),
-			block.find('.bt-notice-scroll-right')
-		);
-	}
-};
-
 
 /**
  * Confirm delete
  */
 var ConfirmDeleteModel = function(link) {
-	this.massage = link.data('massage') || trans('Are you sure want to delete this item(s)?');
-	this.link = link;
-	var that = this;
-	link.click(function() {
-		return that.remove();
-	});
+    this.massage = link.data('massage') || trans('Are you sure want to delete this item(s)?');
+    this.link = link;
+    var that = this;
+    link.click(function() {
+        return that.remove();
+    });
 };
 ConfirmDeleteModel.prototype = {
-	remove: function() {
-		return confirm(this.massage);
-	}
+    remove: function() {
+        return confirm(this.massage);
+    }
 };
 
+/**
+ * Keep hover a mouse on the element
+ *
+ * While maintaining stationary cursor over an element it adds
+ * class and removes it after you drag the cursor
+ *
+ * Takes a timeout from the attribute data-expect or 1000 seconds
+ */
+var KeepHover = function(el) {
+    var that = this;
+    this.timer = null;
+    this.expect = el.data('expect') ? el.data('expect') : 1000;
+    this.el = el.hover(function() {
+        that.startTimer();
+    }, function() {
+        that.stopTimer();
+        that.removeKeep();
+    }).mousemove(function() {
+        that.stopTimer();
+        that.startTimer();
+    });
+};
+KeepHover.prototype = {
+    startTimer: function() {
+        var that = this;
+        this.timer = setTimeout(function() {
+            that.setKeep();
+        }, this.expect);
+    },
+    stopTimer: function() {
+        clearTimeout(this.timer);
+    },
+    setKeep: function() {
+        this.el.addClass('keep-hover')
+    },
+    removeKeep: function() {
+        this.el.removeClass('keep-hover')
+    }
+};
+
+/**
+ * Notice container
+ */
+var NoticeContainerModel = function(container, from) {
+    this.container = container;
+    this.from = from;
+    this.notice = null;
+    this.load();
+};
+NoticeContainerModel.prototype = {
+    load: function() {
+        var that = this;
+        this.notice = null;
+        $.ajax({
+            url: this.from,
+            ifModified: true,
+            complete: function(jqXHR, textStatus) {
+                var data;
+                if (
+                    (textStatus == 'success' || textStatus == 'notmodified') &&
+                    (data = $.parseJSON(jqXHR.responseText))
+                ) {
+                    that.show(data)
+                }
+            }
+        });
+    },
+    show: function(data) {
+        //data.notice;
+        var block = $(data.content);
+        var message = block.find('.b-message');
+        this.container.append(block);
+        this.notice = new NoticeModel(
+            this,
+            block,
+            data.close,
+            data.see_later,
+            block.find('.bt-close'),
+            block.find('.bt-see-later'),
+            message.width() - block.find('.b-message-wrapper').width(),
+            message,
+            block.find('.bt-notice-scroll-left'),
+            block.find('.bt-notice-scroll-right')
+        );
+    }
+};
+
+/**
+ * Popup
+ */
+var Popup = function(body) {
+    var that = this;
+    this.body = body;
+    this.close = body.find('.bt-popup-close').click(function() {
+        that.hide();
+    });
+    Cap.registr(this);
+};
+Popup.prototype = {
+    show: function() {
+        Cap.show(this.body);
+    },
+    hide: function() {
+        Cap.hide(this.body);
+    }
+};
+
+var PopupContainer = {
+    popup_loader: null,
+    xhr: null,
+    list: [],
+    container: null,
+    getContainer: function() {
+        if (PopupContainer.container === null) {
+            PopupContainer.container = $('body');
+        }
+        return PopupContainer.container;
+    },
+    load: function(name, options) {
+        options = $.extend({
+            success: function() {},
+            error: function(xhr, status) {
+                if (status != 'abort' && confirm(trans('Failed to get the data. Want to try again?'))) {
+                    $.ajax(options);
+                }
+            }
+        }, options||{});
+
+        if (typeof(PopupContainer.list[name]) != 'undefined') {
+            options.success(PopupContainer.list[name]);
+        } else {
+            // init popup on success load popup content
+            var success = options.success;
+            options.success = function(data) {
+                PopupContainer.list[name] = new Popup($(data));
+                success(PopupContainer.list[name]);
+                PopupContainer.getContainer().append(PopupContainer.list[name].body);
+            };
+
+            PopupContainer.sendRequest(options);
+        }
+    },
+    get: function(name) {
+        if (typeof(PopupContainer.list[name]) != 'undefined') {
+            return PopupContainer.list[name];
+        } else {
+            return null;
+        }
+    },
+    setPopupLoader: function(el) {
+        PopupContainer.popup_loader = new Popup(el);
+    },
+    sendRequest: function(options) {
+        if (PopupContainer.xhr === null) {
+            Cap.registr({
+                show:function(){},
+                hide:function(){
+                    PopupContainer.xhr.abort();
+                }
+            });
+        } else {
+            PopupContainer.xhr.abort();
+        }
+        PopupContainer.xhr = $.ajax(options);
+    },
+    /**
+     * Lazy loading body of popup
+     */
+    lazyload: function(name, options) {
+        options = $.extend({
+            success: function() {},
+            error: function(xhr, status) {
+                if (status != 'abort' && confirm(trans('Failed to get the data. Want to try again?'))) {
+                    $.ajax(options);
+                } else {
+                    PopupContainer.popup_loader.hide();
+                }
+            }
+        }, options||{});
+
+        if (typeof(PopupContainer.list[name]) != 'undefined') {
+            options.success(PopupContainer.list[name]);
+        } else {
+            PopupContainer.popup_loader.show();
+
+            // init popup on success load popup content
+            var success = options.success;
+            options.success = function(data) {
+                var popup = new Popup(PopupContainer.popup_loader.body.clone().hide());
+                popup.body.attr('id', name).find('.content').append(data);
+                PopupContainer.getContainer().append(popup.body);
+
+                PopupContainer.list[name] = popup;
+                success(popup);
+
+                // animate show popup
+                var width = popup.body.width();
+                var height = popup.body.height();
+                PopupContainer.popup_loader.body.find();
+                PopupContainer.popup_loader.body.addClass('resize').animate({
+                    'width': width,
+                    'height': height
+                }, 400, function() {
+                    popup.show();
+                    // reset style
+                    PopupContainer.popup_loader.body.removeClass('resize').removeAttr('style').hide();
+                });
+            };
+
+            PopupContainer.sendRequest(options);
+        }
+    }
+};
+
+var ProgressBar = function(bar, label) {
+    this.bar = bar;
+    this.label = label;
+    this.from = bar.data('from');
+    this.message = bar.data('message');
+    this.redirect = bar.data('redirect');
+
+    var that = this;
+    // init jQuery UI progressbar
+    this.bar.progressbar({
+        value: false,
+        change: function() {
+            that.label.text(that.bar.progressbar('value')+'%');
+        },
+        complete: function() {
+            that.complete();
+        }
+    });
+
+    that.update();
+};
+ProgressBar.prototype = {
+    update: function() {
+        var that = this;
+        $.ajax({
+            url: this.from,
+            dataType: 'json',
+            success: function(data) {
+                that.bar.progressbar('value', data.status);
+
+                if (data.status == 100) {
+                    that.complete();
+                } else {
+                    setTimeout(function() {
+                        that.update();
+                    }, 400);
+                }
+            }
+        });
+    },
+    complete: function() {
+        this.label.text(this.message);
+
+        if (this.redirect) {
+            // give the user the ability to see the completion message before redirecting
+            var that = this;
+            setTimeout(function() {
+                window.location.replace(that.redirect);
+            }, 500);
+        }
+    }
+};
+
+var ProgressLog = function(log, container) {
+    this.offset = 0;
+    this.log = log;
+    this.container = container || log;
+    this.from = log.data('from');
+    this.message = log.data('message');
+    this.redirect = log.data('redirect');
+
+    this.update();
+};
+ProgressLog.prototype = {
+    update: function() {
+        var that = this;
+        $.ajax({
+            url: this.from,
+            data: {offset: this.offset},
+            dataType: 'json',
+            success: function(data) {
+                that.log.text(that.log.text()+data.content);
+                that.offset += data.content.length;
+                // scroll progress log to bottom
+                if  (that.log.height() > that.container.height()) {
+                    that.container.animate({scrollTop: that.container[0].scrollHeight}, 'slow');
+                }
+
+                if (data.end) {
+                    that.complete();
+                } else {
+                    setTimeout(function() {
+                        that.update();
+                    }, 400);
+                }
+            }
+        });
+    },
+    complete: function() {
+        if (this.message) {
+            alert(this.message);
+        }
+        if (this.redirect) {
+            window.location.replace(this.redirect);
+        }
+    }
+};
 
 /**
  * Toggle block visible
  */
 var ToggleBlock = function(button) {
-	var block = $(button.data('target'));
-	button.click(function() {
-		block.slideToggle(150);
-		return false;
-	});
+    var block = $(button.data('target'));
+    button.click(function() {
+        block.slideToggle(150);
+        return false;
+    });
 };
 
+/**
+ * Translate message
+ */
+function trans(message) {
+    if (typeof(translations[message]) != 'undefined') {
+        return translations[message];
+    } else {
+        return message;
+    }
+}
 
 /**
  * Update log block controller
@@ -2645,183 +2750,38 @@ var ToggleBlock = function(button) {
  * Control over the application upgrade and change tracking
  */
 var UpdateLogBlock = function(block) {
-	this.block = block;
-	this.from = block.data('from');
-	this.message = block.data('message');
-	this.redirect = block.data('redirect') || '/';
-	this.end_message = block.data('end-message');
-	this.update();
+    this.block = block;
+    this.from = block.data('from');
+    this.message = block.data('message');
+    this.redirect = block.data('redirect') || '/';
+    this.end_message = block.data('end-message');
+    this.update();
 };
 UpdateLogBlock.prototype = {
-	update: function() {
-		var that = this;
-		$.ajax({
-			url: that.from,
-			success: function(data) {
-				if (that.block.text() != data) {
-					that.block.text(data).animate({scrollTop: that.block[0].scrollHeight}, 'slow');
-					if (data.indexOf(that.end_message) != -1) {
-						that.complete();
-						return;
-					}
-				}
-				setTimeout(function() {
-					that.update();
-				}, 400);
-			}
-		});
-	},
-	complete: function() {
-		alert(this.message);
-		window.location.replace(this.redirect);
-	}
+    update: function() {
+        var that = this;
+        $.ajax({
+            url: that.from,
+            success: function(data) {
+                if (that.block.text() != data) {
+                    that.block.text(data).animate({scrollTop: that.block[0].scrollHeight}, 'slow');
+                    if (data.indexOf(that.end_message) != -1) {
+                        that.complete();
+                        return;
+                    }
+                }
+                setTimeout(function() {
+                    that.update();
+                }, 400);
+            }
+        });
+    },
+    complete: function() {
+        alert(this.message);
+        window.location.replace(this.redirect);
+    }
 };
 
-
-/**
- * Keep hover a mouse on the element
- *
- * While maintaining stationary cursor over an element it adds
- * class and removes it after you drag the cursor
- * 
- * Takes a timeout from the attribute data-expect or 1000 seconds
- */
-var KeepHover = function(el) {
-	var that = this;
-	this.timer = null;
-	this.expect = el.data('expect') ? el.data('expect') : 1000;
-	this.el = el.hover(function() {
-		that.startTimer();
-	}, function() {
-		that.stopTimer();
-		that.removeKeep();
-	}).mousemove(function() {
-		that.stopTimer();
-		that.startTimer();
-	});
-};
-KeepHover.prototype = {
-	startTimer: function() {
-		var that = this;
-		this.timer = setTimeout(function() {
-			that.setKeep();
-		}, this.expect);
-	},
-	stopTimer: function() {
-		clearTimeout(this.timer);
-	},
-	setKeep: function() {
-		this.el.addClass('keep-hover')
-	},
-	removeKeep: function() {
-		this.el.removeClass('keep-hover')
-	}
-};
-
-
-/**
- * Progress bar
- */
-var ProgressBar = function(bar, label) {
-	this.bar = bar;
-	this.label = label;
-	this.from = bar.data('from');
-	this.message = bar.data('message');
-	this.redirect = bar.data('redirect');
-
-	var that = this;
-	// init jQuery UI progressbar
-	this.bar.progressbar({
-		value: false,
-		change: function() {
-			that.label.text(that.bar.progressbar('value')+'%');
-		},
-		complete: function() {
-			that.complete();
-		}
-	});
-
-	that.update();
-};
-ProgressBar.prototype = {
-	update: function() {
-		var that = this;
-		$.ajax({
-			url: this.from,
-			dataType: 'json',
-			success: function(data) {
-				that.bar.progressbar('value', data.status);
-
-				if (data.status == 100) {
-					that.complete();
-				} else {
-					setTimeout(function() {
-						that.update();
-					}, 400);
-				}
-			}
-		});
-	},
-	complete: function() {
-		this.label.text(this.message);
-
-		if (this.redirect) {
-			// give the user the ability to see the completion message before redirecting
-			var that = this;
-			setTimeout(function() {
-				window.location.replace(that.redirect);
-			}, 500);
-		}
-	}
-};
-
-/**
- * Progress log
- */
-var ProgressLog = function(log, container) {
-	this.offset = 0;
-	this.log = log;
-	this.container = container || log;
-	this.from = log.data('from');
-	this.message = log.data('message');
-	this.redirect = log.data('redirect');
-
-	this.update();
-};
-ProgressLog.prototype = {
-	update: function() {
-		var that = this;
-		$.ajax({
-			url: this.from,
-			data: {offset: this.offset},
-			dataType: 'json',
-			success: function(data) {
-				that.log.text(that.log.text()+data.content);
-				that.offset += data.content.length;
-				// scroll progress log to bottom
-				if  (that.log.height() > that.container.height()) {
-					that.container.animate({scrollTop: that.container[0].scrollHeight}, 'slow');
-				}
-
-				if (data.end) {
-					that.complete();
-				} else {
-					setTimeout(function() {
-						that.update();
-					}, 400);
-				}
-			}
-		});
-	},
-	complete: function() {
-		if (this.message) {
-			alert(this.message);
-		}
-		if (this.redirect) {
-			window.location.replace(this.redirect);
-		}
-	}
-};
 // init after document load
 $(function(){
 
