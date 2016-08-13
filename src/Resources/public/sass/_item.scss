@@ -1,0 +1,61 @@
+/**
+ * Show image
+ */
+.content .item-images article {
+  margin: 0;
+}
+
+.item {
+  &-show-left {
+    width: 600px;
+    float: left;
+    .cover {
+      width: 240px;
+      margin: 0 15px 10px 0;
+      float: left;
+    }
+  }
+  &-show-right {
+    width: 260px;
+    float: right;
+  }
+  &-controls {
+    ul,
+    li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    a {
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+  &-summary {
+    min-height: 300px;
+    text-indent: 20px;
+  }
+  &-episodes article {
+    max-height: 500px;
+    overflow: auto;
+  }
+  &-info ul {
+    margin: 0;
+  }
+  &-sources {
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      margin: 2px;
+      display: inline-block;
+    }
+  }
+  &-images a {
+    height: 140px;
+    margin: 5px;
+    float: left;
+  }
+}

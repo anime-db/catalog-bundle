@@ -1,0 +1,80 @@
+.f-refill {
+  position: relative;
+  margin-left: 5px;
+  ul {
+    position: absolute;
+    top: 100%;
+    background: black;
+    visibility: hidden;
+    @include opacity(0);
+    @include transition(opacity .20s ease-in-out);
+    @include box-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    z-index: 1;
+  }
+  &:hover ul {
+    visibility: visible;
+    @include opacity(1);
+  }
+}
+
+.refill-form-anime_db_catalog_entity_item {
+  &_date_premiere,
+  &_date_end,
+  &_episodes_number,
+  &_duration,
+  &_country,
+  &_country {
+    width: 310px;
+  }
+  &_genres {
+    width: 580px;
+  }
+  /* hav textarea in form */
+  &_summary,
+  &_episodes {
+    width: 510px;
+    height: 248px;
+  }
+  /* hav a form collection */
+  &_names,
+  &_sources,
+  &_images {
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .f-collection {
+      margin: 0;
+      width: 310px;
+      .f-fields {
+        width: 310px;
+      }
+      label {
+        display: none;
+      }
+    }
+  }
+  &_names,
+  &_sources {
+    width: 333px;
+    .content {
+      width: 333px;
+    }
+  }
+  &_images {
+    width: 183px;
+    max-height: 400px;
+    .f-image .change-button {
+      display: none;
+    }
+    .content {
+      width: 183px;
+    }
+    .f-collection .f-fields {
+      width: 164px;
+    }
+  }
+  &_studio {
+    width: 280px;
+    text-align: center;
+  }
+}

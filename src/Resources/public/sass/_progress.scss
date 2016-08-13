@@ -1,30 +1,30 @@
 /**
- * Progressbar
+ * ProgressBar
  */
 .b-progress {
-	text-align: center;
-}
-.b-progress .b-progress-bar {
-	position: relative;
-	height: 26px;
-	width: 570px;
-	margin: 0 auto 10px;
-}
-.b-progress .b-progress-bar .b-progress-label {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	width: 100%;
-	line-height: 26px;
-	text-align: center;
-}
-.b-progress .b-message {
-	width: 570px;
-	margin: 0 auto;
-}
-.b-progress .b-progress-log {
-	display: none;
-	margin: 5px auto 0 auto;
-	width: 500px;
-	height: 200px;
+  text-align: center;
+  .b-progress-bar {
+    position: relative;
+    height: 26px;
+    width: 570px;
+    margin: 0 auto 10px;
+    .b-progress-label {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      line-height: 26px;
+      text-align: center;
+    }
+  }
+  .b-message {
+    width: 570px;
+    margin: 0 auto;
+  }
+  .b-progress-log {
+    display: none;
+    margin: 5px auto 0 auto;
+    width: 500px;
+    height: 200px;
+  }
 }

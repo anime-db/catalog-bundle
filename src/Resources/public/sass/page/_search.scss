@@ -1,0 +1,44 @@
+/**
+ * Search items
+ */
+#b-search-params {
+  display: none;
+}
+
+.b-search {
+  .b-result article {
+    margin: 0;
+  }
+  .b-name {
+    width: 100%;
+    border: none;
+    padding: 0;
+    .b-field,
+    input {
+      width: 100%;
+    }
+    input {
+      font-size: 150%;
+    }
+    td,
+    tr {
+      border: none;
+      padding: 0;
+    }
+  }
+  .b-button {
+    padding-left: 5px;
+  }
+  .bt-toggle-block {
+    padding: 0;
+    margin-top: 0;
+    border: 0;
+    background: none;
+    font-weight: normal;
+    color: #db3400;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

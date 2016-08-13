@@ -1,0 +1,63 @@
+@mixin background-size($size) {
+  -o-background-size: $size;
+  -moz-background-size: $size;
+  -webkit-background-size: $size;
+  background-size: $size;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin box-shadow($shadow...) {
+  -moz-box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin opacity($opacity) {
+  filter: alpha(opacity=$opacity * 100);
+  opacity: $opacity;
+}
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin animation($animation...) {
+  -webkit-transition: $animation;
+  -moz-transition: $animation;
+  -o-transition: $animation;
+  transition: $animation;
+}
+
+@mixin transform($transform) {
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+@mixin transform-style($style) {
+  -webkit-transition: $style;
+  -moz-transition: $style;
+  transition: $style;
+}
+
+@mixin backface-visibility($visibility) {
+  -webkit-backface-visibility: $visibility;
+  -moz-backface-visibility: $visibility;
+  backface-visibility: $visibility;
+}
+
+@mixin perspective($perspective) {
+  -webkit-perspective: $perspective;
+  -moz-perspective: $perspective;
+  perspective: $perspective;
+}

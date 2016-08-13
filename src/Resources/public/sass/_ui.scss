@@ -1,0 +1,15 @@
+/**
+ * UI State
+ */
+.ui-state {
+  &-error,
+  &-highlight {
+    padding: .5em 1em;
+    margin: 5px 0;
+    .ui-icon-alert,
+    .ui-icon-info {
+      float: left;
+      margin-right: .5em;
+    }
+  }
+}

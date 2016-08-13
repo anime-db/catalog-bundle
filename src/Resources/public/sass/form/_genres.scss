@@ -1,0 +1,23 @@
+#anime_db_catalog {
+  &_entity_item_genres,
+  &_search_items_genres,
+  &_entity_item_labels,
+  &_search_items_labels {
+    width: 595px;
+    input {
+      margin: 0;
+      position: relative;
+      vertical-align: middle;
+      bottom: 1px;
+      display: inline-block;
+    }
+    label {
+      width: 130px;
+      margin-left: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+    }
+  }
+}

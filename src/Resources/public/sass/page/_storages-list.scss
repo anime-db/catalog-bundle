@@ -1,0 +1,33 @@
+.storages-list {
+  table {
+    width: 100%;
+  }
+  h3 {
+    margin-top: 20px;
+    font-weight: bold;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  .list .control {
+    width: 16px;
+    a {
+      margin-left: 3px;
+      float: left;
+      &:first-child {
+        margin: 0;
+      }
+    }
+    &.deletable,
+    &.scannable {
+      width: 35px;
+    }
+    &.deletable.scannable {
+      width: 54px;
+    }
+  }
+  .name {
+    white-space: nowrap;
+    word-wrap: normal;
+  }
+}

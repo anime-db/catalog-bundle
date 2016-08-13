@@ -1,0 +1,26 @@
+.b-update {
+  &-ask,
+  &-container,
+  &-container.b-progress {
+    margin-top: 70px;
+    text-align: center;
+  }
+  &-ask form {
+    margin-top: 10px;
+  }
+  &-container .b-message {
+    padding-top: 34px;
+    background: url('/bundles/animedbcatalog/images/loader.gif') no-repeat center 0;
+  }
+  h3 {
+    font-weight: bold;
+  }
+  .b-list-plugins {
+    width: 550px;
+    margin: 0 auto 1em auto;
+    .info {
+      width: 420px;
+      text-align: left;
+    }
+  }
+}

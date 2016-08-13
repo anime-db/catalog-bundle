@@ -1,0 +1,32 @@
+.b-filler-search {
+  clear: both;
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  .image {
+    width: 120px;
+    text-align: center;
+    line-height: 0;
+    float: left;
+    img {
+      max-width: 120px;
+      max-height: 150px;
+    }
+  }
+  .info {
+    margin-left: 15px;
+    float: left;
+    a.header {
+      margin-bottom: 3px;
+      display: block;
+    }
+  }
+}
+.b-refill-search .info {
+  width: 320px;
+  float: right;
+}

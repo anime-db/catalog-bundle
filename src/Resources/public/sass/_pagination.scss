@@ -1,0 +1,34 @@
+.pagination {
+  clear: both;
+  nav {
+    text-align: center;
+    span,
+    a {
+      display: inline-block;
+      border: 1px solid #db3400;
+      background: #db3400;
+      color: #fff;
+      text-decoration: none;
+      padding: 1px 4px;
+      margin: 3px;
+      line-height: 20px;
+      min-height: 20px;
+      min-width: 14px;
+      text-align: center;
+      @include border-radius(50%);
+    }
+    a:hover {
+      border: 1px solid #db3400;
+      background: #ff6600;
+    }
+    span {
+      border: 1px solid #cccccd;
+      background: white;
+      color: inherit;
+      line-height: 30px;
+      min-height: 30px;
+      min-width: 24px;
+      cursor: default;
+    }
+  }
+}

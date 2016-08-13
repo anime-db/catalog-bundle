@@ -1,0 +1,92 @@
+.b-notice {
+  top: 0;
+  position: absolute;
+  background-color: #fafad2;
+  width: 100%;
+  height: 16px;
+  margin: 15px 20px 15px 0;
+  float: right;
+  @include box-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+  @include animation(show-notice .6s);
+  z-index: 1;
+  .b-message {
+    white-space: nowrap;
+  }
+  .b-controls {
+    height: 16px;
+    margin: 15px 20px 15px 0;
+    float: right;
+  }
+  .bt-close,
+  .bt-see-later {
+    border: none;
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
+    padding: 16px 0 0 16px;
+    overflow: hidden;
+  }
+  .bt-close {
+    background: url('/bundles/animedbcatalog/images/icon/close_mini.png') 0 0 no-repeat;
+    float: right;
+  }
+  .bt-see-later {
+    background: url('/bundles/animedbcatalog/images/icon/clock.png') 0 0 no-repeat;
+    float: left;
+  }
+  &-scroll {
+    position: absolute;
+    width: 55px;
+    margin: 0;
+    padding: 45px 0 0 55px;
+    background: none;
+    border: none;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    display: none;
+    @include opacity(0.3);
+    @include transition(background .20s ease-in-out);
+    @include border-radius(0);
+    background-position: center center;
+    cursor: default;
+    z-index: 1;
+    &-left {
+      right: 75px;
+      left: 0;
+      &:hover {
+        background: gray url('/bundles/animedbcatalog/images/icon/arrow-left.png') center center no-repeat;
+      }
+    }
+    &-right {
+      right: 75px;
+      &:hover {
+        background: gray url('/bundles/animedbcatalog/images/icon/arrow-right.png') center center no-repeat;
+      }
+    }
+  }
+}
+
+@keyframes show-notice {
+  from {
+    top: -60px;
+  }
+  to {
+    top: 0;
+  }
+}
+@-webkit-keyframes show-notice {
+  from {
+    top: -60px;
+  }
+  to {
+    top: 0;
+  }
+}
+
+.b-message-wrapper {
+  width: 845px;
+  overflow: hidden;
+  margin: 15px 0 15px 20px;
+  float: left;
+}

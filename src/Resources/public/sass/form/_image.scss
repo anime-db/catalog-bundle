@@ -1,0 +1,42 @@
+/**
+ * Form image popup
+ */
+#f-image-popup {
+  width: 380px;
+  label {
+    width: 120px;
+  }
+  input {
+    width: 250px;
+  }
+}
+.f-image {
+  background: #ccc;
+  border: 1px #ff6600 solid;
+  height: 150px;
+  width: 150px;
+  line-height: 150px;
+  text-align: center;
+  margin-bottom: 2px;
+  position: relative;
+  float: left;
+  .change-button {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 152px 0 0 152px;
+    margin: 0;
+    width: 152px;
+    height: 152px;
+    overflow: hidden;
+    border: none;
+    background: none;
+    @include border-radius(0);
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+}

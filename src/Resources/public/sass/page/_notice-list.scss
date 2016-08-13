@@ -1,0 +1,22 @@
+.b-notice-list {
+  .t-message {
+    width: 500px;
+    overflow: hidden;
+  }
+  .bt-toggle-block {
+    padding: 0;
+    margin-top: 0;
+    border: 0;
+    background: none;
+    font-weight: normal;
+    color: #db3400;
+    cursor: pointer;
+  }
+}
+
+#b-filter-notices {
+  display: none;
+}
+.b-filter-notices .f-col-label {
+  width: 100px;
+}
