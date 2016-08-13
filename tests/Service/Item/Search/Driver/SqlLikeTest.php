@@ -188,8 +188,13 @@ class SqlLikeTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnSelf());
         $builder
             ->expects($this->once())
-            ->method('andWhere')
-            ->with('LOWER(i.name) LIKE :name OR LOWER(n.name) LIKE :name')
+            ->method('where')
+            ->with('LOWER(i.name) LIKE :name')
+            ->will($this->returnSelf());
+        $builder
+            ->expects($this->once())
+            ->method('orWhere')
+            ->with('LOWER(n.name) LIKE :name')
             ->will($this->returnSelf());
         $builder
             ->expects($this->once())
