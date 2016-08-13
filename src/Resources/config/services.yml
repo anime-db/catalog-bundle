@@ -1,21 +1,15 @@
+imports:
+    - { resource: 'services/forms.yml' }
+    - { resource: 'services/install.yml' }
+    - { resource: 'services/listeners.yml' }
+    - { resource: 'services/plugins.yml' }
+    - { resource: 'services/search.yml' }
+
 services:
-    # Twig extension
-    anime_db.catalog.twig_extension:
+    anime_db.catalog.twig.extension:
         class: AnimeDb\Bundle\CatalogBundle\Service\TwigExtension
         tags:
             - { name: twig.extension }
-
-    anime_db.item.search.driver.sql_like:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Driver\SqlLike
-        arguments: [ '@doctrine', '@anime_db.item.search.selector' ]
-        public: false
-    anime_db.item.search.selector:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Selector
-        arguments: [ '@doctrine' ]
-        public: false
-    anime_db.item.search:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Item\Search\Manager
-        arguments: [ '@anime_db.item.search.driver' ]
 
     anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
@@ -28,7 +22,6 @@ services:
             - '@filesystem'
             - '%anime_db.catalog.storage.scan_output%'
             - '%anime_db.catalog.storage.scan_progress%'
-
 
     anime_db.menu.builder:
         class: AnimeDb\Bundle\CatalogBundle\Menu\Builder
