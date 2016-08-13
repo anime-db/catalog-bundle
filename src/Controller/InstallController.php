@@ -8,7 +8,6 @@
  */
 namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
@@ -104,7 +103,6 @@ class InstallController extends BaseController
             $storage->setPath(Filesystem::getUserHomeDir());
         }
 
-        /* @var $form Form */
         $form = $this->createForm(new StorageForm(), $storage)->handleRequest($request);
 
         if ($form->isValid()) {
