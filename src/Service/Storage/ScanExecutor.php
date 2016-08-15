@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
-namespace AnimeDb\Bundle\CatalogBundle\Service;
+namespace AnimeDb\Bundle\CatalogBundle\Service\Storage;
 
 use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\AppBundle\Service\CommandExecutor;
@@ -17,7 +17,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage as StorageEntity;
  *
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class StorageScanner
+class ScanExecutor
 {
     /**
      * @var CommandExecutor

@@ -8,7 +8,7 @@
  */
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Service;
 
-use AnimeDb\Bundle\CatalogBundle\Service\StorageScanner;
+use AnimeDb\Bundle\CatalogBundle\Service\Storage\ScanExecutor;
 use AnimeDb\Bundle\AppBundle\Service\CommandExecutor;
 use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
@@ -18,7 +18,7 @@ use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
  *
  * @author  Peter Gribanov <info@peter-gribanov.ru>
  */
-class StorageScannerTest extends \PHPUnit_Framework_TestCase
+class ScanExecutorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test export.
@@ -56,7 +56,7 @@ class StorageScannerTest extends \PHPUnit_Framework_TestCase
                 sprintf($output, $storage->getId())
             ));
 
-        $scanner = new StorageScanner($command, $fs, $output, $progress);
+        $scanner = new ScanExecutor($command, $fs, $output, $progress);
         $scanner->export($storage);
     }
 }

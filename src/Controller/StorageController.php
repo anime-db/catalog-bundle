@@ -181,7 +181,7 @@ class StorageController extends BaseController
     {
         $response = $this->getCacheTimeKeeper()->getResponse($storage->getDateUpdate());
 
-        $this->get('anime_db.storage_scanner')->export($storage);
+        $this->get('anime_db.storage.scan_executor')->export($storage);
 
         // response was not modified for this request
         if ($response->isNotModified($request)) {
