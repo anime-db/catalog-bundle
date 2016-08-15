@@ -4,6 +4,7 @@ imports:
     - { resource: 'services/listeners.yml' }
     - { resource: 'services/plugins.yml' }
     - { resource: 'services/search.yml' }
+    - { resource: 'services/storage.yml' }
 
 services:
     anime_db.catalog.twig.extension:
@@ -14,14 +15,6 @@ services:
     anime_db.item.list_controls:
         class: AnimeDb\Bundle\CatalogBundle\Service\Item\ListControls
         arguments: [ '@anime_db.item.search' ]
-
-    anime_db.storage.scan_executor:
-        class: AnimeDb\Bundle\CatalogBundle\Service\Storage\ScanExecutor
-        arguments:
-            - '@anime_db.command'
-            - '@filesystem'
-            - '%anime_db.catalog.storage.scan_output%'
-            - '%anime_db.catalog.storage.scan_progress%'
 
     anime_db.menu.builder:
         class: AnimeDb\Bundle\CatalogBundle\Menu\Builder

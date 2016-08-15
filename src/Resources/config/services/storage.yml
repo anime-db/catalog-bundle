@@ -1,0 +1,11 @@
+services:
+    anime_db.storage.scan_executor:
+        class: AnimeDb\Bundle\CatalogBundle\Service\Storage\ScanExecutor
+        arguments:
+            - '@anime_db.command'
+            - '@filesystem'
+            - '%anime_db.catalog.storage.scan_output%'
+            - '%anime_db.catalog.storage.scan_progress%'
+
+    anime_db.storage.filename_cleaner:
+        class: AnimeDb\Bundle\CatalogBundle\Service\Storage\FilenameCleaner
