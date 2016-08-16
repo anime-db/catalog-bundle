@@ -202,7 +202,11 @@ EOT
                     $file = new SplFileInfo($file, '', '');
 
                     // it is a new item
-                    $dispatcher->dispatch(StoreEvents::DETECTED_NEW_FILES, new DetectedNewFiles($storage, $file));
+                    $name = $this->getContainer()->get('anime_db.storage.filename_cleaner')->clean($file);
+                    $dispatcher->dispatch(
+                        StoreEvents::DETECTED_NEW_FILES,
+                        new DetectedNewFiles($storage, $file, $name)
+                    );
                     $lazywrite->writeln('Detected files for new item <info>'.$file->getFilename().'</info>');
                 }
                 $progress->advance();

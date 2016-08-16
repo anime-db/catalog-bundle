@@ -37,18 +37,13 @@ class DetectedNewFiles extends Event
     /**
      * @param Storage $storage
      * @param SplFileInfo $file
+     * @param string $name
      */
-    public function __construct(Storage $storage, SplFileInfo $file)
+    public function __construct(Storage $storage, SplFileInfo $file, $name)
     {
         $this->storage = $storage;
         $this->file = $file;
-
-        // get clean name
-        $this->name = $file->getFilename();
-        if ($file->isFile()) {
-            $this->name = pathinfo($this->name, PATHINFO_FILENAME);
-        }
-        $this->name = trim(preg_replace('/^([^\[\]\(\)]+).*$/', '$1', $this->name));
+        $this->name = $name;
     }
 
     /**

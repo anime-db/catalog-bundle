@@ -25,17 +25,22 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
     protected $storage;
 
     /**
-     * SplFileInfo.
-     *
      * @var \PHPUnit_Framework_MockObject_MockObject|SplFileInfo
      */
     protected $file;
 
+    /**
+     * @var string
+     */
+    protected $name;
+
     protected function setUp()
     {
         touch(sys_get_temp_dir().'/test');
+        $this->name = 'foo';
         $this->storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
-        $this->file = $this->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
+        $this->file = $this
+            ->getMockBuilder('\Symfony\Component\Finder\SplFileInfo')
             ->setConstructorArgs([sys_get_temp_dir().'/test', '', ''])
             ->getMock();
     }
@@ -55,42 +60,9 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->file, $this->getEvent()->getFile());
     }
 
-    /**
-     * @return array
-     */
-    public function getFilenames()
+    public function testGetName()
     {
-        return [
-            ['test', 'test.log', true],
-            ['test', 'test', false],
-            ['test', 'test [123].log', true],
-            ['test', 'test [123]', false],
-            ['test', 'test (123).log', true],
-            ['test', 'test (123)', false],
-            ['test', ' test ()[].log', true],
-            ['test', ' test ()[]', false],
-        ];
-    }
-
-    /**
-     * @dataProvider getFilenames
-     *
-     * @param string $expected
-     * @param string $filename
-     * @param bool $is_file
-     */
-    public function testGetName($expected, $filename, $is_file)
-    {
-        $this->file
-            ->expects($this->once())
-            ->method('getFilename')
-            ->will($this->returnValue($filename));
-        $this->file
-            ->expects($this->once())
-            ->method('isFile')
-            ->will($this->returnValue($is_file));
-
-        $this->assertEquals($expected, $this->getEvent()->getName());
+        $this->assertEquals($this->name, $this->getEvent()->getName());
     }
 
     /**
@@ -98,6 +70,6 @@ class DetectedNewFilesTest extends \PHPUnit_Framework_TestCase
      */
     protected function getEvent()
     {
-        return new DetectedNewFiles($this->storage, $this->file);
+        return new DetectedNewFiles($this->storage, $this->file, $this->name);
     }
 }
