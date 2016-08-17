@@ -98,12 +98,6 @@ class StorageController extends BaseController
      */
     public function addAction(Request $request)
     {
-        $response = $this->getCacheTimeKeeper()->getResponse();
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
         $storage = new Storage();
 
         /* @var $form Form */
@@ -123,7 +117,7 @@ class StorageController extends BaseController
         return $this->render('AnimeDbCatalogBundle:Storage:add.html.twig', [
             'form' => $form->createView(),
             'guide' => $this->get('anime_db.api.client')->getSiteUrl(self::GUIDE_LINK),
-        ], $response);
+        ]);
     }
 
     /**
@@ -173,24 +167,16 @@ class StorageController extends BaseController
      * Scan storage.
      *
      * @param Storage $storage
-     * @param Request $request
      *
      * @return Response
      */
-    public function scanAction(Storage $storage, Request $request)
+    public function scanAction(Storage $storage)
     {
-        $response = $this->getCacheTimeKeeper()->getResponse($storage->getDateUpdate());
-
         $this->get('anime_db.storage.scan_executor')->export($storage);
-
-        // response was not modified for this request
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
 
         return $this->render('AnimeDbCatalogBundle:Storage:scan.html.twig', [
             'storage' => $storage,
-        ], $response);
+        ]);
     }
 
     /**
