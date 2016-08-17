@@ -31,7 +31,7 @@ class FilenameCleanerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->root = sys_get_temp_dir() . '/tests/';
+        $this->root = sys_get_temp_dir().'/tests/';
         $this->fs = new Filesystem();
         $this->fs->mkdir($this->root);
 
@@ -52,12 +52,12 @@ class FilenameCleanerTest extends \PHPUnit_Framework_TestCase
             [
                 'Sailor Moon',
                 'Sailor Moon (1992) [TV]',
-                true
+                true,
             ],
             [
                 'Bleach',
                 'Bleach (2004-2012) [TV] HDRip 720p',
-                true
+                true,
             ],
             [
                 'Rybka Pon\'o na Utjose',
@@ -117,12 +117,12 @@ class FilenameCleanerTest extends \PHPUnit_Framework_TestCase
     public function testClean($expected, $filename, $is_dir = false)
     {
         if ($is_dir) {
-            $this->fs->mkdir($this->root . $filename);
+            $this->fs->mkdir($this->root.$filename);
         } else {
-            $this->fs->touch($this->root . $filename);
+            $this->fs->touch($this->root.$filename);
         }
 
-        $file = new SplFileInfo($this->root . $filename, '', '');
+        $file = new SplFileInfo($this->root.$filename, '', '');
 
         $this->assertEquals($expected, $this->cleaner->clean($file));
     }
