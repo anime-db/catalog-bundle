@@ -98,8 +98,8 @@ class FilenameCleaner
 
         // remove all file meta data
         $reg = sprintf('/[ .,](?:%s)[ .,]/i', implode('|', $this->meta));
-        while (preg_match($reg, $name . ' ')) {
-            $name = preg_replace($reg, ' ', $name . ' ');
+        while (preg_match($reg, $name.' ')) {
+            $name = preg_replace($reg, ' ', $name.' ');
         }
 
         $name = str_replace('  ', ' ', $name); // remove double spaces
