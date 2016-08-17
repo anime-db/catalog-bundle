@@ -132,7 +132,11 @@ class ScanStorage
 
         $this->sendNotice(
             self::NOTICE_TYPE_DETECTED_FILES_FOR_NEW_ITEM,
-            ['storage' => $event->getStorage(), 'name' => $event->getName(), 'link' => $link]
+            [
+                'storage' => $event->getStorage(),
+                'name' => $event->getName(),
+                'link' => $link,
+            ]
         );
     }
 
@@ -151,16 +155,16 @@ class ScanStorage
      */
     public function onDetectedNewFilesTryAdd(DetectedNewFiles $event)
     {
-        // search from dafeult plugin
-        $dafeult_plugin = null;
-        if (($dafeult_plugin = $this->search->getDafeultPlugin()) && $this->tryAddItem($dafeult_plugin, $event)) {
+        // search from default plugin
+        $default_plugin = null;
+        if (($default_plugin = $this->search->getDafeultPlugin()) && $this->tryAddItem($default_plugin, $event)) {
             return true;
         }
 
         // search from all plugins
         foreach ($this->search->getPlugins() as $plugin) {
             /* @var $plugin SearchInterface */
-            if ($plugin !== $dafeult_plugin && $this->tryAddItem($plugin, $event)) {
+            if ($plugin !== $default_plugin && $this->tryAddItem($plugin, $event)) {
                 return true;
             }
         }
@@ -206,7 +210,10 @@ class ScanStorage
     {
         $this->sendNotice(
             self::NOTICE_TYPE_ADDED_NEW_ITEM,
-            ['storage' => $event->getItem()->getStorage(), 'item' => $event->getItem()]
+            [
+                'storage' => $event->getItem()->getStorage(),
+                'item' => $event->getItem(),
+            ]
         );
     }
 
