@@ -1,74 +1,74 @@
 {% extends 'AnimeDbAppBundle::layout.html.twig' %}
 
 {% block javascripts %}
-	{{ parent() }}
-	{% if app.debug == false %}
-		<script type="text/javascript">
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			ga('create', '{{ ga_account }}', {'cookieDomain': 'none'});
-			ga('send', 'pageview');
-		</script>
-	{% endif %}
+    {{ parent() }}
+    {% if app.debug == false %}
+        <script type="text/javascript">
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '{{ ga_account }}', {'cookieDomain': 'none'});
+            ga('send', 'pageview');
+        </script>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
 <div id="wrapper">
-	<div id="header">
-		<h1 class="logo">
-			<a href="{{ path('home') }}" title="{% trans %}Home Anime DB{% endtrans %}">
-				<span>{% trans %}Home Anime DB{% endtrans %}</span>
-			</a>
-		</h1>
-	</div>
-	<div id="content-wrapper">
-		<div class="content">
-			{% if step is not defined %}
-				{% set step = 1 %}
-			{% endif %}
-			<div class="steps step-{{ step }}">
-				<div class="progress"></div>
-				<div>
-					{% if step > 1 and step != 4 %}
-						<a href="{{ path('install') }}" class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</a>
-					{% else %}
-						<span class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</span>
-					{% endif %}
-					{% if step > 2 and step != 4 %}
-						<a href="{{ path('install_add_storage') }}" class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</a>
-					{% else %}
-						<span class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</span>
-					{% endif %}
-					{% if step > 3 and step != 4 %}
-						<a href="{{ path('install_what_you_want') }}" class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</a>
-					{% else %}
-						<span class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</span>
-					{% endif %}
-					<span class="step step-4" title="{% trans with {'%number%': '4'} %}Step %number%{% endtrans %}">4</span>
-					<span class="step step-5" title="{% trans %}End{% endtrans %}">5</span>
-				</div>
-			</div>
-			{% block content %}{% endblock %}
-		</div>
-	</div>
-	<div id="footer">
-		<div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The program is licensed under the %license%.{% endtrans %}</div>
-		<div class="copy">&copy; 2011-{{ "now"|date("Y") }} <a href="http://anime-db.org/">Anime DB</a></div>
-	</div>
-	<div id="line"></div>
-	<div id="bg"></div>
+    <div id="header">
+        <h1 class="logo">
+            <a href="{{ path('home') }}" title="{% trans %}Home Anime DB{% endtrans %}">
+                <span>{% trans %}Home Anime DB{% endtrans %}</span>
+            </a>
+        </h1>
+    </div>
+    <div id="content-wrapper">
+        <div class="content">
+            {% if step is not defined %}
+                {% set step = 1 %}
+            {% endif %}
+            <div class="steps step-{{ step }}">
+                <div class="progress"></div>
+                <div>
+                    {% if step > 1 and step != 4 %}
+                        <a href="{{ path('install') }}" class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</a>
+                    {% else %}
+                        <span class="step step-1" title="{% trans with {'%number%': '1'} %}Step %number%{% endtrans %}">1</span>
+                    {% endif %}
+                    {% if step > 2 and step != 4 %}
+                        <a href="{{ path('install_add_storage') }}" class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</a>
+                    {% else %}
+                        <span class="step step-2" title="{% trans with {'%number%': '2'} %}Step %number%{% endtrans %}">2</span>
+                    {% endif %}
+                    {% if step > 3 and step != 4 %}
+                        <a href="{{ path('install_what_you_want') }}" class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</a>
+                    {% else %}
+                        <span class="step step-3" title="{% trans with {'%number%': '3'} %}Step %number%{% endtrans %}">3</span>
+                    {% endif %}
+                    <span class="step step-4" title="{% trans with {'%number%': '4'} %}Step %number%{% endtrans %}">4</span>
+                    <span class="step step-5" title="{% trans %}End{% endtrans %}">5</span>
+                </div>
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div id="footer">
+        <div class="license">{% trans with {'%license%': '<a href="http://opensource.org/licenses/GPL-3.0">GPLv3</a>'}%}The program is licensed under the %license%.{% endtrans %}</div>
+        <div class="copy">&copy; 2011-{{ "now"|date("Y") }} <a href="http://anime-db.org/">Anime DB</a></div>
+    </div>
+    <div id="line"></div>
+    <div id="bg"></div>
 </div>
 
 <div id="cap">
-	<div id="cap-content"></div>
-	<div id="popup-container">
-		<div id="cap-breaker"></div>
-		<div id="popup-wrapper">
-			{% set popup_id = 'b-lazyload-popup' %}
-			{% include 'AnimeDbAppBundle::popup.html.twig' %}
-		</div>
-	</div>
+    <div id="cap-content"></div>
+    <div id="popup-container">
+        <div id="cap-breaker"></div>
+        <div id="popup-wrapper">
+            {% set popup_id = 'b-lazyload-popup' %}
+            {% include 'AnimeDbAppBundle::popup.html.twig' %}
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -4,37 +4,37 @@
 
 {% block content %}
 <div class="b-search">
-	<h2>{% trans %}Search of records in the database{% endtrans %}</h2>
-	<form action="{{ path('home_search') }}" method="get" {{ form_enctype(form) }}>
-		<table class="b-name">
-			<tr>
-				<td class="b-field">{{ form_widget(form.name, {'attr': {'placeholder': 'Name'}}) }}</td>
-				<td class="b-button"><button type="submit">{% trans %}Search{% endtrans %}</button></td>
-			</tr>
-		</table>
+    <h2>{% trans %}Search of records in the database{% endtrans %}</h2>
+    <form action="{{ path('home_search') }}" method="get" {{ form_enctype(form) }}>
+        <table class="b-name">
+            <tr>
+                <td class="b-field">{{ form_widget(form.name, {'attr': {'placeholder': 'Name'}}) }}</td>
+                <td class="b-button"><button type="submit">{% trans %}Search{% endtrans %}</button></td>
+            </tr>
+        </table>
 
-		<section class="b-params">
-			<header class="bt-toggle-block" data-target="#b-search-params">
-				{% trans %}Search options{% endtrans %}
-				<span class="bt-toggle-block-icon">▴</span>
-			</header>
-			<article id="b-search-params">
-				{{ form_widget(form, {'id': 'f-search'}) }}
-			</article>
-		</section>
-	</form>
+        <section class="b-params">
+            <header class="bt-toggle-block" data-target="#b-search-params">
+                {% trans %}Search options{% endtrans %}
+                <span class="bt-toggle-block-icon">▴</span>
+            </header>
+            <article id="b-search-params">
+                {{ form_widget(form, {'id': 'f-search'}) }}
+            </article>
+        </section>
+    </form>
 
-	{% if searched == true %}
-		<section class="b-result">
-			<header>{% trans %}Search results{% endtrans %}</header>
-			<article>
-				{% if items is empty %}
-					{% trans %}Nothing found{% endtrans %}
-				{% else %}
-					{% include 'AnimeDbCatalogBundle:Item:list.html.twig' %}
-				{% endif %}
-			</article>
-		</section>
-	{% endif %}
+    {% if searched == true %}
+        <section class="b-result">
+            <header>{% trans %}Search results{% endtrans %}</header>
+            <article>
+                {% if items is empty %}
+                    {% trans %}Nothing found{% endtrans %}
+                {% else %}
+                    {% include 'AnimeDbCatalogBundle:Item:list.html.twig' %}
+                {% endif %}
+            </article>
+        </section>
+    {% endif %}
 </div>
 {% endblock %}

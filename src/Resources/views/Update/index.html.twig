@@ -4,54 +4,54 @@
 
 {% block content %}
 <div class="b-update">
-	<h2>{% trans %}Upgrading the system{% endtrans %}</h2>
-	{% if can_update == false %}
-		<h3>{% trans %}In Your operating system the application update does not work{% endtrans %}</h3>
-		<p>
-			{% trans with {
-				'%issue%': 'https://github.com/anime-db/catalog-bundle/issues/71',
-				'%doc%': doc
-			} %}We are <a href="%issue%">working</a> to resolve this problem. You can <a href="%doc%">update the application</a> from the command line:{% endtrans %}
-		</p>
-		<pre><code>php app/console animedb:update</code></pre>
-		<p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
-	{% else %}
-		<div class="b-update-ask">
-			{% if action %}
-				{% if action == 'install' %}
-					<div class="b-message">{% trans with {'%link%': referer} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
-				{% else %}
-					<div class="b-message">{% trans with {'%link%': referer} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
-				{% endif %}
-				<br />
-				{% if plugin %}
-					<div class="b-list-plugins">
-						{% if action == 'install' %}
-							<h3>{% trans %}The next update will be installed plugin:{% endtrans %}</h3>
-						{% else %}
-							<h3>{% trans %}The next update will be deleted plugin:{% endtrans %}</h3>
-						{% endif %}
-						<article>
-							<img
-								src="{{ plugin.logo|dummy('plugin') }}"
-								alt="{{ plugin.title }}"
-								class="logo"
-							/>
-							<div class="info">
-								<h3 class="title">{{ plugin.title }}</h3>
-								<em class="name">{{ plugin.name }}</em>
-								<p class="description">{{ plugin.description }}</p>
-							</div>
-						</article>
-					</div>
-				{% endif %}
-			{% endif %}
-			<div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
-			<form action="{{ path('update_execute') }}" method="post">
-				<a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>
-				<button type="submit">{% trans %}Yes{% endtrans %}</button>
-			</form>
-		</div>
-	{% endif %}
+    <h2>{% trans %}Upgrading the system{% endtrans %}</h2>
+    {% if can_update == false %}
+        <h3>{% trans %}In Your operating system the application update does not work{% endtrans %}</h3>
+        <p>
+            {% trans with {
+                '%issue%': 'https://github.com/anime-db/catalog-bundle/issues/71',
+                '%doc%': doc
+            } %}We are <a href="%issue%">working</a> to resolve this problem. You can <a href="%doc%">update the application</a> from the command line:{% endtrans %}
+        </p>
+        <pre><code>php app/console animedb:update</code></pre>
+        <p>{% trans %}Apologize for any inconvenience.{% endtrans %}</p>
+    {% else %}
+        <div class="b-update-ask">
+            {% if action %}
+                {% if action == 'install' %}
+                    <div class="b-message">{% trans with {'%link%': referer} %}Installing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable install several plugins.{% endtrans %}</div>
+                {% else %}
+                    <div class="b-message">{% trans with {'%link%': referer} %}Removing plugins occurs together with an update of the application. You can go back to <a href="%link%">the store of plugins</a> and add more plugins that would enable delete plugins.{% endtrans %}</div>
+                {% endif %}
+                <br />
+                {% if plugin %}
+                    <div class="b-list-plugins">
+                        {% if action == 'install' %}
+                            <h3>{% trans %}The next update will be installed plugin:{% endtrans %}</h3>
+                        {% else %}
+                            <h3>{% trans %}The next update will be deleted plugin:{% endtrans %}</h3>
+                        {% endif %}
+                        <article>
+                            <img
+                                src="{{ plugin.logo|dummy('plugin') }}"
+                                alt="{{ plugin.title }}"
+                                class="logo"
+                            />
+                            <div class="info">
+                                <h3 class="title">{{ plugin.title }}</h3>
+                                <em class="name">{{ plugin.name }}</em>
+                                <p class="description">{{ plugin.description }}</p>
+                            </div>
+                        </article>
+                    </div>
+                {% endif %}
+            {% endif %}
+            <div class="b-message">{% trans %}Upgrading the system and its components may take a few minutes. You are ready to run it?{% endtrans %}</div>
+            <form action="{{ path('update_execute') }}" method="post">
+                <a href="{{ path('home') }}" class="button">{% trans %}Cancel{% endtrans %}</a>
+                <button type="submit">{% trans %}Yes{% endtrans %}</button>
+            </form>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

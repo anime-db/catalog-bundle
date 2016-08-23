@@ -1,8 +1,8 @@
 <section class="widget-section{% if widget_class is defined %} {{ widget_class }}{% endif %}">
-	{% if block('title') is not empty %}
-		<header>{% block title %}{% endblock %}</header>
-	{% endif %}
-	<article>
-		{% block content %}{% endblock %}
-	</article>
+    {% if block('title') is not empty %}
+        <header>{% block title %}{% endblock %}</header>
+    {% endif %}
+    <article>
+        {% block content %}{% endblock %}
+    </article>
 </section>

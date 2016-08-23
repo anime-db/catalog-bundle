@@ -4,23 +4,23 @@
 
 {% block content %}
 <div class="b-source-filler b-source-filler-{{ plugin }}{% if form.count > 1%} b-large-form{% endif %}">
-	<h2>{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}</h2>
-	<form action="" method="get" {{ form_enctype(form) }}>
-		{{ form_widget(form) }}
-		<button type="submit">{% trans %}Fill{% endtrans %}</button>
-	</form>
-	{% if fill_form %}
-		<div class="b-addition-form">
-			<h2>{% trans %}Add record{% endtrans %}</h2>
-			<form action="{{ path('item_add_manually') }}" method="post">
-				{{ form_widget(fill_form) }}
-				<button type="submit">{% trans %}Add{% endtrans %}</button>
-			</form>
-			<blockquote class="b-form-note">
-				<span class="starlet">*</span>- {% trans %}required field{% endtrans %}<br />
-				<img src="/bundles/animedbcatalog/images/icon/fill.png" alt="" />- {% trans %}fill the field from source{% endtrans %}<br />
-			</blockquote>
-		</div>
-	{% endif %}
+    <h2>{% trans with {'%plugin%': plugin_name} %}Fill item from %plugin%{% endtrans %}</h2>
+    <form action="" method="get" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <button type="submit">{% trans %}Fill{% endtrans %}</button>
+    </form>
+    {% if fill_form %}
+        <div class="b-addition-form">
+            <h2>{% trans %}Add record{% endtrans %}</h2>
+            <form action="{{ path('item_add_manually') }}" method="post">
+                {{ form_widget(fill_form) }}
+                <button type="submit">{% trans %}Add{% endtrans %}</button>
+            </form>
+            <blockquote class="b-form-note">
+                <span class="starlet">*</span>- {% trans %}required field{% endtrans %}<br />
+                <img src="/bundles/animedbcatalog/images/icon/fill.png" alt="" />- {% trans %}fill the field from source{% endtrans %}<br />
+            </blockquote>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,10 +1,10 @@
 <ul class="show-limit">
-	<li><strong>{% trans %}On page{% endtrans %}:</strong></li>
-	{% for limit in limits %}
-		{% if limit.current %}
-			<li><span title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all %total% items on page'|transchoice(limit.count, {'%total%': total}) }}">{{ limit.name|trans({'%total%': total}) }}</span></li>
-		{% else %}
-			<li><a href="{{ limit.link }}" title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all %total% items on page'|transchoice(limit.count, {'%total%': total}) }}">{{ limit.name|trans({'%total%': total}) }}</a></li>
-		{% endif %}
-	{% endfor %}
+    <li><strong>{% trans %}On page{% endtrans %}:</strong></li>
+    {% for limit in limits %}
+        {% if limit.current %}
+            <li><span title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all %total% items on page'|transchoice(limit.count, {'%total%': total}) }}">{{ limit.name|trans({'%total%': total}) }}</span></li>
+        {% else %}
+            <li><a href="{{ limit.link }}" title="{{ 'Show one item on page|Show %count% items on page|{-1} Show all %total% items on page'|transchoice(limit.count, {'%total%': total}) }}">{{ limit.name|trans({'%total%': total}) }}</a></li>
+        {% endif %}
+    {% endfor %}
 </ul>

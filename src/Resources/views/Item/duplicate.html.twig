@@ -4,16 +4,16 @@
 
 {% block content %}
 <div class="b-item-duplicate">
-	<h2>{% trans %}Confirmation matching item{% endtrans %}</h2>
-	<section class="b-duplicates">
-		<header>{% trans %}List of matches found{% endtrans %}</header>
-		<article>{% include 'AnimeDbCatalogBundle:Item:list.html.twig' with {'hide_sort': true, 'hide_limit': true} %}</article>
-	</section>
-	<div class="b-form">
-		<form action="{{ path('item_duplicate') }}" method="post">
-			<button type="submit" name="do" value="cancel">{% trans %}Cancel{% endtrans %}</button>
-			<button type="submit" name="do" value="add">{% trans %}Still add{% endtrans %}</button>
-		</form>
-	</div>
+    <h2>{% trans %}Confirmation matching item{% endtrans %}</h2>
+    <section class="b-duplicates">
+        <header>{% trans %}List of matches found{% endtrans %}</header>
+        <article>{% include 'AnimeDbCatalogBundle:Item:list.html.twig' with {'hide_sort': true, 'hide_limit': true} %}</article>
+    </section>
+    <div class="b-form">
+        <form action="{{ path('item_duplicate') }}" method="post">
+            <button type="submit" name="do" value="cancel">{% trans %}Cancel{% endtrans %}</button>
+            <button type="submit" name="do" value="add">{% trans %}Still add{% endtrans %}</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

@@ -4,13 +4,13 @@
 
 {% block content %}
 <div class="b-addition-form">
-	<h2>{% trans %}Change record{% endtrans %}</h2>
-	<form action="{{ path('item_change', {'id': item.id, 'name': item.urlName}) }}" method="post" {{ form_enctype(form) }}>
-		{{ form_widget(form) }}
-		<button type="submit">{% trans %}Change{% endtrans %}</button>
-	</form>
-	<div class="b-form-note">
-		<div class="icon-label icon-fill"> - {% trans %}fill the field from source{% endtrans %}</div>
-	</div>
+    <h2>{% trans %}Change record{% endtrans %}</h2>
+    <form action="{{ path('item_change', {'id': item.id, 'name': item.urlName}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <button type="submit">{% trans %}Change{% endtrans %}</button>
+    </form>
+    <div class="b-form-note">
+        <div class="icon-label icon-fill"> - {% trans %}fill the field from source{% endtrans %}</div>
+    </div>
 </div>
 {% endblock %}
