@@ -1294,7 +1294,7 @@ a.external {
   background: url("/bundles/animedbcatalog/images/icon/clock.png") 0 0 no-repeat;
   float: left;
 }
-.b-notice-scroll {
+.b-notice .bt-notice-scroll {
   position: absolute;
   width: 55px;
   margin: 0;
@@ -1318,17 +1318,17 @@ a.external {
   cursor: default;
   z-index: 1;
 }
-.b-notice-scroll-left {
+.b-notice .bt-notice-scroll-left {
   right: 75px;
   left: 0;
 }
-.b-notice-scroll-left:hover {
+.b-notice .bt-notice-scroll-left:hover {
   background: gray url("/bundles/animedbcatalog/images/icon/arrow-left.png") center center no-repeat;
 }
-.b-notice-scroll-right {
+.b-notice .bt-notice-scroll-right {
   right: 75px;
 }
-.b-notice-scroll-right:hover {
+.b-notice .bt-notice-scroll-right:hover {
   background: gray url("/bundles/animedbcatalog/images/icon/arrow-right.png") center center no-repeat;
 }
 
