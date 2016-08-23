@@ -1489,6 +1489,7 @@ a.external {
   background: none;
   background-position: left top;
   background-repeat: no-repeat;
+  overflow: hidden;
   border: 0;
   width: 0;
   height: 0;
