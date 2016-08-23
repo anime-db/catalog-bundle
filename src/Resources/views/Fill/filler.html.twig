@@ -18,7 +18,8 @@
             </form>
             <blockquote class="b-form-note">
                 <span class="starlet">*</span>- {% trans %}required field{% endtrans %}<br />
-                <img src="/bundles/animedbcatalog/images/icon/fill.png" alt="" />- {% trans %}fill the field from source{% endtrans %}<br />
+                <img src="{{ asset('/bundles/animedbcatalog/images/icon/fill.png') }}" alt="" />-
+                {% trans %}fill the field from source{% endtrans %}<br />
             </blockquote>
         </div>
     {% endif %}
