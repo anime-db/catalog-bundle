@@ -71,9 +71,7 @@ class Package
     {
         $from = $this->kernel->locateResource('@AnimeDbCatalogBundle/Resources/views/');
         $to = $this->root_dir.'/Resources/';
-        // overwrite knp menu tpl
-        $this->fs->copy($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig', true);
-        // overwrite twig error tpls
+        // overwrite twig error templates
         $this->fs->copy($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig', true);
         $this->fs->copy($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig', true);
     }

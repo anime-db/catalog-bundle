@@ -1,0 +1,13 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% import 'knp_menu.html.twig' as knp_menu %}
+
+{% block label %}
+{% spaceless %}
+    {% if options.allow_safe_labels and item.getExtra('safe_label', false) %}
+        {{ item.label|trans|raw }}
+    {% else %}
+        {{ item.label|trans }}
+    {% endif %}
+{% endspaceless %}
+{% endblock %}
