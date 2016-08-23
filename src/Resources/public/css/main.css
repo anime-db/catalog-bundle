@@ -1971,14 +1971,15 @@ a.external {
   white-space: nowrap;
   position: relative;
 }
-.b-dropdown-menu ul li:hover a,
-.b-dropdown-menu ul li:hover span {
+.b-dropdown-menu ul li:hover > a,
+.b-dropdown-menu ul li:hover > span {
   color: #fff;
 }
 .b-dropdown-menu a,
 .b-dropdown-menu span {
   width: 100%;
   height: 41px;
+  line-height: 41px;
   display: block;
   text-decoration: none;
   color: #ccc;
