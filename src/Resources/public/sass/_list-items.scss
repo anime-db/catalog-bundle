@@ -93,27 +93,27 @@
         }
       }
     }
-  }
-  .type {
-    position: absolute;
-    left: 4px;
-    top: 3px;
-  }
-  .genres {
-    bottom: 0;
-    right: 4px;
-    margin: 0;
-    padding: 0;
-    text-align: right;
-  }
-  .labels {
-    bottom: 0;
-    left: 4px;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    .links-item a {
-      background: #db552b;
+    &.type {
+      position: absolute;
+      left: 4px;
+      top: 3px;
+    }
+    &.genres {
+      bottom: 0;
+      right: 4px;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+    }
+    &.labels {
+      bottom: 0;
+      left: 4px;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      .links-item a {
+        background: #db552b;
+      }
     }
   }
   .add {

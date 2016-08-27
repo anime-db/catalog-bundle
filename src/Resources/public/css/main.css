@@ -1822,26 +1822,26 @@ a.external {
 .list-items .links .links-item a:hover {
   background: #ff6600;
 }
-.list-items .type {
+.list-items .links.type {
   position: absolute;
   left: 4px;
   top: 3px;
 }
-.list-items .genres {
+.list-items .links.genres {
   bottom: 0;
   right: 4px;
   margin: 0;
   padding: 0;
   text-align: right;
 }
-.list-items .labels {
+.list-items .links.labels {
   bottom: 0;
   left: 4px;
   margin: 0;
   padding: 0;
   text-align: left;
 }
-.list-items .labels .links-item a {
+.list-items .links.labels .links-item a {
   background: #db552b;
 }
 .list-items .add {
