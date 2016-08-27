@@ -819,6 +819,7 @@ h1.logo a span {
   bottom: 0;
   right: 0;
   left: 0;
+  z-index: -1;
 }
 
 #wrapper {
@@ -1893,6 +1894,11 @@ a.external {
 @supports ((-webkit-perspective: 600px) or (-moz-perspective: 600px) or (perspective: 600px)) and ((-webkit-backface-visibility: hidden) or (-moz-backface-visibility: hidden) or (backface-visibility: hidden)) and ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) and ((-webkit-transform: rotateY(-180deg)) or (-moz-transform: rotateY(-180deg)) or (-ms-transform: rotateY(-180deg)) or (-o-transform: rotateY(-180deg)) or (transform: rotateY(-180deg))) {
   .list-items .back {
     z-index: auto;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
   }
   .list-items figure {
     top: auto;
@@ -1902,25 +1908,21 @@ a.external {
     backface-visibility: hidden;
   }
   .list-items .item-container {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
     -webkit-perspective: 600px;
     -moz-perspective: 600px;
     perspective: 600px;
   }
-  .list-items .item-container:hover .item {
+  .list-items .item-container:hover .item, .list-items .item-container.keep-hover .item {
     -webkit-transform: rotateY(-180deg);
     -moz-transform: rotateY(-180deg);
     -ms-transform: rotateY(-180deg);
     -o-transform: rotateY(-180deg);
     transform: rotateY(-180deg);
   }
-  .list-items .item-container:hover .name {
+  .list-items .item-container:hover .name, .list-items .item-container.keep-hover .name {
     filter: alpha(opacity=100);
     opacity: 1;
   }
-  .list-items .item-container.keep-hover .name,
   .list-items .item-container .links-item a {
     filter: alpha(opacity=100);
     opacity: 1;
@@ -1933,13 +1935,6 @@ a.external {
     -webkit-transition: preserve-3d;
     -moz-transition: preserve-3d;
     transition: preserve-3d;
-  }
-  .list-items .back {
-    -webkit-transform: rotateY(-180deg);
-    -moz-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    -o-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
   }
   .list-items .name {
     filter: alpha(opacity=100);

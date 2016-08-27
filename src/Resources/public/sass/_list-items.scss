@@ -192,6 +192,7 @@
   .list-items {
     .back {
       z-index: auto;
+      @include transform(rotateY(-180deg));
     }
     figure {
       top: auto;
@@ -199,9 +200,9 @@
       @include backface-visibility(hidden);
     }
     .item-container {
-      @include backface-visibility(hidden);
       @include perspective(600px);
-      &:hover {
+      &:hover,
+      &.keep-hover {
         .item {
           @include transform(rotateY(-180deg));
         }
@@ -209,7 +210,6 @@
           @include opacity(1);
         }
       }
-      &.keep-hover .name,
       .links-item a {
         @include opacity(1);
       }
@@ -217,9 +217,6 @@
     .item {
       @include transition(transform 0.5s ease-in-out);
       @include transform-style(preserve-3d);
-    }
-    .back {
-      @include transform(rotateY(-180deg));
     }
     .name {
       @include opacity(1);
