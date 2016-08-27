@@ -203,7 +203,7 @@ class ItemController extends BaseController
 
             return $this->redirect($this->generateUrl(
                 'item_show',
-                ['id' => $item->getId(), 'name' => $item->getName()]
+                ['id' => $item->getId(), 'name' => $item->getUrlName()]
             ));
         }
 
@@ -327,7 +327,7 @@ class ItemController extends BaseController
 
         return $this->redirect($this->generateUrl(
             'item_show',
-            ['id' => $item->getId(), 'name' => $item->getName()]
+            ['id' => $item->getId(), 'name' => $item->getUrlName()]
         ));
     }
 
