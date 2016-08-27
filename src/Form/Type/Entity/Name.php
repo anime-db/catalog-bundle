@@ -43,6 +43,6 @@ class Name extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_name';
+        return 'entity_name';
     }
 }

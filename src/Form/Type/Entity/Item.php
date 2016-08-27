@@ -31,6 +31,8 @@ use Symfony\Component\Form\FormInterface;
  */
 class Item extends AbstractType
 {
+    const NAME = 'entity_item';
+
     /**
      * Refiller chain.
      *
@@ -242,7 +244,7 @@ class Item extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_item';
+        return self::NAME;
     }
 
     /**

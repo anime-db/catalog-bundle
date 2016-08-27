@@ -23,7 +23,7 @@ class Change extends AbstractType
      *
      * @var string
      */
-    const NAME = 'anime_db_catalog_notices_change';
+    const NAME = 'notices_change';
 
     /**
      * Action set status shown.

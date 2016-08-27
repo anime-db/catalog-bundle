@@ -43,6 +43,6 @@ class Label extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_label';
+        return 'entity_label';
     }
 }

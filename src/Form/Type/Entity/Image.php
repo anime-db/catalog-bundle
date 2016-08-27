@@ -46,6 +46,6 @@ class Image extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_image';
+        return 'entity_image';
     }
 }

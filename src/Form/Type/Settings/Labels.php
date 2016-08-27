@@ -60,7 +60,7 @@ class Labels extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_labels';
+        return 'settings_labels';
     }
 
     /**

@@ -63,6 +63,6 @@ class Storage extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_storage';
+        return 'entity_storage';
     }
 }

@@ -8,6 +8,7 @@
  */
 namespace AnimeDb\Bundle\CatalogBundle\Form\Type\Plugin\Refiller;
 
+use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Item;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -67,6 +68,6 @@ class Studio extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_item';
+        return Item::NAME;
     }
 }

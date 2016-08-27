@@ -68,6 +68,6 @@ class General extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_settings_general';
+        return 'settings_general';
     }
 }

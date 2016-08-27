@@ -23,7 +23,7 @@ class Filter extends AbstractType
     /**
      * @var string
      */
-    const NAME = 'anime_db_catalog_notices_filter';
+    const NAME = 'notices_filter';
 
     /**
      * @var EntityManagerInterface

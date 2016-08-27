@@ -76,6 +76,6 @@ class Settings extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_install_settings';
+        return 'install_settings';
     }
 }

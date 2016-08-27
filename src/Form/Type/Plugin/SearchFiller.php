@@ -24,7 +24,7 @@ class SearchFiller extends AbstractType
      *
      * @var string
      */
-    const FORM_NAME = 'anime_db_catalog_plugin_filler_search';
+    const FORM_NAME = 'plugin_filler_search';
 
     /**
      * @param FormBuilderInterface $builder

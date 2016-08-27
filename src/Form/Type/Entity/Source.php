@@ -43,6 +43,6 @@ class Source extends AbstractType
      */
     public function getName()
     {
-        return 'anime_db_catalog_entity_source';
+        return 'entity_source';
     }
 }
