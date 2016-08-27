@@ -210,7 +210,7 @@
       }
     }
     .item {
-      @include transition(transform .5s ease-in-out);
+      @include transition-transform(.5s ease-in-out);
       @include transform-style(preserve-3d);
     }
     .back {

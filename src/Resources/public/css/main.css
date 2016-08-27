@@ -1920,9 +1920,9 @@ a.external {
     opacity: 1;
   }
   .list-items .item {
-    -webkit-transition: transform 0.5s ease-in-out;
-    -moz-transition: transform 0.5s ease-in-out;
-    -o-transition: transform 0.5s ease-in-out;
+    -webkit-transition: -webkit-transform 0.5s ease-in-out;
+    -moz-transition: -moz-transform 0.5s ease-in-out;
+    -o-transition: -o-transform 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out;
     -webkit-transition: preserve-3d;
     -moz-transition: preserve-3d;
