@@ -1257,16 +1257,13 @@ a.external {
   position: absolute;
   background-color: #fafad2;
   width: 100%;
-  height: 16px;
-  margin: 15px 20px 15px 0;
-  float: right;
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  -webkit-transition: show-notice 0.6s;
-  -moz-transition: show-notice 0.6s;
-  -o-transition: show-notice 0.6s;
-  transition: show-notice 0.6s;
+  -webkit-animation: show-notice 0.6s;
+  -moz-animation: show-notice 0.6s;
+  -o-animation: show-notice 0.6s;
+  animation: show-notice 0.6s;
   z-index: 1;
 }
 .b-notice .b-message {
@@ -1319,7 +1316,6 @@ a.external {
   z-index: 1;
 }
 .b-notice .bt-notice-scroll-left {
-  right: 75px;
   left: 0;
 }
 .b-notice .bt-notice-scroll-left:hover {
