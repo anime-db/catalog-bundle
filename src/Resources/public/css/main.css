@@ -710,10 +710,10 @@ label .starlet {
 }
 
 .f-refill {
-  position: relative;
   margin-left: 5px;
 }
 .f-refill ul {
+  display: inline-block;
   position: absolute;
   top: 100%;
   background: black;
