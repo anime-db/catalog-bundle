@@ -50,7 +50,7 @@ class SamuraiXTrustBetrayal extends Item
                 .'school so deadly that to train in it, means death for either the master or student, there can only '
                 .'be one master. Taken by the master, Kenshin is trained in this school, only to leave before '
                 .'finishing so that he may join the Meiji restoration and help prevent further tragedies like his own.'
-                .PHP_EOL.PHP_EOL
+                ."\n\n"
                 .'Thus is born the Battousai, the greatest strength of the Ishin Patriots, a boy of 15 who kills for '
                 .'the sake of building a new, better world. One night, he comes across a mysterious woman, Tomoe. He '
                 .'must hide with her when the revolution stumbles. They marry for appearances, but soon fall in love. '

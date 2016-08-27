@@ -73,20 +73,20 @@ class TengenToppaGurrenLagann extends Item
                 .'called "pits". This way of life has persisted for hundreds of years, and yet, the people are still '
                 .'powerless against the earthquakes and cave-ins which occasionally devastate their villages. Jeeha '
                 .'is one such village...'
-                .PHP_EOL.PHP_EOL
+                ."\n\n"
                 .'One day, while digging tunnels to expand Jeeha\'s edges, a boy named Simon happens to find a small, '
                 .'shiny drill. Meanwhile, Kamina — Simon\'s soon-to-be "bro" — insists that there is another land '
                 .'above the village and tries to break through the ceiling in order to leave the cavern. He fails; '
                 .'however, an earthquake suddenly occurs, the ceiling collapses, and a gigantic robot — a "Ganmen" — '
                 .'crashes to the cave floor!'
-                .PHP_EOL.PHP_EOL
+                ."\n\n"
                 .'Kamina is now certain that there is a world above their tiny pit-village. Encouraged, he begins to '
                 .'fight recklessly against the robot, until he encounters another person who has arrived from the '
                 .'land above. She is a beautiful girl by the name of Youko, who has come from a neighbouring village '
                 .'with a rifle in hand. She has been hunting the robot, but her shots only seem to irritate it. '
                 .'Desperately trying to escape its attacks, Simon brings Kamina and Youko to what he had previously '
                 .'found: A mysterious robot with a head for a body.'
-                .PHP_EOL.PHP_EOL
+                ."\n\n"
                 .'And so begins the "epic" adventure...',
                 [],
                 'item'

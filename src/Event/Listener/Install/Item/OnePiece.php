@@ -44,7 +44,7 @@ class OnePiece extends Item
                 .'Pirates, men who dreamed of finding One Piece (which promises an unlimited amount of riches and '
                 .'fame), and quite possibly the most coveted of titles for the person who found it, the title of '
                 .'the Pirate King.'
-                .PHP_EOL.PHP_EOL
+                ."\n\n"
                 .'Enter Monkey D. Luffy, a 17-year-old boy that defies your standard definition of a pirate. '
                 .'Rather than the popular persona of a wicked, hardened, toothless pirate who ransacks villages '
                 .'for fun, Luffy’s reason for being a pirate is one of pure wonder; the thought of an exciting '
