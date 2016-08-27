@@ -1,8 +1,9 @@
 .f-refill {
+  position: relative;
   margin-left: 5px;
   ul {
     display: inline-block;
-    position: absolute;
+    position: absolute !important;
     top: 100%;
     background: black;
     visibility: hidden;
@@ -10,6 +11,10 @@
     @include transition(opacity .20s ease-in-out);
     @include box-shadow(0 0 10px rgba(0, 0, 0, 0.5));
     z-index: 1;
+    &:hover {
+      visibility: visible;
+      @include opacity(1);
+    }
   }
   &:hover ul {
     visibility: visible;
