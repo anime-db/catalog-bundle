@@ -1799,6 +1799,8 @@ a.external {
 .list-items .links {
   position: absolute;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .list-items .links .links-item {
   margin: 3px 0;
@@ -1823,46 +1825,40 @@ a.external {
   background: #ff6600;
 }
 .list-items .links.type {
-  position: absolute;
   left: 4px;
   top: 3px;
 }
 .list-items .links.genres {
   bottom: 0;
   right: 4px;
-  margin: 0;
-  padding: 0;
   text-align: right;
 }
 .list-items .links.labels {
   bottom: 0;
   left: 4px;
-  margin: 0;
-  padding: 0;
   text-align: left;
 }
 .list-items .links.labels .links-item a {
   background: #db552b;
 }
-.list-items .add {
-  position: absolute;
+.list-items .links.add {
   right: 4px;
   top: 3px;
 }
-.list-items .add a {
+.list-items .links.add a {
   width: 1em;
   text-align: center;
   overflow: hidden;
   text-indent: 2em;
   background: #009827 url(/bundles/animedbcatalog/images/icon/white/plus.png) no-repeat center center;
 }
-.list-items .add.already a {
+.list-items .links.add.already a {
   background: #db3400 url(/bundles/animedbcatalog/images/icon/white/eye.png) no-repeat center center;
 }
-.list-items .add:hover a {
+.list-items .links.add:hover a {
   background: #10b73b url(/bundles/animedbcatalog/images/icon/white/plus.png) no-repeat center center;
 }
-.list-items .add.already:hover a {
+.list-items .links.add.already:hover a {
   background: #ff6600 url(/bundles/animedbcatalog/images/icon/white/eye.png) no-repeat center center;
 }
 .list-items .controls {
