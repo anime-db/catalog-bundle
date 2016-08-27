@@ -25,16 +25,19 @@ item_show:
     defaults: { _controller: AnimeDbCatalogBundle:Item:show }
     requirements:
         id:  \d+
+        name: .+
 item_change:
     pattern:  /{id}-{name}/change.html
     defaults: { _controller: AnimeDbCatalogBundle:Item:change }
     requirements:
         id:  \d+
+        name: .+
 item_delete:
     pattern:  /{id}-{name}/delete.html
     defaults: { _controller: AnimeDbCatalogBundle:Item:delete }
     requirements:
         id:  \d+
+        name: .+
 item_import:
     pattern:  /import/{plugin}.html
     defaults: { _controller: AnimeDbCatalogBundle:Item:import }
