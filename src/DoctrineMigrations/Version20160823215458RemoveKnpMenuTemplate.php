@@ -51,6 +51,6 @@ class Version20160823215458RemoveKnpMenuTemplate extends AbstractMigration imple
      */
     public function down(Schema $schema)
     {
-        $this->fs->copy(__DIR__ . '/data/knp_menu.html.twig', $this->tpl);
+        $this->fs->copy(__DIR__.'/data/knp_menu.html.twig', $this->tpl);
     }
 }
