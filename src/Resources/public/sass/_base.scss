@@ -3,11 +3,12 @@ body {
   font-size: 12px;
   line-height: 1.4em;
   background: #f1c98e url('/bundles/animedbcatalog/images/bg.jpg') no-repeat bottom center;
-  @include background-size(contain);
+  @include background-size(cover);
 }
 html, body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
 }
 body.progress,
 body.progress * {
