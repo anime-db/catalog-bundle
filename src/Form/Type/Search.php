@@ -104,6 +104,14 @@ class Search extends AbstractType
                 'multiple' => true,
                 'help' => 'Select multiple genres to narrow your search',
             ])
+            ->add('studio', 'entity', [
+                'class' => 'AnimeDbCatalogBundle:Studio',
+                'query_builder' => function (EntityRepository $rep) {
+                    return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
+                },
+                'property' => 'name',
+                'required' => false,
+            ])
             ->add('labels', 'entity', [
                 'class' => 'AnimeDbCatalogBundle:Label',
                 'query_builder' => function (EntityRepository $rep) {
@@ -114,14 +122,6 @@ class Search extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'help' => 'Select multiple labels to narrow your search',
-            ])
-            ->add('studio', 'entity', [
-                'class' => 'AnimeDbCatalogBundle:Studio',
-                'query_builder' => function (EntityRepository $rep) {
-                    return $rep->createQueryBuilder('s')->innerJoin('s.items', 'i');
-                },
-                'property' => 'name',
-                'required' => false,
             ])
             ->add('country', 'entity', [
                 'class' => 'AnimeDbCatalogBundle:Country',
