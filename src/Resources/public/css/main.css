@@ -1333,6 +1333,7 @@ a.external {
   background-position: center center;
   cursor: default;
   z-index: 1;
+  display: none;
 }
 .b-notice .bt-notice-scroll-left {
   left: 0;

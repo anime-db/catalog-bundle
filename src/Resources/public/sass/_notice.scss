@@ -47,6 +47,7 @@
     background-position: center center;
     cursor: default;
     z-index: 1;
+    display: none; // TODO not supported now
     &-left {
       left: 0;
       &:hover {
