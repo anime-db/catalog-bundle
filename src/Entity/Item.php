@@ -962,7 +962,7 @@ class Item extends BaseEntity implements ImageInterface
      */
     public function getUrlName()
     {
-        return trim(preg_replace('/[\/\s]+/', '_', $this->name), '_');
+        return trim(preg_replace('/[\/\s:]+/', '_', $this->name), '_');
     }
 
     /**

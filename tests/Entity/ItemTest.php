@@ -187,7 +187,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         return [
             ['foo', 'foo'],
             ['foo   bar', 'foo_bar'],
-            ['foo bar: 1', 'foo_bar:_1'],
+            ['foo bar: 1', 'foo_bar_1'],
+            ['foo-bar', 'foo-bar'],
+            ['foo/bar', 'foo_bar'],
         ];
     }
 
