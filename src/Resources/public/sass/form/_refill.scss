@@ -4,7 +4,8 @@
   ul {
     display: inline-block;
     position: absolute !important;
-    top: 100%;
+    top: 10px;
+    left: 10px;
     background: black;
     visibility: hidden;
     @include opacity(0);
