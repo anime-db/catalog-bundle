@@ -1,3 +1,12 @@
+#bg {
+  background: #f1c98e url('/bundles/animedbcatalog/images/bg.jpg') no-repeat bottom center;
+  @include background-size(contain);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 #header {
   height: 90px;
 }
