@@ -36,7 +36,7 @@ class ScanExecutorTest extends \PHPUnit_Framework_TestCase
         $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $output = '/output/%s.log';
         $progress = '/progress/%s.log';
-        $pattern = 'php app/console animedb:scan-storage --no-ansi --export=%s %s >%s 2>&1';
+        $pattern = 'php app/console animedb:scan-storage --no-ansi --force --export=%s %s >%s 2>&1';
 
         $storage
             ->expects($this->atLeastOnce())

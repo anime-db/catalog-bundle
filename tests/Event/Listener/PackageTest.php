@@ -99,13 +99,9 @@ class PackageTest extends \PHPUnit_Framework_TestCase
             $fs
                 ->expects($this->at(0))
                 ->method('copy')
-                ->with($from.'knp_menu.html.twig', $to.'views/knp_menu.html.twig', true);
-            $fs
-                ->expects($this->at(1))
-                ->method('copy')
                 ->with($from.'errors/error.html.twig', $to.'TwigBundle/views/Exception/error.html.twig', true);
             $fs
-                ->expects($this->at(2))
+                ->expects($this->at(1))
                 ->method('copy')
                 ->with($from.'errors/error404.html.twig', $to.'TwigBundle/views/Exception/error404.html.twig', true);
         } else {
