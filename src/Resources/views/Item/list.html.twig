@@ -15,11 +15,13 @@
             <div class="item">
                 <figure class="back">
                     <a href="{{ path('item_show', {'id': item.id, 'name': item.urlName}) }}" class="name"><strong>{{ item.name }}</strong></a>
-                    <ul class="links type">
-                        <li class="links-item">
-                            <a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
-                        </li>
-                    </ul>
+                    {% if item.type is not empty %}
+                        <ul class="links type">
+                            <li class="links-item">
+                                <a href="{{ path('home_search', {'anime_db_catalog_search_items[type]': item.type.id}) }}" title="{% trans %}Type{% endtrans %}">{{ item.type.name }}</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                     {% if item.genres is not empty %}
                         <ul class="links genres">
                             {% for genre in item.genres|slice(0, 10) %}
