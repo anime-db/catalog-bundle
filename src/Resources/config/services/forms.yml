@@ -2,7 +2,7 @@ services:
     anime_db.form.type.item:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Item
         tags:
-            - { name: form.type, alias: anime_db_catalog_entity_item }
+            - { name: form.type, alias: entity_item }
         calls:
             - [ setRefillerChain, [ '@anime_db.plugin.refiller' ] ]
             - [ setTemplating, [ '@templating' ] ]
@@ -12,7 +12,7 @@ services:
     anime_db.form.type.search:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Search
         tags:
-            - { name: form.type, alias: anime_db_catalog_search_items }
+            - { name: form.type, alias: search_items }
         calls:
             - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
             - [ setRouter, [ '@router' ] ]
@@ -35,7 +35,7 @@ services:
     anime_db.form.type.labels:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Settings\Labels
         tags:
-            - { name: form.type, alias: anime_db_catalog_labels }
+            - { name: form.type, alias: settings_labels }
         calls:
             - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
 
@@ -43,7 +43,7 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Notice\Filter
         arguments: [ '@doctrine.orm.entity_manager' ]
         tags:
-            - { name: form.type, alias: anime_db_catalog_notices_filter }
+            - { name: form.type, alias: notices_filter }
 
     anime_db.form.view_sorter:
         class: AnimeDb\Bundle\CatalogBundle\Form\ViewSorter
@@ -53,6 +53,6 @@ services:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Install\Settings
         arguments: [ '@anime_db.plugin.search_fill' ]
         tags:
-            - { name: form.type, alias: anime_db_catalog_install_settings }
+            - { name: form.type, alias: install_settings }
         calls:
             - [ setRequest, [ '@?request=' ] ]

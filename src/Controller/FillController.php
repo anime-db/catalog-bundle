@@ -64,7 +64,7 @@ class FillController extends BaseController
             if (!($item instanceof Item)) {
                 $form->addError(new FormError('Can`t get content from the specified source'));
             } else {
-                $fill_form = $this->createForm('anime_db_catalog_entity_item', $item)->createView();
+                $fill_form = $this->createForm('entity_item', $item)->createView();
             }
         }
 

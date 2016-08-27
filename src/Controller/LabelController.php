@@ -38,7 +38,7 @@ class LabelController extends BaseController
         /* @var $rep Label */
         $rep = $this->getDoctrine()->getManager()->getRepository('AnimeDbCatalogBundle:Label');
 
-        $form = $this->createForm('anime_db_catalog_labels', ['labels' => $rep->findAll()])
+        $form = $this->createForm('settings_labels', ['labels' => $rep->findAll()])
             ->handleRequest($request);
         if ($form->isValid()) {
             $rep->updateListLabels(new ArrayCollection($form->getData()['labels']));

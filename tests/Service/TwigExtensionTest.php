@@ -50,6 +50,6 @@ class TwigExtensionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetName()
     {
-        $this->assertEquals('anime_db_catalog_extension', $this->extension->getName());
+        $this->assertEquals('extension', $this->extension->getName());
     }
 }

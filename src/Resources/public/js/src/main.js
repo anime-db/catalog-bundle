@@ -131,7 +131,7 @@ refills.each(function() {
                 $(this),
                 controller,
                 FormContainer,
-                CollectionContainer.get('anime_db_catalog_entity_item_sources')
+                CollectionContainer.get('entity_item_sources')
             );
         });
 });

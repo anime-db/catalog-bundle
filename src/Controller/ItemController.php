@@ -161,7 +161,7 @@ class ItemController extends BaseController
         $item = new Item();
 
         /* @var $form Form */
-        $form = $this->createForm('anime_db_catalog_entity_item', $item)
+        $form = $this->createForm('entity_item', $item)
             ->handleRequest($request);
         if ($form->isValid()) {
             /* @var $rep ItemRepository */
@@ -194,7 +194,7 @@ class ItemController extends BaseController
     public function changeAction(Item $item, Request $request)
     {
         /* @var $form Form */
-        $form = $this->createForm('anime_db_catalog_entity_item', $item)
+        $form = $this->createForm('entity_item', $item)
             ->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

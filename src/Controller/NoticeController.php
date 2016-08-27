@@ -79,7 +79,7 @@ class NoticeController extends BaseController
         $rep = $this->getRepository();
 
         // filter list notice
-        $filter = $this->createForm('anime_db_catalog_notices_filter')->handleRequest($request);
+        $filter = $this->createForm('notices_filter')->handleRequest($request);
         if ($filter->isValid()) {
             $query = $rep->getFilteredQuery($filter->getData()['status'], $filter->getData()['type']);
         } else {

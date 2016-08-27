@@ -49,7 +49,7 @@ class RefillController extends BaseController
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
-        $item = $this->createForm('anime_db_catalog_entity_item', new Item())
+        $item = $this->createForm('entity_item', new Item())
             ->handleRequest($request)
             ->getData();
 
@@ -76,7 +76,7 @@ class RefillController extends BaseController
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
-        $item = $this->createForm('anime_db_catalog_entity_item', new Item())
+        $item = $this->createForm('entity_item', new Item())
             ->handleRequest($request)
             ->getData();
 
@@ -121,7 +121,7 @@ class RefillController extends BaseController
         if (!($refiller = $this->get('anime_db.plugin.refiller')->getPlugin($plugin))) {
             throw $this->createNotFoundException('Plugin \''.$plugin.'\' is not found');
         }
-        $item = $this->createForm('anime_db_catalog_entity_item', new Item())
+        $item = $this->createForm('entity_item', new Item())
             ->handleRequest($request)
             ->getData();
 
