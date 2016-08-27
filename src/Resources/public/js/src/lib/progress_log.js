@@ -7,7 +7,7 @@ var ProgressLog = function(log, container) {
     this.redirect = log.data('redirect');
     this.timeout = 2 * 60; // 2 minutes
 
-    this.update();
+    this.retry();
 };
 ProgressLog.prototype = {
     update: function() {

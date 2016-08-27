@@ -19,7 +19,7 @@ var ProgressBar = function(bar, label) {
         }
     });
 
-    that.update();
+    that.retry();
 };
 ProgressBar.prototype = {
     update: function() {
