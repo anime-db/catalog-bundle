@@ -1826,7 +1826,7 @@ a.external {
 }
 .list-items .links.type {
   left: 4px;
-  top: 3px;
+  top: 2px;
 }
 .list-items .links.genres {
   bottom: 0;
@@ -1843,7 +1843,7 @@ a.external {
 }
 .list-items .links.add {
   right: 4px;
-  top: 3px;
+  top: 2px;
 }
 .list-items .links.add a {
   width: 1em;
