@@ -810,15 +810,23 @@ h1.logo a span {
 
 #bg {
   background: #f1c98e url("/bundles/animedbcatalog/images/bg.jpg") no-repeat bottom center;
-  -o-background-size: contain;
-  -moz-background-size: contain;
-  -webkit-background-size: contain;
-  background-size: contain;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+}
+
+#wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  bottom: 168px;
 }
 
 #header {
