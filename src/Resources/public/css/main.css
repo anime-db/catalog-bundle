@@ -285,16 +285,15 @@ body {
   font-size: 12px;
   line-height: 1.4em;
   background: #f1c98e url("/bundles/animedbcatalog/images/bg.jpg") no-repeat bottom center;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
+  -o-background-size: contain;
+  -moz-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 body.progress,
@@ -811,14 +810,6 @@ h1.logo a {
 }
 h1.logo a span {
   display: none;
-}
-
-#wrapper {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  left: 0;
-  bottom: 168px;
 }
 
 #header {
