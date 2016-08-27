@@ -285,10 +285,10 @@ body {
   font-size: 12px;
   line-height: 1.4em;
   background: #f1c98e url("/bundles/animedbcatalog/images/bg.jpg") no-repeat bottom center;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
+  -o-background-size: contain;
+  -moz-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
 }
 
 html, body {
@@ -834,6 +834,10 @@ h1.logo a span {
   position: fixed;
   width: 100%;
   height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: none;
   z-index: 10;
 }
