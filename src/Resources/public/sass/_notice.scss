@@ -41,7 +41,7 @@
     overflow: hidden;
     top: 0;
     bottom: 0;
-    display: none;
+    visibility: hidden;
     @include opacity(0.3);
     @include transition(background .20s ease-in-out);
     @include border-radius(0);
@@ -51,12 +51,14 @@
     &-left {
       left: 0;
       &:hover {
+        visibility: visible;
         background: gray url('/bundles/animedbcatalog/images/icon/arrow-left.png') center center no-repeat;
       }
     }
     &-right {
       right: 75px;
       &:hover {
+        visibility: visible;
         background: gray url('/bundles/animedbcatalog/images/icon/arrow-right.png') center center no-repeat;
       }
     }

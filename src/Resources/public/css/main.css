@@ -716,7 +716,8 @@ label .starlet {
 .f-refill ul {
   display: inline-block;
   position: absolute !important;
-  top: 100%;
+  top: 10px;
+  left: 10px;
   background: black;
   visibility: hidden;
   filter: alpha(opacity=0);
@@ -1307,7 +1308,7 @@ a.external {
   overflow: hidden;
   top: 0;
   bottom: 0;
-  display: none;
+  visibility: hidden;
   filter: alpha(opacity=30);
   opacity: 0.3;
   -webkit-transition: background 0.2s ease-in-out;
@@ -1325,12 +1326,14 @@ a.external {
   left: 0;
 }
 .b-notice .bt-notice-scroll-left:hover {
+  visibility: visible;
   background: gray url("/bundles/animedbcatalog/images/icon/arrow-left.png") center center no-repeat;
 }
 .b-notice .bt-notice-scroll-right {
   right: 75px;
 }
 .b-notice .bt-notice-scroll-right:hover {
+  visibility: visible;
   background: gray url("/bundles/animedbcatalog/images/icon/arrow-right.png") center center no-repeat;
 }
 
