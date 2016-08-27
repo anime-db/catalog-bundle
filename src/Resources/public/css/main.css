@@ -1924,9 +1924,9 @@ a.external {
     -moz-transition: -moz-transform 0.5s ease-in-out;
     -o-transition: -o-transform 0.5s ease-in-out;
     transition: transform 0.5s ease-in-out;
-    -webkit-transition: preserve-3d;
-    -moz-transition: preserve-3d;
-    transition: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
   }
   .list-items .back {
     -webkit-transform: rotateY(-180deg);
