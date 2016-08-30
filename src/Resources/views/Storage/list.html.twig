@@ -26,7 +26,7 @@
                         >{{ storage.name }}</a>
                         {% if storage.items.count != 0 %}
                             (<a
-                                href="{{ path('home_search', {'search_items[storage]': storage.id}) }}"
+                                href="{{ path('home_search', {'search[storage]': storage.id}) }}"
                                 title="{{ '{1} Is one item in storage|]1,Inf] %count% items in storage' | transchoice(storage.items.count) }}"
                             >{{ storage.items.count }}</a>)
                         {% endif %}

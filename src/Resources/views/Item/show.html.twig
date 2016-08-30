@@ -49,7 +49,7 @@
         <header>{% trans %}Information{% endtrans %}</header>
         <article>
             <div>
-                <strong>{% trans %}Type{% endtrans %}</strong> <a href="{{ path('home_search', {'search_items[type]': item.type.id}) }}">{{ item.type.name }}</a>
+                <strong>{% trans %}Type{% endtrans %}</strong> <a href="{{ path('home_search', {'search[type]': item.type.id}) }}">{{ item.type.name }}</a>
             </div>
             {% if item.episodesnumber %}
                 <div>
@@ -70,7 +70,7 @@
                 {% else %}
                     {% trans %}goes from{% endtrans %}
                 {% endif %}
-                <a href="{{ path('home_search', {'search_items[date_premiere]': item.datepremiere|date('Y-01-01')}) }}">{{ item.datepremiere|date('Y') }}</a>{% if item.dateend and item.datepremiere|date('Y') != item.dateend|date('Y') %}-<a href="{{ path('home_search', {'search_items[date_end]': item.dateend|date('Y-01-01')}) }}">{{ item.dateend|date('Y') }}</a>{% endif %}
+                <a href="{{ path('home_search', {'search[date_premiere]': item.datepremiere|date('Y-01-01')}) }}">{{ item.datepremiere|date('Y') }}</a>{% if item.dateend and item.datepremiere|date('Y') != item.dateend|date('Y') %}-<a href="{{ path('home_search', {'search[date_end]': item.dateend|date('Y-01-01')}) }}">{{ item.dateend|date('Y') }}</a>{% endif %}
                 {% trans %}y.{% endtrans %}
                 {# date premiere of issue  #}
                 {% set premieredey = item.datepremiere|date('d') %}
@@ -92,17 +92,17 @@
             </div>
             {% if item.studio %}
                 <div>
-                    <strong>{% trans %}Studio{% endtrans %}</strong> <a href="{{ path('home_search', {'search_items[studio]': item.studio.id}) }}">{{ item.studio.name }}</a>
+                    <strong>{% trans %}Studio{% endtrans %}</strong> <a href="{{ path('home_search', {'search[studio]': item.studio.id}) }}">{{ item.studio.name }}</a>
                 </div>
             {% endif %}
             {% if item.country %}
                 <div>
-                    <strong>{% trans %}Country{% endtrans %}</strong> <a href="{{ path('home_search', {'search_items[country]': item.country.id}) }}">{{ item.country.name }}</a>
+                    <strong>{% trans %}Country{% endtrans %}</strong> <a href="{{ path('home_search', {'search[country]': item.country.id}) }}">{{ item.country.name }}</a>
                 </div>
             {% endif %}
             {% if item.storage %}
                 <div>
-                    <strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'search_items[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
+                    <strong>{% trans %}Storage{% endtrans %}</strong> <a href="{{ path('home_search', {'search[storage]': item.storage.id}) }}">{{ item.storage.name }}</a>
                 </div>
             {% endif %}
             <div>
@@ -136,7 +136,7 @@
             <header>{% trans %}Genres{% endtrans %}</header>
             <article>
                     {% for genre in item.genres %}
-                        <a href="{{ path('home_search', {'search_items[genres][]': genre.id}) }}">{{ genre.name }}</a>{% if not loop.last %}, {% endif %}
+                        <a href="{{ path('home_search', {'search[genres][]': genre.id}) }}">{{ genre.name }}</a>{% if not loop.last %}, {% endif %}
                     {% endfor %}
             </article>
         </section>
@@ -146,7 +146,7 @@
             <header>{% trans %}Labels{% endtrans %}</header>
             <article>
                     {% for label in item.labels %}
-                        <a href="{{ path('home_search', {'search_items[labels][]': label.id}) }}">{{ label.name }}</a>{% if not loop.last %}, {% endif %}
+                        <a href="{{ path('home_search', {'search[labels][]': label.id}) }}">{{ label.name }}</a>{% if not loop.last %}, {% endif %}
                     {% endfor %}
             </article>
         </section>

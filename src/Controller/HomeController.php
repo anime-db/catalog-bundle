@@ -173,7 +173,7 @@ class HomeController extends BaseController
         }
 
         /* @var $form Form */
-        $form = $this->createForm('search_items', new SearchEntity())->handleRequest($request);
+        $form = $this->createForm('search', new SearchEntity())->handleRequest($request);
         $pagination = null;
         $result = ['list' => [], 'total' => 0];
 

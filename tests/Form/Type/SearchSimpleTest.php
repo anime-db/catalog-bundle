@@ -53,6 +53,6 @@ class SearchSimpleTest extends \PHPUnit_Framework_TestCase
     public function testGetName()
     {
         $form = new SearchSimple();
-        $this->assertEquals('search_items', $form->getName());
+        $this->assertEquals('search', $form->getName());
     }
 }
