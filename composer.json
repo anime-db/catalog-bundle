@@ -43,6 +43,5 @@
     },
     "suggest": {
         "ext-intl": "Allows correct sort form view"
-    },
-    "minimum-stability": "stable"
+    }
 }

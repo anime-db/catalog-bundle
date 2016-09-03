@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "31276b9a8c7475384102b9522743f681",
-    "content-hash": "fa3bb2d5d8d47388eb96851891e776d1",
+    "hash": "6d3b09fc903b0371cb9d93a03fd95577",
+    "content-hash": "323b22c19c4714a9221ba6558605d9a0",
     "packages": [
         {
             "name": "anime-db/ani-db-browser-bundle",
-            "version": "v1.1.0",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/ani-db-browser-bundle.git",
-                "reference": "a00819fb532b7a4762f9096139ee2554acbc9c93"
+                "reference": "6e601670369468d77d8f3a1ffe76acb2cd16f8ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/ani-db-browser-bundle/zipball/a00819fb532b7a4762f9096139ee2554acbc9c93",
-                "reference": "a00819fb532b7a4762f9096139ee2554acbc9c93",
+                "url": "https://api.github.com/repos/anime-db/ani-db-browser-bundle/zipball/6e601670369468d77d8f3a1ffe76acb2cd16f8ee",
+                "reference": "6e601670369468d77d8f3a1ffe76acb2cd16f8ee",
                 "shasum": ""
             },
             "require": {
@@ -45,26 +45,33 @@
             ],
             "description": "Plugin AniDB for the catalog Anime DB",
             "homepage": "http://github.com/anime-db/ani-db-browser-bundle",
-            "time": "2016-06-28 12:48:02"
+            "time": "2016-01-05 12:22:27"
         },
         {
             "name": "anime-db/ani-db-filler-bundle",
-            "version": "v0.1.9",
+            "version": "v0.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/anime-db/ani-db-filler-bundle.git",
-                "reference": "22010f82efe8034b253b12313152de14e1abf4e7"
+                "reference": "acc6a8c2326d5f4de59f715bdae602a7ce56f3c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/anime-db/ani-db-filler-bundle/zipball/22010f82efe8034b253b12313152de14e1abf4e7",
-                "reference": "22010f82efe8034b253b12313152de14e1abf4e7",
+                "url": "https://api.github.com/repos/anime-db/ani-db-filler-bundle/zipball/acc6a8c2326d5f4de59f715bdae602a7ce56f3c4",
+                "reference": "acc6a8c2326d5f4de59f715bdae602a7ce56f3c4",
                 "shasum": ""
             },
             "require": {
-                "anime-db/ani-db-browser-bundle": ">=1.0.0",
-                "anime-db/catalog-bundle": ">=0.4.17",
+                "anime-db/ani-db-browser-bundle": "~1.0.0",
                 "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "anime-db/app-bundle": "~0.4.4",
+                "anime-db/catalog-bundle": "~0.4.26",
+                "phpunit/phpunit": "^4.8.0",
+                "satooshi/php-coveralls": "^1.0.0",
+                "scrutinizer/ocular": "~1.3.0",
+                "symfony/expression-language": "~2.4|~3.0"
             },
             "type": "anime-db-plugin",
             "autoload": {
@@ -79,7 +86,7 @@
             ],
             "description": "Plugin AniDB for the catalog Anime DB",
             "homepage": "http://github.com/anime-db/ani-db-filler-bundle",
-            "time": "2015-03-29 15:11:21"
+            "time": "2016-09-03 10:00:27"
         },
         {
             "name": "anime-db/anime-db",
