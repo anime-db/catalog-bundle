@@ -58,6 +58,10 @@ class ExportTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructBadDir()
     {
+        if (defined('PHP_WINDOWS_VERSION_BUILD')) {
+            $this->markTestSkipped('Is always true on Windows.');
+        }
+
         new Export($this->output, '/etc/test/export.log');
     }
 
@@ -69,19 +73,6 @@ class ExportTest extends \PHPUnit_Framework_TestCase
         mkdir(dirname($this->file), 0755, true);
         touch($this->file);
         chmod($this->file, 0440);
-
-        new Export($this->output, $this->file);
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Filesystem\Exception\IOException
-     */
-    public function testConstructFailLock()
-    {
-        mkdir(dirname($this->file), 0755, true);
-        touch($this->file);
-        $handle = fopen($this->file, 'w');
-        flock($handle, LOCK_EX | LOCK_NB);
 
         new Export($this->output, $this->file);
     }
