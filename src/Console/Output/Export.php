@@ -49,9 +49,6 @@ class Export extends Decorator
         if (!($this->handle = @fopen($filename, 'w'))) {
             throw new IOException('Failed to open the export file: '.$filename);
         }
-        if (!flock($this->handle, LOCK_EX | LOCK_NB)) {
-            throw new IOException('Failed to lock the export file: '.$filename);
-        }
     }
 
     /**
@@ -98,7 +95,6 @@ class Export extends Decorator
     public function unlock()
     {
         if (is_resource($this->handle)) {
-            flock($this->handle, LOCK_UN);
             fclose($this->handle);
         }
     }

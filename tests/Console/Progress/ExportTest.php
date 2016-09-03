@@ -58,6 +58,7 @@ class ExportTest extends \PHPUnit_Framework_TestCase
             ->with('100%');
 
         $export = new Export($progress, $output, $filename);
+        $this->assertTrue(file_exists($filename));
         $this->assertEquals('0%', file_get_contents($filename));
 
         unset($export);
