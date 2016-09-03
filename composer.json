@@ -35,7 +35,6 @@
         "anime-db/app-bundle": "~0.4.0"
     },
     "require-dev": {
-        "anime-db/anime-db": "~0.3.15",
         "symfony/expression-language": "~2.4|~3.0",
         "phpunit/phpunit": "^4.8.0",
         "scrutinizer/ocular": "1.3.*",
