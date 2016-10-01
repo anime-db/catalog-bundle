@@ -1,15 +1,14 @@
 ![Anime DB](http://anime-db.org/bundles/animedboffsite/images/logo.jpg)
 
-[![Latest Stable Version](https://poser.pugx.org/anime-db/catalog-bundle/v/stable.png)](https://packagist.org/packages/anime-db/catalog-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/anime-db/catalog-bundle/v/unstable.png)](https://packagist.org/packages/anime-db/catalog-bundle)
-[![Total Downloads](https://poser.pugx.org/anime-db/catalog-bundle/downloads)](https://packagist.org/packages/anime-db/catalog-bundle)
-[![Build Status](https://travis-ci.org/anime-db/catalog-bundle.svg?branch=master)](https://travis-ci.org/anime-db/catalog-bundle)
-[![Coverage Status](https://coveralls.io/repos/github/anime-db/catalog-bundle/badge.svg?branch=master)](https://coveralls.io/github/anime-db/catalog-bundle?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/anime-db/catalog-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/anime-db/catalog-bundle/?branch=master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f885a5ec-272e-4721-901d-a61f687be89b/mini.png)](https://insight.sensiolabs.com/projects/f885a5ec-272e-4721-901d-a61f687be89b)
-[![StyleCI](https://styleci.io/repos/15072150/shield)](https://styleci.io/repos/15072150)
-[![Dependency Status](https://www.versioneye.com/user/projects/5746f5bdce8d0e00473729b7/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5746f5bdce8d0e00473729b7)
-[![License](https://poser.pugx.org/anime-db/catalog-bundle/license.png)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Latest Stable Version](https://img.shields.io/packagist/v/anime-db/catalog-bundle.svg?maxAge=3600&label=stable)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Latest Unstable Version](https://img.shields.io/packagist/vpre/anime-db/catalog-bundle.svg?maxAge=3600&label=unstable)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/anime-db/catalog-bundle.svg?maxAge=3600)](https://packagist.org/packages/anime-db/catalog-bundle)
+[![Build Status](https://img.shields.io/travis/anime-db/catalog-bundle.svg?maxAge=3600)](https://travis-ci.org/anime-db/catalog-bundle)
+[![Coverage Status](https://img.shields.io/coveralls/anime-db/catalog-bundle.svg?maxAge=3600)](https://coveralls.io/github/anime-db/catalog-bundle?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/anime-db/catalog-bundle.svg?maxAge=3600)](https://scrutinizer-ci.com/g/anime-db/catalog-bundle/?branch=master)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f885a5ec-272e-4721-901d-a61f687be89b.svg?maxAge=3600&label=SLInsight)](https://insight.sensiolabs.com/projects/f885a5ec-272e-4721-901d-a61f687be89b)
+[![StyleCI](https://styleci.io/repos/15072150/shield?branch=master)](https://styleci.io/repos/15072150)
+[![License](https://img.shields.io/packagist/l/anime-db/catalog-bundle.svg?maxAge=3600)](https://github.com/anime-db/catalog-bundle)
 
 # Anime DB #
 
