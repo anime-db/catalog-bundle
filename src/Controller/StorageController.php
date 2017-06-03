@@ -199,12 +199,18 @@ class StorageController extends BaseController
         $log = file_get_contents($filename);
         $is_end = preg_match('/\nTime: \d+ s./', $log);
 
-        // end of execute on Windows
+        // end of execute scan on Windows
         $root = realpath($this->getParameter('kernel.root_dir').'/../');
         $is_end_win = preg_match('/\n'.preg_quote($root).'>/', $log);
 
         if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
             $log = (string) mb_substr($log, $offset, mb_strlen($log, 'UTF-8') - $offset, 'UTF-8');
+        }
+
+        // force stop scan progress
+        if ($is_end || $is_end_win) {
+            $filename = $this->container->getParameter('anime_db.catalog.storage.scan_progress');
+            file_put_contents(sprintf($filename, $storage->getId()), '100%');
         }
 
         return new JsonResponse(['content' => $log, 'end' => $is_end || $is_end_win]);
