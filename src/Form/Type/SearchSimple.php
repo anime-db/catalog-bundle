@@ -42,7 +42,7 @@ class SearchSimple extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'search', [
+            ->add('name', 'text', [
                 'label' => 'Name',
                 'required' => false,
                 'attr' => $this->source ? ['data-source' => $this->source] : [],

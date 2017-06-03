@@ -33,7 +33,7 @@ class Search extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'search', [
+            ->add('name', 'text', [
                 'label' => 'Name',
                 'attr' => [
                     'placeholder' => 'One Piece',
