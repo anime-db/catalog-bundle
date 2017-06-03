@@ -42,7 +42,7 @@ class SearchSimpleTest extends \PHPUnit_Framework_TestCase
         $builder
             ->expects($this->once())
             ->method('add')
-            ->with('name', 'search', [
+            ->with('name', 'text', [
                 'label' => 'Name',
                 'required' => false,
                 'attr' => $source ? ['data-source' => $source] : [],
