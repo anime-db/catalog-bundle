@@ -125,10 +125,6 @@ class Install
 
     public function onInstallApp()
     {
-        // update param
-        $this->manipulator->set('anime_db.catalog.installed', true);
-        $this->cache_clearer->clear();
-
         // prepare labels
         foreach ($this->labels as $key => $label) {
             $this->labels[$key] = $this->translator->trans($label);
@@ -152,6 +148,10 @@ class Install
         }
 
         $this->em->flush();
+
+        // change installed parameter after all
+        $this->manipulator->set('anime_db.catalog.installed', true);
+        $this->cache_clearer->clear();
     }
 
     /**
