@@ -65,6 +65,7 @@ class ScanExecutor
         $progress = sprintf($this->progress, $storage->getId());
 
         $this->fs->mkdir([dirname($output), dirname($progress)], 0755);
+        $this->fs->remove([$output, $progress]);
 
         $this->command->send(sprintf(
             'php app/console animedb:scan-storage --no-ansi --force --export=%s %s >%s 2>&1',

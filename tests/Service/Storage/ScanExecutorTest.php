@@ -26,6 +26,7 @@ class ScanExecutorTest extends \PHPUnit_Framework_TestCase
      */
     public function testExport()
     {
+        $storage_id = 5;
         /* @var $command \PHPUnit_Framework_MockObject_MockObject|CommandExecutor */
         $command = $this
             ->getMockBuilder('\AnimeDb\Bundle\AppBundle\Service\CommandExecutor')
@@ -42,11 +43,18 @@ class ScanExecutorTest extends \PHPUnit_Framework_TestCase
         $storage
             ->expects($this->atLeastOnce())
             ->method('getId')
-            ->will($this->returnValue(5));
+            ->will($this->returnValue($storage_id));
         $fs
             ->expects($this->once())
             ->method('mkdir')
             ->with([dirname($output), dirname($progress)], 0755);
+        $fs
+            ->expects($this->once())
+            ->method('remove')
+            ->with([
+                sprintf($output, $storage_id),
+                sprintf($progress, $storage_id),
+            ]);
         $command
             ->expects($this->once())
             ->method('send')
