@@ -199,11 +199,15 @@ class StorageController extends BaseController
         $log = file_get_contents($filename);
         $is_end = preg_match('/\nTime: \d+ s./', $log);
 
+        // end of execute on Windows
+        $root = realpath($this->getParameter('kernel.root_dir').'/../');
+        $is_end_win = preg_match('/\n'.preg_quote($root).'>/', $log);
+
         if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
             $log = (string) mb_substr($log, $offset, mb_strlen($log, 'UTF-8') - $offset, 'UTF-8');
         }
 
-        return new JsonResponse(['content' => $log, 'end' => $is_end]);
+        return new JsonResponse(['content' => $log, 'end' => $is_end || $is_end_win]);
     }
 
     /**
