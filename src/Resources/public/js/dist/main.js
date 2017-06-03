@@ -2811,6 +2811,11 @@ UpdateLogBlock.prototype = {
                 setTimeout(function() {
                     that.update();
                 }, 400);
+            },
+            error: function () {
+                setTimeout(function() {
+                    that.update();
+                }, 400);
             }
         });
     },
