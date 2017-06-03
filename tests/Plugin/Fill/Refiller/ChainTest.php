@@ -6,6 +6,7 @@
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
+
 namespace AnimeDb\Bundle\CatalogBundle\Tests\Plugin\Fill\Refiller;
 
 use AnimeDb\Bundle\CatalogBundle\Plugin\Fill\Refiller\Chain;

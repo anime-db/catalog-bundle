@@ -7,6 +7,7 @@
  * @copyright Copyright (c) 2011, Peter Gribanov
  * @license   http://opensource.org/licenses/GPL-3.0 GPL v3
  */
+
 namespace AnimeDb\Bundle\CatalogBundle\Repository;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Item as ItemEntity;
