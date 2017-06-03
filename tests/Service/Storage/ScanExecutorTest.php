@@ -14,58 +14,69 @@ use AnimeDb\Bundle\AppBundle\Service\CommandExecutor;
 use Symfony\Component\Filesystem\Filesystem;
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 
-/**
- * Test storage scanner.
- *
- * @author  Peter Gribanov <info@peter-gribanov.ru>
- */
 class ScanExecutorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test export.
+     * @var \PHPUnit_Framework_MockObject_MockObject|CommandExecutor
      */
+    private $command;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Filesystem
+     */
+    private $fs;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject|Storage
+     */
+    private $storage;
+
+    protected function setUp()
+    {
+        $this->command = $this
+            ->getMockBuilder('\AnimeDb\Bundle\AppBundle\Service\CommandExecutor')
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
+        $this->fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
+        $this->storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
+    }
+
     public function testExport()
     {
         $storage_id = 5;
-        /* @var $command \PHPUnit_Framework_MockObject_MockObject|CommandExecutor */
-        $command = $this
-            ->getMockBuilder('\AnimeDb\Bundle\AppBundle\Service\CommandExecutor')
-            ->disableOriginalConstructor()
-            ->getMock();
-        /* @var $fs \PHPUnit_Framework_MockObject_MockObject|Filesystem */
-        $fs = $this->getMock('\Symfony\Component\Filesystem\Filesystem');
-        /* @var $storage \PHPUnit_Framework_MockObject_MockObject|Storage */
-        $storage = $this->getMock('\AnimeDb\Bundle\CatalogBundle\Entity\Storage');
         $output = '/output/%s.log';
         $progress = '/progress/%s.log';
         $pattern = 'php app/console animedb:scan-storage --no-ansi --force --export=%s %s >%s 2>&1';
 
-        $storage
+        $this->storage
             ->expects($this->atLeastOnce())
             ->method('getId')
             ->will($this->returnValue($storage_id));
-        $fs
+
+        $this->fs
             ->expects($this->once())
             ->method('mkdir')
             ->with([dirname($output), dirname($progress)], 0755);
-        $fs
+        $this->fs
             ->expects($this->once())
             ->method('remove')
             ->with([
                 sprintf($output, $storage_id),
                 sprintf($progress, $storage_id),
             ]);
-        $command
+
+        $this->command
             ->expects($this->once())
             ->method('send')
             ->with(sprintf(
                 $pattern,
-                sprintf($progress, $storage->getId()),
-                $storage->getId(),
-                sprintf($output, $storage->getId())
+                sprintf($progress, $storage_id),
+                $storage_id,
+                sprintf($output, $storage_id)
             ));
 
-        $scanner = new ScanExecutor($command, $fs, $output, $progress);
-        $scanner->export($storage);
+        $scanner = new ScanExecutor($this->command, $this->fs, $output, $progress);
+        $scanner->export($this->storage);
     }
 }
