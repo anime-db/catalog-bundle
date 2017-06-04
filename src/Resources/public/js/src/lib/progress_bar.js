@@ -30,7 +30,9 @@ ProgressBar.prototype = {
             error: function () {
                 if (!that.expire) {
                     that.setExpire();
-                } else if (that.expire > new Date()) {
+                }
+
+                if (that.expire > new Date()) {
                     that.retry();
                 } else {
                     console.log('Loading progress bar data is exceeded.');
