@@ -174,7 +174,7 @@ class HomeController extends BaseController
         }
 
         /* @var $form Form */
-        $form = $this->createForm('search', new SearchEntity())->handleRequest($request);
+        $form = $this->createForm('animedb_catalog_search', new SearchEntity())->handleRequest($request);
         $pagination = null;
         $result = ['list' => [], 'total' => 0];
 

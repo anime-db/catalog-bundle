@@ -174,6 +174,6 @@ class Search extends AbstractType
      */
     public function getName()
     {
-        return 'search';
+        return 'animedb_catalog_search';
     }
 }

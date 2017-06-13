@@ -12,7 +12,7 @@ services:
     anime_db.form.type.search:
         class: AnimeDb\Bundle\CatalogBundle\Form\Type\Search
         tags:
-            - { name: form.type, alias: search }
+            - { name: form.type, alias: animedb_catalog_search }
         calls:
             - [ setViewSorter, [ '@anime_db.form.view_sorter' ] ]
             - [ setRouter, [ '@router' ] ]
