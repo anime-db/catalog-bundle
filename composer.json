@@ -35,7 +35,7 @@
         "anime-db/app-bundle": ">=0.4.0"
     },
     "require-dev": {
-        "anime-db/anime-db": ">=0.3.0",
+        "anime-db/anime-db": "dev-master",
         "phpunit/phpunit": "^4.8.0",
         "scrutinizer/ocular": "1.3.*",
         "satooshi/php-coveralls": "^1.0"
@@ -47,6 +47,5 @@
         "branch-alias": {
             "dev-master": "0.4.x-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
