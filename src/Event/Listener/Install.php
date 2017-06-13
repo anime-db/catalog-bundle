@@ -10,6 +10,7 @@
 namespace AnimeDb\Bundle\CatalogBundle\Event\Listener;
 
 use AnimeDb\Bundle\AnimeDbBundle\Manipulator\Parameters;
+use AnimeDb\Bundle\AnimeDbBundle\Composer\SecretKey;
 use AnimeDb\Bundle\AppBundle\Service\CacheClearer;
 use AnimeDb\Bundle\CatalogBundle\Event\Install\Samples;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -151,6 +152,8 @@ class Install
 
         // change installed parameter after all
         $this->manipulator->set('anime_db.catalog.installed', true);
+        // make a unique secret key
+        $this->manipulator->set('secret', SecretKey::generate());
         $this->cache_clearer->clear();
     }
 
