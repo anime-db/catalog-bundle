@@ -29,7 +29,11 @@ ProgressLog.prototype = {
                 }
             },
             success: function(data) {
-                that.log.text(that.log.text()+data.content);
+                if (data.offset > 0) {
+                    that.log.text(that.log.text()+data.content);
+                } else {
+                    that.log.text(data.content);
+                }
                 that.offset += data.content.length;
                 // scroll progress log to bottom
                 if  (that.log.height() > that.container.height()) {
