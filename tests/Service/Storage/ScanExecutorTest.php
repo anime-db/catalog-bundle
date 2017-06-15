@@ -57,14 +57,26 @@ class ScanExecutorTest extends \PHPUnit_Framework_TestCase
         $this->fs
             ->expects($this->once())
             ->method('mkdir')
-            ->with([dirname($output), dirname($progress)], 0755);
+            ->with([dirname($output), dirname($progress)], 0755)
+        ;
         $this->fs
             ->expects($this->once())
             ->method('remove')
             ->with([
                 sprintf($output, $storage_id),
                 sprintf($progress, $storage_id),
-            ]);
+            ])
+        ;
+        $this->fs
+            ->expects($this->at(2))
+            ->method('dumpFile')
+            ->with(sprintf($output, $storage_id), '')
+        ;
+        $this->fs
+            ->expects($this->at(3))
+            ->method('dumpFile')
+            ->with(sprintf($progress, $storage_id), '0%')
+        ;
 
         $this->command
             ->expects($this->once())
@@ -74,7 +86,8 @@ class ScanExecutorTest extends \PHPUnit_Framework_TestCase
                 sprintf($progress, $storage_id),
                 $storage_id,
                 sprintf($output, $storage_id)
-            ));
+            ))
+        ;
 
         $scanner = new ScanExecutor($this->command, $this->fs, $output, $progress);
         $scanner->export($this->storage);
