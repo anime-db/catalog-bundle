@@ -11,6 +11,7 @@ namespace AnimeDb\Bundle\CatalogBundle\Controller;
 
 use AnimeDb\Bundle\CatalogBundle\Entity\Storage;
 use AnimeDb\Bundle\CatalogBundle\Repository\Storage as StorageRepository;
+use AnimeDb\Bundle\CatalogBundle\Service\Storage\Scan\LogResponse;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use AnimeDb\Bundle\CatalogBundle\Form\Type\Entity\Storage as StorageForm;
@@ -197,6 +198,23 @@ class StorageController extends BaseController
         }
 
         $log = file_get_contents($filename);
+        $is_end = $this->isEndOfLog($log);
+
+        // force stop scan progress
+        if ($is_end) {
+            $this->get('anime_db.storage.scan_executor')->forceStopScan($storage);
+        }
+
+        return LogResponse::logOffset($log, $request->query->get('offset', 0), $is_end);
+    }
+
+    /**
+     * @param string $log
+     *
+     * @return bool
+     */
+    private function isEndOfLog($log)
+    {
         $is_end = preg_match('/\nTime: \d+ s./', $log);
 
         // end of execute scan on Windows
@@ -206,17 +224,7 @@ class StorageController extends BaseController
         // detect fatal error in log
         $is_end_error = strpos($log, 'Fatal error: ') != false;
 
-        if (($offset = $request->query->get('offset', 0)) && is_numeric($offset) && $offset > 0) {
-            $log = (string) mb_substr($log, $offset, mb_strlen($log, 'UTF-8') - $offset, 'UTF-8');
-        }
-
-        // force stop scan progress
-        if ($is_end || $is_end_win || $is_end_error) {
-            $filename = $this->container->getParameter('anime_db.catalog.storage.scan_progress');
-            file_put_contents(sprintf($filename, $storage->getId()), '100%');
-        }
-
-        return new JsonResponse(['content' => $log, 'end' => $is_end || $is_end_win || $is_end_error]);
+        return $is_end || $is_end_win || $is_end_error;
     }
 
     /**

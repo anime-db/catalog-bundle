@@ -76,4 +76,12 @@ class ScanExecutor
             $output
         ));
     }
+
+    /**
+     * @param StorageEntity $storage
+     */
+    public function forceStopScan(StorageEntity $storage)
+    {
+        file_put_contents(sprintf($this->progress, $storage->getId()), '100%');
+    }
 }
