@@ -1,6 +1,7 @@
 var ProgressLog = function(log, container) {
     this.offset = 0;
     this.log = log;
+    this.expire = null;
     this.container = container || log;
     this.from = log.data('from');
     this.message = log.data('message');
