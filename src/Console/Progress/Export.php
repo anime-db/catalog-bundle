@@ -26,6 +26,16 @@ class Export extends PresetOutput
     protected $output;
 
     /**
+     * @var int
+     */
+    private $max = 0;
+
+    /**
+     * @var int
+     */
+    private $current = 0;
+
+    /**
      * @param ProgressHelper $progress
      * @param OutputInterface $output
      * @param string $filename
@@ -38,6 +48,38 @@ class Export extends PresetOutput
         $output->write('0%');
 
         parent::__construct($progress, $output);
+    }
+
+    /**
+     * Starts the progress output.
+     *
+     * @param int|null $max Maximum steps
+     */
+    public function start($max = null)
+    {
+        $this->max = (int) $max;
+        $this->progress->start($this->output, $max);
+    }
+
+    /**
+     * Advances the progress output X steps.
+     *
+     * @param int $step Number of steps to advance
+     * @param bool $redraw Whether to redraw or not
+     *
+     * @throws \LogicException
+     */
+    public function advance($step = 1, $redraw = false)
+    {
+        parent::advance($step, $redraw);
+
+        $this->current += $step;
+
+        $percent = 0;
+        if ($this->max > 0) {
+            $percent = (float) $this->current / $this->max;
+        }
+        $this->output->write(sprintf('%d%%', floor($percent * 100)));
     }
 
     public function __destruct()
