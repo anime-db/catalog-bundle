@@ -4,7 +4,17 @@
 
 ## Что это
 
-Symfony-бандл (`anime-db/catalog-bundle`) — основной UI и доменная логика менеджера домашней коллекции аниме. Распространяется как Composer-библиотека, подключается из `anime-db/anime-db`. PHP ≥5.4.
+Symfony-бандл (`anime-db/catalog-bundle`) — основной UI и доменная логика менеджера домашней коллекции аниме. Распространяется как Composer-библиотека, подключается из `anime-db/anime-db`. PHP ≥5.4, Symfony 2.7, Doctrine ORM, SQLite. **Локальное однопользовательское приложение на localhost** (отсюда — отсутствие аутентификации by design).
+
+## Документация (docs/)
+
+Глубокая документация и аудит — в [`docs/`](docs/). Начинать отсюда при незнакомой задаче:
+
+- [docs/PROJECT.md](docs/PROJECT.md) — структура проекта, карта слоёв, доменная модель, потоки
+- [docs/TECHNICAL.md](docs/TECHNICAL.md) — техническая глубина: маппинги, контракты, алгоритмы (`file:line`)
+- [docs/AUDIT.md](docs/AUDIT.md) — сводный аудит + находки по безопасности
+- [docs/BUGS.md](docs/BUGS.md) — 37 найденных багов с приоритетами и фиксами
+- [docs/RECOMMENDATIONS.md](docs/RECOMMENDATIONS.md) — улучшения поддерживаемости и безопасности
 
 ## Команды
 
@@ -64,3 +74,14 @@ grunt           # sass → concat → cssmin → uglify
 ### НЕЛЬЗЯ
 - Пропускать `PluginInterface` — все плагины обязаны его реализовывать (даёт `getName()` / `getTitle()`).
 - Писать проценты прогресса в любом формате, кроме `N%` — JS-парсер и `Console\Progress\Export` ожидают именно этот формат.
+
+## Подводные камни (gotchas)
+
+- **`dist/main.js` и `main.min.js` закоммичены** — после правки `src/Resources/public/js/src/**` нужно вручную пересобрать (`grunt`) и закоммитить dist, иначе фронтенд разойдётся с исходником. CSS-dist при этом НЕ коммитится (политика артефактов несогласованна).
+- **Опечатки в публичном API менять нельзя** (BC-break): `Item::freez()`, `Search\Chain::getDafeultPlugin()`, JS `data-massage`. Они load-bearing.
+- **`Builder::sort()` конкатенирует колонку в DQL** — безопасность держится на whitelist в `Manager::$sort_columns`. Не вызывать `Builder::sort()` в обход `Manager`.
+- **`Progress\Export::__destruct()` пишет `100%` безусловно** — прогресс-файл всегда покажет 100% при teardown, даже если скан упал. Признак завершения детектится отдельно по содержимому лога (`StorageController::isEndOfLog`).
+- **Деструктивные действия — по GET без CSRF** (`*/delete.html`, `*/scan.html`, `execute_update.html`). Не добавлять новые такие маршруты; см. [docs/AUDIT.md](docs/AUDIT.md#находки-по-безопасности).
+- **`date_premiere`**: маппинг говорит NOT nullable, но миграция сделала колонку `DEFAULT NULL` — рассогласование ([B-14](docs/BUGS.md#доменная-модель)).
+- **Тесты на моках без загрузки ядра**; контроллеры/команды/репозитории НЕ покрыты. `ScanExecutorTest` использует хрупкие позиционные `$this->at(N)`.
+- **Миграции — под SQLite**: изменение колонки = полная пересборка таблицы (temp `_new` → copy → rename → drop). Некоторые `down()` необратимы (напр. `ChangeImagePaths`).
