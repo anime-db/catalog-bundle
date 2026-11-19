@@ -34,7 +34,7 @@ The application is for home use only<br />
 
 ## Документация для разработчиков
 
-- [CLAUDE.md](CLAUDE.md) — краткая точка входа (команды, архитектура, подводные камни)
+- [AGENTS.md](AGENTS.md) — краткая точка входа (команды, архитектура, подводные камни)
 - [docs/PROJECT.md](docs/PROJECT.md) — структура проекта и как он устроен
 - [docs/TECHNICAL.md](docs/TECHNICAL.md) — глубокая техническая документация
 - [docs/AUDIT.md](docs/AUDIT.md) — аудит проекта и безопасности
