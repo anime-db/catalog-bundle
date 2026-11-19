@@ -15,7 +15,7 @@ created: 2026-06-18
 | «Почему это так сделано / выглядит странно»                     | [gotchas.md](gotchas.md)                                 |
 | Непонятный термин, аббревиатура, странное имя класса/метода     | [glossary.md](glossary.md)                               |
 | Кто вызывает сервис, модель угроз, статус легаси-решений        | [context.md](context.md)                                 |
-| Команды (тесты, сборка), границы MUST/MUST NOT                  | [../CLAUDE.md](../CLAUDE.md)                             |
+| Команды (тесты, сборка), границы MUST/MUST NOT                  | [../AGENTS.md](../AGENTS.md)                             |
 | Структура проекта, слои, потоки                                 | [../docs/PROJECT.md](../docs/PROJECT.md)                 |
 | Маппинги сущностей, контракты плагинов, алгоритмы (`file:line`) | [../docs/TECHNICAL.md](../docs/TECHNICAL.md)             |
 | Сводный аудит + находки безопасности                            | [../docs/AUDIT.md](../docs/AUDIT.md)                     |
